@@ -1,5 +1,8 @@
 package amq.entidades;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Reserva {
 	private int id;
 	//private EstadoReserva estado; TODO
@@ -7,8 +10,8 @@ public class Reserva {
 	//private DtFecha fechaFin; TODO
 	private String idChat;
 	private int cantDias;
-	//private Calificacion calificacion; TODO
-	//private List<Factura> facturas = new ArrayList<Factura>(); TODO
+	private Calificacion calificacion;
+	private List<Factura> facturas = new ArrayList<Factura>();
 	
 	public Reserva() {
 		super();
@@ -43,6 +46,17 @@ public class Reserva {
 	// TODO get y set estado
 	// TODO get y set fechainicio
 	// TODO get y set fechafin
-	// TODO get y set calificacion
-	// TODO get y set facturas
+	public Calificacion getCalificacion() {
+		return calificacion;
+	}
+	public void setCalificacion(Calificacion calificacion) {
+		this.calificacion = calificacion;
+	}
+	public List<Factura> getFacturas() {
+		return facturas;
+	}
+	public void setFacturas(List<Factura> facturas) {
+		this.facturas = facturas;
+	}
+	
 }

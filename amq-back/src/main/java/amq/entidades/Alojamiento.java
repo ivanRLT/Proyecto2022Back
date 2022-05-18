@@ -1,12 +1,15 @@
 package amq.entidades;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Alojamiento {
 	private int id;
 	private Boolean activo;
 	private String descripcion;
 	//private DtDireccion direccion; TODO
 	private String nombre;
-	//private List<Habitacion> habitaciones = new ArrayList<Habitacion>(); TODO
+	private List<Habitacion> habitaciones = new ArrayList<Habitacion>();
 	
 	public Alojamiento() {
 		super();
@@ -45,5 +48,10 @@ public class Alojamiento {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	//TODO setter y getters habitaciones
+	public List<Habitacion> getHabitaciones() {
+		return habitaciones;
+	}
+	public void setHabitaciones(List<Habitacion> habitaciones) {
+		this.habitaciones = habitaciones;
+	}
 }

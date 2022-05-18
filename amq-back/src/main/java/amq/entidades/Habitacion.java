@@ -1,6 +1,7 @@
 package amq.entidades;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Habitacion {
 	private int id;
@@ -8,7 +9,7 @@ public class Habitacion {
 	private Double precioNoche;
 	private int camas;
 	//private DtServicios servicios; TODO
-	//private List<Reserva> reservas = new ArrayList<Reserva>(); TODO
+	private List<Reserva> reservas = new ArrayList<Reserva>();
 	
 	public Habitacion() {
 		super();
@@ -46,5 +47,10 @@ public class Habitacion {
 		this.camas = camas;
 	}
 	// TODO get y set servicios
-	// TODO get y ser reservas
+	public List<Reserva> getReservas() {
+		return reservas;
+	}
+	public void setReservas(List<Reserva> reservas) {
+		this.reservas = reservas;
+	}
 }
