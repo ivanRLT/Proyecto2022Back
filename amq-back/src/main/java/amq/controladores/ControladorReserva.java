@@ -1,9 +1,14 @@
 package amq.controladores;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import amq.datatypes.DtCalificacion;
 import amq.datatypes.DtFactura;
+import amq.datatypes.DtReserva;
+import amq.entidades.Calificacion;
+import amq.entidades.Factura;
+import amq.entidades.Reserva;
 import amq.interfacescontroladores.IcReserva;
 
 public class ControladorReserva implements IcReserva{
@@ -32,6 +37,22 @@ public class ControladorReserva implements IcReserva{
 			// TODO: handle exception
 		}
 		//retono Dt
+	}
+	public List<DtReserva> obtenerDtReservas(List<Reserva> rs) {
+		List<DtReserva> retorno = new ArrayList<DtReserva>();
+		for(Reserva r:rs) {
+			List<DtFactura> facturasdt = new ArrayList<DtFactura>();
+			List<Factura> facturas = r.getFacturas();
+			for(Factura f:facturas) {
+				DtFactura fac = new DtFactura(f.getEstado(), f.getMonto(), f.getFecha(), f.getDescuento(), f.getMontoDescuento());
+				facturasdt.add(fac);
+			}
+			Calificacion calif = r.getCalificacion();
+			DtCalificacion califdt = new DtCalificacion(calif.getCalificacionAnfitrion(), calif.getCalificacionHuesped(), calif.getResena(), calif.getFechaResena());
+			DtReserva reservadt = new DtReserva(r.getEstado(),r.getFechaInicio(),r.getFechaFin(),r.getIdChat(),r.getCantDias(), facturasdt, califdt);
+			retorno.add(reservadt);
+		}
+		return retorno;
 	}
 	// #######################Funciones de Calificacion#######################
 	public boolean altaCalificacion() {

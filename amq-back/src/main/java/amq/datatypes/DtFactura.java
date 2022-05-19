@@ -8,7 +8,7 @@ public class DtFactura {
 	
 	private PagoEstado pagoEstado;
 	private Double monto;
-	private Date fecha;
+	private DtFecha fecha;
 	private boolean descuento;
 	private Double montoDescuento;
 	/**
@@ -18,7 +18,7 @@ public class DtFactura {
 	 * @param descuento
 	 * @param montoDescuento
 	 */
-	public DtFactura(PagoEstado pagoEstado, Double monto, Date fecha, boolean descuento, Double montoDescuento) {
+	public DtFactura(PagoEstado pagoEstado, Double monto, DtFecha fecha, boolean descuento, Double montoDescuento) {
 		super();
 		this.pagoEstado = pagoEstado;
 		this.monto = monto;
@@ -53,13 +53,13 @@ public class DtFactura {
 	/**
 	 * @return the fecha
 	 */
-	public Date getFecha() {
+	public DtFecha getFecha() {
 		return fecha;
 	}
 	/**
 	 * @param fecha the fecha to set
 	 */
-	public void setFecha(Date fecha) {
+	public void setFecha(DtFecha fecha) {
 		this.fecha = fecha;
 	}
 	/**
