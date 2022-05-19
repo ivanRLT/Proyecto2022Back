@@ -1,9 +1,10 @@
 package amq.datatypes;
 
 import java.util.ArrayList;
+//import java.util.Collection;
 import java.util.Date;
 
-import amq.entidades.Habitacion;
+//import amq.entidades.Habitacion;
 
 public class DtReserva {
 	
@@ -12,25 +13,37 @@ public class DtReserva {
 	private Date fechaFin;
 	private int idChat;
 	private int cantidadDias;
-	private ArrayList<amq.entidades.Habitacion> habitaciones;
+	//no estoy seguro si lleva a la entidad en lugar del dt.:
+	//private ArrayList<amq.entidades.Habitacion> habitaciones;
+	private ArrayList<DtHabitacion> dtHabitacion;
+//	dejo esto preparado para usar a futuro por si complica los rest.:
+//	private Collection<DtHabitacion> coleccionHabitaciones = new ArrayList<>();
+	private ArrayList<DtFactura> dtFactura;
+	private DtCalificacion dtCalificacion;
 	
+
+
 	/**
 	 * @param estado
 	 * @param fechaInicio
 	 * @param fechaFin
 	 * @param idChat
 	 * @param cantidadDias
-	 * @param habitaciones
+	 * @param dtHabitacion
+	 * @param dtFactura
+	 * @param dtCalificacion
 	 */
 	public DtReserva(boolean estado, Date fechaInicio, Date fechaFin, int idChat, int cantidadDias,
-			ArrayList<Habitacion> habitaciones) {
+			ArrayList<DtHabitacion> dtHabitacion, ArrayList<DtFactura> dtFactura, DtCalificacion dtCalificacion) {
 		super();
 		this.estado = estado;
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
 		this.idChat = idChat;
 		this.cantidadDias = cantidadDias;
-		this.habitaciones = habitaciones;
+		this.dtHabitacion = dtHabitacion;
+		this.dtFactura = dtFactura;
+		this.dtCalificacion = dtCalificacion;
 	}
 
 	/**
@@ -104,17 +117,61 @@ public class DtReserva {
 	}
 
 	/**
-	 * @return the habitaciones
+	 * @return the dtHabitacion
 	 */
-	public ArrayList<amq.entidades.Habitacion> getHabitaciones() {
-		return habitaciones;
+	public ArrayList<DtHabitacion> getDtHabitacion() {
+		return dtHabitacion;
 	}
 
 	/**
-	 * @param habitaciones the habitaciones to set
+	 * @param dtHabitacion the dtHabitacion to set
 	 */
-	public void setHabitaciones(ArrayList<amq.entidades.Habitacion> habitaciones) {
-		this.habitaciones = habitaciones;
+	public void setDtHabitacion(ArrayList<DtHabitacion> dtHabitacion) {
+		this.dtHabitacion = dtHabitacion;
 	}
+
+	/**
+	 * @return the dtFactura
+	 */
+	public ArrayList<DtFactura> getDtFactura() {
+		return dtFactura;
+	}
+
+	/**
+	 * @param dtFactura the dtFactura to set
+	 */
+	public void setDtFactura(ArrayList<DtFactura> dtFactura) {
+		this.dtFactura = dtFactura;
+	}
+
+	/**
+	 * @return the dtCalificacion
+	 */
+	public DtCalificacion getDtCalificacion() {
+		return dtCalificacion;
+	}
+
+	/**
+	 * @param dtCalificacion the dtCalificacion to set
+	 */
+	public void setDtCalificacion(DtCalificacion dtCalificacion) {
+		this.dtCalificacion = dtCalificacion;
+	}
+
+//	/**
+//	 * @return the habitaciones
+//	 */
+//	public ArrayList<amq.entidades.Habitacion> getHabitaciones() {
+//		return habitaciones;
+//	}
+//
+//	/**
+//	 * @param habitaciones the habitaciones to set
+//	 */
+//	public void setHabitaciones(ArrayList<amq.entidades.Habitacion> habitaciones) {
+//		this.habitaciones = habitaciones;
+//	}
+	
+	
 
 }
