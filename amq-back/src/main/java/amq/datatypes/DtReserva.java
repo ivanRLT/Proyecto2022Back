@@ -13,16 +13,10 @@ public class DtReserva {
 	private Date fechaFin;
 	private int idChat;
 	private int cantidadDias;
-	//no estoy seguro si lleva a la entidad en lugar del dt.:
-	//private ArrayList<amq.entidades.Habitacion> habitaciones;
-	private ArrayList<DtHabitacion> dtHabitacion;
-//	dejo esto preparado para usar a futuro por si complica los rest.:
-//	private Collection<DtHabitacion> coleccionHabitaciones = new ArrayList<>();
-	private ArrayList<DtFactura> dtFactura;
+	private DtHabitacion dtHabitacion;
+	private ArrayList<DtFactura> dtFacturas;
 	private DtCalificacion dtCalificacion;
 	
-
-
 	/**
 	 * @param estado
 	 * @param fechaInicio
@@ -30,11 +24,11 @@ public class DtReserva {
 	 * @param idChat
 	 * @param cantidadDias
 	 * @param dtHabitacion
-	 * @param dtFactura
+	 * @param dtFacturas
 	 * @param dtCalificacion
 	 */
 	public DtReserva(boolean estado, Date fechaInicio, Date fechaFin, int idChat, int cantidadDias,
-			ArrayList<DtHabitacion> dtHabitacion, ArrayList<DtFactura> dtFactura, DtCalificacion dtCalificacion) {
+			DtHabitacion dtHabitacion, ArrayList<DtFactura> dtFacturas, DtCalificacion dtCalificacion) {
 		super();
 		this.estado = estado;
 		this.fechaInicio = fechaInicio;
@@ -42,7 +36,7 @@ public class DtReserva {
 		this.idChat = idChat;
 		this.cantidadDias = cantidadDias;
 		this.dtHabitacion = dtHabitacion;
-		this.dtFactura = dtFactura;
+		this.dtFacturas = dtFacturas;
 		this.dtCalificacion = dtCalificacion;
 	}
 
@@ -116,32 +110,33 @@ public class DtReserva {
 		this.cantidadDias = cantidadDias;
 	}
 
+
 	/**
 	 * @return the dtHabitacion
 	 */
-	public ArrayList<DtHabitacion> getDtHabitacion() {
+	public DtHabitacion getDtHabitacion() {
 		return dtHabitacion;
 	}
 
 	/**
 	 * @param dtHabitacion the dtHabitacion to set
 	 */
-	public void setDtHabitacion(ArrayList<DtHabitacion> dtHabitacion) {
+	public void setDtHabitacion(DtHabitacion dtHabitacion) {
 		this.dtHabitacion = dtHabitacion;
 	}
 
 	/**
-	 * @return the dtFactura
+	 * @return the dtFacturas
 	 */
-	public ArrayList<DtFactura> getDtFactura() {
-		return dtFactura;
+	public ArrayList<DtFactura> getDtFacturas() {
+		return dtFacturas;
 	}
 
 	/**
-	 * @param dtFactura the dtFactura to set
+	 * @param dtFacturas the dtFacturas to set
 	 */
-	public void setDtFactura(ArrayList<DtFactura> dtFactura) {
-		this.dtFactura = dtFactura;
+	public void setDtFacturas(ArrayList<DtFactura> dtFacturas) {
+		this.dtFacturas = dtFacturas;
 	}
 
 	/**

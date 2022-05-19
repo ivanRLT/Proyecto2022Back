@@ -8,19 +8,28 @@ public class DtHabitacion {
 	private Double precioNoche;
 	private int camas;
 	private ArrayList<DtServicios> dtservicios;
-
+	private ArrayList<DtReserva> dtReservas;
+//	dejo esto preparado para usar a futuro por si complica los rest.:
+//	private Collection<DtHabitacion> coleccionHabitaciones = new ArrayList<>();
+	
+//	no estoy seguro si lleva a la entidad en lugar del dt.:
+//	private ArrayList<amq.entidades.Habitacion> habitaciones;
+	
 	/**
 	 * @param descripcion
 	 * @param precioNoche
 	 * @param camas
 	 * @param dtservicios
+	 * @param dtReservas
 	 */
-	public DtHabitacion(String descripcion, Double precioNoche, int camas, ArrayList<DtServicios> dtservicios) {
+	public DtHabitacion(String descripcion, Double precioNoche, int camas, ArrayList<DtServicios> dtservicios,
+			ArrayList<DtReserva> dtReservas) {
 		super();
 		this.descripcion = descripcion;
 		this.precioNoche = precioNoche;
 		this.camas = camas;
 		this.dtservicios = dtservicios;
+		this.dtReservas = dtReservas;
 	}
 	
 	/**
@@ -29,6 +38,7 @@ public class DtHabitacion {
 	public String getDescripcion() {
 		return descripcion;
 	}
+
 	/**
 	 * @param descripcion the descripcion to set
 	 */
@@ -76,5 +86,21 @@ public class DtHabitacion {
 	public void setDtservicios(ArrayList<DtServicios> dtservicios) {
 		this.dtservicios = dtservicios;
 	}
+
+	/**
+	 * @return the dtReservas
+	 */
+	public ArrayList<DtReserva> getDtReservas() {
+		return dtReservas;
+	}
+
+	/**
+	 * @param dtReservas the dtReservas to set
+	 */
+	public void setDtReservas(ArrayList<DtReserva> dtReservas) {
+		this.dtReservas = dtReservas;
+	}
+	
+	
 
 }
