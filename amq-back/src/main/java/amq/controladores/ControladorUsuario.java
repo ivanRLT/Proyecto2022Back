@@ -6,6 +6,7 @@ import amq.entidades.Usuario;
 import amq.interfacescontroladores.IcUsuario;
 import amq.datatypes.DtAlojamiento;
 import amq.datatypes.DtReserva;
+import amq.datatypes.DtUsuario;
 
 public class ControladorUsuario implements IcUsuario{
 	public boolean altaUsuario() {
@@ -44,6 +45,10 @@ public class ControladorUsuario implements IcUsuario{
 		}	
 		return retorno;
 	}
+	public List<DtUsuario> listarUsuarios (){
+		
+		return null;
+	}
 	// #######################Funciones de Anfitrion#######################
 	public boolean agregarAlojamientoAnfitrion() {
 		Boolean retorno = false;
@@ -74,30 +79,30 @@ public class ControladorUsuario implements IcUsuario{
 		return retorno;
 	}
 	// #######################Funciones de Huesped#######################
-		public boolean agregarReservaHuesped() {
-			Boolean retorno = false;
-			try {
-				
-			} catch (Exception e) {
-				// TODO: handle exception
-			}	
-			return retorno;
-		}
-		public List<DtReserva> listarReservasHuesped() {
-			try {
+	public boolean agregarReservaHuesped() {
+		Boolean retorno = false;
+		try {
 			
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
-			return null;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}	
+		return retorno;
+	}
+	public List<DtReserva> listarReservasHuesped() {
+		try {
+		
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
-		public boolean modificarReservaHuesped(int idReserva) {
-			Boolean retorno = false;
-			try {
-				
-			} catch (Exception e) {
-				// TODO: handle exception
-			}	
-			return retorno;
-		}
+		return null;
+	}
+	public boolean modificarReservaHuesped(int idReserva) {
+		Boolean retorno = false;
+		try {
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}	
+		return retorno;
+	}
 }
