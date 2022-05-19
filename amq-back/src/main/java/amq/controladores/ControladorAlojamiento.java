@@ -2,14 +2,12 @@ package amq.controladores;
 
 import amq.entidades.Alojamiento;
 import amq.interfacescontroladores.IcAlojamiento;
-import amq.manejadores.ManejadorAlojamiento;
 
 public class ControladorAlojamiento implements IcAlojamiento {
 	// #######################Funciones de alojamiento#######################
 	public boolean altaAlojamiento() {
 		Boolean retorno = false;
 		try {
-			ManejadorAlojamiento mA = ManejadorAlojamiento.getInstancia();
 			
 		} catch (Exception e) {
 			retorno = false;
@@ -21,7 +19,6 @@ public class ControladorAlojamiento implements IcAlojamiento {
 	public boolean modificarAlojamiento() {
 		Boolean retorno = false;
 		try {
-			ManejadorAlojamiento mA = ManejadorAlojamiento.getInstancia();
 			
 		} catch (Exception e) {
 			retorno = false;
@@ -31,7 +28,7 @@ public class ControladorAlojamiento implements IcAlojamiento {
 	public void buscarAlojamiento(int id) {
 		
 		try {
-			ManejadorAlojamiento mA = ManejadorAlojamiento.getInstancia();
+
 		} catch (Exception e) {
 			// TODO: handle exception
 		}	
@@ -40,7 +37,7 @@ public class ControladorAlojamiento implements IcAlojamiento {
 	public Boolean desactivarAlojamiento() {
 		Boolean retorno = false;
 		try {
-			ManejadorAlojamiento mA = ManejadorAlojamiento.getInstancia();
+
 			
 		} catch (Exception e) {
 			retorno = false;
@@ -50,7 +47,6 @@ public class ControladorAlojamiento implements IcAlojamiento {
 	public void listarAlojamientos() {
 		// TODO cambiar retorno por list de dtAlojamiento
 		try {
-			ManejadorAlojamiento mA = ManejadorAlojamiento.getInstancia();
 			
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -61,10 +57,7 @@ public class ControladorAlojamiento implements IcAlojamiento {
 		//TODO remplazar string por list de dt
 		Boolean retorno = false;
 		try {
-			ManejadorAlojamiento mA = ManejadorAlojamiento.getInstancia();
-			Alojamiento alojamiento = mA.buscarAlojamiento(idAlojamiento);
-			
-			alojamiento.setHabitaciones(null);
+
 			retorno = true;
 		} catch (Exception e) {
 			retorno = false;
@@ -74,10 +67,7 @@ public class ControladorAlojamiento implements IcAlojamiento {
 	public Boolean consultaHabitacion(int idAlojamiento, int idHabitacion) {
 		//TODO consultaHabitacion
 		Boolean retorno = false;
-		try {
-			ManejadorAlojamiento mA = ManejadorAlojamiento.getInstancia();
-			Alojamiento alojamiento = mA.buscarAlojamiento(idAlojamiento);
-			
+		try {	
 			
 			retorno = true;
 		} catch (Exception e) {
@@ -89,9 +79,6 @@ public class ControladorAlojamiento implements IcAlojamiento {
 		//TODO listarHabitaciones
 		Boolean retorno = false;
 		try {
-			ManejadorAlojamiento mA = ManejadorAlojamiento.getInstancia();
-			Alojamiento alojamiento = mA.buscarAlojamiento(idAlojamiento);
-			
 			
 			retorno = true;
 		} catch (Exception e) {
@@ -103,8 +90,6 @@ public class ControladorAlojamiento implements IcAlojamiento {
 		//TODO remplazar string por list de dt
 		Boolean retorno = false;
 		try {
-			ManejadorAlojamiento mA = ManejadorAlojamiento.getInstancia();
-			Alojamiento alojamiento = mA.buscarAlojamiento(idAlojamiento);
 			
 			retorno = true;
 		} catch (Exception e) {
