@@ -1,7 +1,11 @@
 package amq.controladores;
 
+import java.util.List;
+
 import amq.entidades.Usuario;
 import amq.interfacescontroladores.IcUsuario;
+import amq.datatypes.DtAlojamiento;
+import amq.datatypes.DtReserva;
 
 public class ControladorUsuario implements IcUsuario{
 	public boolean altaUsuario() {
@@ -51,14 +55,13 @@ public class ControladorUsuario implements IcUsuario{
 		}	
 		return retorno;
 	}
-	public void listarAlojamientosAnfitrion() {
-		// TODO cambiar retorno por list de dtAlojamiento
+	public List<DtAlojamiento> listarAlojamientosAnfitrion(){
 		try {
 
-			
 		} catch (Exception e) {
 			// TODO: handle exception
-		}	
+		}
+		return null;
 	}
 	public boolean cambiarEstadoAnfitrion() {
 		Boolean retorno = false;
@@ -80,13 +83,13 @@ public class ControladorUsuario implements IcUsuario{
 			}	
 			return retorno;
 		}
-		public void listarReservasHuesped() {
-			// TODO cambiar retorno por list de dtReserva
+		public List<DtReserva> listarReservasHuesped() {
 			try {
 			
 			} catch (Exception e) {
 				// TODO: handle exception
-			}	
+			}
+			return null;
 		}
 		public boolean modificarReservaHuesped(int idReserva) {
 			Boolean retorno = false;

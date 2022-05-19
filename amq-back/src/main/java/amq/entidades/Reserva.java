@@ -3,11 +3,14 @@ package amq.entidades;
 import java.util.ArrayList;
 import java.util.List;
 
+import amq.datatypes.DtFecha;
+import amq.enums.ReservaEstado;
+
 public class Reserva {
 	private int id;
-	//private EstadoReserva estado; TODO
-	//private DtFecha fechaInicio; TODO
-	//private DtFecha fechaFin; TODO
+	private ReservaEstado estado;
+	private DtFecha fechaInicio;
+	private DtFecha fechaFin;
 	private String idChat;
 	private int cantDias;
 	private Calificacion calificacion;
@@ -16,14 +19,14 @@ public class Reserva {
 	public Reserva() {
 		super();
 	}
-	public Reserva(int id, String idChat, int cantDias) {
+	public Reserva(int id, String idChat, int cantDias, ReservaEstado estado, DtFecha fechaInicio, DtFecha fechaFin) {
 		super();
 		this.id = id;
 		this.idChat = idChat;
 		this.cantDias = cantDias;
-		//this.estado = estado; TODO
-		//this.fechaInicio = fechaInicio; TODO
-		//this.fechaFin = fechaFin; TODO
+		this.estado = estado;
+		this.fechaInicio = fechaInicio;
+		this.fechaFin = fechaFin;
 	}
 	public int getId() {
 		return id;
@@ -43,9 +46,24 @@ public class Reserva {
 	public void setCantDias(int cantDias) {
 		this.cantDias = cantDias;
 	}
-	// TODO get y set estado
-	// TODO get y set fechainicio
-	// TODO get y set fechafin
+	public ReservaEstado getEstado() {
+		return estado;
+	}
+	public void setEstado(ReservaEstado estado) {
+		this.estado = estado;
+	}
+	public DtFecha getFechaInicio() {
+		return fechaInicio;
+	}
+	public void setFechaInicio(DtFecha fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
+	public DtFecha getFechaFin() {
+		return fechaFin;
+	}
+	public void setFechaFin(DtFecha fechaFin) {
+		this.fechaFin = fechaFin;
+	}
 	public Calificacion getCalificacion() {
 		return calificacion;
 	}

@@ -1,24 +1,27 @@
 package amq.entidades;
 
+import amq.datatypes.DtFecha;
+import amq.enums.PagoEstado;
+
 public class Factura {
 	private int id;
-	//private EstadoPago estado; TODO
+	private PagoEstado estado;
 	private double monto;
-	//private DtFecha fecha; TODO
+	private DtFecha fecha;
 	private Boolean descuento;
 	private double montoDescuento;
 	
 	public Factura() {
 		super();
 	}
-	public Factura(int id, double monto, Boolean descuento, double montoDescuento) {
+	public Factura(int id, double monto, Boolean descuento, double montoDescuento, PagoEstado estado, DtFecha fecha) {
 		super();
 		this.id = id;
 		this.monto = monto;
 		this.descuento = descuento;
 		this.montoDescuento = montoDescuento;
-		//this.estado = estado; TODO
-		//this.fecha = fecha; TODO
+		this.estado = estado;
+		this.fecha = fecha;
 	}
 	public int getId() {
 		return id;
@@ -44,6 +47,16 @@ public class Factura {
 	public void setMontoDescuento(double montoDescuento) {
 		this.montoDescuento = montoDescuento;
 	}
-	//TODO definir set y get estado
-	//TODO definir set y get fecha
+	public PagoEstado getEstado() {
+		return estado;
+	}
+	public void setEstado(PagoEstado estado) {
+		this.estado = estado;
+	}
+	public DtFecha getFecha() {
+		return fecha;
+	}
+	public void setFecha(DtFecha fecha) {
+		this.fecha = fecha;
+	}
 }

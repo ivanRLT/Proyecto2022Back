@@ -1,22 +1,24 @@
 package amq.entidades;
 
+import amq.datatypes.DtFecha;
+
 public class Calificacion {
 	private int id;
 	private int calificacionAnfitrion;
 	private int calificacionHuesped;
 	private String resena;
-	//private DtFecha fechaResena; TODO
+	private DtFecha fechaResena;
 	
 	public Calificacion() {
 		super();
 	}
-	public Calificacion(int id, int calificacionAnfitrion, int calificacionHuesped, String resena) {
+	public Calificacion(int id, int calificacionAnfitrion, int calificacionHuesped, String resena, DtFecha fecha) {
 		super();
 		this.id = id;
 		this.calificacionAnfitrion = calificacionAnfitrion;
 		this.calificacionHuesped = calificacionHuesped;
 		this.resena = resena;
-		//this.fechaResena = fechaResena; TODO
+		this.fechaResena = fecha;
 	}
 	public int getId() {
 		return id;
@@ -42,6 +44,10 @@ public class Calificacion {
 	public void setResena(String resena) {
 		this.resena = resena;
 	}
-	// TODO get y set fecha reseña
-	
+	public DtFecha getFechaResena() {
+		return fechaResena;
+	}
+	public void setFechaResena(DtFecha fechaResena) {
+		this.fechaResena = fechaResena;
+	}
 }

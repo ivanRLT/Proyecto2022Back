@@ -1,16 +1,18 @@
 package amq.entidades;
 
+import amq.datatypes.DtFecha;
+
 public class Recuperacion {
 	private int id;
-	//private DtFecha fecha; TODO
+	private DtFecha fecha;
 
 	public Recuperacion() {
 		super();
 	}
-	public Recuperacion(int id) {
+	public Recuperacion(int id, DtFecha fecha) {
 		super();
 		this.id = id;
-		//this.fecha = fecha; TODO
+		this.fecha = fecha;
 	}
 	public int getId() {
 		return id;
@@ -18,6 +20,10 @@ public class Recuperacion {
 	public void setId(int id) {
 		this.id = id;
 	}
-	//TODO set y get de fecha
-	
+	public DtFecha getFecha() {
+		return fecha;
+	}
+	public void setFecha(DtFecha fecha) {
+		this.fecha = fecha;
+	}
 }

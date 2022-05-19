@@ -3,24 +3,26 @@ package amq.entidades;
 import java.util.ArrayList;
 import java.util.List;
 
+import amq.datatypes.DtServicios;
+
 public class Habitacion {
 	private int id;
 	private String descripcion;
 	private Double precioNoche;
 	private int camas;
-	//private DtServicios servicios; TODO
+	private DtServicios servicios;
 	private List<Reserva> reservas = new ArrayList<Reserva>();
 	
 	public Habitacion() {
 		super();
 	}
-	public Habitacion(int id, String descripcion, Double precioNoche, int camas) {
+	public Habitacion(int id, String descripcion, Double precioNoche, int camas, DtServicios servicios) {
 		super();
 		this.id = id;
 		this.descripcion = descripcion;
 		this.precioNoche = precioNoche;
 		this.camas = camas;
-		//this.servicios = servicios; TODO
+		this.servicios = servicios;
 	}
 	public int getId() {
 		return id;
@@ -46,7 +48,12 @@ public class Habitacion {
 	public void setCamas(int camas) {
 		this.camas = camas;
 	}
-	// TODO get y set servicios
+	public DtServicios getServicios() {
+		return servicios;
+	}
+	public void setServicios(DtServicios servicios) {
+		this.servicios = servicios;
+	}
 	public List<Reserva> getReservas() {
 		return reservas;
 	}

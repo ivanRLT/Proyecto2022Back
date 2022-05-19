@@ -1,5 +1,9 @@
 package amq.controladores;
 
+import java.util.List;
+
+import amq.datatypes.DtAlojamiento;
+import amq.datatypes.DtHabitacion;
 import amq.entidades.Alojamiento;
 import amq.interfacescontroladores.IcAlojamiento;
 
@@ -12,8 +16,6 @@ public class ControladorAlojamiento implements IcAlojamiento {
 		} catch (Exception e) {
 			retorno = false;
 		}
-		
-		
 		return retorno;
 	}
 	public boolean modificarAlojamiento() {
@@ -44,17 +46,16 @@ public class ControladorAlojamiento implements IcAlojamiento {
 		}	
 		return retorno;
 	}
-	public void listarAlojamientos() {
-		// TODO cambiar retorno por list de dtAlojamiento
+	public DtAlojamiento listarAlojamientos() {
 		try {
 			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+		return null;
 	}
 	// #######################Funciones de habitacion#######################
-	public Boolean agregarHabitaciones(int idAlojamiento, String dtHabitacion) {
-		//TODO remplazar string por list de dt
+	public Boolean agregarHabitaciones(int idAlojamiento, List<DtHabitacion> dtHabitacion) {
 		Boolean retorno = false;
 		try {
 
@@ -64,30 +65,22 @@ public class ControladorAlojamiento implements IcAlojamiento {
 		}
 		return retorno;
 	}
-	public Boolean consultaHabitacion(int idAlojamiento, int idHabitacion) {
-		//TODO consultaHabitacion
-		Boolean retorno = false;
+	public DtHabitacion consultaHabitacion(int idAlojamiento, int idHabitacion) {
 		try {	
 			
-			retorno = true;
 		} catch (Exception e) {
-			retorno = false;
 		}
-		return retorno;
+		return null;
 	}
-	public Boolean listarHabitaciones(int idAlojamiento) {
-		//TODO listarHabitaciones
-		Boolean retorno = false;
+	public List<DtHabitacion> listarHabitaciones(int idAlojamiento) {
 		try {
-			
-			retorno = true;
+
 		} catch (Exception e) {
-			retorno = false;
+
 		}
-		return retorno;
+		return null;
 	}
-	public Boolean modificarHabitaciones(int idAlojamiento, String dtHabitacion) {
-		//TODO remplazar string por list de dt
+	public Boolean modificarHabitaciones(int idAlojamiento, List<DtHabitacion> dtHabitacion) {
 		Boolean retorno = false;
 		try {
 			

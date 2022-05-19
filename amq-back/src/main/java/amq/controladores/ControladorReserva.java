@@ -1,5 +1,9 @@
 package amq.controladores;
 
+import java.util.List;
+
+import amq.datatypes.DtCalificacion;
+import amq.datatypes.DtFactura;
 import amq.interfacescontroladores.IcReserva;
 
 public class ControladorReserva implements IcReserva{
@@ -48,13 +52,13 @@ public class ControladorReserva implements IcReserva{
 		}
 		return retorno;
 	}
-	public void listarCalificacion(int idReserva) {
+	public DtCalificacion listarCalificacion(int idReserva) {
 		try {
 
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		//TODO retorno dtCalificacion
+		return null;
 	}
 	// #######################Funciones de Facturas#######################
 		public boolean altaFactura() {
@@ -75,20 +79,20 @@ public class ControladorReserva implements IcReserva{
 			}
 			return retorno;
 		}
-		public void buscarFactura(int idReserva, int idFactura) {
+		public DtFactura buscarFactura(int idReserva, int idFactura) {
 			try {
 
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
-			//TODO retorno dtFactura
+			return null;
 		}
-		public void listarFacturas(int idReserva) {
+		public List<DtFactura> listarFacturas(int idReserva) {
 			try {
 
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
-			//TODO retorno list dtFactura
+			return null;
 		}
 }
