@@ -1,4 +1,4 @@
-package com.aquimequedo.amqback;
+package com.aquimequedo.amqback.api;
 
 import java.util.ArrayList;
 import java.util.Date;
