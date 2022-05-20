@@ -1,18 +1,15 @@
 package com.aquimequedo.amqback.api;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import amq.datatypes.*;
+import amq.enums.AprobacionEstado;
 import amq.enums.ReservaEstado;
 
 @RestController
@@ -21,6 +18,10 @@ public class ControladorServicio {
 	@PostMapping(value= "/alojamientos")
 	public List<DtAlojamiento> listarAlojamientos(){
 		return generarAlojamientos();
+	}
+	@PostMapping(value="/usuarios")
+	public List<DtUsuario> listarUsuarios(){
+		return generarUsuarios();
 	}
 	
 	private List<DtAlojamiento> generarAlojamientos(){
@@ -83,7 +84,6 @@ public class ControladorServicio {
 		
 		//##################################################################################
 		ArrayList<DtReserva> ress = new ArrayList<DtReserva>();
-		@SuppressWarnings({ "deprecation", "deprecation" })
 		DtReserva res = new DtReserva(ReservaEstado.PENDIENTE, new DtFecha(31, 10, 2022), new DtFecha(04, 11, 2022), null, 4, null, null);
 		ress.add(res);
 		res = new DtReserva(ReservaEstado.PENDIENTE, new DtFecha(30, 10, 2022), new DtFecha(01, 11, 2022), null, 2, null, null);
@@ -104,5 +104,51 @@ public class ControladorServicio {
 		listAloj.add(aloj);
 		
 		return listAloj;
+	}
+	
+	private List<DtUsuario> generarUsuarios(){
+		List<DtAlojamiento> alojs1 = generarAlojamientos();
+		alojs1.remove(0);
+		alojs1.remove(0);
+		List<DtAlojamiento> alojs2 = generarAlojamientos();
+		alojs2.remove(2);
+		alojs2.remove(2);
+		
+		List<DtUsuario> usrs = new ArrayList<DtUsuario>();
+		DtAdministrador admin = new DtAdministrador("emailAdmin@mail.com", 
+				"nombreAdmin", 
+				"apellidoAdmin", 
+				true);
+		usrs.add(admin);
+		
+		DtAnfitrion anfi = new DtAnfitrion(
+				"emailAnfi1@mail.com", 
+				"nombreAnfi1", 
+				"apellidoAnfi1", 
+				true, 
+				33, 
+				AprobacionEstado.APROBADO, 
+				alojs1);
+		usrs.add(anfi);
+		anfi = new DtAnfitrion(
+				"emailAnfi2@mail.com", 
+				"nombreAnfi2", 
+				"apellidoAnfi2", 
+				true, 
+				3, 
+				AprobacionEstado.APROBADO, 
+				alojs2);
+		usrs.add(anfi);
+		
+		DtHuesped huesp = new DtHuesped(
+				"emailHuesp1@mail.com", 
+				"nombreHuesp1", 
+				"apellidoHuesp1", 
+				true, 
+				12, 
+				null, 
+				alojs1.get(1).getHabitaciones().get(0).getDtReservas());
+		usrs.add(huesp);
+		return usrs;
 	}
 }
