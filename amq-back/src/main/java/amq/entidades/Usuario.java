@@ -3,8 +3,6 @@ package amq.entidades;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 public abstract class Usuario {
 	private int id;
 	private String email;
@@ -12,15 +10,17 @@ public abstract class Usuario {
 	private String apellido;
 	private String nombre;
 	private Recuperacion recuperacion;
+	private String pass;
 	
 	public Usuario() {
 		super();
 	}
-	public Usuario(String email, Boolean activo, String apellido, String nombre) {
+	public Usuario(String email, Boolean activo, String apellido, String nombre, String pass) {
 		this.email = email;
 		this.activo = activo;
 		this.apellido = apellido;
 		this.nombre = nombre;
+		this.pass = pass;
 	}
 	public String getEmail() {
 		return email;
@@ -57,5 +57,11 @@ public abstract class Usuario {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public String getPass() {
+		return pass;
+	}
+	public void setPass(String pass) {
+		this.pass = pass;
 	}
 }

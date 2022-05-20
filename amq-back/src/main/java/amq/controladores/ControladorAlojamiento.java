@@ -9,14 +9,13 @@ import amq.interfacescontroladores.IcAlojamiento;
 
 public class ControladorAlojamiento implements IcAlojamiento {
 	// #######################Funciones de alojamiento#######################
-	public boolean altaAlojamiento() {
-		Boolean retorno = false;
+	public Alojamiento altaAlojamiento(DtAlojamiento alojamiento, List<DtHabitacion> habitaciones) {
 		try {
 			
 		} catch (Exception e) {
-			retorno = false;
+
 		}
-		return retorno;
+		return null;
 	}
 	public boolean modificarAlojamiento() {
 		Boolean retorno = false;

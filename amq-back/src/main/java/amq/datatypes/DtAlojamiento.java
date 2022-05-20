@@ -1,11 +1,18 @@
 package amq.datatypes;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import amq.entidades.Alojamiento;
+import amq.entidades.Habitacion;
+
 public class DtAlojamiento {
 	
 	private boolean activo;
 	private String descripcion;
 	private String direcion;
 	private String nombre;
+	private List<DtHabitacion> habitaciones = new ArrayList<DtHabitacion>();
 	/**
 	 * @param activo
 	 * @param descripcion
@@ -67,5 +74,10 @@ public class DtAlojamiento {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
+	public List<DtHabitacion> getHabitaciones() {
+		return habitaciones;
+	}
+	public void setHabitaciones(List<DtHabitacion> habitaciones) {
+		this.habitaciones = habitaciones;
+	}
 }

@@ -7,7 +7,7 @@ import amq.datatypes.DtUsuario;
 import amq.datatypes.DtAlojamiento;
 
 public interface IcUsuario {
-	public boolean altaUsuario();
+	public boolean altaUsuario(DtUsuario usuario);
 	public boolean modificarUsuario();
 	public void buscarUsuario(int id, String email);
 	public boolean desactivarUsuario();
@@ -18,4 +18,5 @@ public interface IcUsuario {
 	public boolean agregarReservaHuesped();
 	public List<DtReserva> listarReservasHuesped();
 	public boolean modificarReservaHuesped(int idReserva);
+	public DtUsuario iniciarSesion(String email, String pass);
 }

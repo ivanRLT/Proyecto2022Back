@@ -11,8 +11,8 @@ public class Huesped extends Usuario{
 	public Huesped() {
 		super();
 	}
-	public Huesped(String email, Boolean activo, String apellido, String nombre, int calificacion, List<String> tokens) {
-		super(email, activo, apellido, nombre);
+	public Huesped(String email, Boolean activo, String apellido, String nombre, int calificacion, List<String> tokens, String pass) {
+		super(email, activo, apellido, nombre, pass);
 		this.calificacionGlobal = calificacion;
 		this.pushTokens = tokens;
 	}

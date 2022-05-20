@@ -5,6 +5,7 @@ public abstract class DtUsuario {
 	private String nombre;
 	private String apellido;
 	private boolean activo;
+	private String pass;
 	
 	public DtUsuario(String email, String nombre, String apellido, boolean activo) {
 		super();
@@ -43,5 +44,11 @@ public abstract class DtUsuario {
 
 	public void setActivo(boolean activo) {
 		this.activo = activo;
+	}
+	public String getPass() {
+		return pass;
+	}
+	public void setPass(String pass) {
+		this.pass = pass;
 	}
 }

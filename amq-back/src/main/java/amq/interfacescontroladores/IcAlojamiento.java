@@ -1,11 +1,13 @@
 package amq.interfacescontroladores;
 
 import amq.datatypes.DtHabitacion;
+import amq.entidades.Alojamiento;
+
 import java.util.List;
 import amq.datatypes.DtAlojamiento;
 
 public interface IcAlojamiento {
-	public boolean altaAlojamiento();
+	public Alojamiento altaAlojamiento(DtAlojamiento alojamiento, List<DtHabitacion> habitaciones);
 	public boolean modificarAlojamiento();
 	public void buscarAlojamiento(int id);
 	public Boolean desactivarAlojamiento();

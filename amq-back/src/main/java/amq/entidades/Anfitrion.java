@@ -13,8 +13,8 @@ public class Anfitrion extends Usuario {
 	public Anfitrion() {
 		super();
 	}
-	public Anfitrion(String email, Boolean activo, String apellido, String nombre, int calificacion, List<Alojamiento> alojamientos, AprobacionEstado estado) {
-		super(email, activo, apellido, nombre);
+	public Anfitrion(String email, Boolean activo, String apellido, String nombre, int calificacion, List<Alojamiento> alojamientos, AprobacionEstado estado, String pass) {
+		super(email, activo, apellido, nombre, pass);
 		this.calificacionGlobal = calificacion;
 		this.estado = estado;
 		this.alojamientos = alojamientos;
