@@ -7,7 +7,7 @@ public class DtHabitacion {
 	private String descripcion;
 	private Double precioNoche;
 	private int camas;
-	private ArrayList<DtServicios> dtservicios;
+	private DtServicios dtservicios;
 	private ArrayList<DtReserva> dtReservas;
 //	dejo esto preparado para usar a futuro por si complica los rest.:
 //	private Collection<DtHabitacion> coleccionHabitaciones = new ArrayList<>();
@@ -22,7 +22,8 @@ public class DtHabitacion {
 	 * @param dtservicios
 	 * @param dtReservas
 	 */
-	public DtHabitacion(String descripcion, Double precioNoche, int camas, ArrayList<DtServicios> dtservicios,
+	public DtHabitacion(String descripcion, Double precioNoche, int camas, 
+			DtServicios dtservicios,
 			ArrayList<DtReserva> dtReservas) {
 		super();
 		this.descripcion = descripcion;
@@ -76,15 +77,8 @@ public class DtHabitacion {
 	/**
 	 * @return the dtservicios
 	 */
-	public ArrayList<DtServicios> getDtservicios() {
+	public DtServicios getDtservicios() {
 		return dtservicios;
-	}
-
-	/**
-	 * @param dtservicios the dtservicios to set
-	 */
-	public void setDtservicios(ArrayList<DtServicios> dtservicios) {
-		this.dtservicios = dtservicios;
 	}
 
 	/**
@@ -92,6 +86,10 @@ public class DtHabitacion {
 	 */
 	public ArrayList<DtReserva> getDtReservas() {
 		return dtReservas;
+	}
+
+	public void setDtservicios(DtServicios dtservicios) {
+		this.dtservicios = dtservicios;
 	}
 
 	/**
