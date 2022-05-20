@@ -28,7 +28,7 @@ public class DtReserva {
 		this.dtFacturas = dtFacturas;
 		this.dtCalificacion = dtCalificacion;
 	}
-	public ReservaEstado isEstado() {
+	public ReservaEstado getEstado() {
 		return estado;
 	}
 	public void setEstado(ReservaEstado estado) {
