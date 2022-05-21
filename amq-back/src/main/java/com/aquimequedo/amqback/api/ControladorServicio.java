@@ -3,9 +3,11 @@ package com.aquimequedo.amqback.api;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import amq.datatypes.*;
@@ -15,11 +17,12 @@ import amq.enums.ReservaEstado;
 @RestController
 @RequestMapping()
 public class ControladorServicio {
-	@PostMapping(value= "/alojamientos")
+	@RequestMapping(value = "/alojamientos", method = { RequestMethod.POST,  RequestMethod.GET })
 	public List<DtAlojamiento> listarAlojamientos(){
 		return generarAlojamientos();
 	}
-	@PostMapping(value="/usuarios")
+	
+	@RequestMapping(value = "/usuarios", method = { RequestMethod.POST,  RequestMethod.GET })
 	public List<DtUsuario> listarUsuarios(){
 		return generarUsuarios();
 	}
