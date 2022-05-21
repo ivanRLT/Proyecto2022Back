@@ -3,6 +3,7 @@ package com.aquimequedo.amqback.api;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -16,12 +17,15 @@ import amq.enums.ReservaEstado;
 
 @RestController
 @RequestMapping()
+@CrossOrigin(origins="*")
 public class ControladorServicio {
+	@CrossOrigin(origins="*")
 	@RequestMapping(value = "/alojamientos", method = { RequestMethod.POST,  RequestMethod.GET })
 	public List<DtAlojamiento> listarAlojamientos(){
 		return generarAlojamientos();
 	}
 	
+	@CrossOrigin(origins="*")
 	@RequestMapping(value = "/usuarios", method = { RequestMethod.POST,  RequestMethod.GET })
 	public List<DtUsuario> listarUsuarios(){
 		return generarUsuarios();
