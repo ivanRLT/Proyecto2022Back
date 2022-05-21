@@ -4,21 +4,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import amq.datatypes.*;
+import amq.entidades.Fabrica;
 import amq.enums.AprobacionEstado;
 import amq.enums.ReservaEstado;
+
+import amq.interfacescontroladores.*;
 
 @RestController
 @RequestMapping()
 @CrossOrigin(origins="*")
 public class ControladorServicio {
+	
+	private Fabrica  fabrica;
+	private IcUsuario iconU;
+	private IcAlojamiento iconA;
+	private IcReserva iconR;
+	
+	public ControladorServicio() {
+		fabrica = Fabrica.getInstancia();
+		iconU = fabrica.getIControladorUsuario();
+		iconA = fabrica.getIControladorAlojamiento();
+		iconR = fabrica.getIControladorReserva();
+	}
+	
 	@CrossOrigin(origins="*")
 	@RequestMapping(value = "/alojamientos", method = { RequestMethod.POST,  RequestMethod.GET })
 	public List<DtAlojamiento> listarAlojamientos(){
@@ -157,5 +171,13 @@ public class ControladorServicio {
 				alojs1.get(1).getHabitaciones().get(0).getDtReservas());
 		usrs.add(huesp);
 		return usrs;
+	}
+	
+	// ##############################SERVICIOS#######################################
+	
+	@CrossOrigin(origins="*")
+	@RequestMapping(value = "/iniciarSesion", method = { RequestMethod.POST,  RequestMethod.GET })
+	public DtUsuario iniciarSesion(String email, String pass){
+		return iconU.iniciarSesion(email, pass);
 	}
 }
