@@ -13,7 +13,6 @@ import amq.datatypes.*;
 import amq.entidades.Fabrica;
 import amq.enums.AprobacionEstado;
 import amq.enums.ReservaEstado;
-import amq.enums.TipoUsuario;
 import amq.interfacescontroladores.*;
 
 @RestController
@@ -34,15 +33,15 @@ public class ControladorServicio {
 	}
 	
 	@CrossOrigin(origins="*")
-	@RequestMapping(value = "/alojamientos", method = { RequestMethod.POST,  RequestMethod.GET })
-	public String[][] listarAlojamientos(){
-		return generarAlojamientos2();
+	@RequestMapping(value = "/alojamientos", method = { RequestMethod.POST,  RequestMethod.GET }, produces = {"application/JSON"})
+	public List<DtAlojamiento> listarAlojamientos(){
+		return generarAlojamientos();
 	}
 	
 	@CrossOrigin(origins="*")
-	@RequestMapping(value = "/usuarios", method = { RequestMethod.POST,  RequestMethod.GET })
-	public String[][] listarUsuarios(){
-		return generarUsuarios2();
+	@RequestMapping(value = "/usuarios", method = { RequestMethod.POST,  RequestMethod.GET }, produces = {"application/JSON"})
+	public List<DtUsuario> listarUsuarios(){
+		return generarUsuarios();
 	}
 	
 	private List<DtAlojamiento> generarAlojamientos(){
@@ -127,64 +126,6 @@ public class ControladorServicio {
 		return listAloj;
 	}
 	
-	private String[][] generarAlojamientos2(){
-		String[][] alHab= new String[4][15];
-		
-		DtAlojamientoHabitacion hab = new DtAlojamientoHabitacion(
-				21,
-				true, 
-				"Casa en la playa psss...", 
-				"Rambla República de Mexico 3453 esq. San Nicolás", 
-				"Casa Grande",
-				1,
-				"Habitación principal", 
-				3200.0, 
-				3, 
-				true, false, true, false, false, false);
-		alHab[0] = hab.toArray();
-		
-		hab = new DtAlojamientoHabitacion(
-				12,
-				true, 
-				"Hotel ubicado a pasos de las termas de Arapey.", 
-				"Termas del Arapey 3523, Salto", 
-				"Arapey Oasis Termal",
-				1,
-				"Habitación 105", 
-				5200.0, 
-				3, 
-				false, false, true, false, true, false);
-		alHab[1] = hab.toArray();
-		
-		hab = new DtAlojamientoHabitacion(
-				2,
-				true, 
-				"El mejor Hotel de Piriapolis La limpieza y el buen trato son su especialidad. En cuanto a las comodidades y el servicio del Hotel son geniales; habitaciones, comedor, sala de juegos, pileta, parque...Buen desayuno y te facilitan sillas y toallas para ir a la Playa. Todas las habitaciones tienen una vista excelente, destacandoce las de frente.", 
-				"Pasaje Superior Piria entre Junín y Suipacha", 
-				"Hotel Ricadi",
-				1,
-				"SUP c/terraza", 
-				5000.0, 
-				5, 
-				false, true, true, false, false, true);
-		alHab[2] = hab.toArray();
-		
-		hab = new DtAlojamientoHabitacion(
-				2,
-				true, 
-				"El mejor Hotel de Piriapolis La limpieza y el buen trato son su especialidad. En cuanto a las comodidades y el servicio del Hotel son geniales; habitaciones, comedor, sala de juegos, pileta, parque...Buen desayuno y te facilitan sillas y toallas para ir a la Playa. Todas las habitaciones tienen una vista excelente, destacandoce las de frente.", 
-				"Pasaje Superior Piria entre Junín y Suipacha", 
-				"Hotel Ricadi",
-				2,
-				"STANDARD DOBLE", 
-				3800.0, 
-				1, 
-				false, false, false, false, false, false);
-		alHab[3] = hab.toArray();
-		
-		return alHab;
-	}
-	
 	private List<DtUsuario> generarUsuarios(){
 		List<DtAlojamiento> alojs1 = generarAlojamientos();
 		alojs1.remove(0);
@@ -228,59 +169,6 @@ public class ControladorServicio {
 				null, 
 				alojs1.get(1).getHabitaciones().get(0).getDtReservas());
 		usrs.add(huesp);
-		return usrs;
-	}
-	
-	private String[][] generarUsuarios2(){
-		String[][] usrs= new String[4][8];
-
-		DtUsuarioNoHerencia usr = new DtUsuarioNoHerencia(
-			TipoUsuario.ADMINISTRADOR,
-			"admin1@gmail.com",
-			"nombreAdmin1",
-			"apellAdmin1",
-			true,
-			0,
-			null,
-			0);
-		
-		usrs[0] = usr.toArray();
-
-		usr = new DtUsuarioNoHerencia(
-			TipoUsuario.ANFITRION,
-			"anf1@gmail.com",
-			"nombreAnf1",
-			"apellAnf1",
-			true,
-			5,
-			AprobacionEstado.APROBADO,
-			0);
-		
-		usrs[1] = usr.toArray();
-
-		usr = new DtUsuarioNoHerencia(
-			TipoUsuario.HUESPED,
-			"hues1@gmail.com",
-			"nombrehues1",
-			"apellhues1",
-			true,
-			0,
-			null,
-			5);
-		
-		usrs[2] = usr.toArray();
-		
-		usr = new DtUsuarioNoHerencia(
-			TipoUsuario.HUESPED,
-			"hues2@gmail.com",
-			"nombrehues2",
-			"apellhues2",
-			true,
-			0,
-			null,
-			1);
-		usrs[3] = usr.toArray();
-		
 		return usrs;
 	}
 	
