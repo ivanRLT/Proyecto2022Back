@@ -13,7 +13,7 @@ import amq.datatypes.*;
 import amq.entidades.Fabrica;
 import amq.enums.AprobacionEstado;
 import amq.enums.ReservaEstado;
-
+import amq.enums.TipoUsuario;
 import amq.interfacescontroladores.*;
 
 @RestController
@@ -128,65 +128,59 @@ public class ControladorServicio {
 	}
 	
 	private String[][] generarAlojamientos2(){
-		String[][] alHab= new String[4][13];
+		String[][] alHab= new String[4][15];
 		
-		alHab[0][0] = "true";
-		alHab[0][1] = "Casa en la playa.";
-		alHab[2][2] = "Rambla República de Mexico 3453 esq. San Nicolás";
-		alHab[0][3] = "Casa Grande";
-		alHab[0][4] = "Habitación principal";
-		alHab[0][5] = "3200";
-		alHab[0][6] = "3";
-		alHab[0][7] = "true";
-		alHab[0][8] = "false";
-		alHab[0][9] = "true";
-		alHab[0][10] = "false";
-		alHab[0][11] = "false";
-		alHab[0][12] = "true";
+		DtAlojamientoHabitacion hab = new DtAlojamientoHabitacion(
+				21,
+				true, 
+				"Casa en la playa psss...", 
+				"Rambla República de Mexico 3453 esq. San Nicolás", 
+				"Casa Grande",
+				1,
+				"Habitación principal", 
+				3200.0, 
+				3, 
+				true, false, true, false, false, false);
+		alHab[0] = hab.toArray();
 		
-		alHab[1][0] = "true";
-		alHab[1][1] = "Hotel ubicado a pasos de las termas de Arapey.";
-		alHab[1][2] = "Termas del Arapey 3523, Salto";
-		alHab[1][3] = "Arapey Oasis Termal";
-		alHab[1][4] = "Habitación 105";
-		alHab[1][5] = "5200";
-		alHab[1][6] = "3";
-		alHab[1][7] = "false";
-		alHab[1][8] = "false";
-		alHab[1][9] = "true";
-		alHab[1][10] = "true";
-		alHab[1][11] = "false";
-		alHab[1][12] = "false";
+		hab = new DtAlojamientoHabitacion(
+				12,
+				true, 
+				"Hotel ubicado a pasos de las termas de Arapey.", 
+				"Termas del Arapey 3523, Salto", 
+				"Arapey Oasis Termal",
+				1,
+				"Habitación 105", 
+				5200.0, 
+				3, 
+				false, false, true, false, true, false);
+		alHab[1] = hab.toArray();
 		
-		alHab[2][0] = "true";
-		alHab[2][1] = "El mejor Hotel de Piriapolis La limpieza y el buen trato son su especialidad. En cuanto a las comodidades y el servicio del Hotel son geniales; habitaciones, comedor, sala de juegos, pileta, parque...Buen desayuno y te facilitan sillas y toallas para ir a la Playa. Todas las habitaciones tienen una vista excelente, destacandoce las de frente.";
-		alHab[2][2] = "Pasaje Superior Piria entre Junín y Suipacha";
-		alHab[2][3] = "Hotel Ricadi";
-		alHab[2][4] = "SUP c/terraza";
-		alHab[2][5] = "5000";
-		alHab[2][6] = "3";
-		alHab[2][7] = "true";
-		alHab[2][8] = "false";
-		alHab[2][9] = "true";
-		alHab[2][10] = "true";
-		alHab[2][11] = "false";
-		alHab[2][12] = "false";
+		hab = new DtAlojamientoHabitacion(
+				2,
+				true, 
+				"El mejor Hotel de Piriapolis La limpieza y el buen trato son su especialidad. En cuanto a las comodidades y el servicio del Hotel son geniales; habitaciones, comedor, sala de juegos, pileta, parque...Buen desayuno y te facilitan sillas y toallas para ir a la Playa. Todas las habitaciones tienen una vista excelente, destacandoce las de frente.", 
+				"Pasaje Superior Piria entre Junín y Suipacha", 
+				"Hotel Ricadi",
+				1,
+				"SUP c/terraza", 
+				5000.0, 
+				5, 
+				false, true, true, false, false, true);
+		alHab[2] = hab.toArray();
 		
-		alHab[3][0] = "true";
-		alHab[3][1] = "El mejor Hotel de Piriapolis La limpieza y el buen trato son su especialidad. En cuanto a las comodidades y el servicio del Hotel son geniales; habitaciones, comedor, sala de juegos, pileta, parque...Buen desayuno y te facilitan sillas y toallas para ir a la Playa. Todas las habitaciones tienen una vista excelente, destacandoce las de frente.";
-		alHab[3][2] = "Pasaje Superior Piria entre Junín y Suipacha";
-		alHab[3][3] = "Hotel Ricadi";
-		alHab[3][4] = "STANDARD DOBLE";
-		alHab[3][5] = "3800";
-		alHab[3][6] = "1";
-		alHab[3][7] = "false";
-		alHab[3][8] = "false";
-		alHab[3][9] = "false";
-		alHab[3][10] = "false";
-		alHab[3][11] = "false";
-		alHab[3][12] = "false";
-		
-	
+		hab = new DtAlojamientoHabitacion(
+				2,
+				true, 
+				"El mejor Hotel de Piriapolis La limpieza y el buen trato son su especialidad. En cuanto a las comodidades y el servicio del Hotel son geniales; habitaciones, comedor, sala de juegos, pileta, parque...Buen desayuno y te facilitan sillas y toallas para ir a la Playa. Todas las habitaciones tienen una vista excelente, destacandoce las de frente.", 
+				"Pasaje Superior Piria entre Junín y Suipacha", 
+				"Hotel Ricadi",
+				2,
+				"STANDARD DOBLE", 
+				3800.0, 
+				1, 
+				false, false, false, false, false, false);
+		alHab[3] = hab.toArray();
 		
 		return alHab;
 	}
@@ -239,42 +233,53 @@ public class ControladorServicio {
 	
 	private String[][] generarUsuarios2(){
 		String[][] usrs= new String[4][8];
-		
-		usrs[0][0] = "administrador";
-		usrs[0][1] = "admin1@mail.com";
-		usrs[0][2] = "nombreAdmin1";
-		usrs[0][3] = "apellAdmin1";
-		usrs[0][4] = "true";
-		usrs[0][5] = "";
-		usrs[0][6] = "";
-		usrs[0][7] = "";
 
-		usrs[1][0] = "anfitrion";
-		usrs[1][1] = "anfi1@mail.com";
-		usrs[1][2] = "nombreAnfi1";
-		usrs[1][3] = "apellAnfi1";
-		usrs[1][4] = "true";
-		usrs[1][5] = "0";
-		usrs[1][6] = "APROBADO";
-		usrs[1][7] = "";
+		DtUsuarioNoHerencia usr = new DtUsuarioNoHerencia(
+			TipoUsuario.ADMINISTRADOR,
+			"admin1@gmail.com",
+			"nombreAdmin1",
+			"apellAdmin1",
+			true,
+			0,
+			null,
+			0);
 		
-		usrs[2][0] = "huesped";
-		usrs[2][1] = "hue1@mail.com";
-		usrs[2][2] = "nombreHue1";
-		usrs[2][3] = "apellHue1";
-		usrs[2][4] = "true";
-		usrs[2][5] = "";
-		usrs[2][6] = "";
-		usrs[2][7] = "5";
+		usrs[0] = usr.toArray();
+
+		usr = new DtUsuarioNoHerencia(
+			TipoUsuario.ANFITRION,
+			"anf1@gmail.com",
+			"nombreAnf1",
+			"apellAnf1",
+			true,
+			5,
+			AprobacionEstado.APROBADO,
+			0);
 		
-		usrs[2][0] = "huesped";
-		usrs[2][1] = "hue2@mail.com";
-		usrs[2][2] = "nombreHue2";
-		usrs[2][3] = "apellHue2";
-		usrs[2][4] = "true";
-		usrs[2][5] = "";
-		usrs[2][6] = "";
-		usrs[2][7] = "0";
+		usrs[1] = usr.toArray();
+
+		usr = new DtUsuarioNoHerencia(
+			TipoUsuario.HUESPED,
+			"hues1@gmail.com",
+			"nombrehues1",
+			"apellhues1",
+			true,
+			0,
+			null,
+			5);
+		
+		usrs[2] = usr.toArray();
+		
+		usr = new DtUsuarioNoHerencia(
+			TipoUsuario.HUESPED,
+			"hues2@gmail.com",
+			"nombrehues2",
+			"apellhues2",
+			true,
+			0,
+			null,
+			1);
+		usrs[3] = usr.toArray();
 		
 		return usrs;
 	}

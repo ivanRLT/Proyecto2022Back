@@ -8,10 +8,12 @@ import amq.entidades.Habitacion;
 
 public class DtAlojamientoHabitacion {
 	
+	private int aloj_id;
 	private boolean aloj_activo;
 	private String aloj_descripcion;
 	private String aloj_direcion;
 	private String aloj_nombre;
+	private int hab_id;
 	private String hab_descripcion;
 	private Double hab_precioNoche;
 	private int hab_camas;
@@ -24,14 +26,16 @@ public class DtAlojamientoHabitacion {
 	
 	
 	
-	public DtAlojamientoHabitacion(boolean aloj_activo, String aloj_descripcion, String aloj_direcion,
-			String aloj_nombre, String hab_descripcion, Double hab_precioNoche, int hab_camas, boolean aire,
+	public DtAlojamientoHabitacion(int aloj_id, boolean aloj_activo, String aloj_descripcion, String aloj_direcion,
+			String aloj_nombre, int hab_id, String hab_descripcion, Double hab_precioNoche, int hab_camas, boolean aire,
 			boolean tvCable, boolean jacuzzi, boolean wifi, boolean desayuno, boolean parking) {
 		super();
+		this.aloj_id = aloj_id;
 		this.aloj_activo = aloj_activo;
 		this.aloj_descripcion = aloj_descripcion;
 		this.aloj_direcion = aloj_direcion;
 		this.aloj_nombre = aloj_nombre;
+		this.hab_id = hab_id;
 		this.hab_descripcion = hab_descripcion;
 		this.hab_precioNoche = hab_precioNoche;
 		this.hab_camas = hab_camas;
@@ -122,6 +126,42 @@ public class DtAlojamientoHabitacion {
 		this.parking = parking;
 	}
 	
+	public int getAloj_id() {
+		return aloj_id;
+	}
+
+	public void setAloj_id(int aloj_id) {
+		this.aloj_id = aloj_id;
+	}
+
+	public int getHab_id() {
+		return hab_id;
+	}
+
+	public void setHab_id(int hab_id) {
+		this.hab_id = hab_id;
+	}
 	
+	public String[] toArray(){
+		String[] arrRes = new String[15];
+		
+		arrRes[0] = Integer.toString( this.aloj_id );
+		arrRes[1] = Boolean.toString( this.aloj_activo );
+		arrRes[2] = this.aloj_descripcion;
+		arrRes[3] = this.aloj_direcion;
+		arrRes[4] = this.aloj_nombre;
+		arrRes[5] = Integer.toString(this.hab_id);
+		arrRes[6] = this.hab_descripcion;
+		arrRes[7] = Double.toString( this.hab_precioNoche );
+		arrRes[8] = Integer.toString(this.hab_camas);
+		arrRes[9] = Boolean.toString( this.aire );
+		arrRes[10] = Boolean.toString( this.tvCable );
+		arrRes[11] = Boolean.toString( this.jacuzzi );
+		arrRes[12] = Boolean.toString( this.wifi );
+		arrRes[13] = Boolean.toString( this.desayuno );
+		arrRes[14] = Boolean.toString( this.parking );
+		
+		return arrRes;
+	}
 	
 }
