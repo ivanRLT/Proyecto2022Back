@@ -41,8 +41,8 @@ public class ControladorServicio {
 	
 	@CrossOrigin(origins="*")
 	@RequestMapping(value = "/usuarios", method = { RequestMethod.POST,  RequestMethod.GET })
-	public List<DtUsuario> listarUsuarios(){
-		return generarUsuarios();
+	public String[][] listarUsuarios(){
+		return generarUsuarios2();
 	}
 	
 	private List<DtAlojamiento> generarAlojamientos(){
@@ -234,6 +234,48 @@ public class ControladorServicio {
 				null, 
 				alojs1.get(1).getHabitaciones().get(0).getDtReservas());
 		usrs.add(huesp);
+		return usrs;
+	}
+	
+	private String[][] generarUsuarios2(){
+		String[][] usrs= new String[4][8];
+		
+		usrs[0][0] = "administrador";
+		usrs[0][1] = "admin1@mail.com";
+		usrs[0][2] = "nombreAdmin1";
+		usrs[0][3] = "apellAdmin1";
+		usrs[0][4] = "true";
+		usrs[0][5] = "";
+		usrs[0][6] = "";
+		usrs[0][7] = "";
+
+		usrs[1][0] = "anfitrion";
+		usrs[1][1] = "anfi1@mail.com";
+		usrs[1][2] = "nombreAnfi1";
+		usrs[1][3] = "apellAnfi1";
+		usrs[1][4] = "true";
+		usrs[1][5] = "0";
+		usrs[1][6] = "APROBADO";
+		usrs[1][7] = "";
+		
+		usrs[2][0] = "huesped";
+		usrs[2][1] = "hue1@mail.com";
+		usrs[2][2] = "nombreHue1";
+		usrs[2][3] = "apellHue1";
+		usrs[2][4] = "true";
+		usrs[2][5] = "";
+		usrs[2][6] = "";
+		usrs[2][7] = "5";
+		
+		usrs[2][0] = "huesped";
+		usrs[2][1] = "hue2@mail.com";
+		usrs[2][2] = "nombreHue2";
+		usrs[2][3] = "apellHue2";
+		usrs[2][4] = "true";
+		usrs[2][5] = "";
+		usrs[2][6] = "";
+		usrs[2][7] = "0";
+		
 		return usrs;
 	}
 	
