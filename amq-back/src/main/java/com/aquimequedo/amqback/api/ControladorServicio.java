@@ -35,8 +35,8 @@ public class ControladorServicio {
 	
 	@CrossOrigin(origins="*")
 	@RequestMapping(value = "/alojamientos", method = { RequestMethod.POST,  RequestMethod.GET })
-	public List<DtAlojamiento> listarAlojamientos(){
-		return generarAlojamientos();
+	public String[][] listarAlojamientos(){
+		return generarAlojamientos2();
 	}
 	
 	@CrossOrigin(origins="*")
@@ -127,6 +127,70 @@ public class ControladorServicio {
 		return listAloj;
 	}
 	
+	private String[][] generarAlojamientos2(){
+		String[][] alHab= new String[4][13];
+		
+		alHab[0][0] = "true";
+		alHab[0][1] = "Casa en la playa.";
+		alHab[2][2] = "Rambla República de Mexico 3453 esq. San Nicolás";
+		alHab[0][3] = "Casa Grande";
+		alHab[0][4] = "Habitación principal";
+		alHab[0][5] = "3200";
+		alHab[0][6] = "3";
+		alHab[0][7] = "true";
+		alHab[0][8] = "false";
+		alHab[0][9] = "true";
+		alHab[0][10] = "false";
+		alHab[0][11] = "false";
+		alHab[0][12] = "true";
+		
+		alHab[1][0] = "true";
+		alHab[1][1] = "Hotel ubicado a pasos de las termas de Arapey.";
+		alHab[1][2] = "Termas del Arapey 3523, Salto";
+		alHab[1][3] = "Arapey Oasis Termal";
+		alHab[1][4] = "Habitación 105";
+		alHab[1][5] = "5200";
+		alHab[1][6] = "3";
+		alHab[1][7] = "false";
+		alHab[1][8] = "false";
+		alHab[1][9] = "true";
+		alHab[1][10] = "true";
+		alHab[1][11] = "false";
+		alHab[1][12] = "false";
+		
+		alHab[2][0] = "true";
+		alHab[2][1] = "El mejor Hotel de Piriapolis La limpieza y el buen trato son su especialidad. En cuanto a las comodidades y el servicio del Hotel son geniales; habitaciones, comedor, sala de juegos, pileta, parque...Buen desayuno y te facilitan sillas y toallas para ir a la Playa. Todas las habitaciones tienen una vista excelente, destacandoce las de frente.";
+		alHab[2][2] = "Pasaje Superior Piria entre Junín y Suipacha";
+		alHab[2][3] = "Hotel Ricadi";
+		alHab[2][4] = "SUP c/terraza";
+		alHab[2][5] = "5000";
+		alHab[2][6] = "3";
+		alHab[2][7] = "true";
+		alHab[2][8] = "false";
+		alHab[2][9] = "true";
+		alHab[2][10] = "true";
+		alHab[2][11] = "false";
+		alHab[2][12] = "false";
+		
+		alHab[3][0] = "true";
+		alHab[3][1] = "El mejor Hotel de Piriapolis La limpieza y el buen trato son su especialidad. En cuanto a las comodidades y el servicio del Hotel son geniales; habitaciones, comedor, sala de juegos, pileta, parque...Buen desayuno y te facilitan sillas y toallas para ir a la Playa. Todas las habitaciones tienen una vista excelente, destacandoce las de frente.";
+		alHab[3][2] = "Pasaje Superior Piria entre Junín y Suipacha";
+		alHab[3][3] = "Hotel Ricadi";
+		alHab[3][4] = "STANDARD DOBLE";
+		alHab[3][5] = "3800";
+		alHab[3][6] = "1";
+		alHab[3][7] = "false";
+		alHab[3][8] = "false";
+		alHab[3][9] = "false";
+		alHab[3][10] = "false";
+		alHab[3][11] = "false";
+		alHab[3][12] = "false";
+		
+	
+		
+		return alHab;
+	}
+	
 	private List<DtUsuario> generarUsuarios(){
 		List<DtAlojamiento> alojs1 = generarAlojamientos();
 		alojs1.remove(0);
@@ -180,4 +244,6 @@ public class ControladorServicio {
 	public DtUsuario iniciarSesion(String email, String pass){
 		return iconU.iniciarSesion(email, pass);
 	}
+	
+	
 }
