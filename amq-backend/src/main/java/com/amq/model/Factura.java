@@ -12,6 +12,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.amq.datatypes.DtFecha;
@@ -40,10 +41,13 @@ public class Factura implements Serializable {
 	
 	private double montoDescuento;
 	
+	@ManyToOne
+	private Reserva reserva;
+	
 	public Factura() {
 		super();
 	}
-	public Factura(int id, double monto, Boolean descuento, double montoDescuento, PagoEstado estado, DtFecha fecha) {
+	public Factura(int id, double monto, Boolean descuento, double montoDescuento, PagoEstado estado, DtFecha fecha, Reserva reserva) {
 		super();
 		this.id = id;
 		this.monto = monto;
@@ -53,6 +57,7 @@ public class Factura implements Serializable {
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(fecha.getAnio(), fecha.getMes(), fecha.getDia(), 00, 00, 00);
 		this.fecha =(Date) calendar.getTime();
+		this.reserva = reserva;
 	}
         public int getId() {
         return id;
@@ -102,4 +107,11 @@ public class Factura implements Serializable {
 		calendar.set(fecha.getAnio(), fecha.getMes(), fecha.getDia(), 00, 00, 00);
 		this.fecha =(Date) calendar.getTime();
 	}
+	public Reserva getFactura() {
+		return reserva;
+	}
+	public void setFactura(Reserva reserva) {
+		this.reserva = reserva;
+	}
+	
 }
