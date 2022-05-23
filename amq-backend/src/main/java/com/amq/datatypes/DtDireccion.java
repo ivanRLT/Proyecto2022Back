@@ -8,6 +8,7 @@ import javax.persistence.Id;
 @Entity
 public class DtDireccion {
 	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String calle;
 	private String numero;
@@ -21,9 +22,8 @@ public class DtDireccion {
 		this.ciudad = ciudad;
 		this.pais = pais;
 	}
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-        public int getId() {
+	
+    public int getId() {
         return id;
     }
 	public String getCalle() {

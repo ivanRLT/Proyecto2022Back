@@ -55,7 +55,7 @@ public class Reserva implements Serializable {
 	@ManyToOne
 	private Calificacion calificacion;
 	
-	@OneToMany(mappedBy = "Reserva",cascade = CascadeType.ALL,orphanRemoval=true)
+	@OneToMany(mappedBy = "reserva",cascade = CascadeType.ALL,orphanRemoval=true)
 	private List<Factura> facturas = new ArrayList<Factura>();
 	
 	public Reserva() {

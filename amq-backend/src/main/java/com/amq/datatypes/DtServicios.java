@@ -14,6 +14,7 @@ public class DtServicios implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private boolean aire;
 	private boolean tvCable;
@@ -32,9 +33,7 @@ public class DtServicios implements Serializable {
 		this.desayuno = desayuno;
 		this.parking = parking;
 	}
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-        public int getId() {
+	public int getId() {
         return id;
     }
 	public boolean isAire() {
