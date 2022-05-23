@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
 import com.amq.datatypes.DtAdministrador;
 import com.amq.datatypes.DtAlojamiento;
 import com.amq.datatypes.DtAnfitrion;
@@ -19,14 +22,19 @@ import com.amq.model.Usuario;
 
 import com.amq.service.usuarioServicioImp;
 
+import amq.repository.usuarioRepository;
+
 import com.amq.icontroller.IcAlojamiento;
 import com.amq.icontroller.IcReserva;
 import com.amq.icontroller.IcUsuario;
 
+@Controller
 public class ControladorUsuario implements IcUsuario{
 	private IcReserva iconR;
 	private IcAlojamiento iconA;
-	private usuarioServicioImp userS;
+	
+	@Autowired
+	private usuarioRepository uRepo;
 	
 	public boolean altaUsuario(DtUsuario usuario) {
 		Boolean retorno = false;
@@ -38,7 +46,7 @@ public class ControladorUsuario implements IcUsuario{
 				admin.setApellido(usuario.getApellido());
 				admin.setPass(usuario.getPass());
 				admin.setNombre(usuario.getNombre());
-				userS.agregarUsuario(admin);
+				uRepo.save(admin);
 				retorno = true;
 			}else if (usuario instanceof DtAnfitrion) {
 				Anfitrion anf = new Anfitrion();
@@ -61,7 +69,7 @@ public class ControladorUsuario implements IcUsuario{
 				List<Alojamiento> alojamientos = new ArrayList<Alojamiento>();
 				alojamientos.add(alojamiento);
 				anf.setAlojamientos(alojamientos);
-				userS.agregarUsuario(anf);
+				uRepo.save(anf);
 				retorno = true;
 			}else if (usuario instanceof DtHuesped) {
 				Huesped hue = new Huesped();
@@ -73,11 +81,12 @@ public class ControladorUsuario implements IcUsuario{
 				hue.setCalificacionGlobal(-1);
 				hue.setPushTokens(null);
 				hue.setReservas(null);
-				userS.agregarUsuario(hue);
+				uRepo.save(hue);
 				retorno = true;
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
+			System.out.println("Exploto: " + e.toString());
 			retorno = false;
 		}		
 		return retorno;
