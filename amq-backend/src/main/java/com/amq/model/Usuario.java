@@ -20,17 +20,22 @@ public abstract class Usuario implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	private String email;
+	
 	private Boolean activo;
+	
 	private String apellido;
+	
 	private String nombre;
+	
 	@OneToMany
 	private Recuperacion recuperacion;
-	private String pass;
 	
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private String pass;
+
         public int getId() {
         return id;
     }
@@ -83,4 +88,8 @@ public abstract class Usuario implements Serializable {
 	public void setPass(String pass) {
 		this.pass = pass;
 	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
 }

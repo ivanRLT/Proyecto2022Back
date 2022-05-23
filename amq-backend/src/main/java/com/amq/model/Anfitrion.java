@@ -20,7 +20,9 @@ public class Anfitrion extends Usuario implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	private int calificacionGlobal;
+	
 	@Enumerated(EnumType.STRING)
 	private AprobacionEstado estado;
 	
@@ -56,5 +58,8 @@ public class Anfitrion extends Usuario implements Serializable {
 	}
 	public void addAlojamiento(Alojamiento alojamiento) {
 		this.alojamientos.add(alojamiento);
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 }

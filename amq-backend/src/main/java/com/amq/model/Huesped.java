@@ -16,8 +16,11 @@ public class Huesped extends Usuario implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	private int calificacionGlobal;
+	
 	private List<String> pushTokens = new ArrayList<String>();
+	
 	@OneToMany(mappedBy = "huesped",cascade = CascadeType.ALL,orphanRemoval=true)
 	private List<Reserva> reservas = new ArrayList<Reserva>();
 	
@@ -50,4 +53,9 @@ public class Huesped extends Usuario implements Serializable {
 	public void addReserva(Reserva reservas) {
 		this.reservas.add(reservas);
 	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
+	
 }

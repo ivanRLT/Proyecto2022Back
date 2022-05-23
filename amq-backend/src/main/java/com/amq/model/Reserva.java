@@ -30,16 +30,25 @@ public class Reserva implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	@Enumerated(EnumType.STRING)
 	private ReservaEstado estado;
+	
 	private Date fechaInicio;
+	
 	private Date fechaFin;
+	
 	private String idChat;
+	
 	private int cantDias;
+	
 	@ManyToOne
 	private Calificacion calificacion;
+	
 	@OneToMany(mappedBy = "Reserva",cascade = CascadeType.ALL,orphanRemoval=true)
 	private List<Factura> facturas = new ArrayList<Factura>();
 	
@@ -61,8 +70,7 @@ public class Reserva implements Serializable {
 		calendarF.set(fechaFin.getAnio(), fechaFin.getMes(), fechaFin.getDia(), 00, 00, 00);
 		this.fechaFin =(Date) calendarF.getTime();
 	}
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
         public int getId() {
         return id;
     }
@@ -134,6 +142,9 @@ public class Reserva implements Serializable {
 	}
 	public void setFacturas(List<Factura> facturas) {
 		this.facturas = facturas;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 	
 }

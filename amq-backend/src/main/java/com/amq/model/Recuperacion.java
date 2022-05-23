@@ -21,8 +21,11 @@ public class Recuperacion implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	private Date fecha;
 
 	public Recuperacion() {
@@ -36,8 +39,7 @@ public class Recuperacion implements Serializable {
 		calendar.set(fecha.getAnio(), fecha.getMes(), fecha.getDia(), 00, 00, 00);
 		this.fecha =(Date) calendar.getTime();
 	}
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
         public int getId() {
         return id;
     }
@@ -61,5 +63,9 @@ public class Recuperacion implements Serializable {
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(fecha.getAnio(), fecha.getMes(), fecha.getDia(), 00, 00, 00);
 		this.fecha =(Date) calendar.getTime();
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 }

@@ -24,13 +24,20 @@ public class Factura implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	@Enumerated(EnumType.STRING)
 	private PagoEstado estado;
+	
 	private double monto;
+	
 	private Date fecha;
+	
 	private Boolean descuento;
+	
 	private double montoDescuento;
 	
 	public Factura() {
@@ -47,8 +54,6 @@ public class Factura implements Serializable {
 		calendar.set(fecha.getAnio(), fecha.getMes(), fecha.getDia(), 00, 00, 00);
 		this.fecha =(Date) calendar.getTime();
 	}
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
         public int getId() {
         return id;
     }

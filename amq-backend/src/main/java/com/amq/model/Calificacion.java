@@ -23,10 +23,15 @@ public class Calificacion implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	private int calificacionAnfitrion;
+	
 	private int calificacionHuesped;
+	
 	private String resena;
+	
 	private Date fechaResena;
 	
 	public Calificacion() {
@@ -42,8 +47,7 @@ public class Calificacion implements Serializable {
 		calendar.set(fecha.getAnio(), fecha.getMes(), fecha.getDia(), 00, 00, 00);
 		this.fechaResena =(Date) calendar.getTime();
 	}
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    
         public int getId() {
         return id;
     }
@@ -86,4 +90,8 @@ public class Calificacion implements Serializable {
 		calendar.set(fechaResena.getAnio(), fechaResena.getMes(), fechaResena.getDia(), 00, 00, 00);
 		this.fechaResena =(Date) calendar.getTime();
 	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
 }

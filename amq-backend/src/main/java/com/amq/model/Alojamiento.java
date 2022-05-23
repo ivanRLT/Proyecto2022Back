@@ -23,13 +23,20 @@ public class Alojamiento implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	private Boolean activo;
+	
 	private String descripcion;
+	
 	@Enumerated(EnumType.STRING)
 	private DtDireccion direccion;
+	
 	private String nombre;
+	
 	@OneToMany(mappedBy = "alojamiento",cascade = CascadeType.ALL,orphanRemoval=true)
 	private List<Habitacion> habitaciones = new ArrayList<Habitacion>();
 	
@@ -45,8 +52,7 @@ public class Alojamiento implements Serializable {
 		this.direccion = direccion;
 		this.habitaciones = habitaciones;
 	}
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
         public int getId() {
         return id;
     }
@@ -82,5 +88,8 @@ public class Alojamiento implements Serializable {
 	}
 	public void setHabitaciones(List<Habitacion> habitaciones) {
 		this.habitaciones = habitaciones;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 }
