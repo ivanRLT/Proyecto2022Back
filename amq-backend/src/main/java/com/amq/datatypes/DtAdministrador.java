@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.amq.datatypes;
 
 public class DtAdministrador extends DtUsuario{

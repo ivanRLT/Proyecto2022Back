@@ -1,73 +1,51 @@
 package com.amq.datatypes;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "fechas")
 public class DtFecha {
-	
+	@Id
+	private int id;
 	private int dia;
 	private int mes;
 	private int anio;
 	
+	public DtFecha() {
+		super();
+	}
 	
-	/**
-	 * @param dia
-	 * @param mes
-	 * @param anio
-	 */
 	public DtFecha(int dia, int mes, int anio) {
 		super();
 		this.dia = dia;
 		this.mes = mes;
 		this.anio = anio;
 	}
-
-
-	/**
-	 * @return the dia
-	 */
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+        public int getId() {
+        return id;
+    }
 	public int getDia() {
 		return dia;
 	}
-
-
-	/**
-	 * @param dia the dia to set
-	 */
 	public void setDia(int dia) {
 		this.dia = dia;
 	}
-
-
-	/**
-	 * @return the mes
-	 */
 	public int getMes() {
 		return mes;
 	}
-
-
-	/**
-	 * @param mes the mes to set
-	 */
 	public void setMes(int mes) {
 		this.mes = mes;
 	}
-
-
-	/**
-	 * @return the anio
-	 */
 	public int getAnio() {
 		return anio;
 	}
-
-
-	/**
-	 * @param anio the anio to set
-	 */
 	public void setAnio(int anio) {
 		this.anio = anio;
 	}
-	
-	
-	
-
 }

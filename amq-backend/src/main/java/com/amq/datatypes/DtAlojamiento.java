@@ -3,12 +3,8 @@ package com.amq.datatypes;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.amq.model.Alojamiento;
-import com.amq.model.Habitacion;
-
 public class DtAlojamiento {
 	
-	private int id;
 	private boolean activo;
 	private String descripcion;
 	private String direcion;
@@ -26,12 +22,6 @@ public class DtAlojamiento {
 		this.descripcion = descripcion;
 		this.direcion = direcion;
 		this.nombre = nombre;
-	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
 	}
 	/**
 	 * @return the activo

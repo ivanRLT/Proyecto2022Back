@@ -1,7 +1,14 @@
 package com.amq.datatypes;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class DtServicios {
-	
+	@Id
+	private int id;
 	private boolean aire;
 	private boolean tvCable;
 	private boolean jacuzzi;
@@ -19,8 +26,11 @@ public class DtServicios {
 		this.desayuno = desayuno;
 		this.parking = parking;
 	}
-	
-	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+        public int getId() {
+        return id;
+    }
 	public boolean isAire() {
 		return aire;
 	}

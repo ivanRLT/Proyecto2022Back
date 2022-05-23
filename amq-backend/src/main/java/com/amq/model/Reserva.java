@@ -1,28 +1,36 @@
 package com.amq.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.amq.datatypes.DtFecha;
 import com.amq.enums.ReservaEstado;
 
-
-public class Reserva implements Serializable{
-	
-	
-
+@Entity
+@Table(name = "reservas")
+public class Reserva {
+	@Id
 	private int id;
+	@Enumerated(EnumType.STRING)
 	private ReservaEstado estado;
 	private DtFecha fechaInicio;
 	private DtFecha fechaFin;
 	private String idChat;
 	private int cantDias;
+	@ManyToOne
 	private Calificacion calificacion;
+	@OneToMany(mappedBy = "Reserva",cascade = CascadeType.ALL,orphanRemoval=true)
 	private List<Factura> facturas = new ArrayList<Factura>();
 	
 	public Reserva() {
@@ -37,9 +45,11 @@ public class Reserva implements Serializable{
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
 	}
-	public int getId() {
-		return id;
-	}
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+        public int getId() {
+        return id;
+    }
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -85,6 +95,5 @@ public class Reserva implements Serializable{
 	public void setFacturas(List<Factura> facturas) {
 		this.facturas = facturas;
 	}
-	
 	
 }

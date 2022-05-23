@@ -1,7 +1,14 @@
 package com.amq.datatypes;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class DtDireccion {
-	
+	@Id
+	private int id;
 	private String calle;
 	private String numero;
 	private String ciudad;
@@ -14,7 +21,11 @@ public class DtDireccion {
 		this.ciudad = ciudad;
 		this.pais = pais;
 	}
-
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+        public int getId() {
+        return id;
+    }
 	public String getCalle() {
 		return calle;
 	}

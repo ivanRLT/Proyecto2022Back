@@ -3,14 +3,29 @@ package com.amq.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import com.amq.datatypes.DtDireccion;
 
+@Entity
+@Table(name = "alojamientos")
 public class Alojamiento {
+	@Id
 	private int id;
 	private Boolean activo;
 	private String descripcion;
+	@Enumerated(EnumType.STRING)
 	private DtDireccion direccion;
 	private String nombre;
+	@OneToMany(mappedBy = "alojamiento",cascade = CascadeType.ALL,orphanRemoval=true)
 	private List<Habitacion> habitaciones = new ArrayList<Habitacion>();
 	
 	public Alojamiento() {
@@ -25,9 +40,11 @@ public class Alojamiento {
 		this.direccion = direccion;
 		this.habitaciones = habitaciones;
 	}
-	public int getId() {
-		return id;
-	}
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+        public int getId() {
+        return id;
+    }
 	public void setId(int id) {
 		this.id = id;
 	}

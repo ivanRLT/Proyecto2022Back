@@ -1,15 +1,18 @@
 package com.amq.model;
-
-import java.io.Serializable;
-
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.Table;
 
 import com.amq.datatypes.DtFecha;
 
+@Entity
+@Table(name = "calificaciones")
 public class Calificacion {
-	
+	@Id
 	private int id;
 	private int calificacionAnfitrion;
 	private int calificacionHuesped;
@@ -27,9 +30,11 @@ public class Calificacion {
 		this.resena = resena;
 		this.fechaResena = fecha;
 	}
-	public int getId() {
-		return id;
-	}
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+        public int getId() {
+        return id;
+    }
 	public void setId(int id) {
 		this.id = id;
 	}

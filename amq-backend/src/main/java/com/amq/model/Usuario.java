@@ -1,17 +1,33 @@
 package com.amq.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "usuarios")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Usuario {
+	@Id
 	private int id;
 	private String email;
 	private Boolean activo;
 	private String apellido;
 	private String nombre;
+	@OneToMany
 	private Recuperacion recuperacion;
 	private String pass;
 	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+        public int getId() {
+        return id;
+    }
 	public Usuario() {
 		super();
 	}
@@ -51,9 +67,6 @@ public abstract class Usuario {
 	}
 	public void setRecuperacion(Recuperacion recuperacion) {
 		this.recuperacion = recuperacion;
-	}
-	public int getId() {
-		return id;
 	}
 	public void setId(int id) {
 		this.id = id;

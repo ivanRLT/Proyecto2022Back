@@ -3,9 +3,17 @@ package com.amq.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+
+@Entity
+@DiscriminatorValue("Hu")
 public class Huesped extends Usuario{
 	private int calificacionGlobal;
 	private List<String> pushTokens = new ArrayList<String>();
+	@OneToMany(mappedBy = "huesped",cascade = CascadeType.ALL,orphanRemoval=true)
 	private List<Reserva> reservas = new ArrayList<Reserva>();
 	
 	public Huesped() {
