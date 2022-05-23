@@ -1,5 +1,6 @@
 package com.amq.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,11 @@ import com.amq.enums.AprobacionEstado;
 
 @Entity
 @DiscriminatorValue("Am")
-public class Anfitrion extends Usuario {
+public class Anfitrion extends Usuario implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int calificacionGlobal;
 	@Enumerated(EnumType.STRING)
 	private AprobacionEstado estado;

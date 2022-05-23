@@ -1,4 +1,5 @@
 package com.amq.model;
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -16,7 +17,11 @@ import com.amq.datatypes.DtFecha;
 
 @Entity
 @Table(name = "calificaciones")
-public class Calificacion {
+public class Calificacion implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	private int id;
 	private int calificacionAnfitrion;

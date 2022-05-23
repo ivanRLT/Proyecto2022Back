@@ -1,6 +1,7 @@
 package com.amq.model;
 
 import java.util.Date;
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -18,7 +19,11 @@ import com.amq.enums.PagoEstado;
 
 @Entity
 @Table(name = "facturas")
-public class Factura {
+public class Factura implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	private int id;
 	@Enumerated(EnumType.STRING)

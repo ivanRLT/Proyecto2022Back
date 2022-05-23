@@ -1,11 +1,17 @@
 package com.amq.model;
 
+import java.io.Serializable;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("Ad")
-public class Administrador extends Usuario {
+public class Administrador extends Usuario implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public Administrador() {
 		super();
 	}

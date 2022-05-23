@@ -1,5 +1,6 @@
 package com.amq.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,11 @@ import com.amq.datatypes.DtDireccion;
 
 @Entity
 @Table(name = "alojamientos")
-public class Alojamiento {
+public class Alojamiento implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	private int id;
 	private Boolean activo;

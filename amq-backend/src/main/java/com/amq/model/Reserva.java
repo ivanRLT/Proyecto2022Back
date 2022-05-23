@@ -1,5 +1,6 @@
 package com.amq.model;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,8 +24,12 @@ import com.amq.enums.ReservaEstado;
 
 @Entity
 @Table(name = "reservas")
-public class Reserva {
+public class Reserva implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	private int id;
 	@Enumerated(EnumType.STRING)
