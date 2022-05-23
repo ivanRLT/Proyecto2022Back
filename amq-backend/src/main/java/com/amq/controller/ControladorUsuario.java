@@ -16,6 +16,9 @@ import com.amq.model.Alojamiento;
 import com.amq.model.Anfitrion;
 import com.amq.model.Huesped;
 import com.amq.model.Usuario;
+
+import com.amq.service.usuarioServicioImp;
+
 import com.amq.icontroller.IcAlojamiento;
 import com.amq.icontroller.IcReserva;
 import com.amq.icontroller.IcUsuario;
@@ -23,6 +26,7 @@ import com.amq.icontroller.IcUsuario;
 public class ControladorUsuario implements IcUsuario{
 	private IcReserva iconR;
 	private IcAlojamiento iconA;
+	private usuarioServicioImp userS;
 	
 	public boolean altaUsuario(DtUsuario usuario) {
 		Boolean retorno = false;
@@ -34,7 +38,7 @@ public class ControladorUsuario implements IcUsuario{
 				admin.setApellido(usuario.getApellido());
 				admin.setPass(usuario.getPass());
 				admin.setNombre(usuario.getNombre());
-				// TODO persistir en BD
+				userS.agregarUsuario(admin);
 				retorno = true;
 			}else if (usuario instanceof DtAnfitrion) {
 				Anfitrion anf = new Anfitrion();
@@ -57,7 +61,7 @@ public class ControladorUsuario implements IcUsuario{
 				List<Alojamiento> alojamientos = new ArrayList<Alojamiento>();
 				alojamientos.add(alojamiento);
 				anf.setAlojamientos(alojamientos);
-				// TODO persistir en BD
+				userS.agregarUsuario(anf);
 				retorno = true;
 			}else if (usuario instanceof DtHuesped) {
 				Huesped hue = new Huesped();
@@ -69,8 +73,7 @@ public class ControladorUsuario implements IcUsuario{
 				hue.setCalificacionGlobal(-1);
 				hue.setPushTokens(null);
 				hue.setReservas(null);
-
-				// TODO persistir en BD
+				userS.agregarUsuario(hue);
 				retorno = true;
 			}
 		} catch (Exception e) {
