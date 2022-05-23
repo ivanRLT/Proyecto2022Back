@@ -22,7 +22,7 @@ public class Habitacion {
 	private Double precioNoche;
 	private int camas;
 	private DtServicios servicios;
-	@OneToMany(mappedBy = "anfitrion",cascade = CascadeType.ALL,orphanRemoval=true)
+	@OneToMany(mappedBy = "habitacion",cascade = CascadeType.ALL,orphanRemoval=true)
 	private List<Reserva> reservas = new ArrayList<Reserva>();
 	
 	public Habitacion() {

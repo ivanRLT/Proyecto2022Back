@@ -1,6 +1,10 @@
 package com.amq.model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -20,12 +24,13 @@ import com.amq.enums.ReservaEstado;
 @Entity
 @Table(name = "reservas")
 public class Reserva {
+	
 	@Id
 	private int id;
 	@Enumerated(EnumType.STRING)
 	private ReservaEstado estado;
-	private DtFecha fechaInicio;
-	private DtFecha fechaFin;
+	private Date fechaInicio;
+	private Date fechaFin;
 	private String idChat;
 	private int cantDias;
 	@ManyToOne
@@ -42,8 +47,14 @@ public class Reserva {
 		this.idChat = idChat;
 		this.cantDias = cantDias;
 		this.estado = estado;
-		this.fechaInicio = fechaInicio;
-		this.fechaFin = fechaFin;
+		
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(fechaInicio.getAnio(), fechaInicio.getMes(), fechaInicio.getDia(), 00, 00, 00);
+		this.fechaInicio =(Date) calendar.getTime();
+		
+		Calendar calendarF = Calendar.getInstance();
+		calendarF.set(fechaFin.getAnio(), fechaFin.getMes(), fechaFin.getDia(), 00, 00, 00);
+		this.fechaFin =(Date) calendarF.getTime();
 	}
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -72,16 +83,40 @@ public class Reserva {
 		this.estado = estado;
 	}
 	public DtFecha getFechaInicio() {
-		return fechaInicio;
+		DateFormat stranio = new SimpleDateFormat("yyyy");  
+        String anio = stranio.format(this.fechaInicio);  
+        DateFormat strmes = new SimpleDateFormat("mm");  
+        String mes = strmes.format(this.fechaInicio);  
+        DateFormat strdia = new SimpleDateFormat("dd");  
+        String dia = strdia.format(this.fechaInicio);
+        int anior = Integer.parseInt(anio);
+        int mesr = Integer.parseInt(mes);
+        int diar = Integer.parseInt(dia);
+        DtFecha retorno = new DtFecha(diar,mesr,anior);
+		return retorno;
 	}
 	public void setFechaInicio(DtFecha fechaInicio) {
-		this.fechaInicio = fechaInicio;
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(fechaInicio.getAnio(), fechaInicio.getMes(), fechaInicio.getDia(), 00, 00, 00);
+		this.fechaInicio =(Date) calendar.getTime();
 	}
 	public DtFecha getFechaFin() {
-		return fechaFin;
+		DateFormat stranio = new SimpleDateFormat("yyyy");  
+        String anio = stranio.format(this.fechaFin);  
+        DateFormat strmes = new SimpleDateFormat("mm");  
+        String mes = strmes.format(this.fechaFin);  
+        DateFormat strdia = new SimpleDateFormat("dd");  
+        String dia = strdia.format(this.fechaFin);
+        int anior = Integer.parseInt(anio);
+        int mesr = Integer.parseInt(mes);
+        int diar = Integer.parseInt(dia);
+        DtFecha retorno = new DtFecha(diar,mesr,anior);
+		return retorno;
 	}
 	public void setFechaFin(DtFecha fechaFin) {
-		this.fechaFin = fechaFin;
+		Calendar calendarF = Calendar.getInstance();
+		calendarF.set(fechaFin.getAnio(), fechaFin.getMes(), fechaFin.getDia(), 00, 00, 00);
+		this.fechaFin =(Date) calendarF.getTime();
 	}
 	public Calificacion getCalificacion() {
 		return calificacion;

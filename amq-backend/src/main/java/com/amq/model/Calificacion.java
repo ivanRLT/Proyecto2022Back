@@ -1,4 +1,9 @@
 package com.amq.model;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -17,7 +22,7 @@ public class Calificacion {
 	private int calificacionAnfitrion;
 	private int calificacionHuesped;
 	private String resena;
-	private DtFecha fechaResena;
+	private Date fechaResena;
 	
 	public Calificacion() {
 		super();
@@ -28,7 +33,9 @@ public class Calificacion {
 		this.calificacionAnfitrion = calificacionAnfitrion;
 		this.calificacionHuesped = calificacionHuesped;
 		this.resena = resena;
-		this.fechaResena = fecha;
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(fecha.getAnio(), fecha.getMes(), fecha.getDia(), 00, 00, 00);
+		this.fechaResena =(Date) calendar.getTime();
 	}
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,9 +64,21 @@ public class Calificacion {
 		this.resena = resena;
 	}
 	public DtFecha getFechaResena() {
-		return fechaResena;
+		DateFormat stranio = new SimpleDateFormat("yyyy");  
+        String anio = stranio.format(this.fechaResena);  
+        DateFormat strmes = new SimpleDateFormat("mm");  
+        String mes = strmes.format(this.fechaResena);  
+        DateFormat strdia = new SimpleDateFormat("dd");  
+        String dia = strdia.format(this.fechaResena);
+        int anior = Integer.parseInt(anio);
+        int mesr = Integer.parseInt(mes);
+        int diar = Integer.parseInt(dia);
+        DtFecha retorno = new DtFecha(diar,mesr,anior);
+		return retorno;
 	}
 	public void setFechaResena(DtFecha fechaResena) {
-		this.fechaResena = fechaResena;
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(fechaResena.getAnio(), fechaResena.getMes(), fechaResena.getDia(), 00, 00, 00);
+		this.fechaResena =(Date) calendar.getTime();
 	}
 }
