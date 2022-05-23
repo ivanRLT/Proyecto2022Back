@@ -8,8 +8,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
 
 @Entity
 @Table(name = "usuarios")
@@ -31,7 +35,8 @@ public abstract class Usuario implements Serializable {
 	
 	private String nombre;
 	
-	@OneToMany
+	@OneToOne   
+	@JoinColumn(name = "user_id")
 	private Recuperacion recuperacion;
 	
 	private String pass;

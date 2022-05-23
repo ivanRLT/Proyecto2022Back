@@ -47,6 +47,12 @@ public class Reserva implements Serializable {
 	private int cantDias;
 	
 	@ManyToOne
+	private Huesped huesped;
+	
+	@ManyToOne
+	private Habitacion habitacion;
+	
+	@ManyToOne
 	private Calificacion calificacion;
 	
 	@OneToMany(mappedBy = "Reserva",cascade = CascadeType.ALL,orphanRemoval=true)
@@ -55,12 +61,14 @@ public class Reserva implements Serializable {
 	public Reserva() {
 		super();
 	}
-	public Reserva(int id, String idChat, int cantDias, ReservaEstado estado, DtFecha fechaInicio, DtFecha fechaFin) {
+	public Reserva(int id, String idChat, int cantDias, ReservaEstado estado, DtFecha fechaInicio, DtFecha fechaFin, Habitacion habitacion, Huesped huesped) {
 		super();
 		this.id = id;
 		this.idChat = idChat;
 		this.cantDias = cantDias;
 		this.estado = estado;
+		this.habitacion = habitacion;
+		this.huesped = huesped;
 		
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(fechaInicio.getAnio(), fechaInicio.getMes(), fechaInicio.getDia(), 00, 00, 00);
@@ -145,6 +153,18 @@ public class Reserva implements Serializable {
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	public Habitacion getHabitacion() {
+		return habitacion;
+	}
+	public void setHabitacion(Habitacion habitacion) {
+		this.habitacion = habitacion;
+	}
+	public Huesped getHuesped() {
+		return huesped;
+	}
+	public void setHuesped(Huesped huesped) {
+		this.huesped = huesped;
 	}
 	
 }

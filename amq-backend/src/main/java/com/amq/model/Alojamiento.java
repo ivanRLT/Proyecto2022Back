@@ -11,7 +11,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.amq.datatypes.DtDireccion;
@@ -32,7 +35,11 @@ public class Alojamiento implements Serializable {
 	
 	private String descripcion;
 	
-	@Enumerated(EnumType.STRING)
+	@ManyToOne
+	private Anfitrion anfitrion;
+	
+	@OneToOne   
+	@JoinColumn(name = "alojamiento_dir")
 	private DtDireccion direccion;
 	
 	private String nombre;
@@ -43,7 +50,7 @@ public class Alojamiento implements Serializable {
 	public Alojamiento() {
 		super();
 	}
-	public Alojamiento(int id, Boolean activo, String descripcion, String nombre, DtDireccion direccion, List<Habitacion> habitaciones) {
+	public Alojamiento(int id, Boolean activo, String descripcion, String nombre, DtDireccion direccion, List<Habitacion> habitaciones, Anfitrion anfitrion) {
 		super();
 		this.id = id;
 		this.activo = activo;
@@ -51,6 +58,7 @@ public class Alojamiento implements Serializable {
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.habitaciones = habitaciones;
+		this.anfitrion = anfitrion;
 	}
 
         public int getId() {
@@ -92,4 +100,11 @@ public class Alojamiento implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	public Anfitrion getAnfitrion() {
+		return anfitrion;
+	}
+	public void setAnfitrion(Anfitrion anfitrion) {
+		this.anfitrion = anfitrion;
+	}
+	
 }

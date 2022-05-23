@@ -34,19 +34,23 @@ public class Habitacion implements Serializable {
 	
 	private DtServicios servicios;
 	
+	@OneToMany
+	private Alojamiento alojamiento;
+	
 	@OneToMany(mappedBy = "habitacion",cascade = CascadeType.ALL,orphanRemoval=true)
 	private List<Reserva> reservas = new ArrayList<Reserva>();
 	
 	public Habitacion() {
 		super();
 	}
-	public Habitacion(int id, String descripcion, Double precioNoche, int camas, DtServicios servicios) {
+	public Habitacion(int id, String descripcion, Double precioNoche, int camas, DtServicios servicios, Alojamiento alojamiento) {
 		super();
 		this.id = id;
 		this.descripcion = descripcion;
 		this.precioNoche = precioNoche;
 		this.camas = camas;
 		this.servicios = servicios;
+		this.alojamiento = alojamiento;
 	}
 
         public int getId() {
@@ -87,6 +91,12 @@ public class Habitacion implements Serializable {
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	public Alojamiento getAlojamiento() {
+		return alojamiento;
+	}
+	public void setAlojamiento(Alojamiento alojamiento) {
+		this.alojamiento = alojamiento;
 	}
 	
 }
