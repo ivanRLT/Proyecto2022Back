@@ -20,6 +20,16 @@
 	</properties>
 
 	<dependencies>
+		<dependency>
+		    <groupId>org.springdoc</groupId>
+		    <artifactId>springdoc-openapi-ui</artifactId>
+		    <version>1.6.4</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springdoc</groupId>
+		    <artifactId>springdoc-openapi-ui</artifactId>
+		    <version>1.6.4</version>
+		</dependency>	
 	<!-- luego de un cambio tomcat se reinicia: -->
 		<!--<dependency>
 			<groupId>org.springframework.boot</groupId>

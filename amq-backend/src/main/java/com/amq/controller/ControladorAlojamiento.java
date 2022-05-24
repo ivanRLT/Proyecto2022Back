@@ -5,9 +5,8 @@ import java.util.List;
 import com.amq.datatypes.DtAlojamiento;
 import com.amq.datatypes.DtHabitacion;
 import com.amq.model.Alojamiento;
-import com.amq.icontroller.IcAlojamiento;
 
-public class ControladorAlojamiento implements IcAlojamiento {
+public class ControladorAlojamiento {
 	// #######################Funciones de alojamiento#######################
 	public Alojamiento altaAlojamiento(DtAlojamiento alojamiento, List<DtHabitacion> habitaciones) {
 		try {

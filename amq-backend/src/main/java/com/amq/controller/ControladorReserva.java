@@ -9,9 +9,8 @@ import com.amq.datatypes.DtReserva;
 import com.amq.model.Calificacion;
 import com.amq.model.Factura;
 import com.amq.model.Reserva;
-import com.amq.icontroller.IcReserva;
 
-public class ControladorReserva implements IcReserva{
+public class ControladorReserva {
 	public boolean altaReserva() {
 		Boolean retorno = false;
 		try {

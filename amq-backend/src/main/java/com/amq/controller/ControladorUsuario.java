@@ -1,11 +1,16 @@
 package com.amq.controller;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.amq.datatypes.DtAdministrador;
 import com.amq.datatypes.DtAlojamiento;
@@ -15,26 +20,29 @@ import com.amq.datatypes.DtHuesped;
 import com.amq.datatypes.DtReserva;
 import com.amq.datatypes.DtUsuario;
 import com.amq.model.Administrador;
-import com.amq.model.Alojamiento;
 import com.amq.model.Anfitrion;
 import com.amq.model.Huesped;
 import com.amq.model.Usuario;
+import com.amq.repositories.RepositoryUsuario;
 
-import com.amq.service.usuarioServicioImp;
-
-import amq.repository.usuarioRepository;
-
-import com.amq.icontroller.IcAlojamiento;
-import com.amq.icontroller.IcReserva;
-import com.amq.icontroller.IcUsuario;
-
-@Controller
-public class ControladorUsuario implements IcUsuario{
-	private IcReserva iconR;
-	private IcAlojamiento iconA;
+@CrossOrigin(origins = "http://localhost:8081")
+@RestController
+@RequestMapping("/api")
+public class ControladorUsuario {
 	
 	@Autowired
-	private usuarioRepository uRepo;
+	RepositoryUsuario repoU;
+	
+	@PostMapping("/altaAdmin")
+	public ResponseEntity<Administrador> altaAdministrador(@RequestBody DtAdministrador adminDT) {
+		try {
+			Administrador aminR = repoU
+					.save(new Administrador(adminDT.getEmail(), adminDT.isActivo(), adminDT.getApellido(), adminDT.getNombre(), adminDT.getPass()));
+			return new ResponseEntity<>(aminR, HttpStatus.CREATED);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}		
+	}
 	
 	public boolean altaUsuario(DtUsuario usuario) {
 		Boolean retorno = false;
@@ -46,7 +54,7 @@ public class ControladorUsuario implements IcUsuario{
 				admin.setApellido(usuario.getApellido());
 				admin.setPass(usuario.getPass());
 				admin.setNombre(usuario.getNombre());
-				uRepo.save(admin);
+				repoU.save(admin);
 				retorno = true;
 			}else if (usuario instanceof DtAnfitrion) {
 				Anfitrion anf = new Anfitrion();
@@ -65,11 +73,12 @@ public class ControladorUsuario implements IcUsuario{
 					alojamientodt = dta;
 					habitacionesdt = dta.getHabitaciones();
 				}
+				/*
 				Alojamiento alojamiento = iconA.altaAlojamiento(alojamientodt,habitacionesdt);
 				List<Alojamiento> alojamientos = new ArrayList<Alojamiento>();
 				alojamientos.add(alojamiento);
-				anf.setAlojamientos(alojamientos);
-				uRepo.save(anf);
+				anf.setAlojamientos(alojamientos);*/
+				//uRepo.save(anf);
 				retorno = true;
 			}else if (usuario instanceof DtHuesped) {
 				Huesped hue = new Huesped();
@@ -81,7 +90,7 @@ public class ControladorUsuario implements IcUsuario{
 				hue.setCalificacionGlobal(-1);
 				hue.setPushTokens(null);
 				hue.setReservas(null);
-				uRepo.save(hue);
+				//uRepo.save(hue);
 				retorno = true;
 			}
 		} catch (Exception e) {
@@ -137,9 +146,9 @@ public class ControladorUsuario implements IcUsuario{
 					retorno.add(dtanfitrion);
 				}else if (u instanceof Huesped) {
 					Huesped uh = (Huesped) u;
-					List<DtReserva> reservasdt = iconR.obtenerDtReservas(uh.getReservas());
+					/*List<DtReserva> reservasdt = iconR.obtenerDtReservas(uh.getReservas());
 					DtHuesped dthuesped = new DtHuesped(uh.getEmail(),uh.getNombre(), uh.getApellido(),uh.getActivo(), uh.getCalificacionGlobal(), uh.getPushTokens(), reservasdt);
-					retorno.add(dthuesped);
+					retorno.add(dthuesped);*/
 				}
 			}
 		} catch (Exception e) {
