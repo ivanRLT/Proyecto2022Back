@@ -62,4 +62,7 @@ public class Anfitrion extends Usuario implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	public void agregarAlojamiento(Alojamiento alojamiento) {
+		this.alojamientos.add(alojamiento);
+	}
 }

@@ -1,22 +1,18 @@
 package com.amq.datatypes;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class DtAlojamiento {
 	
 	private boolean activo;
 	private String descripcion;
-	private String direcion;
+	private DtDireccion direcion;
 	private String nombre;
-	private List<DtHabitacion> habitaciones = new ArrayList<DtHabitacion>();
 	/**
 	 * @param activo
 	 * @param descripcion
 	 * @param direcion
 	 * @param nombre
 	 */
-	public DtAlojamiento(boolean activo, String descripcion, String direcion, String nombre) {
+	public DtAlojamiento(boolean activo, String descripcion, DtDireccion direcion, String nombre) {
 		super();
 		this.activo = activo;
 		this.descripcion = descripcion;
@@ -50,13 +46,13 @@ public class DtAlojamiento {
 	/**
 	 * @return the direcion
 	 */
-	public String getDirecion() {
+	public DtDireccion getDirecion() {
 		return direcion;
 	}
 	/**
 	 * @param direcion the direcion to set
 	 */
-	public void setDirecion(String direcion) {
+	public void setDirecion(DtDireccion direcion) {
 		this.direcion = direcion;
 	}
 	/**
@@ -70,11 +66,5 @@ public class DtAlojamiento {
 	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-	public List<DtHabitacion> getHabitaciones() {
-		return habitaciones;
-	}
-	public void setHabitaciones(List<DtHabitacion> habitaciones) {
-		this.habitaciones = habitaciones;
 	}
 }

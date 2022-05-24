@@ -7,13 +7,11 @@ public class DtHuesped extends DtUsuario{
 	
 	private int calificacionGlobal;
 	private List<String> pushToken;
-	private List<DtReserva> reservas;
 
-	public DtHuesped(String email, String nombre, String apellido, boolean activo, int calificacionGlobal, List<String> pushToken, List<DtReserva> reservas) {
+	public DtHuesped(String email, String nombre, String apellido, boolean activo, int calificacionGlobal, List<String> pushToken) {
 		super(email, nombre, apellido, activo);
 		this.calificacionGlobal = calificacionGlobal;
 		this.pushToken = pushToken;
-		this.reservas = reservas;
 	}
 	public int getCalificacionGlobal() {
 		return calificacionGlobal;
@@ -26,11 +24,5 @@ public class DtHuesped extends DtUsuario{
 	}
 	public void setPushToken(List<String> pushToken) {
 		this.pushToken = pushToken;
-	}
-	public List<DtReserva> getReservas() {
-		return reservas;
-	}
-	public void setReservas(List<DtReserva> reservas) {
-		this.reservas = reservas;
 	}
 }
