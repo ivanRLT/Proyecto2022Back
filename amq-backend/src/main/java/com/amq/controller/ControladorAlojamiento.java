@@ -12,10 +12,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.amq.datatypes.DtAlojamiento;
 import com.amq.datatypes.DtHabitacion;
+import com.amq.mail.MailSender;
+import com.amq.mail.Mensaje;
 import com.amq.model.Alojamiento;
 import com.amq.model.Anfitrion;
 import com.amq.model.Habitacion;
@@ -125,6 +128,8 @@ public class ControladorAlojamiento {
 	public DtAlojamiento listarAlojamientos() {
 		try {
 			
+			
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -165,5 +170,16 @@ public class ControladorAlojamiento {
 			retorno = false;
 		}
 		return retorno;
+	}
+	
+	//De prueba, se puede borrar
+	@RequestMapping(value = "/mail/enviar", method = { RequestMethod.POST,  RequestMethod.GET })
+	public void enviarMail(@RequestBody Mensaje msj) {
+		try {
+			MailSender mailSender = new MailSender();
+			mailSender.enviarMail(msj);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 }
