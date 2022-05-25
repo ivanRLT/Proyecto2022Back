@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.amq.datatypes.DtAlojamiento;
+import com.amq.datatypes.DtDireccion;
 import com.amq.datatypes.DtHabitacion;
+import com.amq.datatypes.DtServicios;
 import com.amq.mail.MailSender;
 import com.amq.mail.Mensaje;
 import com.amq.model.Alojamiento;
@@ -24,6 +26,9 @@ import com.amq.model.Anfitrion;
 import com.amq.model.Habitacion;
 import com.amq.model.Usuario;
 import com.amq.repositories.RepositoryAlojamiento;
+import com.amq.repositories.RepositoryDireccion;
+import com.amq.repositories.RepositoryHabitacion;
+import com.amq.repositories.RepositoryServicios;
 import com.amq.repositories.RepositoryUsuario;
 
 @CrossOrigin(origins = "http://localhost:8081")
@@ -37,20 +42,31 @@ public class ControladorAlojamiento {
 	@Autowired
 	RepositoryAlojamiento repoA;
 	
+	@Autowired
+	RepositoryDireccion repoDir;
+	
+	@Autowired
+	RepositoryServicios repoSer;
+	
+	@Autowired
+	RepositoryHabitacion repoHab;
+	
 	// #######################Funciones de alojamiento#######################
 	
 	@PostMapping("/altaAlojamiento/{id}")
 	public ResponseEntity<Alojamiento> altaAlojamiento(@RequestBody DtAlojamiento alojDT, @PathVariable("id") int idAnf) {
 		try {
-			Optional<Usuario> opU = repoU.findById((long) idAnf);
+			Optional<Usuario> opU = repoU.findById(idAnf);
 			Anfitrion anf = null;
 			if (opU.isPresent()) {
 				if (opU.get() instanceof Anfitrion) {
 					anf = (Anfitrion) opU.get();
 					Alojamiento alojamiento = new Alojamiento();
+					DtDireccion direccion = alojDT.getDirecion();
+					repoDir.save(direccion);
 					alojamiento.setAnfitrion(anf);
 					alojamiento.setDescripcion(alojDT.getDescripcion());
-					alojamiento.setDireccion(alojDT.getDirecion());
+					alojamiento.setDireccion(direccion);
 					alojamiento.setHabitaciones(null);
 					alojamiento.setNombre(alojDT.getNombre());
 					anf.agregarAlojamiento(alojamiento);
@@ -63,38 +79,37 @@ public class ControladorAlojamiento {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
 		} catch (Exception e) {
-
+			System.out.println(e.toString());
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return null;
 	}
 	
 	@PostMapping("/agregarHabitaciones/{id}")
-	public ResponseEntity<Alojamiento> agregarHabitacionesAlojamiento(@PathVariable("id") int idAlo, @RequestBody List<DtHabitacion> habiDTs) {
+	public ResponseEntity<Habitacion> agregarHabitacionesAlojamiento(@PathVariable("id") int idAlo, @RequestBody DtHabitacion habitacion) {
 		try {
-			Optional<Alojamiento> opA = repoA.findById((long) idAlo);
+			Optional<Alojamiento> opA = repoA.findById(idAlo);
 			if (opA.isPresent()) {
-				List<Habitacion> habitaciones = new ArrayList<Habitacion>();
 				Alojamiento alojamiento = opA.get();
-				for(DtHabitacion h:habiDTs) {
-					Habitacion hab = new Habitacion();
-					hab.setAlojamiento(alojamiento);
-					hab.setCamas(h.getCamas());
-					hab.setDescripcion(h.getDescripcion());
-					hab.setPrecioNoche(h.getPrecioNoche());
-					hab.setReservas(null);
-					hab.setServicios(h.getDtservicios());
-					habitaciones.add(hab);
-				}
-				alojamiento.setHabitaciones(habitaciones);
+				Habitacion hab = new Habitacion();
+				DtServicios servicios = habitacion.getDtservicios();
+				repoSer.save(servicios);
+				hab.setAlojamiento(alojamiento);
+				hab.setCamas(habitacion.getCamas());
+				hab.setDescripcion(habitacion.getDescripcion());
+				hab.setPrecioNoche(habitacion.getPrecioNoche());
+				hab.setReservas(null);
+				hab.setServicios(servicios);
+				alojamiento.agregarHabitacion(hab);
+				Habitacion habR = repoHab.save(hab);
 				repoA.save(alojamiento);
-				return new ResponseEntity<>(HttpStatus.OK);
+				
+				return new ResponseEntity<>(habR, HttpStatus.CREATED);
 			} else {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
 		} catch (Exception e) {
-
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return null;
 	}
 	
 	public boolean modificarAlojamiento() {

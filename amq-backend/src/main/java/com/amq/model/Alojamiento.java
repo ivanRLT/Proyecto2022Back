@@ -18,6 +18,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.amq.datatypes.DtDireccion;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "alojamientos")
@@ -35,6 +36,7 @@ public class Alojamiento implements Serializable {
 	
 	private String descripcion;
 	
+	@JsonIgnore
 	@ManyToOne
 	private Anfitrion anfitrion;
 	
@@ -106,5 +108,7 @@ public class Alojamiento implements Serializable {
 	public void setAnfitrion(Anfitrion anfitrion) {
 		this.anfitrion = anfitrion;
 	}
-	
+	public void agregarHabitacion(Habitacion habitacion) {
+		this.habitaciones.add(habitacion);
+	}
 }

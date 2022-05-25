@@ -15,6 +15,8 @@ public class DtDireccion {
 	private String ciudad;
 	private String pais;
 	
+	public DtDireccion() {}
+	
 	public DtDireccion(String calle, String numero, String ciudad, String pais) {
 		super();
 		this.calle = calle;

@@ -21,6 +21,7 @@ import javax.persistence.Table;
 
 import com.amq.datatypes.DtFecha;
 import com.amq.enums.ReservaEstado;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "reservas")
@@ -46,12 +47,15 @@ public class Reserva implements Serializable {
 	
 	private int cantDias;
 	
+	@JsonIgnore
 	@ManyToOne
 	private Huesped huesped;
 	
+	@JsonIgnore
 	@ManyToOne
 	private Habitacion habitacion;
 	
+	@JsonIgnore
 	@ManyToOne
 	private Calificacion calificacion;
 	

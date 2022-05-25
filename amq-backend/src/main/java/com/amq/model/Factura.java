@@ -17,6 +17,7 @@ import javax.persistence.Table;
 
 import com.amq.datatypes.DtFecha;
 import com.amq.enums.PagoEstado;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "facturas")
@@ -41,6 +42,7 @@ public class Factura implements Serializable {
 	
 	private double montoDescuento;
 	
+	@JsonIgnore
 	@ManyToOne
 	private Reserva reserva;
 	

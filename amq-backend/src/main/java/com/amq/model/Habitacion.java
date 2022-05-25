@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.amq.datatypes.DtServicios;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "habitaciones")
@@ -33,8 +34,11 @@ public class Habitacion implements Serializable {
 	
 	private int camas;
 	
+	@JsonIgnore
+	@ManyToOne
 	private DtServicios servicios;
 	
+	@JsonIgnore
 	@ManyToOne
 	private Alojamiento alojamiento;
 	
