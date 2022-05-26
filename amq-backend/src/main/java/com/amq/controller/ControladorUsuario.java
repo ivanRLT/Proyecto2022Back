@@ -130,15 +130,27 @@ public class ControladorUsuario {
 			}
 		}
 	
-	public boolean desactivarUsuario() {
-		Boolean retorno = false;
+	@PostMapping("/desbloquearAdmin/{id}")
+	public ResponseEntity<Administrador> desbloquearAdministrador(@PathVariable("id") int idAdm, @RequestBody DtAdministrador dtadm) {
 		try {
-
-		} catch (Exception e) {
-			// TODO: handle exception
-		}	
-		return retorno;
-	}
+			Optional<Usuario> usrAdmin = repoU.findById(idAdm);
+			Administrador admin = null;
+			if (usrAdmin.isPresent()) {
+				if (usrAdmin.get() instanceof Administrador) {
+					admin = (Administrador) usrAdmin.get();
+					admin.setActivo(true);
+					return new ResponseEntity<>(repoU.save(admin), HttpStatus.OK);
+				} else {
+					return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+				} 
+			} else {
+					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}
+			} catch (Exception e) {
+				System.out.println(e.toString());
+				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		}
 	
 	public List<DtUsuario> listarUsuarios (){
 		List<Usuario> usuarios = new ArrayList<Usuario>();
