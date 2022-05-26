@@ -19,17 +19,17 @@ import com.amq.datatypes.DtAlojamiento;
 import com.amq.datatypes.DtDireccion;
 import com.amq.datatypes.DtHabitacion;
 import com.amq.datatypes.DtServicios;
-import com.amq.mail.MailSender;
-import com.amq.mail.Mensaje;
 import com.amq.model.Alojamiento;
 import com.amq.model.Anfitrion;
 import com.amq.model.Habitacion;
 import com.amq.model.Usuario;
+import com.amq.notification.FirebaseNotificationAdmin;
 import com.amq.repositories.RepositoryAlojamiento;
 import com.amq.repositories.RepositoryDireccion;
 import com.amq.repositories.RepositoryHabitacion;
 import com.amq.repositories.RepositoryServicios;
 import com.amq.repositories.RepositoryUsuario;
+import com.google.firebase.messaging.Notification;
 
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
@@ -189,12 +189,31 @@ public class ControladorAlojamiento {
 	
 	//De prueba, se puede borrar
 	@RequestMapping(value = "/mail/enviar", method = { RequestMethod.POST,  RequestMethod.GET })
-	public void enviarMail(@RequestBody Mensaje msj) {
+	public void enviarMail(@RequestBody com.amq.mail.Mensaje msj) {
 		try {
-			MailSender mailSender = new MailSender();
+			com.amq.mail.MailSender mailSender = new com.amq.mail.MailSender();
 			mailSender.enviarMail(msj);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 	}
+	
+	//De prueba, se puede borrar
+	@RequestMapping(value = "/notif", method = { RequestMethod.POST,  RequestMethod.GET })
+	public void enviarNotificacion() {
+		try {
+			com.amq.notification.FirebaseNotificationAdmin notAdmin = new FirebaseNotificationAdmin();
+			com.google.firebase.messaging.Notification not  = Notification.builder()
+					.setTitle("titulo notif")
+					.setBody("body notif")
+					.build();
+			List<String> tokens = new ArrayList<String>();
+			tokens.add("c-n-W0NzjpoKM0bk8rDhlO:APA91bGHtu3XCYy19Xb126XUODA4vMUT-3IftN0LfdU_V-SJ5PFt86wJ1HJJo6Bzp3rj_FZ60_nwHmib5iZi4t67qyb2Moam1Bikxb0n6nsi5OHEWgxDietHmi2dDXagKV-Ch2s-_PHd");
+			tokens.add("c-n-W0NzjpoKM0bk8rDhlO:APA91bGHtu3XCYy19Xb126XUODA4vMUT-3IftN0LfdU_V-SJ5PFt86wJ1HJJo6Bzp3rj_FZ60_nwHmib5iZi4t67qyb2Moam1Bikxb0n6nsi5OHEWgxDietHmi2dDXagKV-Ch2s-_P3d");
+			notAdmin.sendNotification(not, tokens);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	
 }
