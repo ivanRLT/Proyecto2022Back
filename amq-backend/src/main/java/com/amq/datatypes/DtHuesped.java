@@ -8,8 +8,8 @@ public class DtHuesped extends DtUsuario{
 	private int calificacionGlobal;
 	private List<String> pushToken;
 
-	public DtHuesped(String email, String nombre, String apellido, boolean activo, int calificacionGlobal, List<String> pushToken) {
-		super(email, nombre, apellido, activo);
+	public DtHuesped(int id, String email, String nombre, String apellido, boolean activo, int calificacionGlobal, List<String> pushToken, String tipo) {
+		super(id, email, nombre, apellido, activo, tipo);
 		this.calificacionGlobal = calificacionGlobal;
 		this.pushToken = pushToken;
 	}

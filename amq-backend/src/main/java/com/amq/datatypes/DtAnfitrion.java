@@ -10,8 +10,8 @@ public class DtAnfitrion extends DtUsuario {
 	private int calificacionGlobal;
 	private AprobacionEstado estado;
 
-	public DtAnfitrion(String email, String nombre, String apellido, boolean activo, int calificacionGlobal, AprobacionEstado estado) {
-		super(email, nombre, apellido, activo);
+	public DtAnfitrion(int id, String email, String nombre, String apellido, boolean activo, int calificacionGlobal, AprobacionEstado estado, String tipo) {
+		super(id, email, nombre, apellido, activo, tipo);
 		this.calificacionGlobal = calificacionGlobal;
 		this.estado = estado;
 	}

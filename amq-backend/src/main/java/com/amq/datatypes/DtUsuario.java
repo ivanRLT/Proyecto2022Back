@@ -1,18 +1,22 @@
 package com.amq.datatypes;
 
 public abstract class DtUsuario {
+	private int id;
 	private String email;
 	private String nombre;
 	private String apellido;
 	private boolean activo;
 	private String pass;
+	private String tipo;
 	
-	public DtUsuario(String email, String nombre, String apellido, boolean activo) {
+	public DtUsuario(int id, String email, String nombre, String apellido, boolean activo, String tipo) {
 		super();
+		this.id = id;
 		this.email = email;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.activo = activo;
+		this.tipo = tipo;
 	}
 	public String getEmail() {
 		return email;
@@ -50,5 +54,17 @@ public abstract class DtUsuario {
 	}
 	public void setPass(String pass) {
 		this.pass = pass;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getTipo() {
+		return tipo;
+	}
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 }

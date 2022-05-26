@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -152,30 +153,34 @@ public class ControladorUsuario {
 			}
 		}
 	
-	public List<DtUsuario> listarUsuarios (){
+	@GetMapping("/usuarios")
+	public ResponseEntity<List<DtUsuario>> listarUsuarios (){
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 		List<DtUsuario> retorno = new ArrayList<DtUsuario>();
 		try {
-			// TODO coneccion BD		
+			repoU.findAll().forEach(usuarios::add);
 			for (Usuario u:usuarios) {
 				if (u instanceof Administrador) {
-					DtAdministrador dtadmin = new DtAdministrador(u.getEmail(),u.getNombre(), u.getApellido(),u.getActivo());
+					DtAdministrador dtadmin = new DtAdministrador(u.getId(), u.getEmail(),u.getNombre(), u.getApellido(),u.getActivo(), "Ad");
 					retorno.add(dtadmin);
 				}else if (u instanceof Anfitrion) {
 					Anfitrion ua = (Anfitrion) u;
-					//DtAnfitrion dtanfitrion = new DtAnfitrion(ua.getEmail(),ua.getNombre(), ua.getApellido(),ua.getActivo(), ua.getCalificacionGlobal(), ua.getEstado(),null);
-					//retorno.add(dtanfitrion);
+					DtAnfitrion dtanfitrion = new DtAnfitrion(u.getId(), ua.getEmail(),ua.getNombre(), ua.getApellido(),ua.getActivo(), ua.getCalificacionGlobal(), ua.getEstado(),"An");
+					retorno.add(dtanfitrion);
 				}else if (u instanceof Huesped) {
 					Huesped uh = (Huesped) u;
-					/*List<DtReserva> reservasdt = iconR.obtenerDtReservas(uh.getReservas());
-					DtHuesped dthuesped = new DtHuesped(uh.getEmail(),uh.getNombre(), uh.getApellido(),uh.getActivo(), uh.getCalificacionGlobal(), uh.getPushTokens(), reservasdt);
-					retorno.add(dthuesped);*/
+					DtHuesped dthuesped = new DtHuesped(u.getId(), uh.getEmail(),uh.getNombre(), uh.getApellido(),uh.getActivo(), uh.getCalificacionGlobal(), uh.getPushTokens(), "Hu");
+					retorno.add(dthuesped);
 				}
 			}
+			if (retorno.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}else {
+				return new ResponseEntity<>(retorno, HttpStatus.OK);
+			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}	
-		return retorno;
 	}
 	
 	public DtUsuario iniciarSesion(String email, String pass) {
@@ -185,7 +190,7 @@ public class ControladorUsuario {
 			Usuario user = null;
 			if (user.getPass() == pass) {
 				if (user instanceof Administrador) {
-					retorno = new DtAdministrador(user.getEmail(), user.getNombre(), user.getApellido(), user.getActivo());
+					//retorno = new DtAdministrador(user.getEmail(), user.getNombre(), user.getApellido(), user.getActivo());
 				}else if (user instanceof Anfitrion) {
 					Anfitrion ua = (Anfitrion) user;
 					//retorno = new DtAnfitrion(user.getEmail(), user.getNombre(), user.getApellido(), user.getActivo(), ua.getCalificacionGlobal(), ua.getEstado(), null);

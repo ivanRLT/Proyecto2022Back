@@ -14,7 +14,7 @@ import javax.persistence.OneToMany;
 import com.amq.enums.AprobacionEstado;
 
 @Entity
-@DiscriminatorValue("Am")
+@DiscriminatorValue("An")
 public class Anfitrion extends Usuario implements Serializable {
 	/**
 	 * 
