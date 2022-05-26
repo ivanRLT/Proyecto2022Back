@@ -3,11 +3,13 @@ package com.amq.controller;
 import java.util.ArrayList;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -105,6 +107,28 @@ public class ControladorUsuario {
 		}
 		//return dt
 	}
+	
+	@PostMapping("/bloquearAdmin/{id}")
+	public ResponseEntity<Administrador> bloquearAdministrador(@PathVariable("id") int idAdm, @RequestBody DtAdministrador dtadm) {
+		try {
+			Optional<Usuario> usrAdmin = repoU.findById(idAdm);
+			Administrador admin = null;
+			if (usrAdmin.isPresent()) {
+				if (usrAdmin.get() instanceof Administrador) {
+					admin = (Administrador) usrAdmin.get();
+					admin.setActivo(false);
+					return new ResponseEntity<>(repoU.save(admin), HttpStatus.OK);
+				} else {
+					return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+				} 
+			} else {
+					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}
+			} catch (Exception e) {
+				System.out.println(e.toString());
+				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		}
 	
 	public boolean desactivarUsuario() {
 		Boolean retorno = false;
