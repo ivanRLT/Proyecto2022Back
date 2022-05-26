@@ -31,9 +31,9 @@ import com.amq.repositories.RepositoryServicios;
 import com.amq.repositories.RepositoryUsuario;
 import com.google.firebase.messaging.Notification;
 
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/alojamiento")
 public class ControladorAlojamiento {
 	
 	@Autowired
@@ -53,7 +53,7 @@ public class ControladorAlojamiento {
 	
 	// #######################Funciones de alojamiento#######################
 	
-	@PostMapping("/altaAlojamiento/{id}")
+	@RequestMapping(value = "/alta/{id}", method = { RequestMethod.POST,  RequestMethod.GET })
 	public ResponseEntity<Alojamiento> altaAlojamiento(@RequestBody DtAlojamiento alojDT, @PathVariable("id") int idAnf) {
 		try {
 			Optional<Usuario> opU = repoU.findById(idAnf);
@@ -84,7 +84,7 @@ public class ControladorAlojamiento {
 		}
 	}
 	
-	@PostMapping("/agregarHabitaciones/{id}")
+	@RequestMapping(value = "/agregarHabitaciones/{id}", method = { RequestMethod.POST,  RequestMethod.GET })
 	public ResponseEntity<Habitacion> agregarHabitacionesAlojamiento(@PathVariable("id") int idAlo, @RequestBody DtHabitacion habitacion) {
 		try {
 			Optional<Alojamiento> opA = repoA.findById(idAlo);

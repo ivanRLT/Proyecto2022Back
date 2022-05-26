@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.amq.datatypes.DtAdministrador;
@@ -28,15 +29,15 @@ import com.amq.model.Huesped;
 import com.amq.model.Usuario;
 import com.amq.repositories.RepositoryUsuario;
 
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/usuario")
 public class ControladorUsuario {
 	
 	@Autowired
 	RepositoryUsuario repoU;
 	
-	@PostMapping("/altaAdmin")
+	@RequestMapping(value = "/altaAdmin/{id}", method = { RequestMethod.POST,  RequestMethod.GET })
 	public ResponseEntity<Administrador> altaAdministrador(@RequestBody DtAdministrador adminDT) {
 		try {
 			// Creo usuario para persistir 
@@ -55,7 +56,7 @@ public class ControladorUsuario {
 		}	
 	}
 	
-	@PostMapping("/altaAnfitiron")
+	@RequestMapping(value = "/altaAnfitiron/{id}", method = { RequestMethod.POST,  RequestMethod.GET })
 	public ResponseEntity<Anfitrion> altaAnfitrion(@RequestBody DtAnfitrion anfDT) {
 		try {
 			// Creo usuario para persistir 
@@ -77,7 +78,7 @@ public class ControladorUsuario {
 		}		
 	}
 	
-	@PostMapping("/altaHuesped")
+	@RequestMapping(value = "/altaHuesped/{id}", method = { RequestMethod.POST,  RequestMethod.GET })
 	public ResponseEntity<Huesped> altaHuesped(@RequestBody DtHuesped huesDT) {
 		try {
 			// Creo usuario para persistir 
@@ -109,7 +110,7 @@ public class ControladorUsuario {
 		//return dt
 	}
 	
-	@PostMapping("/bloquearUsuario/{id}")
+	@RequestMapping(value = "/bloquear/{id}", method = { RequestMethod.POST,  RequestMethod.GET })
 	public ResponseEntity<Administrador> bloquearAdministrador(@PathVariable("id") int idAdm, @RequestBody DtAdministrador dtadm) {
 		try {
 			Optional<Usuario> usrAdmin = repoU.findById(idAdm);
@@ -131,7 +132,7 @@ public class ControladorUsuario {
 			}
 		}
 	
-	@PostMapping("/desbloquearUsuario/{id}")
+	@RequestMapping(value = "/desbloquear/{id}", method = { RequestMethod.POST,  RequestMethod.GET })
 	public ResponseEntity<Administrador> desbloquearAdministrador(@PathVariable("id") int idAdm, @RequestBody DtAdministrador dtadm) {
 		try {
 			Optional<Usuario> usrAdmin = repoU.findById(idAdm);
@@ -153,7 +154,7 @@ public class ControladorUsuario {
 			}
 		}
 	
-	@GetMapping("/usuarios")
+	@RequestMapping(value = "/listar", method = { RequestMethod.POST,  RequestMethod.GET })
 	public ResponseEntity<List<DtUsuario>> listarUsuarios (){
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 		List<DtUsuario> retorno = new ArrayList<DtUsuario>();
