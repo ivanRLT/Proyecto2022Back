@@ -108,7 +108,7 @@ public class ControladorUsuario {
 		//return dt
 	}
 	
-	@PostMapping("/bloquearAdmin/{id}")
+	@PostMapping("/bloquearUsuario/{id}")
 	public ResponseEntity<Administrador> bloquearAdministrador(@PathVariable("id") int idAdm, @RequestBody DtAdministrador dtadm) {
 		try {
 			Optional<Usuario> usrAdmin = repoU.findById(idAdm);
@@ -130,7 +130,7 @@ public class ControladorUsuario {
 			}
 		}
 	
-	@PostMapping("/desbloquearAdmin/{id}")
+	@PostMapping("/desbloquearUsuario/{id}")
 	public ResponseEntity<Administrador> desbloquearAdministrador(@PathVariable("id") int idAdm, @RequestBody DtAdministrador dtadm) {
 		try {
 			Optional<Usuario> usrAdmin = repoU.findById(idAdm);

@@ -26,17 +26,20 @@ public class Anfitrion extends Usuario implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private AprobacionEstado estado;
 	
+	private Boolean bloqueado;
+	
 	@OneToMany(mappedBy = "anfitrion",cascade = CascadeType.ALL,orphanRemoval=true)
 	private List<Alojamiento> alojamientos = new ArrayList<Alojamiento>();
 	
 	public Anfitrion() {
 		super();
 	}
-	public Anfitrion(String email, Boolean activo, String apellido, String nombre, int calificacion, List<Alojamiento> alojamientos, AprobacionEstado estado, String pass) {
+	public Anfitrion(String email, Boolean activo, String apellido, String nombre, int calificacion, List<Alojamiento> alojamientos, AprobacionEstado estado, String pass, Boolean bloqueado) {
 		super(email, activo, apellido, nombre, pass);
 		this.calificacionGlobal = calificacion;
 		this.estado = estado;
 		this.alojamientos = alojamientos;
+		this.bloqueado = bloqueado;
 	}
 	public int getCalificacionGlobal() {
 		return calificacionGlobal;
@@ -64,5 +67,11 @@ public class Anfitrion extends Usuario implements Serializable {
 	}
 	public void agregarAlojamiento(Alojamiento alojamiento) {
 		this.alojamientos.add(alojamiento);
+	}
+	public Boolean getBloqueado() {
+		return bloqueado;
+	}
+	public void setBloqueado(Boolean bloqueado) {
+		this.bloqueado = bloqueado;
 	}
 }

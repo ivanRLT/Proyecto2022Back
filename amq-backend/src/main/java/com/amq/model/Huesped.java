@@ -22,6 +22,8 @@ public class Huesped extends Usuario implements Serializable {
 	
 	private int calificacionGlobal;
 	
+	private Boolean bloqueado;;
+	
 	@ElementCollection
 	private List<String> pushTokens = new ArrayList<String>();
 	
@@ -31,10 +33,11 @@ public class Huesped extends Usuario implements Serializable {
 	public Huesped() {
 		super();
 	}
-	public Huesped(String email, Boolean activo, String apellido, String nombre, int calificacion, List<String> tokens, String pass) {
+	public Huesped(String email, Boolean activo, String apellido, String nombre, int calificacion, List<String> tokens, String pass, Boolean bloqueado) {
 		super(email, activo, apellido, nombre, pass);
 		this.calificacionGlobal = calificacion;
 		this.pushTokens = tokens;
+		this.bloqueado = bloqueado;
 	}
 	public int getCalificacionGlobal() {
 		return calificacionGlobal;
@@ -59,6 +62,12 @@ public class Huesped extends Usuario implements Serializable {
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	public Boolean getBloqueado() {
+		return bloqueado;
+	}
+	public void setBloqueado(Boolean bloqueado) {
+		this.bloqueado = bloqueado;
 	}
 	
 	
