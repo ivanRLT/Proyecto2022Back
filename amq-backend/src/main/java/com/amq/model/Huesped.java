@@ -22,7 +22,7 @@ public class Huesped extends Usuario implements Serializable {
 	
 	private int calificacionGlobal;
 	
-	private Boolean bloqueado;;
+	private Boolean bloqueado;
 	
 	@ElementCollection
 	private List<String> pushTokens = new ArrayList<String>();

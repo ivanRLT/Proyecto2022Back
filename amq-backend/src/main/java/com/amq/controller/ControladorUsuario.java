@@ -110,20 +110,82 @@ public class ControladorUsuario {
 		//return dt
 	}
 	
-	@RequestMapping(value = "/bloquear/{id}", method = { RequestMethod.POST,  RequestMethod.GET })
-	public ResponseEntity<Administrador> bloquearAdministrador(@PathVariable("id") int idAdm, @RequestBody DtAdministrador dtadm) {
+	@RequestMapping(value = "/desactivar/{id}", method = { RequestMethod.POST, RequestMethod.GET })
+	public ResponseEntity<Usuario> desactivarUsuario(@PathVariable("id") int idUsr) {
 		try {
-			Optional<Usuario> usrAdmin = repoU.findById(idAdm);
-			Administrador admin = null;
-			if (usrAdmin.isPresent()) {
-				if (usrAdmin.get() instanceof Administrador) {
-					admin = (Administrador) usrAdmin.get();
-					admin.setActivo(false);
-					return new ResponseEntity<>(repoU.save(admin), HttpStatus.OK);
+			Optional<Usuario> usr = repoU.findById(idUsr);
+			Anfitrion anf = null;
+			Huesped hue = null;
+			if (usr.isPresent()) {
+				if (usr.get() instanceof Anfitrion) {
+					anf = (Anfitrion) usr.get();
+					anf.setActivo(false);
+					return new ResponseEntity<>(repoU.save(anf), HttpStatus.OK);
+				}
+				if (usr.get() instanceof Huesped) {
+					hue = (Huesped) usr.get();
+					hue.setActivo(false);
+					return new ResponseEntity<>(repoU.save(hue), HttpStatus.OK);
 				} else {
 					return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-				} 
+				}
 			} else {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@RequestMapping(value = "/bloquear/{id}", method = { RequestMethod.POST, RequestMethod.GET })
+	public ResponseEntity<Usuario> bloquearUsuario(@PathVariable("id") int idUsr) {
+		try {
+			Optional<Usuario> usr = repoU.findById(idUsr);
+			Anfitrion anf = null;
+			Huesped hue = null;
+			if (usr.isPresent()) {
+				if (usr.get() instanceof Anfitrion) {
+					anf = (Anfitrion) usr.get();
+					anf.setBloqueado(true);
+					return new ResponseEntity<>(repoU.save(anf), HttpStatus.OK);
+				}
+				if (usr.get() instanceof Huesped) {
+					hue = (Huesped) usr.get();
+					hue.setBloqueado(true);
+					return new ResponseEntity<>(repoU.save(hue), HttpStatus.OK);
+				} else {
+					return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+				}
+			} else {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+		@RequestMapping(value = "/desbloquear/{id}", method = { RequestMethod.POST, RequestMethod.GET })
+		public ResponseEntity<Usuario> desbloquearUsuario(@PathVariable("id") int idUsr) {
+			try {
+				Optional<Usuario> usr = repoU.findById(idUsr);
+				Anfitrion anf = null;
+				Huesped hue = null;
+				if (usr.isPresent()) {
+					if (usr.get() instanceof Anfitrion) {
+						anf = (Anfitrion) usr.get();
+						anf.setBloqueado(false);
+						return new ResponseEntity<>(repoU.save(anf), HttpStatus.OK);
+					}
+					if (usr.get() instanceof Huesped) {
+						hue = (Huesped) usr.get();
+						hue.setBloqueado(false);
+						return new ResponseEntity<>(repoU.save(hue), HttpStatus.OK);
+					} else {
+						return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+					}
+				} else {
 					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 				}
 			} catch (Exception e) {
@@ -132,79 +194,65 @@ public class ControladorUsuario {
 			}
 		}
 	
-	@RequestMapping(value = "/desbloquear/{id}", method = { RequestMethod.POST,  RequestMethod.GET })
-	public ResponseEntity<Administrador> desbloquearAdministrador(@PathVariable("id") int idAdm, @RequestBody DtAdministrador dtadm) {
-		try {
-			Optional<Usuario> usrAdmin = repoU.findById(idAdm);
-			Administrador admin = null;
-			if (usrAdmin.isPresent()) {
-				if (usrAdmin.get() instanceof Administrador) {
-					admin = (Administrador) usrAdmin.get();
-					admin.setActivo(true);
-					return new ResponseEntity<>(repoU.save(admin), HttpStatus.OK);
+		@RequestMapping(value = "/listar", method = { RequestMethod.POST, RequestMethod.GET })
+		public ResponseEntity<List<DtUsuario>> listarUsuarios() {
+			List<Usuario> usuarios = new ArrayList<Usuario>();
+			List<DtUsuario> retorno = new ArrayList<DtUsuario>();
+			try {
+				repoU.findAll().forEach(usuarios::add);
+				for (Usuario u : usuarios) {
+					if (u instanceof Administrador) {
+						DtAdministrador dtadmin = new DtAdministrador(u.getId(), u.getEmail(), u.getNombre(),
+								u.getApellido(), u.getActivo(), "Ad");
+						retorno.add(dtadmin);
+					} else if (u instanceof Anfitrion) {
+						Anfitrion ua = (Anfitrion) u;
+						DtAnfitrion dtanfitrion = new DtAnfitrion(u.getId(), ua.getEmail(), ua.getNombre(),
+								ua.getApellido(), ua.getActivo(), ua.getCalificacionGlobal(), ua.getEstado(), "An");
+						retorno.add(dtanfitrion);
+					} else if (u instanceof Huesped) {
+						Huesped uh = (Huesped) u;
+						DtHuesped dthuesped = new DtHuesped(u.getId(), uh.getEmail(), uh.getNombre(), uh.getApellido(),
+								uh.getActivo(), uh.getCalificacionGlobal(), uh.getPushTokens(), "Hu");
+						retorno.add(dthuesped);
+					}
+				}
+				if (retorno.isEmpty()) {
+					return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 				} else {
-					return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-				} 
-			} else {
-					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+					return new ResponseEntity<>(retorno, HttpStatus.OK);
 				}
 			} catch (Exception e) {
-				System.out.println(e.toString());
-				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+				return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		}
 	
-	@RequestMapping(value = "/listar", method = { RequestMethod.POST,  RequestMethod.GET })
-	public ResponseEntity<List<DtUsuario>> listarUsuarios (){
-		List<Usuario> usuarios = new ArrayList<Usuario>();
-		List<DtUsuario> retorno = new ArrayList<DtUsuario>();
-		try {
-			repoU.findAll().forEach(usuarios::add);
-			for (Usuario u:usuarios) {
-				if (u instanceof Administrador) {
-					DtAdministrador dtadmin = new DtAdministrador(u.getId(), u.getEmail(),u.getNombre(), u.getApellido(),u.getActivo(), "Ad");
-					retorno.add(dtadmin);
-				}else if (u instanceof Anfitrion) {
-					Anfitrion ua = (Anfitrion) u;
-					DtAnfitrion dtanfitrion = new DtAnfitrion(u.getId(), ua.getEmail(),ua.getNombre(), ua.getApellido(),ua.getActivo(), ua.getCalificacionGlobal(), ua.getEstado(),"An");
-					retorno.add(dtanfitrion);
-				}else if (u instanceof Huesped) {
-					Huesped uh = (Huesped) u;
-					DtHuesped dthuesped = new DtHuesped(u.getId(), uh.getEmail(),uh.getNombre(), uh.getApellido(),uh.getActivo(), uh.getCalificacionGlobal(), uh.getPushTokens(), "Hu");
-					retorno.add(dthuesped);
+		public DtUsuario iniciarSesion(String email, String pass) {
+			DtUsuario retorno = null;
+			try {
+				// Coneccion BD
+				Usuario user = null;
+				if (user.getPass() == pass) {
+					if (user instanceof Administrador) {
+						// retorno = new DtAdministrador(user.getEmail(), user.getNombre(),
+						// user.getApellido(), user.getActivo());
+					} else if (user instanceof Anfitrion) {
+						Anfitrion ua = (Anfitrion) user;
+						// retorno = new DtAnfitrion(user.getEmail(), user.getNombre(),
+						// user.getApellido(), user.getActivo(), ua.getCalificacionGlobal(),
+						// ua.getEstado(), null);
+					} else if (user instanceof Huesped) {
+						Huesped uH = (Huesped) user;
+						// retorno = new DtHuesped(user.getEmail(), user.getNombre(),
+						// user.getApellido(), user.getActivo(),
+						// uH.getCalificacionGlobal(),uH.getPushTokens(),null);
+					}
 				}
+			} catch (Exception e) {
+				// TODO: handle exception
 			}
-			if (retorno.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-			}else {
-				return new ResponseEntity<>(retorno, HttpStatus.OK);
-			}
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}	
-	}
-	
-	public DtUsuario iniciarSesion(String email, String pass) {
-		DtUsuario retorno = null;
-		try {
-			// Coneccion BD
-			Usuario user = null;
-			if (user.getPass() == pass) {
-				if (user instanceof Administrador) {
-					//retorno = new DtAdministrador(user.getEmail(), user.getNombre(), user.getApellido(), user.getActivo());
-				}else if (user instanceof Anfitrion) {
-					Anfitrion ua = (Anfitrion) user;
-					//retorno = new DtAnfitrion(user.getEmail(), user.getNombre(), user.getApellido(), user.getActivo(), ua.getCalificacionGlobal(), ua.getEstado(), null);
-				}else if (user instanceof Huesped) {
-					Huesped uH = (Huesped) user;
-					//retorno = new DtHuesped(user.getEmail(), user.getNombre(), user.getApellido(), user.getActivo(), uH.getCalificacionGlobal(),uH.getPushTokens(),null);
-				}
-			}			
-		} catch (Exception e) {
-			// TODO: handle exception
+			return retorno;
 		}
-		return retorno;
-	}
 	
 	// #######################Funciones de Anfitrion#######################
 	public boolean agregarAlojamientoAnfitrion() {

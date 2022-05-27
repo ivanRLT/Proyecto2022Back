@@ -9,6 +9,10 @@ public abstract class DtUsuario {
 	private String pass;
 	private String tipo;
 	
+	public DtUsuario() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public DtUsuario(int id, String email, String nombre, String apellido, boolean activo, String tipo) {
 		super();
 		this.id = id;

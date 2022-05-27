@@ -6,8 +6,13 @@ public class DtHuesped extends DtUsuario{
 	
 	
 	private int calificacionGlobal;
+	private Boolean bloqueado;
 	private List<String> pushToken;
-
+	
+	public DtHuesped() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public DtHuesped(int id, String email, String nombre, String apellido, boolean activo, int calificacionGlobal, List<String> pushToken, String tipo) {
 		super(id, email, nombre, apellido, activo, tipo);
 		this.calificacionGlobal = calificacionGlobal;
@@ -25,4 +30,12 @@ public class DtHuesped extends DtUsuario{
 	public void setPushToken(List<String> pushToken) {
 		this.pushToken = pushToken;
 	}
+	public Boolean getBloqueado() {
+		return bloqueado;
+	}
+	public void setBloqueado(Boolean bloqueado) {
+		this.bloqueado = bloqueado;
+	}
+	
+	
 }
