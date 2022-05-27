@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.FetchType;
 
 @Entity
@@ -39,6 +40,7 @@ public abstract class Usuario implements Serializable {
 	@JoinColumn(name = "user_id")
 	private Recuperacion recuperacion;
 	
+	@Column(length = 60)
 	private String pass;
 
         public int getId() {

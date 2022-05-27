@@ -3,11 +3,19 @@ package com.amq.controller;
 import java.util.ArrayList;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.amq.datatypes.DtAdministrador;
@@ -23,11 +32,15 @@ import com.amq.datatypes.DtAnfitrion;
 import com.amq.datatypes.DtHuesped;
 import com.amq.datatypes.DtReserva;
 import com.amq.datatypes.DtUsuario;
+import com.amq.mail.GenericResponse;
 import com.amq.model.Administrador;
 import com.amq.model.Anfitrion;
 import com.amq.model.Huesped;
+import com.amq.model.PasswordResetToken;
 import com.amq.model.Usuario;
+import com.amq.repositories.RepositoryResetPassword;
 import com.amq.repositories.RepositoryUsuario;
+import com.amq.service.IUsuarioService;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -36,6 +49,18 @@ public class ControladorUsuario {
 	
 	@Autowired
 	RepositoryUsuario repoU;
+	
+	@Autowired
+	private IUsuarioService userService;
+	
+	 @Autowired
+	 private JavaMailSender mailSender;
+	 
+	 @Autowired
+	 private MessageSource messages;
+	
+	 @Autowired
+	 private Environment env;
 	
 	@RequestMapping(value = "/altaAdmin/{id}", method = { RequestMethod.POST,  RequestMethod.GET })
 	public ResponseEntity<Administrador> altaAdministrador(@RequestBody DtAdministrador adminDT) {
@@ -315,4 +340,38 @@ public class ControladorUsuario {
 		}	
 		return retorno;
 	}
+	
+	@PostMapping("/resetPassword")
+	public GenericResponse resetPassword(final HttpServletRequest request, 
+	  @RequestParam("email") final String userEmail) {
+	    final Usuario user = userService.findUserByEmail(userEmail);
+	    if (user != null) {
+	    	String token = UUID.randomUUID().toString();
+	    	userService.createPasswordResetTokenForUser(user, token);
+	    	mailSender.send(constructResetTokenEmail(getAppUrl(request), 
+	    		      request.getLocale(), token, user));
+	    }
+	    return new GenericResponse(
+	    		messages.getMessage("message.resetPasswordEmail", null, 
+	      request.getLocale()));
+	}
+	
+	private SimpleMailMessage constructResetTokenEmail(final String contextPath, final Locale locale, final String token, final Usuario user) {
+        final String url = contextPath + "/usuario/changePassword?token=" + token;
+        final String message = messages.getMessage("message.resetPassword", null, locale);
+        return constructEmail("Reset Password", message + " \r\n" + url, user);
+    }
+	
+	private SimpleMailMessage constructEmail(String subject, String body, Usuario user) {
+        final SimpleMailMessage email = new SimpleMailMessage();
+        email.setSubject(subject);
+        email.setText(body);
+        email.setTo(user.getEmail());
+        email.setFrom(env.getProperty("support.email"));
+        return email;
+    }
+	
+    private String getAppUrl(HttpServletRequest request) {
+        return "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+    }
 }
