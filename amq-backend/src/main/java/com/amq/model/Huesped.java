@@ -20,7 +20,7 @@ public class Huesped extends Usuario implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private int calificacionGlobal;
+	private Integer calificacionGlobal;
 	
 	private Boolean bloqueado;
 	
@@ -33,16 +33,16 @@ public class Huesped extends Usuario implements Serializable {
 	public Huesped() {
 		super();
 	}
-	public Huesped(String email, Boolean activo, String apellido, String nombre, int calificacion, List<String> tokens, String pass, Boolean bloqueado) {
+	public Huesped(String email, Boolean activo, String apellido, String nombre, Integer calificacion, List<String> tokens, String pass, Boolean bloqueado) {
 		super(email, activo, apellido, nombre, pass);
 		this.calificacionGlobal = calificacion;
 		this.pushTokens = tokens;
 		this.bloqueado = bloqueado;
 	}
-	public int getCalificacionGlobal() {
+	public Integer getCalificacionGlobal() {
 		return calificacionGlobal;
 	}
-	public void setCalificacionGlobal(int calificacionGlobal) {
+	public void setCalificacionGlobal(Integer calificacionGlobal) {
 		this.calificacionGlobal = calificacionGlobal;
 	}
 	public List<String> getPushTokens() {

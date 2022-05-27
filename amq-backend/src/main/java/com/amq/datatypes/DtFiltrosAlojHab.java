@@ -3,18 +3,19 @@ package com.amq.datatypes;
 public class DtFiltrosAlojHab {
 	private int id_anf;
 	private Boolean aloj_activo;
-	private String nombre;
+	private String aloj_nombre;
 	private String aloj_desc;
 	private int camas;
 	private int camas_mas_de;
 	private int camas_menos_de;
 	private DtServicios serv;
+	
 	public DtFiltrosAlojHab(int id_anf, Boolean aloj_activo, String nombre, String aloj_desc, int camas,
 			int camas_mas_de, int camas_menos_de, DtServicios serv) {
 		super();
 		this.id_anf = id_anf;
 		this.aloj_activo = aloj_activo;
-		this.nombre = nombre;
+		this.aloj_nombre = nombre;
 		this.aloj_desc = aloj_desc;
 		this.camas = camas;
 		this.camas_mas_de = camas_mas_de;
@@ -33,11 +34,11 @@ public class DtFiltrosAlojHab {
 	public void setAloj_activo(Boolean aloj_activo) {
 		this.aloj_activo = aloj_activo;
 	}
-	public String getNombre() {
-		return nombre;
+	public String getAloj_nombre() {
+		return aloj_nombre;
 	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setAloj_nombre(String nombre) {
+		this.aloj_nombre = nombre;
 	}
 	public String getAloj_desc() {
 		return aloj_desc;

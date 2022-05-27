@@ -21,7 +21,7 @@ public class Anfitrion extends Usuario implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private int calificacionGlobal;
+	private Integer calificacionGlobal;
 	
 	@Enumerated(EnumType.STRING)
 	private AprobacionEstado estado;
@@ -34,17 +34,17 @@ public class Anfitrion extends Usuario implements Serializable {
 	public Anfitrion() {
 		super();
 	}
-	public Anfitrion(String email, Boolean activo, String apellido, String nombre, int calificacion, List<Alojamiento> alojamientos, AprobacionEstado estado, String pass, Boolean bloqueado) {
+	public Anfitrion(String email, Boolean activo, String apellido, String nombre, Integer calificacion, List<Alojamiento> alojamientos, AprobacionEstado estado, String pass, Boolean bloqueado) {
 		super(email, activo, apellido, nombre, pass);
 		this.calificacionGlobal = calificacion;
 		this.estado = estado;
 		this.alojamientos = alojamientos;
 		this.bloqueado = bloqueado;
 	}
-	public int getCalificacionGlobal() {
+	public Integer getCalificacionGlobal() {
 		return calificacionGlobal;
 	}
-	public void setCalificacionGlobal(int calificacionGlobal) {
+	public void setCalificacionGlobal(Integer calificacionGlobal) {
 		this.calificacionGlobal = calificacionGlobal;
 	}
 	public AprobacionEstado getEstado() {

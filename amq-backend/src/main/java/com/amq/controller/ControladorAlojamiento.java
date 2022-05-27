@@ -15,13 +15,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.amq.datatypes.DtAdministrador;
 import com.amq.datatypes.DtAlojamiento;
+import com.amq.datatypes.DtAnfitrion;
 import com.amq.datatypes.DtDireccion;
+import com.amq.datatypes.DtFiltrosAlojamiento;
 import com.amq.datatypes.DtHabitacion;
+import com.amq.datatypes.DtHuesped;
 import com.amq.datatypes.DtServicios;
+import com.amq.datatypes.DtUsuario;
+import com.amq.model.Administrador;
 import com.amq.model.Alojamiento;
 import com.amq.model.Anfitrion;
 import com.amq.model.Habitacion;
+import com.amq.model.Huesped;
 import com.amq.model.Usuario;
 import com.amq.notification.FirebaseNotificationAdmin;
 import com.amq.repositories.RepositoryAlojamiento;
@@ -140,15 +147,33 @@ public class ControladorAlojamiento {
 		}	
 		return retorno;
 	}
-	public DtAlojamiento listarAlojamientos() {
+	
+	@RequestMapping(value = "/listarAlojamientos", method = { RequestMethod.POST,  RequestMethod.GET })
+	public ResponseEntity<List<DtAlojamiento>> listarAlojamientos(@RequestBody DtFiltrosAlojamiento filtros) {
+		List<Alojamiento> alojs = new ArrayList<Alojamiento>();
+		List<DtAlojamiento> dtAlojs = new ArrayList<DtAlojamiento>();
+		DtAlojamiento dtA;
 		try {
-			
-			
-			
+			repoA.findAll().forEach(alojs::add);
+			for (Alojamiento a : alojs) {
+				if( alojCumpleFiltro( a, filtros ) ){
+					dtA = new DtAlojamiento(
+							a.getActivo(), 
+							a.getDescripcion(), 
+							a.getDireccion(), 
+							a.getNombre()
+					);
+					dtAlojs.add(dtA);
+				}
+			}
+			if (dtAlojs.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			} else {
+				return new ResponseEntity<>(dtAlojs, HttpStatus.OK);
+			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return null;
 	}
 	// #######################Funciones de habitacion#######################
 	public Boolean agregarHabitaciones(int idAlojamiento, List<DtHabitacion> dtHabitacion) {
@@ -215,5 +240,45 @@ public class ControladorAlojamiento {
 			// TODO: handle exception
 		}
 	}
-	
+	private Boolean alojCumpleFiltro(Alojamiento a, DtFiltrosAlojamiento dtF) {
+		if( dtF == null ) {
+			return true;
+		}
+		if( a == null ) {
+			return false;
+		}
+		if( dtF.getAloj_activo()!=null && a.getActivo()!=dtF.getAloj_activo() ) {
+			return false;
+		}
+		if( dtF.getAloj_desc()!=null && dtF.getAloj_desc()!="") {
+			if( !valuesInString( dtF.getAloj_desc().split(" "), a.getDescripcion()) ) {
+				return false;
+			}
+		}
+		if( dtF.getAloj_nombre()!=null && dtF.getAloj_nombre()!="") {
+			if( !valuesInString( dtF.getAloj_nombre().split(" "), a.getNombre()) ) {
+				return false;
+			}
+		}
+		if( dtF.getId_anf()!=null && dtF.getId_anf() != a.getAnfitrion().getId()) {
+			return false;
+		}
+		if( dtF.getAloj_ciudad()!=null && dtF.getAloj_ciudad()!="" 
+				&& !dtF.getAloj_ciudad().equals( a.getDireccion().getCiudad() ) ) {
+			return false;
+		}
+		if( dtF.getAloj_pais()!=null && dtF.getAloj_pais()!="" 
+				&& !dtF.getAloj_pais().equals( a.getDireccion().getPais() ) ) {
+			return false;
+		}
+		return true;
+	}
+	private Boolean valuesInString( String[]vals, String v ) {
+		for(int i=0; i<vals.length; i++) {
+			if(! v.contains(vals[i]) ) {
+				return false;
+			}
+		}
+		return true;
+	}
 }
