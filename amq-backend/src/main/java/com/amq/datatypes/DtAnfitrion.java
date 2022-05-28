@@ -17,10 +17,11 @@ public class DtAnfitrion extends DtUsuario {
 		// TODO Auto-generated constructor stub
 	}
 
-	public DtAnfitrion(int id, String email, String nombre, String apellido, boolean activo, int calificacionGlobal, AprobacionEstado estado, String tipo) {
+	public DtAnfitrion(int id, String email, String nombre, String apellido, boolean activo, int calificacionGlobal, AprobacionEstado estado, String tipo, Boolean bloqueado) {
 		super(id, email, nombre, apellido, activo, tipo);
 		this.calificacionGlobal = calificacionGlobal;
 		this.estado = estado;
+		this.bloqueado = bloqueado;
 	}
 	public int getCalificacionGlobal() {
 		return calificacionGlobal;
