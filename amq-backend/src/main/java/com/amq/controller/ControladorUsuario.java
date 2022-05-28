@@ -15,8 +15,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,13 +32,15 @@ import com.amq.datatypes.DtHuesped;
 import com.amq.datatypes.DtReserva;
 import com.amq.datatypes.DtUsuario;
 import com.amq.mail.GenericResponse;
+import com.amq.mail.Mensaje;
 import com.amq.model.Administrador;
 import com.amq.model.Anfitrion;
 import com.amq.model.Huesped;
+import com.amq.model.PasswordResetToken;
 import com.amq.model.Usuario;
+import com.amq.repositories.RepositoryResetPassword;
 import com.amq.repositories.RepositoryUsuario;
 import com.amq.service.IUsuarioService;
-import com.amq.mail.MailSender;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -51,23 +53,12 @@ public class ControladorUsuario {
 	@Autowired
 	private IUsuarioService userService;
 	
-//	 @Autowired
-//	 private MailSender mailSender;
-	
-//	@Autowired
-//    private JavaMailSender mailSender;	
-	 
 	 @Autowired
 	 private MessageSource messages;
 	
 	 @Autowired
 	 private Environment env;
-	 
-	public ControladorUsuario() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
+	
 	@RequestMapping(value = "/altaAdmin/{id}", method = { RequestMethod.POST,  RequestMethod.GET })
 	public ResponseEntity<Administrador> altaAdministrador(@RequestBody DtAdministrador adminDT) {
 		try {
@@ -109,7 +100,7 @@ public class ControladorUsuario {
 		}		
 	}
 	
-	@RequestMapping(value = "/altaHuesped/{id}", method = { RequestMethod.POST,  RequestMethod.GET })
+	@RequestMapping(value = "/altaHuesped", method = { RequestMethod.POST,  RequestMethod.GET })
 	public ResponseEntity<Huesped> altaHuesped(@RequestBody DtHuesped huesDT) {
 		try {
 			// Creo usuario para persistir 
@@ -119,9 +110,10 @@ public class ControladorUsuario {
 			hue.setApellido(huesDT.getApellido());
 			hue.setPass(huesDT.getPass());
 			hue.setNombre(huesDT.getNombre());
-			hue.setCalificacionGlobal(-1);
+			hue.setCalificacionGlobal(0);
 			hue.setPushTokens(null);
 			hue.setReservas(null);
+			hue.setBloqueado(false);
 			// El "save" devuleve el usuario agregado si funciono y lo guardo en aux para devolverlo
 			Huesped hueR = repoU.save(hue);
 			
@@ -239,12 +231,12 @@ public class ControladorUsuario {
 					} else if (u instanceof Anfitrion) {
 						Anfitrion ua = (Anfitrion) u;
 						DtAnfitrion dtanfitrion = new DtAnfitrion(u.getId(), ua.getEmail(), ua.getNombre(),
-								ua.getApellido(), ua.getActivo(), ua.getCalificacionGlobal(), ua.getEstado(), "An");
+								ua.getApellido(), ua.getActivo(), ua.getCalificacionGlobal(), ua.getEstado(), "An", ua.getBloqueado());
 						retorno.add(dtanfitrion);
 					} else if (u instanceof Huesped) {
 						Huesped uh = (Huesped) u;
-						DtHuesped dthuesped = new DtHuesped(u.getId(), uh.getEmail(), uh.getNombre(), uh.getApellido(),
-								uh.getActivo(), uh.getCalificacionGlobal(), uh.getPushTokens(), "Hu");
+						DtHuesped dthuesped = new DtHuesped( u.getId(), uh.getEmail(), uh.getNombre(), uh.getApellido(),
+								uh.getActivo(), uh.getCalificacionGlobal(), uh.getPushTokens(), "Hu", uh.getBloqueado());
 						retorno.add(dthuesped);
 					}
 				}
@@ -346,7 +338,7 @@ public class ControladorUsuario {
 		}	
 		return retorno;
 	}
-	
+/*	
 	@PostMapping("/resetPassword")
 	public GenericResponse resetPassword(final HttpServletRequest request, 
 	  @RequestParam("email") final String userEmail) {
@@ -354,9 +346,8 @@ public class ControladorUsuario {
 	    if (user != null) {
 	    	String token = UUID.randomUUID().toString();
 	    	userService.createPasswordResetTokenForUser(user, token);
-//	    	mailSender.send(constructResetTokenEmail(getAppUrl(request), 
-//	    		      request.getLocale(), token, user));
-	    	//mailSender.enviarMail()
+	    	mailSender.send(constructResetTokenEmail(getAppUrl(request), 
+	    		      request.getLocale(), token, user));
 	    }
 	    return new GenericResponse(
 	    		messages.getMessage("message.resetPasswordEmail", null, 
@@ -370,14 +361,14 @@ public class ControladorUsuario {
     }
 	
 	private SimpleMailMessage constructEmail(String subject, String body, Usuario user) {
-        final SimpleMailMessage email = new SimpleMailMessage();
+        final Mensaje email = new Mensaje();
         email.setSubject(subject);
         email.setText(body);
         email.setTo(user.getEmail());
         email.setFrom(env.getProperty("support.email"));
         return email;
     }
-	
+*/
     private String getAppUrl(HttpServletRequest request) {
         return "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
     }
