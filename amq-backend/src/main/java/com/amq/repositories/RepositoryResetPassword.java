@@ -8,14 +8,14 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import com.amq.model.PasswordResetToken;
-import com.amq.model.Usuario;
+//import com.amq.model.Usuario;
 
 public interface RepositoryResetPassword extends JpaRepository<PasswordResetToken, Integer>{
 	//public Optional<PasswordResetToken> findUserByEmail(String resetTocken);
 	
 	PasswordResetToken findByToken(String token);
 	
-	PasswordResetToken findByUser(Usuario user);
+	//PasswordResetToken findByUser(Usuario user);
 	
 	Stream<PasswordResetToken> findAllByExpiryDateLessThan(Date now);
 	

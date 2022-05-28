@@ -17,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,11 +35,10 @@ import com.amq.mail.GenericResponse;
 import com.amq.model.Administrador;
 import com.amq.model.Anfitrion;
 import com.amq.model.Huesped;
-import com.amq.model.PasswordResetToken;
 import com.amq.model.Usuario;
-import com.amq.repositories.RepositoryResetPassword;
 import com.amq.repositories.RepositoryUsuario;
 import com.amq.service.IUsuarioService;
+import com.amq.mail.MailSender;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -53,15 +51,23 @@ public class ControladorUsuario {
 	@Autowired
 	private IUsuarioService userService;
 	
-	 @Autowired
-	 private JavaMailSender mailSender;
+//	 @Autowired
+//	 private MailSender mailSender;
+	
+//	@Autowired
+//    private JavaMailSender mailSender;	
 	 
 	 @Autowired
 	 private MessageSource messages;
 	
 	 @Autowired
 	 private Environment env;
-	
+	 
+	public ControladorUsuario() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	@RequestMapping(value = "/altaAdmin/{id}", method = { RequestMethod.POST,  RequestMethod.GET })
 	public ResponseEntity<Administrador> altaAdministrador(@RequestBody DtAdministrador adminDT) {
 		try {
@@ -348,8 +354,9 @@ public class ControladorUsuario {
 	    if (user != null) {
 	    	String token = UUID.randomUUID().toString();
 	    	userService.createPasswordResetTokenForUser(user, token);
-	    	mailSender.send(constructResetTokenEmail(getAppUrl(request), 
-	    		      request.getLocale(), token, user));
+//	    	mailSender.send(constructResetTokenEmail(getAppUrl(request), 
+//	    		      request.getLocale(), token, user));
+	    	//mailSender.enviarMail()
 	    }
 	    return new GenericResponse(
 	    		messages.getMessage("message.resetPasswordEmail", null, 
