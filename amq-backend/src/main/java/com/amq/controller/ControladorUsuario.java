@@ -28,18 +28,26 @@ import org.springframework.web.bind.annotation.RestController;
 import com.amq.datatypes.DtAdministrador;
 import com.amq.datatypes.DtAlojamiento;
 import com.amq.datatypes.DtAnfitrion;
+import com.amq.datatypes.DtFecha;
 import com.amq.datatypes.DtHuesped;
 import com.amq.datatypes.DtReserva;
 import com.amq.datatypes.DtUsuario;
+import com.amq.enums.ReservaEstado;
 import com.amq.mail.GenericResponse;
 import com.amq.mail.Mensaje;
 import com.amq.model.Administrador;
+import com.amq.model.Alojamiento;
 import com.amq.model.Anfitrion;
+import com.amq.model.Habitacion;
 import com.amq.model.Huesped;
 import com.amq.model.PasswordResetToken;
+import com.amq.model.Reserva;
 import com.amq.model.Usuario;
 import com.amq.repositories.RepositoryResetPassword;
 import com.amq.repositories.RepositoryUsuario;
+import com.amq.repositories.RepositoryAlojamiento;
+import com.amq.repositories.RepositoryHabitacion;
+import com.amq.repositories.RepositoryReserva;
 import com.amq.service.IUsuarioService;
 
 @CrossOrigin(origins = "*")
@@ -49,6 +57,12 @@ public class ControladorUsuario {
 	
 	@Autowired
 	RepositoryUsuario repoU;
+	
+	@Autowired
+	RepositoryReserva repoR;
+	
+	@Autowired
+	RepositoryHabitacion repoH;
 	
 	@Autowired
 	private IUsuarioService userService;
@@ -310,14 +324,78 @@ public class ControladorUsuario {
 	}
 	
 	// #######################Funciones de Huesped#######################
-	public boolean agregarReservaHuesped() {
-		Boolean retorno = false;
+	
+	@RequestMapping(value = "/realizarReserva/{iduser}", method = { RequestMethod.POST })
+	public ResponseEntity<Reserva> altaReservaHuesped(@PathVariable("iduser") int iduser, @RequestParam int idhab, @RequestParam int cantdias, @RequestBody DtFecha fechaInicio, @RequestBody DtFecha fechaFin) {
 		try {
-			
+			Optional<Usuario> uOP = repoU.findById(iduser);
+			if (uOP.isPresent()) {
+				Optional<Habitacion> hOP = repoH.findById(idhab);
+				if (hOP.isPresent()) {
+					if (uOP.get() instanceof Huesped) {
+						Boolean solapamiento = false;
+						Habitacion habitacion = hOP.get();
+						List<Reserva> reservasH = habitacion.getReservas();
+						for (Reserva r : reservasH) {
+							DtFecha reservasRI = r.getFechaInicio();
+							DtFecha reservasRF = r.getFechaFin();
+							DtFecha reservaI = fechaInicio;
+							DtFecha reservaF = fechaFin;
+							if (reservaI.getAnio() < reservasRF.getAnio() && reservaI.getAnio() > reservasRI.getAnio()) {
+								if (reservaI.getMes() < reservasRF.getMes() && reservaI.getMes() > reservasRI.getMes()) {
+									if (reservaI.getDia() < reservasRF.getDia() && reservaI.getDia() > reservasRI.getDia()) {
+										solapamiento = true;
+									}
+								}
+							}
+							if (reservaF.getAnio() < reservasRF.getAnio() && reservaF.getAnio() > reservasRI.getAnio()) {
+								if (reservaF.getMes() < reservasRF.getMes() && reservaF.getMes() > reservasRI.getMes()) {
+									if (reservaF.getDia() < reservasRF.getDia() && reservaF.getDia() > reservasRI.getDia()) {
+										solapamiento = true;
+									}
+								}
+							}
+							if (reservaI.getAnio() < reservasRI.getAnio() && reservaF.getAnio() > reservasRF.getAnio()) {
+								if (reservaI.getMes() < reservasRI.getMes() && reservaF.getMes() > reservasRF.getMes()) {
+									if (reservaI.getDia() < reservasRI.getDia() && reservaF.getDia() > reservasRF.getDia()) {
+										solapamiento = true;
+									}
+								}
+							}
+						}
+						if (!solapamiento) {
+							Huesped huesped = (Huesped) uOP.get();						
+							Reserva reserva = new Reserva();
+							reserva.setCalificacion(null);
+							reserva.setCantDias(cantdias);
+							reserva.setEstado(ReservaEstado.PENDIENTE);
+							reserva.setFacturas(null);
+							reserva.setFechaInicio(fechaInicio);
+							reserva.setFechaFin(fechaFin);
+							reserva.setIdChat("");
+							reserva.setHuesped(huesped);
+							habitacion.agregarReserva(reserva);
+							huesped.addReserva(reserva);
+							repoU.save(huesped);
+							repoH.save(habitacion);
+							Reserva rRet = repoR.save(reserva);
+				
+							return new ResponseEntity<>(rRet, HttpStatus.CREATED);
+						}else {
+							return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+						}
+					}else {
+						return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+					}		
+				}else {
+					return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+				}	
+			}else {
+				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}	
-		return retorno;
 	}
 	
 	public List<DtReserva> listarReservasHuesped() {

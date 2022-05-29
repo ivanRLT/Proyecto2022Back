@@ -103,5 +103,7 @@ public class Habitacion implements Serializable {
 	public void setAlojamiento(Alojamiento alojamiento) {
 		this.alojamiento = alojamiento;
 	}
-	
+	public void agregarReserva(Reserva reserva) {
+		this.reservas.add(reserva);
+	}
 }

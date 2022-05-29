@@ -1,6 +1,7 @@
 package com.amq.controller;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.amq.datatypes.DtAdministrador;
@@ -22,6 +24,7 @@ import com.amq.datatypes.DtDireccion;
 import com.amq.datatypes.DtFiltrosAlojamiento;
 import com.amq.datatypes.DtHabitacion;
 import com.amq.datatypes.DtHuesped;
+import com.amq.datatypes.DtReserva;
 import com.amq.datatypes.DtServicios;
 import com.amq.datatypes.DtUsuario;
 import com.amq.model.Administrador;
@@ -29,6 +32,7 @@ import com.amq.model.Alojamiento;
 import com.amq.model.Anfitrion;
 import com.amq.model.Habitacion;
 import com.amq.model.Huesped;
+import com.amq.model.Reserva;
 import com.amq.model.Usuario;
 import com.amq.notification.FirebaseNotificationAdmin;
 import com.amq.repositories.RepositoryAlojamiento;
@@ -119,14 +123,50 @@ public class ControladorAlojamiento {
 		}
 	}
 	
-	public boolean modificarAlojamiento() {
-		Boolean retorno = false;
+	@RequestMapping(value = "/modificarAljamiento/{id}", method = { RequestMethod.POST })
+	public ResponseEntity<Alojamiento> modificarAlojamiento(@PathVariable("id") int id, @RequestParam Boolean activo, @RequestParam String descripcion, @RequestParam String nombre, @RequestParam Boolean cambioDir, DtDireccion direccion) {
 		try {
-			
+			Optional<Alojamiento> opA = repoA.findById(id);
+			if (opA.isPresent()) {
+				Alojamiento alojamiento = opA.get();
+				alojamiento.setActivo(activo);
+				alojamiento.setDescripcion(descripcion);
+				alojamiento.setNombre(nombre);
+				Boolean existeDir = false;
+				int idDir = alojamiento.getDireccion().getId();
+				if (cambioDir) {
+					List<DtDireccion> direcciones = repoDir.findAll();
+					for (DtDireccion dir : direcciones) {
+						if (dir.getPais() == direccion.getPais() && dir.getCiudad() == direccion.getCiudad() && dir.getCalle() == direccion.getCalle() && dir.getNumero() == direccion.getNumero() ) {
+							existeDir = true;
+						}
+					}
+					if (!existeDir) {
+						Optional<DtDireccion> opDir = repoDir.findById(idDir);
+						if (opDir.isPresent()) {
+							DtDireccion direccionAnt = opDir.get();
+							direccionAnt.setCalle(direccion.getCalle());
+							direccionAnt.setCiudad(direccion.getCiudad());
+							direccionAnt.setNumero(direccion.getNumero());
+							direccionAnt.setPais(direccion.getPais());
+							repoDir.save(direccionAnt);
+							Alojamiento alojR = repoA.save(alojamiento);
+							return new ResponseEntity<>(alojR, HttpStatus.OK);
+						}else {
+							return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+						}
+					}
+					return new ResponseEntity<>(HttpStatus.CONFLICT);
+				}else {
+					Alojamiento alojR = repoA.save(alojamiento);
+					return new ResponseEntity<>(alojR, HttpStatus.OK);
+				}		
+			} else {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
 		} catch (Exception e) {
-			retorno = false;
-		}	
-		return retorno;
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 	public void buscarAlojamiento(int id) {
 		
@@ -236,6 +276,36 @@ public class ControladorAlojamiento {
 		}
 		return retorno;
 	}
+	@RequestMapping(value = "/reservasAlojamiento/{id}", method = { RequestMethod.GET })
+	public ResponseEntity<List<DtReserva>> obtenerReservasAlojamiento(int id ) {
+		try {
+			Optional<Alojamiento> opA = repoA.findById(id);
+			if (opA.isPresent()) {
+				Alojamiento alojamiento = opA.get();
+				List<Habitacion> habitaciones = alojamiento.getHabitaciones();
+				List<DtReserva> reservasDT = new ArrayList<DtReserva>();
+				for (Habitacion h : habitaciones) {
+					List<Reserva> reservasH = h.getReservas();
+					for (Reserva r : reservasH) {
+						DtReserva rdt = new DtReserva(r.getEstado(), r.getFechaInicio(), r.getFechaFin(), r.getIdChat(), r.getCantDias(), null, null);
+						reservasDT.add(rdt);
+					}
+				}
+				if (reservasDT.isEmpty()) {
+					return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+				}else {
+					return new ResponseEntity<>(reservasDT, HttpStatus.OK);
+				}
+			}else {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+	}
+	
+	// #######################Funciones de prueba#######################
 	
 	//De prueba, se puede borrar
 	@RequestMapping(value = "/mail/enviar", method = { RequestMethod.POST,  RequestMethod.GET })
