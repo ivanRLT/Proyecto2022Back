@@ -23,6 +23,16 @@ public class DtServicios implements Serializable {
 	private boolean desayuno;
 	private boolean parking;
 	
+	public DtServicios() {
+		super();
+		this.aire = false;
+		this.tvCable = false;
+		this.jacuzzi = false;
+		this.wifi = false;
+		this.desayuno = false;
+		this.parking = false;
+	}
+	
 	public DtServicios(boolean aire, boolean tvCable, boolean jacuzzi, boolean wifi, boolean desayuno,
 			boolean parking) {
 		super();

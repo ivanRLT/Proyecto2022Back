@@ -152,18 +152,43 @@ public class ControladorAlojamiento {
 	public ResponseEntity<List<DtAlojamiento>> listarAlojamientos(@RequestBody DtFiltrosAlojamiento filtros) {
 		List<Alojamiento> alojs = new ArrayList<Alojamiento>();
 		List<DtAlojamiento> dtAlojs = new ArrayList<DtAlojamiento>();
+		List<DtHabitacion> dtHabs = new ArrayList<DtHabitacion>();
+		DtHabitacion dtHab;
 		DtAlojamiento dtA;
+		Boolean filtrarHabitaciones;
 		try {
 			repoA.findAll().forEach(alojs::add);
+			filtrarHabitaciones = filtroAfectaHab(filtros);
 			for (Alojamiento a : alojs) {
+				dtHabs = new ArrayList<DtHabitacion>();
 				if( alojCumpleFiltro( a, filtros ) ){
 					dtA = new DtAlojamiento(
+							a.getId(),
 							a.getActivo(), 
 							a.getDescripcion(), 
 							a.getDireccion(), 
-							a.getNombre()
+							a.getNombre(), 
+							null
 					);
-					dtAlojs.add(dtA);
+					for( Habitacion hab : a.getHabitaciones() ) {
+						//Si no desea aplicar filtro de habitaciones o desea aplicar filtros y estos se cumplen
+						if( !filtrarHabitaciones || habCumpleFiltro(hab, filtros) ) {
+							dtHab = new DtHabitacion(
+									hab.getDescripcion(), 
+									hab.getPrecioNoche(), 
+									hab.getCamas(), 
+									hab.getServicios(),
+									null
+								);
+							dtHabs.add(dtHab);
+						}
+					}
+					if( dtHabs.size()>0 ) {
+						dtA.setHabitaciones(dtHabs);
+					}
+					if( !filtrarHabitaciones || dtHabs.size()>0) {
+						dtAlojs.add(dtA);
+					}
 				}
 			}
 			if (dtAlojs.isEmpty()) {
@@ -250,12 +275,12 @@ public class ControladorAlojamiento {
 		if( dtF.getAloj_activo()!=null && a.getActivo()!=dtF.getAloj_activo() ) {
 			return false;
 		}
-		if( dtF.getAloj_desc()!=null && dtF.getAloj_desc()!="") {
+		if( dtF.getAloj_desc()!=null && !dtF.getAloj_desc().trim().equals("")) {
 			if( !valuesInString( dtF.getAloj_desc().split(" "), a.getDescripcion()) ) {
 				return false;
 			}
 		}
-		if( dtF.getAloj_nombre()!=null && dtF.getAloj_nombre()!="") {
+		if( dtF.getAloj_nombre()!=null && !dtF.getAloj_nombre().trim().equals("")) {
 			if( !valuesInString( dtF.getAloj_nombre().split(" "), a.getNombre()) ) {
 				return false;
 			}
@@ -263,11 +288,11 @@ public class ControladorAlojamiento {
 		if( dtF.getId_anf()!=null && dtF.getId_anf() != a.getAnfitrion().getId()) {
 			return false;
 		}
-		if( dtF.getAloj_ciudad()!=null && dtF.getAloj_ciudad()!="" 
+		if( dtF.getAloj_ciudad()!=null && !dtF.getAloj_ciudad().trim().equals("") 
 				&& !dtF.getAloj_ciudad().equals( a.getDireccion().getCiudad() ) ) {
 			return false;
 		}
-		if( dtF.getAloj_pais()!=null && dtF.getAloj_pais()!="" 
+		if( dtF.getAloj_pais()!=null && !dtF.getAloj_pais().trim().equals("") 
 				&& !dtF.getAloj_pais().equals( a.getDireccion().getPais() ) ) {
 			return false;
 		}
@@ -278,6 +303,70 @@ public class ControladorAlojamiento {
 			if(! v.contains(vals[i]) ) {
 				return false;
 			}
+		}
+		return true;
+	}
+	private Boolean filtroAfectaHab(DtFiltrosAlojamiento filtro) {
+		if( 
+				( filtro.getHab_camas()!=null && filtro.getHab_camas()!=0 )  
+				|| ( filtro.getHab_camas_mas_de()!=null && filtro.getHab_camas_mas_de() != 0 ) 
+				|| ( filtro.getHab_desc()!=null && filtro.getHab_desc().trim()!= "")
+				|| ( filtro.getHab_precio()!=null && filtro.getHab_precio()!=0 )
+				|| ( filtro.getHab_servicios()!=null )
+		) {
+			return true;
+		}
+		return false;
+	}
+	private Boolean habCumpleFiltro(Habitacion hab, DtFiltrosAlojamiento filtros) {
+		if(filtros==null) {
+			return true;
+		}
+		if(hab==null) {
+			return false;
+		}
+		if( filtros.getHab_camas()!=null && filtros.getHab_camas()!=0 && hab.getCamas() != filtros.getHab_camas()) {
+			return false;
+		}
+		if( filtros.getHab_camas_mas_de()!=null && filtros.getHab_camas_mas_de()!=0 && hab.getCamas() <= filtros.getHab_camas_mas_de()) {
+			return false;
+		}
+		if( filtros.getHab_desc()!=null && !filtros.getHab_desc().trim().equals("") 
+				&& !valuesInString(filtros.getHab_desc().split(""), hab.getDescripcion())) {
+			return false;
+		}
+		if( filtros.getHab_precio()!=null && filtros.getHab_precio()!=0
+				&& hab.getPrecioNoche() != filtros.getHab_precio() ) {
+			return false;
+		}
+		if( filtros.getHab_precio_hasta()!=null && filtros.getHab_precio_hasta()!=0
+				&& filtros.getHab_precio_hasta()<hab.getPrecioNoche() ) {
+			return false;
+		}
+		
+		DtServicios filtServ = filtros.getHab_servicios();
+		DtServicios habServ = hab.getServicios();
+		if(filtServ==null) { 
+			return true;
+		}
+		
+		if(filtServ.isAire() && !habServ.isAire()){ 
+			return false;
+		}
+		if(filtServ.isDesayuno() && ! habServ.isDesayuno()){ 
+			return false;
+		}
+		if(filtServ.isJacuzzi() && ! habServ.isJacuzzi()){ 
+			return false;
+		}
+		if(filtServ.isParking() && ! habServ.isParking()){ 
+			return false;
+		}
+		if(filtServ.isTvCable() && ! habServ.isTvCable()){ 
+			return false;
+		}
+		if(filtServ.isWifi() && ! habServ.isWifi()){ 
+			return false;
 		}
 		return true;
 	}

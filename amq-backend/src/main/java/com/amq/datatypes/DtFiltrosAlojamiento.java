@@ -8,14 +8,17 @@ public class DtFiltrosAlojamiento {
 	private String aloj_pais;
 	private String aloj_ciudad;
 	
-	public String getAloj_pais() {
-		return aloj_pais;
-	}
-
+	private String hab_desc;
+	private Double hab_precio;
+	private Double hab_precio_hasta;
+	private Integer hab_camas;
+	private Integer hab_camas_mas_de;
+	private DtServicios hab_servicios;
 	
-
+	
 	public DtFiltrosAlojamiento(Integer id_anf, Boolean aloj_activo, String aloj_nombre, String aloj_desc,
-			String aloj_pais, String aloj_ciudad) {
+			String aloj_pais, String aloj_ciudad, String hab_desc, Double hab_precio, Double hab_precio_hasta,
+			Integer hab_camas, Integer hab_camas_mas_de, DtServicios hab_servicios) {
 		super();
 		this.id_anf = id_anf;
 		this.aloj_activo = aloj_activo;
@@ -23,9 +26,65 @@ public class DtFiltrosAlojamiento {
 		this.aloj_desc = aloj_desc;
 		this.aloj_pais = aloj_pais;
 		this.aloj_ciudad = aloj_ciudad;
+		this.hab_desc = hab_desc;
+		this.hab_precio = hab_precio;
+		this.hab_precio_hasta = hab_precio_hasta;
+		this.hab_camas = hab_camas;
+		this.hab_camas_mas_de = hab_camas_mas_de;
+		this.hab_servicios = hab_servicios;
 	}
 
+	public Double getHab_precio_hasta() {
+		return hab_precio_hasta;
+	}
 
+	public void setHab_precio_hasta(Double hab_precio_hasta) {
+		this.hab_precio_hasta = hab_precio_hasta;
+	}
+
+	public DtServicios getHab_servicios() {
+		return hab_servicios;
+	}
+
+	public void setHab_servicios(DtServicios hab_servicios) {
+		this.hab_servicios = hab_servicios;
+	}
+
+	public String getHab_desc() {
+		return hab_desc;
+	}
+
+	public void setHab_desc(String hab_desc) {
+		this.hab_desc = hab_desc;
+	}
+
+	public Double getHab_precio() {
+		return hab_precio;
+	}
+
+	public void setHab_precio(Double hab_precio) {
+		this.hab_precio = hab_precio;
+	}
+
+	public Integer getHab_camas() {
+		return hab_camas;
+	}
+
+	public void setHab_camas(Integer hab_camas) {
+		this.hab_camas = hab_camas;
+	}
+
+	public Integer getHab_camas_mas_de() {
+		return hab_camas_mas_de;
+	}
+
+	public void setHab_camas_mas_de(Integer hab_camas_mas_de) {
+		this.hab_camas_mas_de = hab_camas_mas_de;
+	}
+
+	public String getAloj_pais() {
+		return aloj_pais;
+	}
 
 	public Integer getId_anf() {
 		return id_anf;
