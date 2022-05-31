@@ -1,6 +1,7 @@
 package com.amq.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,20 +10,15 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.FetchType;
 
 @Entity
 @Table(name = "usuarios")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Usuario implements Serializable {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,9 +39,6 @@ public abstract class Usuario implements Serializable {
 	@Column(length = 60)
 	private String pass;
 
-        public int getId() {
-        return id;
-    }
 	public Usuario() {
 		super();
 	}
@@ -56,9 +49,15 @@ public abstract class Usuario implements Serializable {
 		this.nombre = nombre;
 		this.pass = pass;
 	}
+	
+	public int getId() {
+		return id;
+	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
@@ -98,5 +97,27 @@ public abstract class Usuario implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(activo, apellido, email, id, nombre, pass, recuperacion);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof Usuario))
+			return false;
+		Usuario other = (Usuario) obj;
+		return Objects.equals(activo, other.activo) && Objects.equals(apellido, other.apellido)
+				&& Objects.equals(email, other.email) && id == other.id && Objects.equals(nombre, other.nombre)
+				&& Objects.equals(pass, other.pass) && Objects.equals(recuperacion, other.recuperacion);
+	}
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", email=" + email + ", activo=" + activo + ", apellido=" + apellido + ", nombre="
+				+ nombre + ", recuperacion=" + recuperacion + ", pass=" + pass + "]";
+	}
+	
 	
 }

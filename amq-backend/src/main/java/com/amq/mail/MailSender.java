@@ -7,7 +7,6 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 public class MailSender {
-;
 	
 	@Autowired
 	private JavaMailSenderImpl mailSender;

@@ -17,16 +17,17 @@ public class UsuarioService implements IUsuarioService{
 	@Autowired
 	private RepositoryUsuario repositoryUsuario;
 	
+	@Autowired
 	private RepositoryResetPassword passwordTokenRepository;
 	
 	@Override
-	public Usuario findUserByEmail(final String email) {
+	public Usuario findUserByEmail(String email) {
 		return repositoryUsuario.findByEmail(email);
 	}
 	
 	@Override
-    public void createPasswordResetTokenForUser(final Usuario user, final String token) {
-        final PasswordResetToken myToken = new PasswordResetToken(token, user);
+    public void createPasswordResetTokenForUser(Usuario user, String token) {
+        PasswordResetToken myToken = new PasswordResetToken(token, user);
         passwordTokenRepository.save(myToken);
     }
 
