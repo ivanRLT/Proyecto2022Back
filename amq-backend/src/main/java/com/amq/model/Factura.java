@@ -42,6 +42,8 @@ public class Factura implements Serializable {
 	
 	private double montoDescuento;
 	
+	private String idPaypal;
+	
 	@JsonIgnore
 	@ManyToOne
 	private Reserva reserva;
@@ -109,11 +111,17 @@ public class Factura implements Serializable {
 		calendar.set(fecha.getAnio(), fecha.getMes(), fecha.getDia(), 00, 00, 00);
 		this.fecha =(Date) calendar.getTime();
 	}
-	public Reserva getFactura() {
+	public Reserva getReserva() {
 		return reserva;
 	}
-	public void setFactura(Reserva reserva) {
+	public void setReserva(Reserva reserva) {
 		this.reserva = reserva;
+	}
+	public String getIdPaypal() {
+		return idPaypal;
+	}
+	public void setIdPaypal(String idPaypal) {
+		this.idPaypal = idPaypal;
 	}
 	
 }

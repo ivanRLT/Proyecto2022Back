@@ -170,5 +170,7 @@ public class Reserva implements Serializable {
 	public void setHuesped(Huesped huesped) {
 		this.huesped = huesped;
 	}
-	
+	public void agregarFactura(Factura factura) {
+		this.facturas.add(factura);
+	}
 }
