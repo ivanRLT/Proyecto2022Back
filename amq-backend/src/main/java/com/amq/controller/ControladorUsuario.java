@@ -220,6 +220,12 @@ public class ControladorUsuario {
 					if (usr.get() instanceof Anfitrion) {
 						anf = (Anfitrion) usr.get();
 						anf.setBloqueado(false);
+						
+						List<Alojamiento> alojamientosAnfitrion = anf.getAlojamientos();
+						for (Alojamiento alanf : alojamientosAnfitrion) {
+							alanf.setActivo(true);
+						}
+						
 						return new ResponseEntity<>(repoU.save(anf), HttpStatus.OK);
 					}
 					if (usr.get() instanceof Huesped) {
