@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -44,6 +45,7 @@ import com.amq.repositories.RepositoryUsuario;
 import com.amq.repositories.RepositoryHabitacion;
 import com.amq.repositories.RepositoryReserva;
 import com.amq.service.IUsuarioService;
+import com.amq.dto.PasswordDto;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -430,6 +432,25 @@ public class ControladorUsuario {
 	    return new GenericResponse(messages.getMessage("message.resetPasswordEmail", null, request.getLocale()));
 	}
 	
+	// Save password
+	@PostMapping("/savePassword")
+	public GenericResponse savePassword(final Locale locale, @Valid PasswordDto passwordDto) {
+		String result = userService.validatePasswordResetToken(passwordDto.getToken());
+
+		if (result != null) {
+			return new GenericResponse(messages.getMessage("auth.message." + result, null, locale));
+		}
+		
+		Optional<Usuario> user = userService.getUserByPasswordResetToken(passwordDto.getToken());
+		if (user.isPresent()) {
+			userService.changeUserPassword(user.get(), passwordDto.getNewPassword());
+			return new GenericResponse(messages.getMessage("message.resetPasswordSuc", null, locale));
+		} else {
+			return new GenericResponse(messages.getMessage("auth.message.invalid", null, locale));
+		}
+		
+	}
+
 	private SimpleMailMessage constructResetTokenEmail(String contextPath, Locale locale, String token, Usuario user) {
 		 String url = contextPath + "/usuario/changePassword?token=" + token;
          String message = messages.getMessage("message.resetPassword", null, locale);
