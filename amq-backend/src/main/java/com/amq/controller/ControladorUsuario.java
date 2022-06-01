@@ -36,6 +36,7 @@ import com.amq.datatypes.DtUsuario;
 import com.amq.enums.ReservaEstado;
 import com.amq.mail.GenericResponse;
 import com.amq.model.Administrador;
+import com.amq.model.Alojamiento;
 import com.amq.model.Anfitrion;
 import com.amq.model.Habitacion;
 import com.amq.model.Huesped;
@@ -70,8 +71,8 @@ public class ControladorUsuario {
 	 @Autowired
 	 private MessageSource messages;
 	
-	 @Autowired
-	 private Environment env;
+//	 @Autowired
+//	 private Environment env;
 	
 	@RequestMapping(value = "/altaAdmin/{id}", method = { RequestMethod.POST,  RequestMethod.GET })
 	public ResponseEntity<Administrador> altaAdministrador(@RequestBody DtAdministrador adminDT) {
@@ -185,6 +186,12 @@ public class ControladorUsuario {
 				if (usr.get() instanceof Anfitrion) {
 					anf = (Anfitrion) usr.get();
 					anf.setBloqueado(true);
+					
+					List<Alojamiento> alojamientosAnfitrion = anf.getAlojamientos();
+					for (Alojamiento alanf : alojamientosAnfitrion) {
+						alanf.setActivo(false);
+					}
+					
 					return new ResponseEntity<>(repoU.save(anf), HttpStatus.OK);
 				}
 				if (usr.get() instanceof Huesped) {
