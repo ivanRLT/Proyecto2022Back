@@ -462,7 +462,8 @@ public class ControladorUsuario {
         email.setSubject(subject);
         email.setText(body);
         email.setTo(user.getEmail());
-        email.setFrom(env.getProperty("support.email"));
+//        email.setFrom(env.getProperty("support.email"));
+        email.setFrom(user.getEmail());
         return email;
     }
 
