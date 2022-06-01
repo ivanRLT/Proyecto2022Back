@@ -33,6 +33,7 @@ import com.amq.datatypes.DtFecha;
 import com.amq.datatypes.DtHuesped;
 import com.amq.datatypes.DtReserva;
 import com.amq.datatypes.DtUsuario;
+import com.amq.enums.AprobacionEstado;
 import com.amq.enums.ReservaEstado;
 import com.amq.mail.GenericResponse;
 import com.amq.model.Administrador;
@@ -186,7 +187,7 @@ public class ControladorUsuario {
 				if (usr.get() instanceof Anfitrion) {
 					anf = (Anfitrion) usr.get();
 					anf.setBloqueado(true);
-					
+					//para cada alojamiento del anfitrion se desactiva
 					List<Alojamiento> alojamientosAnfitrion = anf.getAlojamientos();
 					for (Alojamiento alanf : alojamientosAnfitrion) {
 						alanf.setActivo(false);
@@ -220,7 +221,7 @@ public class ControladorUsuario {
 					if (usr.get() instanceof Anfitrion) {
 						anf = (Anfitrion) usr.get();
 						anf.setBloqueado(false);
-						
+						//Para cada alojamiento del anfitrion se activan.
 						List<Alojamiento> alojamientosAnfitrion = anf.getAlojamientos();
 						for (Alojamiento alanf : alojamientosAnfitrion) {
 							alanf.setActivo(true);
@@ -276,6 +277,47 @@ public class ControladorUsuario {
 				return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		}
+		
+		@RequestMapping(value = "/aprobarAnfitrion/{id}", method = { RequestMethod.POST, RequestMethod.GET })
+		public ResponseEntity<Usuario> aprobarAnfitrion(@PathVariable("id") int idUsr) {
+			try {
+				Optional<Usuario> usr = repoU.findById(idUsr);
+				Anfitrion anf = null;
+				if (usr.isPresent()) {
+					if (usr.get() instanceof Anfitrion) {
+						anf = (Anfitrion) usr.get();
+						anf.setEstado(AprobacionEstado.APROBADO);
+					}
+					return new ResponseEntity<>(repoU.save(anf), HttpStatus.OK);
+				} else {
+					return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+				}
+
+			} catch (Exception e) {
+				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		}
+		
+		@RequestMapping(value = "/rechazarAnfitrion/{id}", method = { RequestMethod.POST, RequestMethod.GET })
+		public ResponseEntity<Usuario> rechazarAnfitrion(@PathVariable("id") int idUsr) {
+			try {
+				Optional<Usuario> usr = repoU.findById(idUsr);
+				Anfitrion anf = null;
+				if (usr.isPresent()) {
+					if (usr.get() instanceof Anfitrion) {
+						anf = (Anfitrion) usr.get();
+						anf.setEstado(AprobacionEstado.RECHAZADO);
+					}
+					return new ResponseEntity<>(repoU.save(anf), HttpStatus.OK);
+				} else {
+					return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+				}
+
+			} catch (Exception e) {
+				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		}
+		
 	
 		public DtUsuario iniciarSesion(String email, String pass) {
 			DtUsuario retorno = null;
