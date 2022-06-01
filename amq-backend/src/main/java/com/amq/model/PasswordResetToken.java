@@ -1,7 +1,7 @@
 package com.amq.model;
 
-import java.sql.Date;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -57,13 +57,13 @@ public class PasswordResetToken {
 	        this.expiryDate = calculateExpiryDate(EXPIRATION);
 	    }
 
-		public PasswordResetToken(int id, String token, Usuario usuario, Date expiryDate) {
-			super();
-			this.id = id;
-			this.token = token;
-			this.usuario = usuario;
-			this.expiryDate = expiryDate;
-		}
+//		public PasswordResetToken(int id, String token, Usuario usuario, Date expiryDate) {
+//			super();
+//			this.id = id;
+//			this.token = token;
+//			this.usuario = usuario;
+//			this.expiryDate = expiryDate;
+//		}
 		
 		public int getId() {
 			return id;
@@ -101,9 +101,9 @@ public class PasswordResetToken {
 			return EXPIRATION;
 		}
 		
-		private Date calculateExpiryDate(final int expiryTimeInMinutes) {
-	        final Calendar cal = Calendar.getInstance();
-	        cal.setTimeInMillis(new Date(expiryTimeInMinutes).getTime());
+		private Date calculateExpiryDate( int expiryTimeInMinutes) {
+	        Calendar cal = Calendar.getInstance();
+	        cal.setTimeInMillis(new Date().getTime());
 	        cal.add(Calendar.MINUTE, expiryTimeInMinutes);
 	        return new Date(cal.getTime().getTime());
 	    }
