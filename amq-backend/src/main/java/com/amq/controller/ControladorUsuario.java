@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,6 +36,7 @@ import com.amq.datatypes.DtReserva;
 import com.amq.datatypes.DtUsuario;
 import com.amq.enums.AprobacionEstado;
 import com.amq.enums.ReservaEstado;
+import com.amq.jwt.JWTGenerador;
 import com.amq.mail.GenericResponse;
 import com.amq.model.Administrador;
 import com.amq.model.Alojamiento;
@@ -246,6 +248,7 @@ public class ControladorUsuario {
 		}
 	
 		@RequestMapping(value = "/listar", method = { RequestMethod.POST, RequestMethod.GET })
+		//@PreAuthorize("hasRole('ROLE_AD')")
 		public ResponseEntity<List<DtUsuario>> listarUsuarios() {
 			List<Usuario> usuarios = new ArrayList<Usuario>();
 			List<DtUsuario> retorno = new ArrayList<DtUsuario>();
@@ -318,12 +321,28 @@ public class ControladorUsuario {
 			}
 		}
 		
-	
+		@RequestMapping(value = "/login/", method = { RequestMethod.POST })
 		public DtUsuario iniciarSesion(String email, String pass) {
+			Usuario user;
+			
+			user = new Administrador();
+			user.setNombre("nombre");
+			
+			String jwtToken; 
+			jwtToken = JWTGenerador.getJWTToken(user);
+			
 			DtUsuario retorno = null;
+			
+			retorno = new DtUsuario() {	};
+			
+			retorno.setNombre(jwtToken);
+			
+			return retorno;
+			
+/*			
 			try {
 				// Coneccion BD
-				Usuario user = null;
+				user = null;
 				if (user.getPass() == pass) {
 					if (user instanceof Administrador) {
 						// retorno = new DtAdministrador(user.getEmail(), user.getNombre(),
@@ -344,6 +363,8 @@ public class ControladorUsuario {
 				// TODO: handle exception
 			}
 			return retorno;
+
+*/
 		}
 	
 	// #######################Funciones de Anfitrion#######################
