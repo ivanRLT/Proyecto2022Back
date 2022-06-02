@@ -25,6 +25,7 @@ import com.amq.datatypes.DtFecha;
 import com.amq.datatypes.DtReserva;
 import com.amq.enums.PagoEstado;
 import com.amq.enums.ReservaEstado;
+import com.amq.model.Anfitrion;
 import com.amq.model.Calificacion;
 import com.amq.model.Factura;
 import com.amq.model.Habitacion;
@@ -261,15 +262,48 @@ public class ControladorReserva {
 		return retorno;
 	}
 	// #######################Funciones de Calificacion#######################
-	public boolean altaCalificacion() {
-		Boolean retorno = false;
+	@RequestMapping(value = "/altaCalificacion/{id},{calificacion}", method = { RequestMethod.POST, RequestMethod.GET })
+	public ResponseEntity<Usuario> altaCalificacion(@PathVariable("id") int idUsr,
+			@PathVariable("calificacion") int cal, @PathVariable("calificacion") String resena) {
 		try {
+			Optional<Usuario> usr = repoU.findById(idUsr);
+//			Anfitrion anf = null;
+			Huesped hue = null;
+			if (usr.isPresent()) {
+				if (usr.get() instanceof Huesped) {
+					hue = (Huesped) usr.get();
+					Reserva res = new Reserva();
+					// res.getEstado().compareTo(ReservaEstado.EJECUTADA);
+					if (res.getEstado() == ReservaEstado.EJECUTADA || res.getEstado() == ReservaEstado.EN_CURSO) {
+						Calificacion calificacion = new Calificacion();
+						calificacion.setCalificacionAnfitrion(cal);
+						calificacionGlobal(calificacion.getCalificacionAnfitrion());
+
+						calificacion.setResena(resena);
+
+						return new ResponseEntity<>(repoU.save(hue), HttpStatus.OK);
+
+//					return new ResponseEntity<>(repoU.save(anf), HttpStatus.OK);
+
+					}
+				} else {
+					return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+				}
+			} else {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
 
 		} catch (Exception e) {
-			// TODO: handle exception
+			System.out.println(e.toString());
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return retorno;
+		return null;
 	}
+	
+	public void calificacionGlobal(int calificacion) {
+		//para armar la sumatoria
+	}
+	
 	public boolean modificarCalificacion(int idReserva) {
 		Boolean retorno = false;
 		try {
