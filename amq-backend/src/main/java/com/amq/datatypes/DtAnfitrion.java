@@ -17,8 +17,8 @@ public class DtAnfitrion extends DtUsuario {
 		// TODO Auto-generated constructor stub
 	}
 
-	public DtAnfitrion(int id, String email, String nombre, String apellido, boolean activo, int calificacionGlobal, AprobacionEstado estado, String tipo, Boolean bloqueado) {
-		super(id, email, nombre, apellido, activo, tipo);
+	public DtAnfitrion(int id, String email, String nombre, String apellido, boolean activo, int calificacionGlobal, AprobacionEstado estado, String tipo, Boolean bloqueado, String jwToken) {
+		super(id, email, nombre, apellido, activo, tipo, jwToken);
 		this.calificacionGlobal = calificacionGlobal;
 		this.estado = estado;
 		this.bloqueado = bloqueado;

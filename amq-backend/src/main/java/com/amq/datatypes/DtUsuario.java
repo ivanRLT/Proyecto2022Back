@@ -8,12 +8,13 @@ public abstract class DtUsuario {
 	private boolean activo;
 	private String pass;
 	private String tipo;
+	private String jwToken;
 	
 	public DtUsuario() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public DtUsuario(int id, String email, String nombre, String apellido, boolean activo, String tipo) {
+	public DtUsuario(int id, String email, String nombre, String apellido, boolean activo, String tipo, String jwToken) {
 		super();
 		this.id = id;
 		this.email = email;
@@ -21,7 +22,17 @@ public abstract class DtUsuario {
 		this.apellido = apellido;
 		this.activo = activo;
 		this.tipo = tipo;
+		this.jwToken = jwToken;
 	}
+	
+	public String getJwToken() {
+		return jwToken;
+	}
+	
+	public void setJwToken(String jwToken) {
+		this.jwToken = jwToken;
+	}
+	
 	public String getEmail() {
 		return email;
 	}

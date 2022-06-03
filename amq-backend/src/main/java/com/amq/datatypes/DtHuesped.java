@@ -13,8 +13,8 @@ public class DtHuesped extends DtUsuario{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public DtHuesped(int id, String email, String nombre, String apellido, boolean activo, int calificacionGlobal, List<String> pushToken, String tipo, Boolean bloqueado) {
-		super(id, email, nombre, apellido, activo, tipo);
+	public DtHuesped(int id, String email, String nombre, String apellido, boolean activo, int calificacionGlobal, List<String> pushToken, String tipo, Boolean bloqueado, String jwToken) {
+		super(id, email, nombre, apellido, activo, tipo, jwToken );
 		this.calificacionGlobal = calificacionGlobal;
 		this.pushToken = pushToken;
 		this.bloqueado = bloqueado;

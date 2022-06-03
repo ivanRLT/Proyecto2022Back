@@ -257,17 +257,17 @@ public class ControladorUsuario {
 				for (Usuario u : usuarios) {
 					if (u instanceof Administrador) {
 						DtAdministrador dtadmin = new DtAdministrador(u.getId(), u.getEmail(), u.getNombre(),
-								u.getApellido(), u.getActivo(), "Ad");
+								u.getApellido(), u.getActivo(), "Ad", null);
 						retorno.add(dtadmin);
 					} else if (u instanceof Anfitrion) {
 						Anfitrion ua = (Anfitrion) u;
 						DtAnfitrion dtanfitrion = new DtAnfitrion(u.getId(), ua.getEmail(), ua.getNombre(),
-								ua.getApellido(), ua.getActivo(), ua.getCalificacionGlobal(), ua.getEstado(), "An", ua.getBloqueado());
+								ua.getApellido(), ua.getActivo(), ua.getCalificacionGlobal(), ua.getEstado(),  "An", ua.getBloqueado(), null);
 						retorno.add(dtanfitrion);
 					} else if (u instanceof Huesped) {
 						Huesped uh = (Huesped) u;
 						DtHuesped dthuesped = new DtHuesped( u.getId(), uh.getEmail(), uh.getNombre(), uh.getApellido(),
-								uh.getActivo(), uh.getCalificacionGlobal(), uh.getPushTokens(), "Hu", uh.getBloqueado());
+								uh.getActivo(), uh.getCalificacionGlobal(), uh.getPushTokens(), "Hu", uh.getBloqueado(), null);
 						retorno.add(dthuesped);
 					}
 				}
@@ -322,49 +322,42 @@ public class ControladorUsuario {
 		}
 		
 		@RequestMapping(value = "/login/", method = { RequestMethod.POST })
-		public DtUsuario iniciarSesion(String email, String pass) {
+		public ResponseEntity<DtUsuario> iniciarSesion(@RequestBody String email, String pass) {
 			Usuario user;
+			DtUsuario dtUser = null;
 			
-			user = new Administrador();
-			user.setNombre("nombre");
-			
-			String jwtToken; 
-			jwtToken = JWTGenerador.getJWTToken(user);
-			
-			DtUsuario retorno = null;
-			
-			retorno = new DtUsuario() {	};
-			
-			retorno.setNombre(jwtToken);
-			
-			return retorno;
-			
-/*			
 			try {
-				// Coneccion BD
-				user = null;
-				if (user.getPass() == pass) {
+				user = repoU.findByEmail(email);
+				
+				if(user == null /*|| user.getPass() == pass*/ ) {
+					return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+				}
+				
+				String jwToken = JWTGenerador.getJWTToken(user);
+				
+				if (true || user.getPass() == pass){
 					if (user instanceof Administrador) {
-						// retorno = new DtAdministrador(user.getEmail(), user.getNombre(),
-						// user.getApellido(), user.getActivo());
+						dtUser = new DtAdministrador( user.getId(), user.getEmail(), user.getNombre(),
+						 user.getApellido(), user.getActivo(), "Ad", jwToken);
 					} else if (user instanceof Anfitrion) {
 						Anfitrion ua = (Anfitrion) user;
-						// retorno = new DtAnfitrion(user.getEmail(), user.getNombre(),
-						// user.getApellido(), user.getActivo(), ua.getCalificacionGlobal(),
-						// ua.getEstado(), null);
+						dtUser = new DtAnfitrion(user.getId(), user.getEmail(), user.getNombre(),
+								user.getApellido(), user.getActivo(),  ua.getCalificacionGlobal(),
+								ua.getEstado(), "An",null, jwToken);
 					} else if (user instanceof Huesped) {
 						Huesped uH = (Huesped) user;
-						// retorno = new DtHuesped(user.getEmail(), user.getNombre(),
-						// user.getApellido(), user.getActivo(),
-						// uH.getCalificacionGlobal(),uH.getPushTokens(),null);
+						dtUser = new DtHuesped(user.getId(), user.getEmail(), user.getNombre(),
+								user.getApellido(), user.getActivo(), 
+								uH.getCalificacionGlobal(),uH.getPushTokens(), "Hu", null, jwToken);
 					}
 				}
+				
+				return new ResponseEntity<>(dtUser, HttpStatus.FOUND);
 			} catch (Exception e) {
-				// TODO: handle exception
+				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 			}
-			return retorno;
 
-*/
+
 		}
 	
 	// #######################Funciones de Anfitrion#######################
