@@ -7,6 +7,7 @@ TRUNCATE TABLE
 	facturas,
 	habitaciones,
 	huesped_push_tokens,
+    passwordresettoken,
 	recuperaciones,
 	reservas
 CASCADE;

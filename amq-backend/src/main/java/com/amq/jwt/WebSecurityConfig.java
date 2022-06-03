@@ -19,7 +19,9 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 			.authorizeRequests()
 			.antMatchers(HttpMethod.POST, "/usuario/login/").permitAll()
-			//.antMatchers(HttpMethod.POST, "/usuario/login/").permitAll()  <- agregar linea acá
-			.antMatchers(HttpMethod.POST, "/usuario/listar").permitAll().anyRequest().authenticated();
+			.antMatchers(HttpMethod.POST, "/usuario/listar").permitAll().anyRequest().authenticated()
+			.antMatchers(HttpMethod.POST, "/usuario/resetPassword").permitAll().anyRequest().authenticated()
+		    .antMatchers(HttpMethod.GET, "/swagger-ui/index.html#").permitAll().anyRequest().authenticated()
+		    .antMatchers(HttpMethod.GET, "http://localhost:8080/swagger-ui/index.html#").permitAll().anyRequest().authenticated();
 	}
 }

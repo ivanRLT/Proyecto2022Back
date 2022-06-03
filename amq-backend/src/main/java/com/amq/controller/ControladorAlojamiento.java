@@ -64,7 +64,7 @@ public class ControladorAlojamiento {
 	
 	// #######################Funciones de alojamiento#######################
 	
-	@RequestMapping(value = "/alta/{id}", method = { RequestMethod.POST,  RequestMethod.GET })
+	@RequestMapping(value = "/alta/{id}", method = { RequestMethod.POST })
 	public ResponseEntity<Alojamiento> altaAlojamiento(@RequestBody DtAlojamiento alojDT, @PathVariable("id") int idAnf) {
 		try {
 			Optional<Usuario> opU = repoU.findById(idAnf);
@@ -95,7 +95,7 @@ public class ControladorAlojamiento {
 		}
 	}
 	
-	@RequestMapping(value = "/agregarHabitaciones/{id}", method = { RequestMethod.POST,  RequestMethod.GET })
+	@RequestMapping(value = "/agregarHabitaciones/{id}", method = { RequestMethod.POST })
 	public ResponseEntity<Habitacion> agregarHabitacionesAlojamiento(@PathVariable("id") int idAlo, @RequestBody DtHabitacion habitacion) {
 		try {
 			Optional<Alojamiento> opA = repoA.findById(idAlo);
@@ -188,7 +188,7 @@ public class ControladorAlojamiento {
 		return retorno;
 	}
 	
-	@RequestMapping(value = "/listarAlojamientos", method = { RequestMethod.POST,  RequestMethod.GET })
+	@RequestMapping(value = "/listarAlojamientos", method = { RequestMethod.GET })
 	public ResponseEntity<List<DtAlojamiento>> listarAlojamientos(@RequestBody DtFiltrosAlojamiento filtros) {
 		List<Alojamiento> alojs = new ArrayList<Alojamiento>();
 		List<DtAlojamiento> dtAlojs = new ArrayList<DtAlojamiento>();
@@ -207,9 +207,7 @@ public class ControladorAlojamiento {
 							a.getActivo(), 
 							a.getDescripcion(), 
 							a.getDireccion(), 
-							a.getNombre(), 
-							null
-					);
+							a.getNombre());
 					for( Habitacion hab : a.getHabitaciones() ) {
 						//Si no desea aplicar filtro de habitaciones o desea aplicar filtros y estos se cumplen
 						if( !filtrarHabitaciones || habCumpleFiltro(hab, filtros) ) {
@@ -217,14 +215,9 @@ public class ControladorAlojamiento {
 									hab.getDescripcion(), 
 									hab.getPrecioNoche(), 
 									hab.getCamas(), 
-									hab.getServicios(),
-									null
-								);
+									hab.getServicios());
 							dtHabs.add(dtHab);
 						}
-					}
-					if( dtHabs.size()>0 ) {
-						dtA.setHabitaciones(dtHabs);
 					}
 					if( !filtrarHabitaciones || dtHabs.size()>0) {
 						dtAlojs.add(dtA);
@@ -308,7 +301,7 @@ public class ControladorAlojamiento {
 	// #######################Funciones de prueba#######################
 	
 	//De prueba, se puede borrar
-	@RequestMapping(value = "/mail/enviar", method = { RequestMethod.POST,  RequestMethod.GET })
+	@RequestMapping(value = "/mail/enviar", method = { RequestMethod.POST })
 	public void enviarMail(@RequestBody com.amq.mail.Mensaje msj) {
 		try {
 			com.amq.mail.MailSender mailSender = new com.amq.mail.MailSender();
@@ -319,7 +312,7 @@ public class ControladorAlojamiento {
 	}
 	
 	//De prueba, se puede borrar
-	@RequestMapping(value = "/notif", method = { RequestMethod.POST,  RequestMethod.GET })
+	@RequestMapping(value = "/notif", method = { RequestMethod.POST })
 	public void enviarNotificacion() {
 		try {
 			com.amq.notification.FirebaseNotificationAdmin notAdmin = new FirebaseNotificationAdmin();

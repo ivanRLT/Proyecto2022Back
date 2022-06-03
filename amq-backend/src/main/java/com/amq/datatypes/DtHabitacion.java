@@ -1,7 +1,5 @@
 package com.amq.datatypes;
 
-import java.util.ArrayList;
-
 public class DtHabitacion {
 	
 	private String descripcion;
@@ -10,8 +8,7 @@ public class DtHabitacion {
 	private DtServicios dtservicios;
 	
 	public DtHabitacion(String descripcion, Double precioNoche, int camas, 
-			DtServicios dtservicios,
-			ArrayList<DtReserva> dtReservas) {
+			DtServicios dtservicios) {
 		super();
 		this.descripcion = descripcion;
 		this.precioNoche = precioNoche;

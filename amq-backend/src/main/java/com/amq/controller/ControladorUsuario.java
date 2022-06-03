@@ -12,7 +12,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
@@ -29,10 +28,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.amq.datatypes.DtAdministrador;
 import com.amq.datatypes.DtAlojamiento;
+import com.amq.datatypes.DtAltaAnfitrion;
 import com.amq.datatypes.DtAnfitrion;
-import com.amq.datatypes.DtFecha;
+import com.amq.datatypes.DtDireccion;
+import com.amq.datatypes.DtHabitacion;
 import com.amq.datatypes.DtHuesped;
 import com.amq.datatypes.DtReserva;
+import com.amq.datatypes.DtServicios;
 import com.amq.datatypes.DtUsuario;
 import com.amq.enums.AprobacionEstado;
 import com.amq.enums.ReservaEstado;
@@ -46,8 +48,11 @@ import com.amq.model.Huesped;
 import com.amq.model.Reserva;
 import com.amq.model.Usuario;
 import com.amq.repositories.RepositoryUsuario;
+import com.amq.repositories.RepositoryAlojamiento;
+import com.amq.repositories.RepositoryDireccion;
 import com.amq.repositories.RepositoryHabitacion;
 import com.amq.repositories.RepositoryReserva;
+import com.amq.repositories.RepositoryServicios;
 import com.amq.service.IUsuarioService;
 import com.amq.dto.PasswordDto;
 
@@ -66,6 +71,17 @@ public class ControladorUsuario {
 	RepositoryHabitacion repoH;
 	
 	@Autowired
+	RepositoryAlojamiento repoA;
+	
+	@Autowired
+	RepositoryServicios repoS;
+	
+	@Autowired
+	RepositoryDireccion repoD;
+	
+	
+	
+	@Autowired
     private JavaMailSender mailSender;
 	
 	@Autowired
@@ -77,7 +93,7 @@ public class ControladorUsuario {
 //	 @Autowired
 //	 private Environment env;
 	
-	@RequestMapping(value = "/altaAdmin/{id}", method = { RequestMethod.POST,  RequestMethod.GET })
+	@RequestMapping(value = "/altaAdmin", method = { RequestMethod.POST })
 	public ResponseEntity<Administrador> altaAdministrador(@RequestBody DtAdministrador adminDT) {
 		try {
 			// Creo usuario para persistir 
@@ -96,10 +112,13 @@ public class ControladorUsuario {
 		}	
 	}
 	
-	@RequestMapping(value = "/altaAnfitiron/{id}", method = { RequestMethod.POST,  RequestMethod.GET })
-	public ResponseEntity<Anfitrion> altaAnfitrion(@RequestBody DtAnfitrion anfDT) {
+	@RequestMapping(value = "/altaAnfitiron", method = { RequestMethod.POST })
+	public ResponseEntity<Anfitrion> altaAnfitrion(@RequestBody DtAltaAnfitrion altaDT) {
 		try {
-			// Creo usuario para persistir 
+			DtAnfitrion anfDT = altaDT.getAnfitrion();
+			DtAlojamiento alojamientodt = altaDT.getAlojamiento();
+			DtHabitacion habitaciondt = altaDT.getHabitacion();
+
 			Anfitrion anf = new Anfitrion();
 			anf.setActivo(anfDT.isActivo());
 			anf.setEmail(anfDT.getEmail());
@@ -108,17 +127,44 @@ public class ControladorUsuario {
 			anf.setNombre(anfDT.getNombre());
 			anf.setCalificacionGlobal(-1);
 			anf.setEstado(anfDT.getEstado());
-			anf.setAlojamientos(null);
-			// El "save" devuleve el usuario agregado si funciono y lo guardo en aux para devolverlo
-			Anfitrion anfR = repoU.save(anf);
+			List<Alojamiento> alojamientos = new ArrayList<Alojamiento>();
+			anf.setAlojamientos(alojamientos);
 			
+			Anfitrion anfR = repoU.save(anf);
+
+			Alojamiento alojamiento = new Alojamiento();
+			DtDireccion direccion = alojamientodt.getDirecion();
+			repoD.save(direccion);
+			alojamiento.setAnfitrion(anfR);
+			alojamiento.setDescripcion(alojamientodt.getDescripcion());
+			alojamiento.setDireccion(direccion);
+			List<Habitacion> habits = new ArrayList<Habitacion>();
+			alojamiento.setHabitaciones(habits);
+			alojamiento.setNombre(alojamientodt.getNombre());
+			anfR.agregarAlojamiento(alojamiento);
+			Alojamiento alojR = repoA.save(alojamiento);
+			
+			Habitacion hab = new Habitacion();
+			DtServicios servicios = habitaciondt.getDtservicios();
+			repoS.save(servicios);
+			hab.setAlojamiento(alojamiento);
+			hab.setCamas(habitaciondt.getCamas());
+			hab.setDescripcion(habitaciondt.getDescripcion());
+			hab.setPrecioNoche(habitaciondt.getPrecioNoche());
+			List<Reserva> reservas = new ArrayList<Reserva>();
+			hab.setReservas(reservas);
+			hab.setServicios(servicios);
+			alojamiento.agregarHabitacion(hab);
+			Habitacion habR = repoH.save(hab);
+			repoA.save(alojamiento);
+
 			return new ResponseEntity<>(anfR, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}		
 	}
 	
-	@RequestMapping(value = "/altaHuesped", method = { RequestMethod.POST,  RequestMethod.GET })
+	@RequestMapping(value = "/altaHuesped", method = { RequestMethod.POST })
 	public ResponseEntity<Huesped> altaHuesped(@RequestBody DtHuesped huesDT) {
 		try {
 			// Creo usuario para persistir 
@@ -151,7 +197,7 @@ public class ControladorUsuario {
 		//return dt
 	}
 	
-	@RequestMapping(value = "/desactivar/{id}", method = { RequestMethod.POST, RequestMethod.GET })
+	@RequestMapping(value = "/desactivar/{id}", method = { RequestMethod.POST })
 	public ResponseEntity<Usuario> desactivarUsuario(@PathVariable("id") int idUsr) {
 		try {
 			Optional<Usuario> usr = repoU.findById(idUsr);
@@ -179,7 +225,7 @@ public class ControladorUsuario {
 		}
 	}
 	
-	@RequestMapping(value = "/bloquear/{id}", method = { RequestMethod.POST, RequestMethod.GET })
+	@RequestMapping(value = "/bloquear/{id}", method = { RequestMethod.POST })
 	public ResponseEntity<Usuario> bloquearUsuario(@PathVariable("id") int idUsr) {
 		try {
 			Optional<Usuario> usr = repoU.findById(idUsr);
@@ -213,7 +259,7 @@ public class ControladorUsuario {
 		}
 	}
 	
-		@RequestMapping(value = "/desbloquear/{id}", method = { RequestMethod.POST, RequestMethod.GET })
+		@RequestMapping(value = "/desbloquear/{id}", method = { RequestMethod.POST })
 		public ResponseEntity<Usuario> desbloquearUsuario(@PathVariable("id") int idUsr) {
 			try {
 				Optional<Usuario> usr = repoU.findById(idUsr);
@@ -247,6 +293,7 @@ public class ControladorUsuario {
 			}
 		}
 	
+
 		@RequestMapping(value = "/listar", method = { RequestMethod.POST, RequestMethod.GET })
 		//@PreAuthorize("hasRole('ROLE_AD')")
 		public ResponseEntity<List<DtUsuario>> listarUsuarios() {
@@ -281,7 +328,7 @@ public class ControladorUsuario {
 			}
 		}
 		
-		@RequestMapping(value = "/aprobarAnfitrion/{id}", method = { RequestMethod.POST, RequestMethod.GET })
+		@RequestMapping(value = "/aprobarAnfitrion/{id}", method = { RequestMethod.POST })
 		public ResponseEntity<Usuario> aprobarAnfitrion(@PathVariable("id") int idUsr) {
 			try {
 				Optional<Usuario> usr = repoU.findById(idUsr);
@@ -301,7 +348,7 @@ public class ControladorUsuario {
 			}
 		}
 		
-		@RequestMapping(value = "/rechazarAnfitrion/{id}", method = { RequestMethod.POST, RequestMethod.GET })
+		@RequestMapping(value = "/rechazarAnfitrion/{id}", method = { RequestMethod.POST })
 		public ResponseEntity<Usuario> rechazarAnfitrion(@PathVariable("id") int idUsr) {
 			try {
 				Optional<Usuario> usr = repoU.findById(idUsr);
