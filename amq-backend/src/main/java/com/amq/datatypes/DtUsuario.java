@@ -1,6 +1,6 @@
 package com.amq.datatypes;
 
-public abstract class DtUsuario {
+public class DtUsuario {
 	private int id;
 	private String email;
 	private String nombre;

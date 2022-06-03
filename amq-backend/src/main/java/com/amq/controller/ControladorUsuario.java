@@ -368,35 +368,35 @@ public class ControladorUsuario {
 			}
 		}
 		
-		@RequestMapping(value = "/login/", method = { RequestMethod.POST })
-		public ResponseEntity<DtUsuario> iniciarSesion(@RequestBody String email, String pass) {
+		@RequestMapping(value = "/login", method = { RequestMethod.POST })
+		public ResponseEntity<DtUsuario> iniciarSesion(@RequestBody DtUsuario dtMailPass) {
 			Usuario user;
 			DtUsuario dtUser = null;
+			String email = dtMailPass.getEmail();
+			String pass = dtMailPass.getPass();
 			
 			try {
 				user = repoU.findByEmail(email);
 				
-				if(user == null /*|| user.getPass() == pass*/ ) {
+				if(user == null || !user.getPass().equals(pass) ) {
 					return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 				}
 				
 				String jwToken = JWTGenerador.getJWTToken(user);
 				
-				if (true || user.getPass() == pass){
-					if (user instanceof Administrador) {
-						dtUser = new DtAdministrador( user.getId(), user.getEmail(), user.getNombre(),
-						 user.getApellido(), user.getActivo(), "Ad", jwToken);
-					} else if (user instanceof Anfitrion) {
-						Anfitrion ua = (Anfitrion) user;
-						dtUser = new DtAnfitrion(user.getId(), user.getEmail(), user.getNombre(),
-								user.getApellido(), user.getActivo(),  ua.getCalificacionGlobal(),
-								ua.getEstado(), "An",null, jwToken);
-					} else if (user instanceof Huesped) {
-						Huesped uH = (Huesped) user;
-						dtUser = new DtHuesped(user.getId(), user.getEmail(), user.getNombre(),
-								user.getApellido(), user.getActivo(), 
-								uH.getCalificacionGlobal(),uH.getPushTokens(), "Hu", null, jwToken);
-					}
+				if (user instanceof Administrador) {
+					dtUser = new DtAdministrador( user.getId(), user.getEmail(), user.getNombre(),
+					 user.getApellido(), user.getActivo(), "Ad", jwToken);
+				} else if (user instanceof Anfitrion) {
+					Anfitrion ua = (Anfitrion) user;
+					dtUser = new DtAnfitrion(user.getId(), user.getEmail(), user.getNombre(),
+							user.getApellido(), user.getActivo(),  ua.getCalificacionGlobal(),
+							ua.getEstado(), "An",null, jwToken);
+				} else if (user instanceof Huesped) {
+					Huesped uH = (Huesped) user;
+					dtUser = new DtHuesped(user.getId(), user.getEmail(), user.getNombre(),
+							user.getApellido(), user.getActivo(), 
+							uH.getCalificacionGlobal(),uH.getPushTokens(), "Hu", null, jwToken);
 				}
 				
 				return new ResponseEntity<>(dtUser, HttpStatus.FOUND);
