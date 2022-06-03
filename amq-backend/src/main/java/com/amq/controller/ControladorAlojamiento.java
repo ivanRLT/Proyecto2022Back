@@ -1,7 +1,6 @@
 package com.amq.controller;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,28 +9,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.amq.datatypes.DtAdministrador;
 import com.amq.datatypes.DtAlojamiento;
-import com.amq.datatypes.DtAnfitrion;
 import com.amq.datatypes.DtDireccion;
 import com.amq.datatypes.DtFiltrosAlojamiento;
 import com.amq.datatypes.DtHabitacion;
-import com.amq.datatypes.DtHuesped;
 import com.amq.datatypes.DtReserva;
 import com.amq.datatypes.DtServicios;
-import com.amq.datatypes.DtUsuario;
-import com.amq.model.Administrador;
 import com.amq.model.Alojamiento;
 import com.amq.model.Anfitrion;
 import com.amq.model.Habitacion;
-import com.amq.model.Huesped;
 import com.amq.model.Reserva;
 import com.amq.model.Usuario;
 import com.amq.notification.FirebaseNotificationAdmin;
@@ -177,15 +169,23 @@ public class ControladorAlojamiento {
 		}	
 		//return dtAlojamiento
 	}
-	public Boolean desactivarAlojamiento() {
-		Boolean retorno = false;
+	
+	@RequestMapping(value = "/desactivarAlojamiento/{id}", method = { RequestMethod.POST })
+	public ResponseEntity<Boolean> desactivarAlojamiento(@PathVariable("id") int idAlo ) {
+		Alojamiento a;
 		try {
-
-			
+			Optional<Alojamiento> optA = repoA.findById(idAlo);
+			if(!optA.isPresent()) {
+				return new ResponseEntity<>( HttpStatus.NOT_FOUND);
+			}
+			a = optA.get();
+			a.setActivo(false);
+			repoA.save(a);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
-			retorno = false;
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}	
-		return retorno;
+		
 	}
 	
 	@RequestMapping(value = "/listarAlojamientos", method = { RequestMethod.GET })
