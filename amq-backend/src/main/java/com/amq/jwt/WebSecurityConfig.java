@@ -29,8 +29,13 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 			.antMatchers(HttpMethod.POST, "/usuario/login").permitAll()
 			.antMatchers(HttpMethod.POST, "/alojamiento/desactivarAlojamiento/**").permitAll()
-			.antMatchers(HttpMethod.GET, "/swagger-ui/index.html#").permitAll()
-			.antMatchers(HttpMethod.POST, "/usuario/listar").permitAll().anyRequest().authenticated()
+			.antMatchers("/swagger-ui/**","/v2/api-docs",
+                    "/configuration/ui",
+                    "/swagger-resources/**",
+                    "/configuration/security",
+                    "/swagger-ui.html",
+                    "/webjars/**").permitAll().anyRequest().authenticated()
+			.antMatchers(HttpMethod.GET, "/usuario/listar").permitAll().anyRequest().authenticated()
 			.antMatchers(HttpMethod.POST, "/usuario/resetPassword").permitAll().anyRequest().authenticated()
 		    .antMatchers(HttpMethod.GET, "http://localhost:8080/swagger-ui/index.html#").permitAll().anyRequest().authenticated();
 		http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
