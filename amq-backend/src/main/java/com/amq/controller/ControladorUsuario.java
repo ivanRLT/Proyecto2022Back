@@ -293,7 +293,7 @@ public class ControladorUsuario {
 			}
 		}
 	
-
+		@CrossOrigin(origins = "*")
 		@RequestMapping(value = "/listar", method = { RequestMethod.POST, RequestMethod.GET })
 		//@PreAuthorize("hasRole('ROLE_AD')")
 		public ResponseEntity<List<DtUsuario>> listarUsuarios() {
