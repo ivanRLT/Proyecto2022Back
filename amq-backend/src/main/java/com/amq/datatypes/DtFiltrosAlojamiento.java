@@ -13,12 +13,19 @@ public class DtFiltrosAlojamiento {
 	private Double hab_precio_hasta;
 	private Integer hab_camas;
 	private Integer hab_camas_mas_de;
-	private DtServicios hab_servicios;
+	private Boolean hab_serv_aire;
+	private Boolean hab_serv_tvCable;
+	private Boolean hab_serv_jacuzzi;
+	private Boolean hab_serv_wifi;
+	private Boolean hab_serv_desayuno;
+	private Boolean hab_serv_parking;
 	
-	
+
+
 	public DtFiltrosAlojamiento(Integer id_anf, Boolean aloj_activo, String aloj_nombre, String aloj_desc,
 			String aloj_pais, String aloj_ciudad, String hab_desc, Double hab_precio, Double hab_precio_hasta,
-			Integer hab_camas, Integer hab_camas_mas_de, DtServicios hab_servicios) {
+			Integer hab_camas, Integer hab_camas_mas_de, Boolean hab_serv_aire, Boolean hab_serv_tvCable,
+			Boolean hab_serv_jacuzzi, Boolean hab_serv_wifi, Boolean hab_serv_desayuno, Boolean hab_serv_parking) {
 		super();
 		this.id_anf = id_anf;
 		this.aloj_activo = aloj_activo;
@@ -31,7 +38,60 @@ public class DtFiltrosAlojamiento {
 		this.hab_precio_hasta = hab_precio_hasta;
 		this.hab_camas = hab_camas;
 		this.hab_camas_mas_de = hab_camas_mas_de;
-		this.hab_servicios = hab_servicios;
+		this.hab_serv_aire = hab_serv_aire;
+		this.hab_serv_tvCable = hab_serv_tvCable;
+		this.hab_serv_jacuzzi = hab_serv_jacuzzi;
+		this.hab_serv_wifi = hab_serv_wifi;
+		this.hab_serv_desayuno = hab_serv_desayuno;
+		this.hab_serv_parking = hab_serv_parking;
+	}
+
+	public Boolean isHab_serv_aire() {
+		return hab_serv_aire;
+	}
+
+	public void setHab_serv_aire(Boolean hab_serv_aire) {
+		this.hab_serv_aire = hab_serv_aire;
+	}
+
+	public Boolean isHab_serv_tvCable() {
+		return hab_serv_tvCable;
+	}
+
+	public void setHab_serv_tvCable(Boolean hab_serv_tvCable) {
+		this.hab_serv_tvCable = hab_serv_tvCable;
+	}
+
+	public Boolean isHab_serv_jacuzzi() {
+		return hab_serv_jacuzzi;
+	}
+
+	public void setHab_serv_jacuzzi(Boolean hab_serv_jacuzzi) {
+		this.hab_serv_jacuzzi = hab_serv_jacuzzi;
+	}
+
+	public Boolean isHab_serv_wifi() {
+		return hab_serv_wifi;
+	}
+
+	public void setHab_serv_wifi(Boolean hab_serv_wifi) {
+		this.hab_serv_wifi = hab_serv_wifi;
+	}
+
+	public Boolean isHab_serv_desayuno() {
+		return hab_serv_desayuno;
+	}
+
+	public void setHab_serv_desayuno(Boolean hab_serv_desayuno) {
+		this.hab_serv_desayuno = hab_serv_desayuno;
+	}
+
+	public Boolean isHab_serv_parking() {
+		return hab_serv_parking;
+	}
+
+	public void setHab_serv_parking(Boolean hab_serv_parking) {
+		this.hab_serv_parking = hab_serv_parking;
 	}
 
 	public Double getHab_precio_hasta() {
@@ -42,13 +102,6 @@ public class DtFiltrosAlojamiento {
 		this.hab_precio_hasta = hab_precio_hasta;
 	}
 
-	public DtServicios getHab_servicios() {
-		return hab_servicios;
-	}
-
-	public void setHab_servicios(DtServicios hab_servicios) {
-		this.hab_servicios = hab_servicios;
-	}
 
 	public String getHab_desc() {
 		return hab_desc;

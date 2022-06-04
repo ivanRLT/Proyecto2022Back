@@ -21,6 +21,7 @@ import com.amq.datatypes.DtFiltrosAlojamiento;
 import com.amq.datatypes.DtHabitacion;
 import com.amq.datatypes.DtReserva;
 import com.amq.datatypes.DtServicios;
+import com.amq.datatypes.DtUsuario;
 import com.amq.model.Alojamiento;
 import com.amq.model.Anfitrion;
 import com.amq.model.Habitacion;
@@ -188,8 +189,11 @@ public class ControladorAlojamiento {
 		
 	}
 	
-	@RequestMapping(value = "/listarAlojamientos", method = { RequestMethod.GET })
+	//public ResponseEntity<List<DtUsuario>> listarUsuarios() {
+
+	@RequestMapping(value = "/listarAlojamientos", method = { RequestMethod.POST })
 	public ResponseEntity<List<DtAlojamiento>> listarAlojamientos(@RequestBody DtFiltrosAlojamiento filtros) {
+
 		List<Alojamiento> alojs = new ArrayList<Alojamiento>();
 		List<DtAlojamiento> dtAlojs = new ArrayList<DtAlojamiento>();
 		List<DtHabitacion> dtHabs = new ArrayList<DtHabitacion>();
@@ -207,7 +211,8 @@ public class ControladorAlojamiento {
 							a.getActivo(), 
 							a.getDescripcion(), 
 							a.getDireccion(), 
-							a.getNombre());
+							a.getNombre()
+						);
 					for( Habitacion hab : a.getHabitaciones() ) {
 						//Si no desea aplicar filtro de habitaciones o desea aplicar filtros y estos se cumplen
 						if( !filtrarHabitaciones || habCumpleFiltro(hab, filtros) ) {
@@ -375,7 +380,12 @@ public class ControladorAlojamiento {
 				|| ( filtro.getHab_camas_mas_de()!=null && filtro.getHab_camas_mas_de() != 0 ) 
 				|| ( filtro.getHab_desc()!=null && filtro.getHab_desc().trim()!= "")
 				|| ( filtro.getHab_precio()!=null && filtro.getHab_precio()!=0 )
-				|| ( filtro.getHab_servicios()!=null )
+				|| ( filtro.isHab_serv_aire()!=null )
+				|| ( filtro.isHab_serv_desayuno()!=null )
+				|| ( filtro.isHab_serv_jacuzzi()!=null )
+				|| ( filtro.isHab_serv_parking()!=null )
+				|| ( filtro.isHab_serv_tvCable()!=null )
+				|| ( filtro.isHab_serv_wifi()!=null )
 		) {
 			return true;
 		}
@@ -407,28 +417,22 @@ public class ControladorAlojamiento {
 			return false;
 		}
 		
-		DtServicios filtServ = filtros.getHab_servicios();
-		DtServicios habServ = hab.getServicios();
-		if(filtServ==null) { 
-			return true;
-		}
-		
-		if(filtServ.isAire() && !habServ.isAire()){ 
+		if(filtros.isHab_serv_aire()!=null && !filtros.isHab_serv_aire()){ 
 			return false;
 		}
-		if(filtServ.isDesayuno() && ! habServ.isDesayuno()){ 
+		if(filtros.isHab_serv_desayuno()!=null && ! filtros.isHab_serv_desayuno()){ 
 			return false;
 		}
-		if(filtServ.isJacuzzi() && ! habServ.isJacuzzi()){ 
+		if(filtros.isHab_serv_jacuzzi() !=null&& ! filtros.isHab_serv_jacuzzi()){ 
 			return false;
 		}
-		if(filtServ.isParking() && ! habServ.isParking()){ 
+		if(filtros.isHab_serv_parking()!=null && ! filtros.isHab_serv_parking()){ 
 			return false;
 		}
-		if(filtServ.isTvCable() && ! habServ.isTvCable()){ 
+		if(filtros.isHab_serv_tvCable()!=null && ! filtros.isHab_serv_tvCable()){ 
 			return false;
 		}
-		if(filtServ.isWifi() && ! habServ.isWifi()){ 
+		if(filtros.isHab_serv_wifi()!=null && ! filtros.isHab_serv_wifi()){ 
 			return false;
 		}
 		return true;
