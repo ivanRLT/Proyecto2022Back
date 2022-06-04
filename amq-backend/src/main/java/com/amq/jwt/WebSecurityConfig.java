@@ -29,12 +29,16 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 			.antMatchers(HttpMethod.POST, "/usuario/login").permitAll()
 			.antMatchers(HttpMethod.POST, "/alojamiento/desactivarAlojamiento/**").permitAll()
-			.antMatchers("/swagger-ui/**","/v2/api-docs",
-                    "/configuration/ui",
-                    "/swagger-resources/**",
-                    "/configuration/security",
-                    "/swagger-ui.html",
-                    "/webjars/**").permitAll().anyRequest().authenticated()
+			.antMatchers("/v2/api-docs",
+		            "/swagger-resources",
+		            "/swagger-resources/**",
+		            "/configuration/ui",
+		            "/configuration/security",
+		            "/swagger-ui.html",
+		            "/webjars/**",
+		            // -- Swagger UI v3 (OpenAPI)
+		            "/v3/api-docs/**",
+		            "/swagger-ui/**").permitAll().anyRequest().authenticated()
 			.antMatchers(HttpMethod.GET, "/usuario/listar").permitAll().anyRequest().authenticated()
 			.antMatchers(HttpMethod.POST, "/usuario/resetPassword").permitAll().anyRequest().authenticated()
 		    .antMatchers(HttpMethod.GET, "http://localhost:8080/swagger-ui/index.html#").permitAll().anyRequest().authenticated();
