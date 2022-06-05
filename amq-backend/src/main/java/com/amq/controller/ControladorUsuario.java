@@ -1,7 +1,9 @@
 package com.amq.controller;
 
+import java.time.ZoneId;
 import java.util.ArrayList;
-
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -25,12 +27,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.threeten.bp.LocalDate;
 
 import com.amq.datatypes.DtAdministrador;
 import com.amq.datatypes.DtAlojamiento;
 import com.amq.datatypes.DtAltaAnfitrion;
 import com.amq.datatypes.DtAnfitrion;
 import com.amq.datatypes.DtDireccion;
+import com.amq.datatypes.DtEnviarCalificacion;
+import com.amq.datatypes.DtFecha;
 import com.amq.datatypes.DtHabitacion;
 import com.amq.datatypes.DtHuesped;
 import com.amq.datatypes.DtReserva;
@@ -43,6 +48,7 @@ import com.amq.mail.GenericResponse;
 import com.amq.model.Administrador;
 import com.amq.model.Alojamiento;
 import com.amq.model.Anfitrion;
+import com.amq.model.Calificacion;
 import com.amq.model.Habitacion;
 import com.amq.model.Huesped;
 import com.amq.model.Reserva;
@@ -224,6 +230,40 @@ public class ControladorUsuario {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	@RequestMapping(value = "/calificar", method = { RequestMethod.POST })
+    public ResponseEntity<String> calificar(@RequestBody DtEnviarCalificacion dtEnvCal) {
+		if( dtEnvCal.getCalificacion()==null && dtEnvCal.getResena()==null) {
+			return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+		}
+		
+    	try {
+    		Optional<Reserva> optRes = repoR.findById(dtEnvCal.getIdReserva()); 
+    		Optional<Usuario> optUsr = repoU.findById(dtEnvCal.getIdUsuario());
+    		Calificacion cal = optRes.get().getCalificacion();
+
+    		if(optUsr.get() instanceof Huesped) {
+    			cal.setCalificacionHuesped(dtEnvCal.getCalificacion());
+    		}
+    		else if(optUsr.get() instanceof Anfitrion) {
+    			if(dtEnvCal.getCalificacion()!=null) {
+    				cal.setCalificacionAnfitrion(dtEnvCal.getCalificacion());
+    			}
+    			if( dtEnvCal.getResena()!=null ) {
+    				cal.setResena(dtEnvCal.getResena());
+    				LocalDate hoy = LocalDate.now();
+					DtFecha dtFecha = new DtFecha( hoy.getDayOfMonth() , hoy.getMonthValue()-1, hoy.getYear());
+    				cal.setFechaResena(dtFecha);
+    			}
+    		}
+    		recalcularCalificacionGlobal(dtEnvCal.getIdUsuario());
+    		repoU.save(optUsr.get());
+    	}
+    	catch(Exception e) {
+    		System.out.println(e.getMessage());
+    	}
+    	return null;
+    }
 	
 	@RequestMapping(value = "/bloquear/{id}", method = { RequestMethod.POST })
 	public ResponseEntity<Usuario> bloquearUsuario(@PathVariable("id") int idUsr) {
@@ -511,4 +551,37 @@ public class ControladorUsuario {
     private String getAppUrl(HttpServletRequest request) {
         return "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
     }
+    
+    private void recalcularCalificacionGlobal(int id) throws Exception{
+    	int calificacionGlobal=0;
+    	Optional<Usuario> optUsr = repoU.findById(id);
+    	Usuario usr = optUsr.get();
+    	if(usr instanceof Anfitrion ) {
+    		Anfitrion anf = (Anfitrion) usr;
+    		List<Alojamiento> alojs= anf.getAlojamientos();
+    		for(Alojamiento a : alojs) {
+    			List<Habitacion> habs = a.getHabitaciones();
+    			for(Habitacion hab : habs) {
+    				List<Reserva> ress = hab.getReservas();
+    				for(Reserva res : ress) {
+    					if( res.getCalificacion()!=null ) {
+    						calificacionGlobal += res.getCalificacion().getCalificacionAnfitrion();
+    					}
+    				}
+    			}
+    		}
+    		anf.setCalificacionGlobal(calificacionGlobal);
+    	}
+    	if(usr instanceof Huesped) {
+    		Huesped hu = (Huesped) usr;
+			List<Reserva> ress = hu.getReservas();
+			for(Reserva res : ress) {
+				if( res.getCalificacion()!=null ) {
+					calificacionGlobal += res.getCalificacion().getCalificacionHuesped();
+				}
+			}
+			hu.setCalificacionGlobal(calificacionGlobal);
+    	}
+    }
 }
+
