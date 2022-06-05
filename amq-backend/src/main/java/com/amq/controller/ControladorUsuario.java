@@ -55,6 +55,7 @@ import com.amq.model.Reserva;
 import com.amq.model.Usuario;
 import com.amq.repositories.RepositoryUsuario;
 import com.amq.repositories.RepositoryAlojamiento;
+import com.amq.repositories.RepositoryCalificacion;
 import com.amq.repositories.RepositoryDireccion;
 import com.amq.repositories.RepositoryHabitacion;
 import com.amq.repositories.RepositoryReserva;
@@ -85,6 +86,8 @@ public class ControladorUsuario {
 	@Autowired
 	RepositoryDireccion repoD;
 	
+	@Autowired
+	RepositoryCalificacion repoC;
 	
 	
 	@Autowired
@@ -233,6 +236,8 @@ public class ControladorUsuario {
 	
 	@RequestMapping(value = "/calificar", method = { RequestMethod.POST })
     public ResponseEntity<String> calificar(@RequestBody DtEnviarCalificacion dtEnvCal) {
+		Calificacion cal;
+		
 		if( dtEnvCal.getCalificacion()==null && dtEnvCal.getResena()==null) {
 			return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 		}
@@ -240,7 +245,15 @@ public class ControladorUsuario {
     	try {
     		Optional<Reserva> optRes = repoR.findById(dtEnvCal.getIdReserva()); 
     		Optional<Usuario> optUsr = repoU.findById(dtEnvCal.getIdUsuario());
-    		Calificacion cal = optRes.get().getCalificacion();
+    		
+    		if( optRes.get().getCalificacion()==null) {
+    			cal = new Calificacion( 0 ,0, 0 , null, new DtFecha(0, 0, 0));
+    			repoC.save(cal);
+    			optRes.get().setCalificacion( cal );
+    		}
+    		else {
+    			cal = optRes.get().getCalificacion();
+    		}
 
     		if(optUsr.get() instanceof Huesped) {
     			cal.setCalificacionHuesped(dtEnvCal.getCalificacion());
@@ -256,13 +269,15 @@ public class ControladorUsuario {
     				cal.setFechaResena(dtFecha);
     			}
     		}
-    		recalcularCalificacionGlobal(dtEnvCal.getIdUsuario());
+    		
+    		repoC.save(cal);
     		repoU.save(optUsr.get());
+    		recalcularCalificacionGlobal(dtEnvCal.getIdUsuario());
+    		return new ResponseEntity<>(HttpStatus.OK);
     	}
     	catch(Exception e) {
-    		System.out.println(e.getMessage());
+    		return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
     	}
-    	return null;
     }
 	
 	@RequestMapping(value = "/bloquear/{id}", method = { RequestMethod.POST })
@@ -582,6 +597,7 @@ public class ControladorUsuario {
 			}
 			hu.setCalificacionGlobal(calificacionGlobal);
     	}
+    	repoU.save(usr);
     }
 }
 
