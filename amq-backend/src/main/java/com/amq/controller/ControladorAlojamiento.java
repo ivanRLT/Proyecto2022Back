@@ -307,7 +307,7 @@ public class ControladorAlojamiento {
 		}
 
 	}
-	@RequestMapping(value = "/getPaises", method = { RequestMethod.POST })
+	@RequestMapping(value = "/getPaises", method = { RequestMethod.GET })
 	public ResponseEntity< List<?> > getPaises( ){
 		List<?> data =  repoPais.getNombresPaises();
 		
