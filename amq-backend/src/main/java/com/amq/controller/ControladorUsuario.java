@@ -610,9 +610,17 @@ public class ControladorUsuario {
     	if( filtros.getActivo()!=null && !usr.getActivo().equals(filtros.getActivo()) ) {
     		return false;
     	}
-    	if( filtros.getBloqueado()!=null && usr instanceof Administrador  ) {
+    	
+    	//Si es administrador y tiene definido un usuario un filtro de Anfitrion o Huesped 
+    	if(  usr instanceof Administrador && (
+    				filtros.getCalificacion_desde()!=null ||
+    				filtros.getCalificacion_hasta()!=null ||
+    				filtros.getBloqueado()!=null
+    			) 
+    	){
     		return false;
     	}else {
+        	//Filtros de Huesped y Anfitrion
 	    	if( filtros.getBloqueado()!=null && usr instanceof Huesped && !((Huesped)usr).getBloqueado().equals(filtros.getBloqueado())){
 	    		return false;
 	    	}
@@ -632,7 +640,21 @@ public class ControladorUsuario {
 	    		return false;
 	    	}
     	}
-    	//if( filtros.getTipo()!=null && )
+    	if( filtros.getTipo()!=null && filtros.getTipo().equals("Hu") && !(usr instanceof Huesped)  ) {
+    		return false;
+    	}
+    	if( filtros.getTipo()!=null && filtros.getTipo().equals("An") && !(usr instanceof Anfitrion)  ) {
+    		return false;
+    	}
+    	if( filtros.getTipo()!=null && filtros.getTipo().equals("Ad") && !(usr instanceof Administrador)  ) {
+    		return false;
+    	}
+    	if(!(usr instanceof Anfitrion) &&  filtros.getEstado()!=null) {
+    		return false; 
+    	}
+    	if( filtros.getEstado()!=null && !filtros.getEstado().equals(((Anfitrion)usr).getEstado())){
+    			return false;
+    	}
     	
     	return true;
     }
