@@ -75,11 +75,11 @@ public class Reserva implements Serializable {
 		this.huesped = huesped;
 		
 		Calendar calendar = Calendar.getInstance();
-		calendar.set(fechaInicio.getAnio(), fechaInicio.getMes(), fechaInicio.getDia(), 00, 00, 00);
+		calendar.set(fechaInicio.getAnio(), fechaInicio.getMes()-1, fechaInicio.getDia(), 00, 00, 00);
 		this.fechaInicio =(Date) calendar.getTime();
 		
 		Calendar calendarF = Calendar.getInstance();
-		calendarF.set(fechaFin.getAnio(), fechaFin.getMes(), fechaFin.getDia(), 00, 00, 00);
+		calendarF.set(fechaFin.getAnio(), fechaFin.getMes()-1, fechaFin.getDia(), 00, 00, 00);
 		this.fechaFin =(Date) calendarF.getTime();
 	}
 
@@ -107,7 +107,11 @@ public class Reserva implements Serializable {
 	public void setEstado(ReservaEstado estado) {
 		this.estado = estado;
 	}
-	public DtFecha getFechaInicio() {
+	
+	public Date getFechaInicio() {
+		return this.fechaInicio;
+	}
+	public DtFecha getDtFechaInicio() {
 		DateFormat stranio = new SimpleDateFormat("yyyy");  
         String anio = stranio.format(this.fechaInicio);  
         DateFormat strmes = new SimpleDateFormat("mm");  
@@ -120,15 +124,21 @@ public class Reserva implements Serializable {
         DtFecha retorno = new DtFecha(diar,mesr,anior);
 		return retorno;
 	}
-	public void setFechaInicio(DtFecha fechaInicio) {
+	public void setFechaInicio(Date fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
+	public void setDtFechaInicio(DtFecha fechaInicio) {
 		Calendar calendar = Calendar.getInstance();
-		calendar.set(fechaInicio.getAnio(), fechaInicio.getMes(), fechaInicio.getDia(), 00, 00, 00);
+		calendar.set(fechaInicio.getAnio(), fechaInicio.getMes()-1, fechaInicio.getDia(), 00, 00, 00);
 		this.fechaInicio =(Date) calendar.getTime();
 	}
-	public DtFecha getFechaFin() {
+	public Date getFechaFin() {
+		return this.fechaFin;
+	}
+	public DtFecha getDtFechaFin() {
 		DateFormat stranio = new SimpleDateFormat("yyyy");  
         String anio = stranio.format(this.fechaFin);  
-        DateFormat strmes = new SimpleDateFormat("mm");  
+        DateFormat strmes = new SimpleDateFormat("MM");  
         String mes = strmes.format(this.fechaFin);  
         DateFormat strdia = new SimpleDateFormat("dd");  
         String dia = strdia.format(this.fechaFin);
@@ -138,7 +148,10 @@ public class Reserva implements Serializable {
         DtFecha retorno = new DtFecha(diar,mesr,anior);
 		return retorno;
 	}
-	public void setFechaFin(DtFecha fechaFin) {
+	public void setFechaFin(Date fechaFin) {
+		this.fechaFin = fechaFin;
+	}
+	public void setDtFechaFin(DtFecha fechaFin) {
 		Calendar calendarF = Calendar.getInstance();
 		calendarF.set(fechaFin.getAnio(), fechaFin.getMes(), fechaFin.getDia(), 00, 00, 00);
 		this.fechaFin =(Date) calendarF.getTime();

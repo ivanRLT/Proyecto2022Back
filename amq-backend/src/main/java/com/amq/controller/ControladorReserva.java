@@ -1,10 +1,13 @@
 package com.amq.controller;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import javax.persistence.Convert;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.amq.datatypes.DtAltaReserva;
 import com.amq.datatypes.DtCalificacion;
 import com.amq.datatypes.DtFactura;
 import com.amq.datatypes.DtFecha;
@@ -74,10 +78,10 @@ public class ControladorReserva {
 				List<Reserva> reservasH = habitacion.getReservas();
 				Boolean solapamiento = false;
 				for (Reserva r : reservasH) {
-					DtFecha reservasRI = r.getFechaInicio();
-					DtFecha reservasRF = r.getFechaFin();
-					DtFecha reservaI = reservaC.getFechaInicio();
-					DtFecha reservaF = reservaC.getFechaFin();
+					DtFecha reservasRI = r.getDtFechaInicio();
+					DtFecha reservasRF = r.getDtFechaFin();
+					DtFecha reservaI = reservaC.getDtFechaInicio();
+					DtFecha reservaF = reservaC.getDtFechaFin();
 					if (reservaI.getAnio() < reservasRF.getAnio() && reservaI.getAnio() > reservasRI.getAnio()) {
 						if (reservaI.getMes() < reservasRF.getMes() && reservaI.getMes() > reservasRI.getMes()) {
 							if (reservaI.getDia() < reservasRF.getDia() && reservaI.getDia() > reservasRI.getDia()) {
@@ -139,93 +143,105 @@ public class ControladorReserva {
 		}
 	}
 	
-	@RequestMapping(value = "/realizarReserva/{iduser}", method = { RequestMethod.POST })
-	public ResponseEntity<Reserva> realizarReserva(@PathVariable("iduser") int iduser, @RequestParam int idhab, @RequestParam int cantdias, @RequestBody DtFecha fechaInicio, @RequestBody DtFecha fechaFin, @RequestParam double descuento, @RequestParam String idPaypal) {
+	@RequestMapping(value = "/realizarReserva", method = { RequestMethod.POST })
+	public ResponseEntity<Reserva> realizarReserva(@RequestBody DtAltaReserva dtAltaRes) {
+		
 		try {
-			Optional<Usuario> uOP = repoU.findById(iduser);
-			if (uOP.isPresent()) {
-				Optional<Habitacion> hOP = repoH.findById(idhab);
-				if (hOP.isPresent()) {
-					if (uOP.get() instanceof Huesped) {
-						Boolean solapamiento = false;
-						Habitacion habitacion = hOP.get();
-						List<Reserva> reservasH = habitacion.getReservas();
-						for (Reserva r : reservasH) {
-							DtFecha reservasRI = r.getFechaInicio();
-							DtFecha reservasRF = r.getFechaFin();
-							DtFecha reservaI = fechaInicio;
-							DtFecha reservaF = fechaFin;
-							if (reservaI.getAnio() < reservasRF.getAnio() && reservaI.getAnio() > reservasRI.getAnio()) {
-								if (reservaI.getMes() < reservasRF.getMes() && reservaI.getMes() > reservasRI.getMes()) {
-									if (reservaI.getDia() < reservasRF.getDia() && reservaI.getDia() > reservasRI.getDia()) {
-										solapamiento = true;
-									}
-								}
-							}
-							if (reservaF.getAnio() < reservasRF.getAnio() && reservaF.getAnio() > reservasRI.getAnio()) {
-								if (reservaF.getMes() < reservasRF.getMes() && reservaF.getMes() > reservasRI.getMes()) {
-									if (reservaF.getDia() < reservasRF.getDia() && reservaF.getDia() > reservasRI.getDia()) {
-										solapamiento = true;
-									}
-								}
-							}
-							if (reservaI.getAnio() < reservasRI.getAnio() && reservaF.getAnio() > reservasRF.getAnio()) {
-								if (reservaI.getMes() < reservasRI.getMes() && reservaF.getMes() > reservasRF.getMes()) {
-									if (reservaI.getDia() < reservasRI.getDia() && reservaF.getDia() > reservasRF.getDia()) {
-										solapamiento = true;
-									}
-								}
-							}
-						}
-						if (!solapamiento) {
-							Huesped huesped = (Huesped) uOP.get();						
-							Reserva reserva = new Reserva();
-							reserva.setCalificacion(null);
-							reserva.setCantDias(cantdias);
-							reserva.setEstado(ReservaEstado.PENDIENTE);
-							reserva.setFechaInicio(fechaInicio);
-							reserva.setFechaFin(fechaFin);
-							reserva.setIdChat("");
-							reserva.setHuesped(huesped);
-							habitacion.agregarReserva(reserva);
-							huesped.addReserva(reserva);
-							Factura factura = new Factura();
-							double monto = habitacion.getPrecioNoche() * reserva.getCantDias();					
-							if (descuento != 0) {
-								factura.setDescuento(true);
-								factura.setMontoDescuento(descuento);
-								factura.setMonto(monto - descuento);
-							}else {
-								factura.setMonto(monto);
-							}
-							factura.setEstado(PagoEstado.PENDIENTE);
-							factura.setReserva(reserva);
-							LocalDate fecha = LocalDate.now();
-							DtFecha fechadt = new DtFecha(fecha.getYear(), fecha.getMonthValue(), fecha.getDayOfMonth());
-							factura.setFecha(fechadt);
-							factura.setIdPaypal(idPaypal);
-							repoF.save(factura);
-							reserva.agregarFactura(factura);
-							repoU.save(huesped);
-							repoH.save(habitacion);
-							Reserva rRet = repoR.save(reserva);
-				
-							return new ResponseEntity<>(rRet, HttpStatus.CREATED);
-						}else {
-							return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-						}
-					}else {
-						return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-					}		
-				}else {
-					return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-				}	
-			}else {
-				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			Optional<Usuario> huOpt = repoU.findById(dtAltaRes.getIdHu());
+			if (!huOpt.isPresent()) {
+				return new ResponseEntity<>( HttpStatus.NOT_FOUND);
 			}
+
+			Optional<Habitacion> habOpt = repoH.findById(dtAltaRes.getIdHab());
+			if (!habOpt.isPresent()) {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+			if ( !(huOpt.get() instanceof Huesped) ) {
+				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+			}
+			
+			Date fIniSolicitudRes = dtFecha2Date(dtAltaRes.getfInicio());
+
+			Date fFinSolicitudRes = dtFecha2Date(dtAltaRes.getfFin());
+			
+			if( fIniSolicitudRes==null ) {
+				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+			}
+			if( fFinSolicitudRes==null ) {
+				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+			}
+			//Fecha de fin menor a la fecha de inicio
+			if( fFinSolicitudRes.compareTo(fIniSolicitudRes)<0 ) {
+				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+			}
+			
+			Boolean solapamiento = false;
+			Habitacion hab = habOpt.get();
+			List<Reserva> reservas = hab.getReservas();
+			for (Reserva r : reservas) {
+				Date fIniResConfirm =  r.getFechaInicio();
+				Date fFinResConfirm =  r.getFechaFin();
+				
+				//Si es null la fecha es inváilda
+				if(fIniResConfirm == null || fFinResConfirm==null ) {
+					return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+				}
+				if( fechaMayorAFecha(fIniResConfirm, fFinResConfirm) ) {
+					return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+				}
+				
+				solapamiento=true;
+
+				if( fechaMayorAFecha(fIniSolicitudRes, fFinResConfirm) ) {
+					solapamiento=false;
+				}
+				else if( fechaMenorAFecha(fFinSolicitudRes, fIniResConfirm) ) {
+					solapamiento=false;
+				}
+				
+				if(solapamiento) {
+					return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
+				}
+			}
+			Huesped huesped = (Huesped) huOpt.get();						
+			Reserva reserva = new Reserva();
+			reserva.setCalificacion(null);
+			reserva.setCantDias(dtAltaRes.getCantDias());
+			reserva.setEstado(ReservaEstado.PENDIENTE);
+			reserva.setFechaInicio(fIniSolicitudRes);
+			reserva.setFechaFin(fFinSolicitudRes);
+			reserva.setIdChat(null);
+			reserva.setHuesped(huesped);
+			reserva.setHabitacion(hab);
+			hab.agregarReserva(reserva);
+			huesped.addReserva(reserva);
+			Factura factura = new Factura();
+			double monto = hab.getPrecioNoche() * reserva.getCantDias();					
+			if (dtAltaRes.getDescuento() != 0) {
+				factura.setDescuento(true);
+				factura.setMontoDescuento(dtAltaRes.getDescuento());
+				factura.setMonto(monto - dtAltaRes.getDescuento());
+			}else {
+				factura.setMonto(monto);
+			}
+			factura.setEstado(PagoEstado.PENDIENTE);
+			factura.setReserva(reserva);
+			LocalDate fecha = LocalDate.now();
+			DtFecha fechadt = new DtFecha(fecha.getYear(), fecha.getMonthValue(), fecha.getDayOfMonth());
+			factura.setFecha(fechadt);
+			factura.setIdPaypal(dtAltaRes.getIdPaypal());
+			repoF.save(factura);
+			reserva.agregarFactura(factura);
+			Reserva rRet = repoR.save(reserva);
+			repoU.save(huesped);
+			repoH.save(hab);
+			
+
+			return new ResponseEntity<>(rRet, HttpStatus.CREATED);
+					
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}	
+		}
 	}
 	
 	public boolean modificarReserva() {
@@ -256,7 +272,7 @@ public class ControladorReserva {
 			}
 			Calificacion calif = r.getCalificacion();
 			DtCalificacion califdt = new DtCalificacion(calif.getCalificacionAnfitrion(), calif.getCalificacionHuesped(), calif.getResena(), calif.getFechaResena());
-			DtReserva reservadt = new DtReserva(r.getEstado(),r.getFechaInicio(),r.getFechaFin(),r.getIdChat(),r.getCantDias(), facturasdt, califdt);
+			DtReserva reservadt = new DtReserva(r.getEstado(),r.getDtFechaInicio(),r.getDtFechaFin(),r.getIdChat(),r.getCantDias(), facturasdt, califdt);
 			retorno.add(reservadt);
 		}
 		return retorno;
@@ -355,5 +371,26 @@ public class ControladorReserva {
 				// TODO: handle exception
 			}
 			return null;
+		}
+		
+		private Date dtFecha2Date(DtFecha dtF){
+			try {
+				String sFecha =  
+						((Integer)dtF.getDia()).toString()+"/"+
+						((Integer)dtF.getMes()).toString()+"/"+
+						((Integer)dtF.getAnio()).toString();
+				return new SimpleDateFormat("dd/MM/yyyy").parse(sFecha);  
+			}
+			catch(Exception d ) {
+				return null;
+			}
+			
+		}
+		
+		private Boolean fechaMenorAFecha(Date f1, Date f2){
+			return f1.compareTo(f2) < 0;
+		}
+		private Boolean fechaMayorAFecha(Date f1, Date f2){
+			return f1.compareTo(f2) > 0;
 		}
 }

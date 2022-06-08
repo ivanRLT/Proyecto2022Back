@@ -285,7 +285,7 @@ public class ControladorAlojamiento {
 				for (Habitacion h : habitaciones) {
 					List<Reserva> reservasH = h.getReservas();
 					for (Reserva r : reservasH) {
-						DtReserva rdt = new DtReserva(r.getEstado(), r.getFechaInicio(), r.getFechaFin(), r.getIdChat(), r.getCantDias(), null, null);
+						DtReserva rdt = new DtReserva(r.getEstado(), r.getDtFechaInicio(), r.getDtFechaFin(), r.getIdChat(), r.getCantDias(), null, null);
 						reservasDT.add(rdt);
 					}
 				}

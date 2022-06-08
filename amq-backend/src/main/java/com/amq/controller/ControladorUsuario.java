@@ -347,6 +347,7 @@ public class ControladorUsuario {
 				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		}
+		
 		@RequestMapping(value = "/listar", method = { RequestMethod.POST, RequestMethod.GET })
 		//@PreAuthorize("hasRole('ROLE_AD')")
 		public ResponseEntity<List<DtUsuario>> listarUsuarios() {
