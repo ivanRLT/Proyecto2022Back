@@ -36,6 +36,7 @@ import com.amq.datatypes.DtAnfitrion;
 import com.amq.datatypes.DtDireccion;
 import com.amq.datatypes.DtEnviarCalificacion;
 import com.amq.datatypes.DtFecha;
+import com.amq.datatypes.DtFiltrosUsuario;
 import com.amq.datatypes.DtHabitacion;
 import com.amq.datatypes.DtHuesped;
 import com.amq.datatypes.DtReserva;
@@ -348,9 +349,9 @@ public class ControladorUsuario {
 			}
 		}
 		
-		@RequestMapping(value = "/listar", method = { RequestMethod.POST, RequestMethod.GET })
+		@RequestMapping(value = "/listar", method = { RequestMethod.POST })
 		//@PreAuthorize("hasRole('ROLE_AD')")
-		public ResponseEntity<List<DtUsuario>> listarUsuarios() {
+		public ResponseEntity<List<DtUsuario>> listarUsuarios(@RequestBody DtFiltrosUsuario filtros) {
 			List<Usuario> usuarios = new ArrayList<Usuario>();
 			List<DtUsuario> retorno = new ArrayList<DtUsuario>();
 			try {
@@ -457,7 +458,7 @@ public class ControladorUsuario {
 							uH.getCalificacionGlobal(),uH.getPushTokens(), "Hu", null, jwToken);
 				}
 				
-				return new ResponseEntity<>(dtUser, HttpStatus.FOUND);
+				return new ResponseEntity<>(dtUser, HttpStatus.OK);
 			} catch (Exception e) {
 				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 			}
@@ -603,6 +604,40 @@ public class ControladorUsuario {
 			hu.setCalificacionGlobal(calificacionGlobal);
     	}
     	repoU.save(usr);
+    }
+    
+    private Boolean usuarioCumpleFiltros(Usuario usr, DtFiltrosUsuario filtros) {
+    	if(usr==null) {
+    		return false;
+    	}
+    	if( filtros.getActivo()!=null && !usr.getActivo().equals(filtros.getActivo()) ) {
+    		return false;
+    	}
+    	if( filtros.getBloqueado()!=null && usr instanceof Administrador  ) {
+    		return false;
+    	}else {
+	    	if( filtros.getBloqueado()!=null && usr instanceof Huesped && !((Huesped)usr).getBloqueado().equals(filtros.getBloqueado())){
+	    		return false;
+	    	}
+	    	if( filtros.getBloqueado()!=null && usr instanceof Anfitrion && !((Anfitrion)usr).getBloqueado().equals(filtros.getBloqueado())){
+	    		return false;
+	    	}
+	    	if( filtros.getCalificacion_desde()!=null && usr instanceof Huesped && ((Huesped)usr).getCalificacionGlobal()<filtros.getCalificacion_desde() ) {
+	    		return false;
+	    	}
+	    	if( filtros.getCalificacion_desde()!=null && usr instanceof Anfitrion && ((Anfitrion)usr).getCalificacionGlobal()<filtros.getCalificacion_desde() ) {
+	    		return false;
+	    	}
+	    	if( filtros.getCalificacion_hasta()!=null && usr instanceof Huesped && ((Huesped)usr).getCalificacionGlobal()>filtros.getCalificacion_desde() ) {
+	    		return false;
+	    	}
+	    	if( filtros.getCalificacion_hasta()!=null && usr instanceof Anfitrion && ((Anfitrion)usr).getCalificacionGlobal()>filtros.getCalificacion_desde() ) {
+	    		return false;
+	    	}
+    	}
+    	//if( filtros.getTipo()!=null && )
+    	
+    	return true;
     }
 }
 
