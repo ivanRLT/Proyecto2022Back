@@ -21,7 +21,6 @@ import com.amq.datatypes.DtDireccion;
 import com.amq.datatypes.DtFiltrosAlojamiento;
 import com.amq.datatypes.DtHabitacion;
 import com.amq.datatypes.DtReserva;
-import com.amq.datatypes.DtSelectInfo;
 import com.amq.datatypes.DtServicios;
 import com.amq.datatypes.DtUsuario;
 import com.amq.model.Alojamiento;
