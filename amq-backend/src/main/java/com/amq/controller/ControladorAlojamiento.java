@@ -1,6 +1,7 @@
 package com.amq.controller;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +21,7 @@ import com.amq.datatypes.DtDireccion;
 import com.amq.datatypes.DtFiltrosAlojamiento;
 import com.amq.datatypes.DtHabitacion;
 import com.amq.datatypes.DtReserva;
+import com.amq.datatypes.DtSelectInfo;
 import com.amq.datatypes.DtServicios;
 import com.amq.datatypes.DtUsuario;
 import com.amq.model.Alojamiento;
@@ -31,6 +33,7 @@ import com.amq.notification.FirebaseNotificationAdmin;
 import com.amq.repositories.RepositoryAlojamiento;
 import com.amq.repositories.RepositoryDireccion;
 import com.amq.repositories.RepositoryHabitacion;
+import com.amq.repositories.RepositoryPais;
 import com.amq.repositories.RepositoryServicios;
 import com.amq.repositories.RepositoryUsuario;
 import com.google.firebase.messaging.Notification;
@@ -48,6 +51,9 @@ public class ControladorAlojamiento {
 	
 	@Autowired
 	RepositoryDireccion repoDir;
+	
+	@Autowired
+	RepositoryPais repoPais;
 	
 	@Autowired
 	RepositoryServicios repoSer;
@@ -130,7 +136,7 @@ public class ControladorAlojamiento {
 				if (cambioDir) {
 					List<DtDireccion> direcciones = repoDir.findAll();
 					for (DtDireccion dir : direcciones) {
-						if (dir.getPais() == direccion.getPais() && dir.getCiudad() == direccion.getCiudad() && dir.getCalle() == direccion.getCalle() && dir.getNumero() == direccion.getNumero() ) {
+						if (dir.getPais().getId() == direccion.getPais().getId() && dir.getCiudad() == direccion.getCiudad() && dir.getCalle() == direccion.getCalle() && dir.getNumero() == direccion.getNumero() ) {
 							existeDir = true;
 						}
 					}
@@ -302,6 +308,12 @@ public class ControladorAlojamiento {
 		}
 
 	}
+	@RequestMapping(value = "/getPaises", method = { RequestMethod.POST })
+	public ResponseEntity< List<?> > getPaises( ){
+		List<?> data =  repoPais.getNombresPaises();
+		
+		return new ResponseEntity<>(data, HttpStatus.OK);
+	}
 	
 	// #######################Funciones de prueba#######################
 	
@@ -360,8 +372,8 @@ public class ControladorAlojamiento {
 				&& !dtF.getAloj_ciudad().equals( a.getDireccion().getCiudad() ) ) {
 			return false;
 		}
-		if( dtF.getAloj_pais()!=null && !dtF.getAloj_pais().trim().equals("") 
-				&& !dtF.getAloj_pais().equals( a.getDireccion().getPais() ) ) {
+		if( dtF.getAloj_idPais()!=null && dtF.getAloj_idPais()!=0 
+				&& dtF.getAloj_idPais() !=  a.getDireccion().getPais().getId()  ) {
 			return false;
 		}
 		return true;

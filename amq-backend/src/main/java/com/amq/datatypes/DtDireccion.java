@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class DtDireccion {
@@ -13,11 +15,13 @@ public class DtDireccion {
 	private String calle;
 	private String numero;
 	private String ciudad;
-	private String pais;
+	@OneToOne   
+	@JoinColumn(name = "pais", referencedColumnName = "id")
+	private DtPais pais;
 	
 	public DtDireccion() {}
 	
-	public DtDireccion(String calle, String numero, String ciudad, String pais) {
+	public DtDireccion(String calle, String numero, String ciudad, DtPais pais) {
 		super();
 		this.calle = calle;
 		this.numero = numero;
@@ -52,11 +56,11 @@ public class DtDireccion {
 		this.ciudad = ciudad;
 	}
 
-	public String getPais() {
+	public DtPais getPais() {
 		return pais;
 	}
 
-	public void setPais(String pais) {
+	public void setPais(DtPais pais) {
 		this.pais = pais;
 	}
 

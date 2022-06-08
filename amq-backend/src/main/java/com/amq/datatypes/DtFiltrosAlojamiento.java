@@ -5,7 +5,7 @@ public class DtFiltrosAlojamiento {
 	private Boolean aloj_activo;
 	private String aloj_nombre;
 	private String aloj_desc;
-	private String aloj_pais;
+	private Integer aloj_idPais;
 	private String aloj_ciudad;
 	
 	private String hab_desc;
@@ -23,7 +23,7 @@ public class DtFiltrosAlojamiento {
 
 
 	public DtFiltrosAlojamiento(Integer id_anf, Boolean aloj_activo, String aloj_nombre, String aloj_desc,
-			String aloj_pais, String aloj_ciudad, String hab_desc, Double hab_precio, Double hab_precio_hasta,
+			Integer aloj_idPais, String aloj_ciudad, String hab_desc, Double hab_precio, Double hab_precio_hasta,
 			Integer hab_camas, Integer hab_camas_mas_de, Boolean hab_serv_aire, Boolean hab_serv_tvCable,
 			Boolean hab_serv_jacuzzi, Boolean hab_serv_wifi, Boolean hab_serv_desayuno, Boolean hab_serv_parking) {
 		super();
@@ -31,7 +31,7 @@ public class DtFiltrosAlojamiento {
 		this.aloj_activo = aloj_activo;
 		this.aloj_nombre = aloj_nombre;
 		this.aloj_desc = aloj_desc;
-		this.aloj_pais = aloj_pais;
+		this.aloj_idPais = aloj_idPais;
 		this.aloj_ciudad = aloj_ciudad;
 		this.hab_desc = hab_desc;
 		this.hab_precio = hab_precio;
@@ -135,10 +135,6 @@ public class DtFiltrosAlojamiento {
 		this.hab_camas_mas_de = hab_camas_mas_de;
 	}
 
-	public String getAloj_pais() {
-		return aloj_pais;
-	}
-
 	public Integer getId_anf() {
 		return id_anf;
 	}
@@ -171,10 +167,6 @@ public class DtFiltrosAlojamiento {
 		this.aloj_desc = aloj_desc;
 	}
 	
-	public void setAloj_pais(String aloj_pais) {
-		this.aloj_pais = aloj_pais;
-	}
-
 	public String getAloj_ciudad() {
 		return aloj_ciudad;
 	}
@@ -182,4 +174,38 @@ public class DtFiltrosAlojamiento {
 	public void setAloj_ciudad(String aloj_ciudad) {
 		this.aloj_ciudad = aloj_ciudad;
 	}
+
+	public Integer getAloj_idPais() {
+		return aloj_idPais;
+	}
+
+	public void setAloj_idPais(Integer aloj_idPais) {
+		this.aloj_idPais = aloj_idPais;
+	}
+
+	public Boolean getHab_serv_aire() {
+		return hab_serv_aire;
+	}
+
+	public Boolean getHab_serv_tvCable() {
+		return hab_serv_tvCable;
+	}
+
+	public Boolean getHab_serv_jacuzzi() {
+		return hab_serv_jacuzzi;
+	}
+
+	public Boolean getHab_serv_wifi() {
+		return hab_serv_wifi;
+	}
+
+	public Boolean getHab_serv_desayuno() {
+		return hab_serv_desayuno;
+	}
+
+	public Boolean getHab_serv_parking() {
+		return hab_serv_parking;
+	}
+	
+	
 }

@@ -7,10 +7,26 @@ TRUNCATE TABLE
 	facturas,
 	habitaciones,
 	huesped_push_tokens,
-    passwordresettoken,
+   password_reset_token,
 	recuperaciones,
 	reservas
 CASCADE;
+
+/* MYSQL >>>>
+SET FOREIGN_KEY_CHECKS = 0;
+
+TRUNCATE TABLE 	alojamientos;
+TRUNCATE TABLE 	usuarios; 
+TRUNCATE TABLE 	calificaciones;
+TRUNCATE TABLE 	dt_direccion;
+TRUNCATE TABLE 	dt_servicios;
+TRUNCATE TABLE 	facturas;
+TRUNCATE TABLE 	habitaciones;
+TRUNCATE TABLE 	huesped_push_tokens;
+TRUNCATE TABLE    password_reset_token;
+TRUNCATE TABLE 	recuperaciones;
+TRUNCATE TABLE 	reservas;
+*/
 
 INSERT INTO usuarios 
 (id, activo, bloqueado,	estado,   nombre, apellido, email, dtype, pass, user_id, calificacion_global)
@@ -166,58 +182,257 @@ VALUES
 ( 100149, TRUE,     FALSE,       'APROBADO', 'nomHu 100149', 'apeHu 100149', 'emailHu 100149', 'Hu', 'huPass 100149', NULL,  1000 ), 
 ( 100150, TRUE,     FALSE,       'APROBADO', 'nomHu 100150', 'apeHu 100150', 'emailHu 100150', 'Hu', 'huPass 100150', NULL,  1000 );
 
+
+INSERT INTO dt_pais (nombre) VALUES ('Afganistán'); 
+INSERT INTO dt_pais (nombre) VALUES ('Albania'); 
+INSERT INTO dt_pais (nombre) VALUES ('Alemania'); 
+INSERT INTO dt_pais (nombre) VALUES ('Andorra'); 
+INSERT INTO dt_pais (nombre) VALUES ('Ango'); 
+INSERT INTO dt_pais (nombre) VALUES ('Antigua y Barbuda'); 
+INSERT INTO dt_pais (nombre) VALUES ('Arabia Saudita'); 
+INSERT INTO dt_pais (nombre) VALUES ('Argia'); 
+INSERT INTO dt_pais (nombre) VALUES ('Argentina'); 
+INSERT INTO dt_pais (nombre) VALUES ('Armenia'); 
+INSERT INTO dt_pais (nombre) VALUES ('Australia'); 
+INSERT INTO dt_pais (nombre) VALUES ('Austria'); 
+INSERT INTO dt_pais (nombre) VALUES ('Azerbaiyán'); 
+INSERT INTO dt_pais (nombre) VALUES ('Bahamas s'); 
+INSERT INTO dt_pais (nombre) VALUES ('Bahrein'); 
+INSERT INTO dt_pais (nombre) VALUES ('Bangdesh'); 
+INSERT INTO dt_pais (nombre) VALUES ('Barbados'); 
+INSERT INTO dt_pais (nombre) VALUES ('Barús'); 
+INSERT INTO dt_pais (nombre) VALUES ('Bélgica'); 
+INSERT INTO dt_pais (nombre) VALUES ('Bice'); 
+INSERT INTO dt_pais (nombre) VALUES ('Benin'); 
+INSERT INTO dt_pais (nombre) VALUES ('Bhután'); 
+INSERT INTO dt_pais (nombre) VALUES ('Bolivia Estado Plurinacional de'); 
+INSERT INTO dt_pais (nombre) VALUES ('Bosnia y Herzegovina'); 
+INSERT INTO dt_pais (nombre) VALUES ('Botswana'); 
+INSERT INTO dt_pais (nombre) VALUES ('Brasil'); 
+INSERT INTO dt_pais (nombre) VALUES ('Brunei Darussam'); 
+INSERT INTO dt_pais (nombre) VALUES ('Bulgaria'); 
+INSERT INTO dt_pais (nombre) VALUES ('Burkina Faso'); 
+INSERT INTO dt_pais (nombre) VALUES ('Burundi'); 
+INSERT INTO dt_pais (nombre) VALUES ('Cabo Verde'); 
+INSERT INTO dt_pais (nombre) VALUES ('Camboya'); 
+INSERT INTO dt_pais (nombre) VALUES ('Camerún'); 
+INSERT INTO dt_pais (nombre) VALUES ('Canadá'); 
+INSERT INTO dt_pais (nombre) VALUES ('Chad'); 
+INSERT INTO dt_pais (nombre) VALUES ('Chequia'); 
+INSERT INTO dt_pais (nombre) VALUES ('Chile'); 
+INSERT INTO dt_pais (nombre) VALUES ('China'); 
+INSERT INTO dt_pais (nombre) VALUES ('Chipre'); 
+INSERT INTO dt_pais (nombre) VALUES ('Colombia'); 
+INSERT INTO dt_pais (nombre) VALUES ('Comoras s'); 
+INSERT INTO dt_pais (nombre) VALUES ('Congo'); 
+INSERT INTO dt_pais (nombre) VALUES ('Costa Rica'); 
+INSERT INTO dt_pais (nombre) VALUES ('Côte d’Ivoire'); 
+INSERT INTO dt_pais (nombre) VALUES ('Croacia'); 
+INSERT INTO dt_pais (nombre) VALUES ('Cuba'); 
+INSERT INTO dt_pais (nombre) VALUES ('Dinamarca'); 
+INSERT INTO dt_pais (nombre) VALUES ('Djibouti'); 
+INSERT INTO dt_pais (nombre) VALUES ('Dominica'); 
+INSERT INTO dt_pais (nombre) VALUES ('Ecuador'); 
+INSERT INTO dt_pais (nombre) VALUES ('Egipto'); 
+INSERT INTO dt_pais (nombre) VALUES (' Salvador'); 
+INSERT INTO dt_pais (nombre) VALUES ('Emiratos Árabes Unidos'); 
+INSERT INTO dt_pais (nombre) VALUES ('Eritrea'); 
+INSERT INTO dt_pais (nombre) VALUES ('Eslovaquia'); 
+INSERT INTO dt_pais (nombre) VALUES ('Eslovenia'); 
+INSERT INTO dt_pais (nombre) VALUES ('España'); 
+INSERT INTO dt_pais (nombre) VALUES ('Estados Unidos de América'); 
+INSERT INTO dt_pais (nombre) VALUES ('Estonia'); 
+INSERT INTO dt_pais (nombre) VALUES ('Eswatini'); 
+INSERT INTO dt_pais (nombre) VALUES ('Etiopía'); 
+INSERT INTO dt_pais (nombre) VALUES ('Federación de Rusia'); 
+INSERT INTO dt_pais (nombre) VALUES ('Fiji'); 
+INSERT INTO dt_pais (nombre) VALUES ('Filipinas'); 
+INSERT INTO dt_pais (nombre) VALUES ('Finndia'); 
+INSERT INTO dt_pais (nombre) VALUES ('Francia'); 
+INSERT INTO dt_pais (nombre) VALUES ('Gabón'); 
+INSERT INTO dt_pais (nombre) VALUES ('Gambia'); 
+INSERT INTO dt_pais (nombre) VALUES ('Georgia'); 
+INSERT INTO dt_pais (nombre) VALUES ('Ghana'); 
+INSERT INTO dt_pais (nombre) VALUES ('Granada'); 
+INSERT INTO dt_pais (nombre) VALUES ('Grecia'); 
+INSERT INTO dt_pais (nombre) VALUES ('Guatema'); 
+INSERT INTO dt_pais (nombre) VALUES ('Guinea'); 
+INSERT INTO dt_pais (nombre) VALUES ('Guinea Ecuatorial'); 
+INSERT INTO dt_pais (nombre) VALUES ('Guinea-Bissau'); 
+INSERT INTO dt_pais (nombre) VALUES ('Guyana'); 
+INSERT INTO dt_pais (nombre) VALUES ('Haití'); 
+INSERT INTO dt_pais (nombre) VALUES ('Honduras'); 
+INSERT INTO dt_pais (nombre) VALUES ('Hungría'); 
+INSERT INTO dt_pais (nombre) VALUES ('India'); 
+INSERT INTO dt_pais (nombre) VALUES ('Indonesia'); 
+INSERT INTO dt_pais (nombre) VALUES ('Irán República Islámica d'); 
+INSERT INTO dt_pais (nombre) VALUES ('Iraq'); 
+INSERT INTO dt_pais (nombre) VALUES ('Irnda'); 
+INSERT INTO dt_pais (nombre) VALUES ('Isndia'); 
+INSERT INTO dt_pais (nombre) VALUES ('Iss Cook s'); 
+INSERT INTO dt_pais (nombre) VALUES ('Iss Marshall s'); 
+INSERT INTO dt_pais (nombre) VALUES ('Iss Salomón s'); 
+INSERT INTO dt_pais (nombre) VALUES ('Isra'); 
+INSERT INTO dt_pais (nombre) VALUES ('Italia'); 
+INSERT INTO dt_pais (nombre) VALUES ('Jamaica'); 
+INSERT INTO dt_pais (nombre) VALUES ('Japón'); 
+INSERT INTO dt_pais (nombre) VALUES ('Jordania'); 
+INSERT INTO dt_pais (nombre) VALUES ('Kazajstán'); 
+INSERT INTO dt_pais (nombre) VALUES ('Kenya'); 
+INSERT INTO dt_pais (nombre) VALUES ('Kirguistán'); 
+INSERT INTO dt_pais (nombre) VALUES ('Kiribati'); 
+INSERT INTO dt_pais (nombre) VALUES ('Kuwait'); 
+INSERT INTO dt_pais (nombre) VALUES ('Lesotho'); 
+INSERT INTO dt_pais (nombre) VALUES ('Letonia'); 
+INSERT INTO dt_pais (nombre) VALUES ('Líbano'); 
+INSERT INTO dt_pais (nombre) VALUES ('Liberia'); 
+INSERT INTO dt_pais (nombre) VALUES ('Libia'); 
+INSERT INTO dt_pais (nombre) VALUES ('Liechtenstein'); 
+INSERT INTO dt_pais (nombre) VALUES ('Lituania'); 
+INSERT INTO dt_pais (nombre) VALUES ('Luxemburgo'); 
+INSERT INTO dt_pais (nombre) VALUES ('Madagascar'); 
+INSERT INTO dt_pais (nombre) VALUES ('Masia'); 
+INSERT INTO dt_pais (nombre) VALUES ('Mawi'); 
+INSERT INTO dt_pais (nombre) VALUES ('Maldivas'); 
+INSERT INTO dt_pais (nombre) VALUES ('Malí'); 
+INSERT INTO dt_pais (nombre) VALUES ('Malta'); 
+INSERT INTO dt_pais (nombre) VALUES ('Marruecos'); 
+INSERT INTO dt_pais (nombre) VALUES ('Mauricio'); 
+INSERT INTO dt_pais (nombre) VALUES ('Mauritania'); 
+INSERT INTO dt_pais (nombre) VALUES ('México'); 
+INSERT INTO dt_pais (nombre) VALUES ('Micronesia Estados Federados de'); 
+INSERT INTO dt_pais (nombre) VALUES ('Mónaco'); 
+INSERT INTO dt_pais (nombre) VALUES ('Mongolia'); 
+INSERT INTO dt_pais (nombre) VALUES ('Montenegro'); 
+INSERT INTO dt_pais (nombre) VALUES ('Mozambique'); 
+INSERT INTO dt_pais (nombre) VALUES ('Myanmar'); 
+INSERT INTO dt_pais (nombre) VALUES ('Namibia'); 
+INSERT INTO dt_pais (nombre) VALUES ('Nauru'); 
+INSERT INTO dt_pais (nombre) VALUES ('Nepal'); 
+INSERT INTO dt_pais (nombre) VALUES ('Nicaragua'); 
+INSERT INTO dt_pais (nombre) VALUES ('Níger'); 
+INSERT INTO dt_pais (nombre) VALUES ('Nigeria'); 
+INSERT INTO dt_pais (nombre) VALUES ('Niue'); 
+INSERT INTO dt_pais (nombre) VALUES ('Noruega'); 
+INSERT INTO dt_pais (nombre) VALUES ('Nueva Zandia'); 
+INSERT INTO dt_pais (nombre) VALUES ('Omán'); 
+INSERT INTO dt_pais (nombre) VALUES ('Países Bajos'); 
+INSERT INTO dt_pais (nombre) VALUES ('Pakistán'); 
+INSERT INTO dt_pais (nombre) VALUES ('Pau'); 
+INSERT INTO dt_pais (nombre) VALUES ('Panamá'); 
+INSERT INTO dt_pais (nombre) VALUES ('Papua Nueva Guinea'); 
+INSERT INTO dt_pais (nombre) VALUES ('Paraguay'); 
+INSERT INTO dt_pais (nombre) VALUES ('Perú'); 
+INSERT INTO dt_pais (nombre) VALUES ('Polonia'); 
+INSERT INTO dt_pais (nombre) VALUES ('Portugal'); 
+INSERT INTO dt_pais (nombre) VALUES ('Qatar'); 
+INSERT INTO dt_pais (nombre) VALUES ('Reino Unido de Gran Bretaña e Irnda d Norte'); 
+INSERT INTO dt_pais (nombre) VALUES ('República Árabe Siria'); 
+INSERT INTO dt_pais (nombre) VALUES ('República Centroafricana'); 
+INSERT INTO dt_pais (nombre) VALUES ('República de Corea'); 
+INSERT INTO dt_pais (nombre) VALUES ('República de Macedonia d Norte'); 
+INSERT INTO dt_pais (nombre) VALUES ('Nombre corto: Macedonia d Norte'); 
+INSERT INTO dt_pais (nombre) VALUES ('República de Moldova'); 
+INSERT INTO dt_pais (nombre) VALUES ('República Democrática d Congo'); 
+INSERT INTO dt_pais (nombre) VALUES ('República Democrática Popur o'); 
+INSERT INTO dt_pais (nombre) VALUES ('República Dominicana'); 
+INSERT INTO dt_pais (nombre) VALUES ('República Popur Democrática de Corea'); 
+INSERT INTO dt_pais (nombre) VALUES ('República Unida de Tanzanía'); 
+INSERT INTO dt_pais (nombre) VALUES ('Rumania'); 
+INSERT INTO dt_pais (nombre) VALUES ('Rwanda'); 
+INSERT INTO dt_pais (nombre) VALUES ('Saint Kitts y Nevis'); 
+INSERT INTO dt_pais (nombre) VALUES ('Samoa'); 
+INSERT INTO dt_pais (nombre) VALUES ('San Marino'); 
+INSERT INTO dt_pais (nombre) VALUES ('San Vicente y s Granadinas'); 
+INSERT INTO dt_pais (nombre) VALUES ('Santa Lucía'); 
+INSERT INTO dt_pais (nombre) VALUES ('Santa Sede'); 
+INSERT INTO dt_pais (nombre) VALUES ('Santo Tomé y Príncipe'); 
+INSERT INTO dt_pais (nombre) VALUES ('Senegal'); 
+INSERT INTO dt_pais (nombre) VALUES ('Serbia'); 
+INSERT INTO dt_pais (nombre) VALUES ('Seychles'); 
+INSERT INTO dt_pais (nombre) VALUES ('Sierra Leona'); 
+INSERT INTO dt_pais (nombre) VALUES ('Singapur'); 
+INSERT INTO dt_pais (nombre) VALUES ('Somalia'); 
+INSERT INTO dt_pais (nombre) VALUES ('Sri nka'); 
+INSERT INTO dt_pais (nombre) VALUES ('Sudáfrica'); 
+INSERT INTO dt_pais (nombre) VALUES ('Sudán'); 
+INSERT INTO dt_pais (nombre) VALUES ('Sudán d Sur'); 
+INSERT INTO dt_pais (nombre) VALUES ('Suecia'); 
+INSERT INTO dt_pais (nombre) VALUES ('Suiza'); 
+INSERT INTO dt_pais (nombre) VALUES ('Suriname'); 
+INSERT INTO dt_pais (nombre) VALUES ('Taindia'); 
+INSERT INTO dt_pais (nombre) VALUES ('Tayikistán'); 
+INSERT INTO dt_pais (nombre) VALUES ('Timor-Leste'); 
+INSERT INTO dt_pais (nombre) VALUES ('Togo'); 
+INSERT INTO dt_pais (nombre) VALUES ('Tonga'); 
+INSERT INTO dt_pais (nombre) VALUES ('Trinidad y Tabago'); 
+INSERT INTO dt_pais (nombre) VALUES ('Túnez'); 
+INSERT INTO dt_pais (nombre) VALUES ('Turkmenistán'); 
+INSERT INTO dt_pais (nombre) VALUES ('Turquía'); 
+INSERT INTO dt_pais (nombre) VALUES ('Tuvalu'); 
+INSERT INTO dt_pais (nombre) VALUES ('Ucrania'); 
+INSERT INTO dt_pais (nombre) VALUES ('Uganda'); 
+INSERT INTO dt_pais (nombre) VALUES ('Uruguay'); 
+INSERT INTO dt_pais (nombre) VALUES ('Uzbekistán'); 
+INSERT INTO dt_pais (nombre) VALUES ('Vanuatu'); 
+INSERT INTO dt_pais (nombre) VALUES ('Venezua República Bolivariana de'); 
+INSERT INTO dt_pais (nombre) VALUES ('Viet Nam'); 
+INSERT INTO dt_pais (nombre) VALUES ('Yemen'); 
+INSERT INTO dt_pais (nombre) VALUES ('Zambia'); 
+INSERT INTO dt_pais (nombre) VALUES ('Zimbabwe'); 
+
 INSERT INTO dt_direccion 
 (id, calle, ciudad, numero, pais )
 VALUES
-( 1001, 'calle_dir$', 'ciudad 1001', ' 1001', 'pais_ 1001'),
-( 1002, 'calle_dir$', 'ciudad 1002', ' 1001', 'pais_ 1000'),
-( 1003, 'calle_dir$', 'ciudad 1000', ' 1001', 'pais_ 1001'),
-( 1004, 'calle_dir$', 'ciudad 1001', ' 1001', 'pais_ 1001'),
-( 1005, 'calle_dir$', 'ciudad 1002', ' 1001', 'pais_ 1001'),
-( 1006, 'calle_dir$', 'ciudad 1000', ' 1001', 'pais_ 1000'),
-( 1007, 'calle_dir$', 'ciudad 1001', ' 1001', 'pais_ 1001'),
-( 1008, 'calle_dir$', 'ciudad 1002', ' 1001', 'pais_ 1000'),
-( 1009, 'calle_dir$', 'ciudad 1000', ' 1001', 'pais_ 1001'),
-( 10010, 'calle_dir$', 'ciudad 1001', ' 1001', 'pais_ 1001'),
-( 10011, 'calle_dir$', 'ciudad 1002', ' 1001', 'pais_ 1001'),
-( 10012, 'calle_dir$', 'ciudad 1000', ' 1001', 'pais_ 1000'),
-( 10013, 'calle_dir$', 'ciudad 1001', ' 1001', 'pais_ 1001'),
-( 10014, 'calle_dir$', 'ciudad 1002', ' 1001', 'pais_ 1000'),
-( 10015, 'calle_dir$', 'ciudad 1000', ' 1001', 'pais_ 1001'),
-( 10016, 'calle_dir$', 'ciudad 1001', ' 1001', 'pais_ 1001'),
-( 10017, 'calle_dir$', 'ciudad 1002', ' 1001', 'pais_ 1001'),
-( 10018, 'calle_dir$', 'ciudad 1000', ' 1001', 'pais_ 1000'),
-( 10019, 'calle_dir$', 'ciudad 1001', ' 1001', 'pais_ 1001'),
-( 10020, 'calle_dir$', 'ciudad 1002', ' 1001', 'pais_ 1000'),
-( 10021, 'calle_dir$', 'ciudad 1000', ' 1001', 'pais_ 1001'),
-( 10022, 'calle_dir$', 'ciudad 1001', ' 1001', 'pais_ 1001'),
-( 10023, 'calle_dir$', 'ciudad 1002', ' 1001', 'pais_ 1001'),
-( 10024, 'calle_dir$', 'ciudad 1000', ' 1001', 'pais_ 1000'),
-( 10025, 'calle_dir$', 'ciudad 1001', ' 1001', 'pais_ 1001'),
-( 10026, 'calle_dir$', 'ciudad 1002', ' 1001', 'pais_ 1000'),
-( 10027, 'calle_dir$', 'ciudad 1000', ' 1001', 'pais_ 1001'),
-( 10028, 'calle_dir$', 'ciudad 1001', ' 1001', 'pais_ 1000'),
-( 10029, 'calle_dir$', 'ciudad 1002', ' 1001', 'pais_ 1001'),
-( 10030, 'calle_dir$', 'ciudad 1000', ' 1001', 'pais_ 1000'),
-( 10031, 'calle_dir$', 'ciudad 1001', ' 1001', 'pais_ 1001'),
-( 10032, 'calle_dir$', 'ciudad 1002', ' 1001', 'pais_ 1000'),
-( 10033, 'calle_dir$', 'ciudad 1000', ' 1001', 'pais_ 1001'),
-( 10034, 'calle_dir$', 'ciudad 1001', ' 1001', 'pais_ 1000'),
-( 10035, 'calle_dir$', 'ciudad 1002', ' 1001', 'pais_ 1001'),
-( 10036, 'calle_dir$', 'ciudad 1000', ' 1001', 'pais_ 1000'),
-( 10037, 'calle_dir$', 'ciudad 1001', ' 1001', 'pais_ 1001'),
-( 10038, 'calle_dir$', 'ciudad 1002', ' 1001', 'pais_ 1000'),
-( 10039, 'calle_dir$', 'ciudad 1000', ' 1001', 'pais_ 1001'),
-( 10040, 'calle_dir$', 'ciudad 1001', ' 1001', 'pais_ 1000'),
-( 10041, 'calle_dir$', 'ciudad 1002', ' 1001', 'pais_ 1001'),
-( 10042, 'calle_dir$', 'ciudad 1000', ' 1001', 'pais_ 1000'),
-( 10043, 'calle_dir$', 'ciudad 1001', ' 1001', 'pais_ 1001'),
-( 10044, 'calle_dir$', 'ciudad 1002', ' 1001', 'pais_ 1000'),
-( 10045, 'calle_dir$', 'ciudad 1000', ' 1001', 'pais_ 1001'),
-( 10046, 'calle_dir$', 'ciudad 1001', ' 1001', 'pais_ 1000'),
-( 10047, 'calle_dir$', 'ciudad 1002', ' 1001', 'pais_ 1001'),
-( 10048, 'calle_dir$', 'ciudad 1000', ' 1001', 'pais_ 1000'),
-( 10049, 'calle_dir$', 'ciudad 1001', ' 1001', 'pais_ 1001');
+( 1001, 'calle_dir$', 'ciudad 1001', ' 1001', '1'),
+( 1002, 'calle_dir$', 'ciudad 1002', ' 1001', '1'),
+( 1003, 'calle_dir$', 'ciudad 1000', ' 1001', '1'),
+( 1004, 'calle_dir$', 'ciudad 1001', ' 1001', '1'),
+( 1005, 'calle_dir$', 'ciudad 1002', ' 1001', '2'),
+( 1006, 'calle_dir$', 'ciudad 1000', ' 1001', '1'),
+( 1007, 'calle_dir$', 'ciudad 1001', ' 1001', '1'),
+( 1008, 'calle_dir$', 'ciudad 1002', ' 1001', '3'),
+( 1009, 'calle_dir$', 'ciudad 1000', ' 1001', '1'),
+( 10010, 'calle_dir$', 'ciudad 1001', ' 1001', '1'),
+( 10011, 'calle_dir$', 'ciudad 1002', ' 1001', '1'),
+( 10012, 'calle_dir$', 'ciudad 1000', ' 1001', '2'),
+( 10013, 'calle_dir$', 'ciudad 1001', ' 1001', '1'),
+( 10014, 'calle_dir$', 'ciudad 1002', ' 1001', '1'),
+( 10015, 'calle_dir$', 'ciudad 1000', ' 1001', '1'),
+( 10016, 'calle_dir$', 'ciudad 1001', ' 1001', '1'),
+( 10017, 'calle_dir$', 'ciudad 1002', ' 1001', '3'),
+( 10018, 'calle_dir$', 'ciudad 1000', ' 1001', '1'),
+( 10019, 'calle_dir$', 'ciudad 1001', ' 1001', '1'),
+( 10020, 'calle_dir$', 'ciudad 1002', ' 1001', '1'),
+( 10021, 'calle_dir$', 'ciudad 1000', ' 1001', '1'),
+( 10022, 'calle_dir$', 'ciudad 1001', ' 1001', '1'),
+( 10023, 'calle_dir$', 'ciudad 1002', ' 1001', '1'),
+( 10024, 'calle_dir$', 'ciudad 1000', ' 1001', '4'),
+( 10025, 'calle_dir$', 'ciudad 1001', ' 1001', '1'),
+( 10026, 'calle_dir$', 'ciudad 1002', ' 1001', '1'),
+( 10027, 'calle_dir$', 'ciudad 1000', ' 1001', '1'),
+( 10028, 'calle_dir$', 'ciudad 1001', ' 1001', '1'),
+( 10029, 'calle_dir$', 'ciudad 1002', ' 1001', '2'),
+( 10030, 'calle_dir$', 'ciudad 1000', ' 1001', '1'),
+( 10031, 'calle_dir$', 'ciudad 1001', ' 1001', '1'),
+( 10032, 'calle_dir$', 'ciudad 1002', ' 1001', '1'),
+( 10033, 'calle_dir$', 'ciudad 1000', ' 1001', '1'),
+( 10034, 'calle_dir$', 'ciudad 1001', ' 1001', '1'),
+( 10035, 'calle_dir$', 'ciudad 1002', ' 1001', '1'),
+( 10036, 'calle_dir$', 'ciudad 1000', ' 1001', '8'),
+( 10037, 'calle_dir$', 'ciudad 1001', ' 1001', '1'),
+( 10038, 'calle_dir$', 'ciudad 1002', ' 1001', '1'),
+( 10039, 'calle_dir$', 'ciudad 1000', ' 1001', '15'),
+( 10040, 'calle_dir$', 'ciudad 1001', ' 1001', '1'),
+( 10041, 'calle_dir$', 'ciudad 1002', ' 1001', '1'),
+( 10042, 'calle_dir$', 'ciudad 1000', ' 1001', '8'),
+( 10043, 'calle_dir$', 'ciudad 1001', ' 1001', '1'),
+( 10044, 'calle_dir$', 'ciudad 1002', ' 1001', '1'),
+( 10045, 'calle_dir$', 'ciudad 1000', ' 1001', '1'),
+( 10046, 'calle_dir$', 'ciudad 1001', ' 1001', '15'),
+( 10047, 'calle_dir$', 'ciudad 1002', ' 1001', '1'),
+( 10048, 'calle_dir$', 'ciudad 1000', ' 1001', '1'),
+( 10049, 'calle_dir$', 'ciudad 1001', ' 1001', '1');
 
 
 

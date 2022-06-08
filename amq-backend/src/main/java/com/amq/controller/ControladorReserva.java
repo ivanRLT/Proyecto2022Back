@@ -7,8 +7,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import javax.persistence.Convert;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.amq.datatypes.DtAltaReserva;
@@ -29,7 +26,6 @@ import com.amq.datatypes.DtFecha;
 import com.amq.datatypes.DtReserva;
 import com.amq.enums.PagoEstado;
 import com.amq.enums.ReservaEstado;
-import com.amq.model.Anfitrion;
 import com.amq.model.Calificacion;
 import com.amq.model.Factura;
 import com.amq.model.Habitacion;
