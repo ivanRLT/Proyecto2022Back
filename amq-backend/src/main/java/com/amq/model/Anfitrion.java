@@ -35,7 +35,7 @@ public class Anfitrion extends Usuario implements Serializable {
 		super();
 	}
 	public Anfitrion(String email, Boolean activo, String apellido, String nombre, Integer calificacion, List<Alojamiento> alojamientos, AprobacionEstado estado, String pass, Boolean bloqueado) {
-		super(email, activo, apellido, nombre, pass);
+		super(email, activo, bloqueado, apellido, nombre, pass);
 		this.calificacionGlobal = calificacion;
 		this.estado = estado;
 		this.alojamientos = alojamientos;

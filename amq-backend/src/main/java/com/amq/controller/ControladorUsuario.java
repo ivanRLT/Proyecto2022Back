@@ -358,7 +358,10 @@ public class ControladorUsuario {
 				for (Usuario u : usuarios) {
 					if (u instanceof Administrador) {
 						DtAdministrador dtadmin = new DtAdministrador(u.getId(), u.getEmail(), u.getNombre(),
-								u.getApellido(), u.getActivo(), "Ad", null);
+								u.getApellido(), u.getActivo(), u.getBloqueado(),"Ad", null);
+//						DtAdministrador dtadmin = new DtAdministrador(u.getId(), u.getEmail(), u.getNombre(), 
+//								u.getApellido(), u.getActivo(), u.get, null, null)
+						
 						retorno.add(dtadmin);
 					} else if (u instanceof Anfitrion) {
 						Anfitrion ua = (Anfitrion) u;
@@ -441,7 +444,7 @@ public class ControladorUsuario {
 				
 				if (user instanceof Administrador) {
 					dtUser = new DtAdministrador( user.getId(), user.getEmail(), user.getNombre(),
-					 user.getApellido(), user.getActivo(), "Ad", jwToken);
+					 user.getApellido(), user.getActivo(), user.getBloqueado(),"Ad", jwToken);
 				} else if (user instanceof Anfitrion) {
 					Anfitrion ua = (Anfitrion) user;
 					dtUser = new DtAnfitrion(user.getId(), user.getEmail(), user.getNombre(),

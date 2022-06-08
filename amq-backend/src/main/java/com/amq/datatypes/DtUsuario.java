@@ -6,6 +6,7 @@ public class DtUsuario {
 	private String nombre;
 	private String apellido;
 	private boolean activo;
+	private boolean bloqueado;
 	private String pass;
 	private String tipo;
 	private String jwToken;
@@ -14,13 +15,14 @@ public class DtUsuario {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public DtUsuario(int id, String email, String nombre, String apellido, boolean activo, String tipo, String jwToken) {
+	public DtUsuario(int id, String email, String nombre, String apellido, boolean activo, boolean bloqueado, String tipo, String jwToken) {
 		super();
 		this.id = id;
 		this.email = email;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.activo = activo;
+		this.bloqueado = bloqueado;
 		this.tipo = tipo;
 		this.jwToken = jwToken;
 	}
@@ -63,22 +65,37 @@ public class DtUsuario {
 
 	public void setActivo(boolean activo) {
 		this.activo = activo;
+		
 	}
+	
+	public Boolean getBloqueado() {
+		return bloqueado;
+	}
+	
+	public void setBloqueado(Boolean bloqueado) {
+		this.bloqueado = bloqueado;
+	}
+	
 	public String getPass() {
 		return pass;
 	}
+	
 	public void setPass(String pass) {
 		this.pass = pass;
 	}
+	
 	public int getId() {
 		return id;
 	}
+	
 	public void setId(int id) {
 		this.id = id;
 	}
+	
 	public String getTipo() {
 		return tipo;
 	}
+	
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}

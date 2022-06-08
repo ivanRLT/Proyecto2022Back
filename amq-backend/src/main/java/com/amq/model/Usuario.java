@@ -28,6 +28,8 @@ public abstract class Usuario implements Serializable {
 	
 	private Boolean activo;
 	
+	private Boolean bloqueado;
+	
 	private String apellido;
 	
 	private String nombre;
@@ -42,9 +44,10 @@ public abstract class Usuario implements Serializable {
 	public Usuario() {
 		super();
 	}
-	public Usuario(String email, Boolean activo, String apellido, String nombre, String pass) {
+	public Usuario(String email, Boolean activo, Boolean bloqueado,String apellido, String nombre, String pass) {
 		this.email = email;
 		this.activo = activo;
+		this.bloqueado = bloqueado;
 		this.apellido = apellido;
 		this.nombre = nombre;
 		this.pass = pass;
@@ -98,9 +101,15 @@ public abstract class Usuario implements Serializable {
 		return serialVersionUID;
 	}
 	
+	public Boolean getBloqueado() {
+		return bloqueado;
+	}
+	public void setBloqueado(Boolean bloqueado) {
+		this.bloqueado = bloqueado;
+	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(activo, apellido, email, id, nombre, pass, recuperacion);
+		return Objects.hash(activo, bloqueado, email, id, nombre, pass, recuperacion);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -109,13 +118,13 @@ public abstract class Usuario implements Serializable {
 		if (!(obj instanceof Usuario))
 			return false;
 		Usuario other = (Usuario) obj;
-		return Objects.equals(activo, other.activo) && Objects.equals(apellido, other.apellido)
+		return Objects.equals(activo, other.activo)&&Objects.equals(bloqueado, other.bloqueado) && Objects.equals(apellido, other.apellido)
 				&& Objects.equals(email, other.email) && id == other.id && Objects.equals(nombre, other.nombre)
 				&& Objects.equals(pass, other.pass) && Objects.equals(recuperacion, other.recuperacion);
 	}
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + ", email=" + email + ", activo=" + activo + ", apellido=" + apellido + ", nombre="
+		return "Usuario [id=" + id + ", email=" + email + ", activo=" + activo + ", bloqueado=" + bloqueado + ", apellido=" + apellido + ", nombre="
 				+ nombre + ", recuperacion=" + recuperacion + ", pass=" + pass + "]";
 	}
 	
