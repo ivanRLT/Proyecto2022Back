@@ -34,7 +34,7 @@ public class Huesped extends Usuario implements Serializable {
 		super();
 	}
 	public Huesped(String email, Boolean activo, String apellido, String nombre, Integer calificacion, List<String> tokens, String pass, Boolean bloqueado) {
-		super(email, activo, apellido, nombre, pass);
+		super(email, activo, bloqueado, apellido, nombre, pass);
 		this.calificacionGlobal = calificacion;
 		this.pushTokens = tokens;
 		this.bloqueado = bloqueado;

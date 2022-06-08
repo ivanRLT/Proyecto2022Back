@@ -16,8 +16,8 @@ public class Administrador extends Usuario implements Serializable{
 	public Administrador() {
 		super();
 	}
-	public Administrador(String email, Boolean activo, String apellido, String nombre, String pass) {
-		super(email, activo, apellido, nombre, pass);
+	public Administrador(String email, Boolean activo,Boolean bloqueado,String apellido, String nombre, String pass) {
+		super(email, activo, bloqueado,apellido, nombre, pass);
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;

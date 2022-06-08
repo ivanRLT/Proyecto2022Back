@@ -8,7 +8,7 @@ public class DtAdministrador extends DtUsuario{
 		// TODO Auto-generated constructor stub
 	}
 
-	public DtAdministrador(int id, String email, String nombre, String apellido, boolean activo, String jwToken, String tipo) {
-		super(id, email, nombre, apellido, activo, tipo, jwToken);
+	public DtAdministrador(int id, String email, String nombre, String apellido, boolean activo, boolean bloqueado,String jwToken, String tipo) {
+		super(id, email, nombre, apellido, activo, activo,tipo, jwToken);
 	}
 }
