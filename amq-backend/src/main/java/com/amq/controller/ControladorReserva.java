@@ -64,6 +64,70 @@ public class ControladorReserva {
 	 @Autowired
 	 private MessageSource messages;
 	
+/*	 @RequestMapping(value = "/cancelarReservaConfirmada/{idreserva}", method = { RequestMethod.POST })	
+		public ResponseEntity<Factura> cancelarReserva(@PathVariable("idreserva") int idreserva, @RequestBody DtFactura facturadt){
+			try {
+				Optional<Reserva> resOp = repoR.findById(idreserva);
+				if ( !resOp.isPresent()) {
+					return new ResponseEntity<>(;
+				}
+				
+				//*** Evaluar otros estados ***
+				if( resOp.get().getEstado()!=ReservaEstado.APROBADO ){
+					return new ResponseEntity<>(HttpStatus.PRECONDITION_FAILED);
+				}
+				
+				
+				
+				Reserva reservaC = resOP.get();
+				Habitacion habitacion = reservaC.getHabitacion();
+				List<Reserva> reservasH = habitacion.getReservas();
+				Boolean solapamiento = false;
+				for (Reserva r : reservasH) {
+					DtFecha reservasRI = r.getDtFechaInicio();
+					DtFecha reservasRF = r.getDtFechaFin();
+					DtFecha reservaI = reservaC.getDtFechaInicio();
+					DtFecha reservaF = reservaC.getDtFechaFin();
+					if (reservaI.getAnio() < reservasRF.getAnio() && reservaI.getAnio() > reservasRI.getAnio()) {
+						if (reservaI.getMes() < reservasRF.getMes() && reservaI.getMes() > reservasRI.getMes()) {
+							if (reservaI.getDia() < reservasRF.getDia() && reservaI.getDia() > reservasRI.getDia()) {
+								solapamiento = true;
+							}
+						}
+					}
+					if (reservaF.getAnio() < reservasRF.getAnio() && reservaF.getAnio() > reservasRI.getAnio()) {
+						if (reservaF.getMes() < reservasRF.getMes() && reservaF.getMes() > reservasRI.getMes()) {
+							if (reservaF.getDia() < reservasRF.getDia() && reservaF.getDia() > reservasRI.getDia()) {
+								solapamiento = true;
+							}
+						}
+					}
+					if (reservaI.getAnio() < reservasRI.getAnio() && reservaF.getAnio() > reservasRF.getAnio()) {
+						if (reservaI.getMes() < reservasRI.getMes() && reservaF.getMes() > reservasRF.getMes()) {
+							if (reservaI.getDia() < reservasRI.getDia() && reservaF.getDia() > reservasRF.getDia()) {
+								solapamiento = true;
+							}
+						}
+					}
+				}
+				if (!solapamiento) {
+					reservaC.setEstado(ReservaEstado.APROBADO);
+					List<Factura> facturas = reservaC.getFacturas();
+					Factura factura = null;
+					for (Factura f : facturas) {
+						if(f.getEstado() == PagoEstado.PENDIENTE) {
+							factura = f;
+						}
+					}
+					return new ResponseEntity<>(factura, HttpStatus.OK);
+				}else {
+					return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+				}
+			} catch (Exception e) {
+				return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		}
+*/	 
 	@RequestMapping(value = "/confirmarReserva/{idreserva}", method = { RequestMethod.POST })	
 	public ResponseEntity<Factura> confirmarReserva(@PathVariable("idreserva") int idreserva, @RequestBody DtFactura facturadt){
 		try {
@@ -174,29 +238,33 @@ public class ControladorReserva {
 			Boolean solapamiento = false;
 			Habitacion hab = habOpt.get();
 			List<Reserva> reservas = hab.getReservas();
+			
+			//Evalua fechas de las reservas aprobadas o ejecutadas
 			for (Reserva r : reservas) {
-				Date fIniResConfirm =  r.getFechaInicio();
-				Date fFinResConfirm =  r.getFechaFin();
-				
-				//Si es null la fecha es inváilda
-				if(fIniResConfirm == null || fFinResConfirm==null ) {
-					return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-				}
-				if( fechaMayorAFecha(fIniResConfirm, fFinResConfirm) ) {
-					return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-				}
-				
-				solapamiento=true;
-
-				if( fechaMayorAFecha(fIniSolicitudRes, fFinResConfirm) ) {
-					solapamiento=false;
-				}
-				else if( fechaMenorAFecha(fFinSolicitudRes, fIniResConfirm) ) {
-					solapamiento=false;
-				}
-				
-				if(solapamiento) {
-					return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
+				if( r.getEstado()==ReservaEstado.APROBADO || r.getEstado()==ReservaEstado.EJECUTADA  ){
+					Date fIniResConfirm =  r.getFechaInicio();
+					Date fFinResConfirm =  r.getFechaFin();
+					
+					//Si es null la fecha es inváilda
+					if(fIniResConfirm == null || fFinResConfirm==null ) {
+						return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+					}
+					if( fechaMayorAFecha(fIniResConfirm, fFinResConfirm) ) {
+						return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+					}
+					
+					solapamiento=true;
+	
+					if( fechaMayorAFecha(fIniSolicitudRes, fFinResConfirm) ) {
+						solapamiento=false;
+					}
+					else if( fechaMenorAFecha(fFinSolicitudRes, fIniResConfirm) ) {
+						solapamiento=false;
+					}
+					
+					if(solapamiento) {
+						return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
+					}
 				}
 			}
 			Huesped huesped = (Huesped) huOpt.get();						
