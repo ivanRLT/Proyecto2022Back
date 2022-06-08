@@ -357,23 +357,25 @@ public class ControladorUsuario {
 			try {
 				repoU.findAll().forEach(usuarios::add);
 				for (Usuario u : usuarios) {
-					if (u instanceof Administrador) {
-						DtAdministrador dtadmin = new DtAdministrador(u.getId(), u.getEmail(), u.getNombre(),
-								u.getApellido(), u.getActivo(), u.getBloqueado(),"Ad", null);
-//						DtAdministrador dtadmin = new DtAdministrador(u.getId(), u.getEmail(), u.getNombre(), 
-//								u.getApellido(), u.getActivo(), u.get, null, null)
-						
-						retorno.add(dtadmin);
-					} else if (u instanceof Anfitrion) {
-						Anfitrion ua = (Anfitrion) u;
-						DtAnfitrion dtanfitrion = new DtAnfitrion(u.getId(), ua.getEmail(), ua.getNombre(),
-								ua.getApellido(), ua.getActivo(), ua.getCalificacionGlobal(), ua.getEstado(),  "An", ua.getBloqueado(), null);
-						retorno.add(dtanfitrion);
-					} else if (u instanceof Huesped) {
-						Huesped uh = (Huesped) u;
-						DtHuesped dthuesped = new DtHuesped( u.getId(), uh.getEmail(), uh.getNombre(), uh.getApellido(),
-								uh.getActivo(), uh.getCalificacionGlobal(), uh.getPushTokens(), "Hu", uh.getBloqueado(), null);
-						retorno.add(dthuesped);
+					if( usuarioCumpleFiltros(u, filtros) ) {
+						if (u instanceof Administrador) {
+							DtAdministrador dtadmin = new DtAdministrador(u.getId(), u.getEmail(), u.getNombre(),
+									u.getApellido(), u.getActivo(), u.getBloqueado(),"Ad", null);
+	//						DtAdministrador dtadmin = new DtAdministrador(u.getId(), u.getEmail(), u.getNombre(), 
+	//								u.getApellido(), u.getActivo(), u.get, null, null)
+							
+							retorno.add(dtadmin);
+						} else if (u instanceof Anfitrion) {
+							Anfitrion ua = (Anfitrion) u;
+							DtAnfitrion dtanfitrion = new DtAnfitrion(u.getId(), ua.getEmail(), ua.getNombre(),
+									ua.getApellido(), ua.getActivo(), ua.getCalificacionGlobal(), ua.getEstado(),  "An", ua.getBloqueado(), null);
+							retorno.add(dtanfitrion);
+						} else if (u instanceof Huesped) {
+							Huesped uh = (Huesped) u;
+							DtHuesped dthuesped = new DtHuesped( u.getId(), uh.getEmail(), uh.getNombre(), uh.getApellido(),
+									uh.getActivo(), uh.getCalificacionGlobal(), uh.getPushTokens(), "Hu", uh.getBloqueado(), null);
+							retorno.add(dthuesped);
+						}
 					}
 				}
 				if (retorno.isEmpty()) {
@@ -636,7 +638,7 @@ public class ControladorUsuario {
 	    	if( filtros.getCalificacion_desde()!=null && usr instanceof Anfitrion && ((Anfitrion)usr).getCalificacionGlobal()<filtros.getCalificacion_desde() ) {
 	    		return false;
 	    	}
-	    	if( filtros.getCalificacion_hasta()!=null && usr instanceof Huesped && ((Huesped)usr).getCalificacionGlobal()>filtros.getCalificacion_desde() ) {
+	    	if( filtros.getCalificacion_hasta()!=null && usr instanceof Huesped && ((Huesped)usr).getCalificacionGlobal()>filtros.getCalificacion_hasta() ) {
 	    		return false;
 	    	}
 	    	if( filtros.getCalificacion_hasta()!=null && usr instanceof Anfitrion && ((Anfitrion)usr).getCalificacionGlobal()>filtros.getCalificacion_desde() ) {
@@ -655,7 +657,7 @@ public class ControladorUsuario {
     	if(!(usr instanceof Anfitrion) &&  filtros.getEstado()!=null) {
     		return false; 
     	}
-    	if( filtros.getEstado()!=null && !filtros.getEstado().equals(((Anfitrion)usr).getEstado())){
+    	if( filtros.getEstado()!=null && !filtros.getEstado().equals(((Anfitrion)usr).getEstado().toString())){
     			return false;
     	}
     	
