@@ -22,7 +22,6 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/alojamiento/listarAlojamientos",
             "/alojamiento/desactivarAlojamiento/**",
             "/usuario/resetPassword",
-            
             "/alojamiento/**",
             "/reserva/**",
             "/usuario/**",

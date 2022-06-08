@@ -422,6 +422,7 @@ public class ControladorUsuario {
 			}
 		}
 		
+		@CrossOrigin(origins = "*")
 		@RequestMapping(value = "/login", method = { RequestMethod.POST })
 		public ResponseEntity<DtUsuario> iniciarSesion(@RequestBody DtUsuario dtMailPass) {
 			Usuario user;
