@@ -128,7 +128,7 @@ public class ControladorReserva {
 			}
 		}
 */	 
-	@RequestMapping(value = "/confirmarReserva/{idreserva}", method = { RequestMethod.POST })	
+	@RequestMapping(value = "/confirmar/{idreserva}", method = { RequestMethod.POST })	
 	public ResponseEntity<Factura> confirmarReserva(@PathVariable("idreserva") int idreserva, @RequestBody DtFactura facturadt){
 		try {
 			Optional<Reserva> resOP = repoR.findById(idreserva);
