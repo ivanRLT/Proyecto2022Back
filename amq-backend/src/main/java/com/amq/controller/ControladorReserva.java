@@ -220,9 +220,9 @@ public class ControladorReserva {
 				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 			}
 			
-			Date fIniSolicitudRes = dtFecha2Date(dtAltaRes.getfInicio());
+			Date fIniSolicitudRes = dtFecha2Date(dtAltaRes.getFInicio());
 
-			Date fFinSolicitudRes = dtFecha2Date(dtAltaRes.getfFin());
+			Date fFinSolicitudRes = dtFecha2Date(dtAltaRes.getFFin());
 			
 			if( fIniSolicitudRes==null ) {
 				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
@@ -301,7 +301,7 @@ public class ControladorReserva {
 			repoH.save(hab);
 			
 
-			return new ResponseEntity<>(rRet, HttpStatus.CREATED);
+			return new ResponseEntity<>(reserva, HttpStatus.CREATED);
 					
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

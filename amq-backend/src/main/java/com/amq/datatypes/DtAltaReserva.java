@@ -45,19 +45,19 @@ public class DtAltaReserva {
 		this.cantDias = cantDias;
 	}
 
-	public DtFecha getfInicio() {
+	public DtFecha getFInicio() {
 		return fInicio;
 	}
 
-	public void setfInicio(DtFecha fInicio) {
+	public void setFInicio(DtFecha fInicio) {
 		this.fInicio = fInicio;
 	}
 
-	public DtFecha getfFin() {
+	public DtFecha getFFin() {
 		return fFin;
 	}
 
-	public void setfFin(DtFecha fFin) {
+	public void setFFin(DtFecha fFin) {
 		this.fFin = fFin;
 	}
 
@@ -75,8 +75,8 @@ public class DtAltaReserva {
 
 	public void setIdPaypal(String idPaypal) {
 		this.idPaypal = idPaypal;
-	} 
-	
+	}
+
 	
 	
 }
