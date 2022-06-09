@@ -134,50 +134,73 @@ public class ControladorReserva {
 			Optional<Reserva> resOP = repoR.findById(idreserva);
 			if (resOP.isPresent()) {
 				Reserva reservaC = resOP.get();
-				Habitacion habitacion = reservaC.getHabitacion();
-				List<Reserva> reservasH = habitacion.getReservas();
-				Boolean solapamiento = false;
-				for (Reserva r : reservasH) {
-					DtFecha reservasRI = r.getDtFechaInicio();
-					DtFecha reservasRF = r.getDtFechaFin();
-					DtFecha reservaI = reservaC.getDtFechaInicio();
-					DtFecha reservaF = reservaC.getDtFechaFin();
-					if (reservaI.getAnio() < reservasRF.getAnio() && reservaI.getAnio() > reservasRI.getAnio()) {
-						if (reservaI.getMes() < reservasRF.getMes() && reservaI.getMes() > reservasRI.getMes()) {
-							if (reservaI.getDia() < reservasRF.getDia() && reservaI.getDia() > reservasRI.getDia()) {
-								solapamiento = true;
-							}
-						}
-					}
-					if (reservaF.getAnio() < reservasRF.getAnio() && reservaF.getAnio() > reservasRI.getAnio()) {
-						if (reservaF.getMes() < reservasRF.getMes() && reservaF.getMes() > reservasRI.getMes()) {
-							if (reservaF.getDia() < reservasRF.getDia() && reservaF.getDia() > reservasRI.getDia()) {
-								solapamiento = true;
-							}
-						}
-					}
-					if (reservaI.getAnio() < reservasRI.getAnio() && reservaF.getAnio() > reservasRF.getAnio()) {
-						if (reservaI.getMes() < reservasRI.getMes() && reservaF.getMes() > reservasRF.getMes()) {
-							if (reservaI.getDia() < reservasRI.getDia() && reservaF.getDia() > reservasRF.getDia()) {
-								solapamiento = true;
-							}
-						}
-					}
-				}
-				if (!solapamiento) {
-					reservaC.setEstado(ReservaEstado.APROBADO);
-					List<Factura> facturas = reservaC.getFacturas();
-					Factura factura = null;
-					for (Factura f : facturas) {
-						if(f.getEstado() == PagoEstado.PENDIENTE) {
-							factura = f;
-						}
-					}
-					return new ResponseEntity<>(factura, HttpStatus.OK);
-				}else {
-					return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+				
+				if( reservaC.getEstado()!=ReservaEstado.PENDIENTE ) {
+					return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
 				}
 				
+				Habitacion habitacion = reservaC.getHabitacion();
+				List<Reserva> habitaciones = habitacion.getReservas();
+				DtFecha dtFIniResPend = reservaC.getDtFechaInicio();
+				DtFecha dtFFinResPend = reservaC.getDtFechaFin();
+				
+				Date fIniResPend = reservaC.getFechaInicio();
+
+				Date fFinResPend = reservaC.getFechaFin();
+				
+				if( fIniResPend==null ) {
+					return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+				}
+				if( fFinResPend==null ) {
+					return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+				}
+				
+				Boolean solapamiento;
+				for (Reserva r : habitaciones) {
+					
+					if( r.getEstado()==ReservaEstado.APROBADO || r.getEstado()==ReservaEstado.EJECUTADA  ){
+						Date fIniResConfirm =  r.getFechaInicio();
+						Date fFinResConfirm =  r.getFechaFin();
+						
+						//Si es null la fecha es inváilda
+						if(fIniResConfirm == null || fFinResConfirm==null ) {
+							return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+						}
+						if( fechaMayorAFecha(fIniResConfirm, fFinResConfirm) ) {
+							return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+						}
+						
+						solapamiento=true;
+		
+						if( fechaMayorAFecha(fIniResPend, fFinResConfirm) ) {
+							solapamiento=false;
+						}
+						else if( fechaMenorAFecha(fFinResPend, fIniResConfirm) ) {
+							solapamiento=false;
+						}
+						
+						if(solapamiento) {
+							return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
+						}
+					}
+				}
+				reservaC.setEstado(ReservaEstado.APROBADO);
+				List<Factura> facturas = reservaC.getFacturas();
+				Factura factura = new Factura(
+						-1, 
+						facturadt.getMonto()!=null ? facturadt.getMonto() : 0, 
+						facturadt.getMontoDescuento()!=null ? true : false, 
+						facturadt.getMontoDescuento()!=null ? facturadt.getMontoDescuento() : 0, 
+						facturadt.getPagoEstado(), 
+						facturadt.getFecha(),
+						reservaC
+					);
+				
+				
+				reservaC.getFacturas().add(factura);
+				
+				repoR.save(reservaC);
+				return new ResponseEntity<>(factura, HttpStatus.OK);
 			} else {
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 			}	
@@ -341,66 +364,7 @@ public class ControladorReserva {
 		}
 		return retorno;
 	}
-	// #######################Funciones de Calificacion#######################
-	@RequestMapping(value = "/altaCalificacion/{id},{calificacion}", method = { RequestMethod.POST, RequestMethod.GET })
-	public ResponseEntity<Usuario> altaCalificacion(@PathVariable("id") int idUsr,
-			@PathVariable("calificacion") int cal, @PathVariable("calificacion") String resena) {
-		try {
-			Optional<Usuario> usr = repoU.findById(idUsr);
-//			Anfitrion anf = null;
-			Huesped hue = null;
-			if (usr.isPresent()) {
-				if (usr.get() instanceof Huesped) {
-					hue = (Huesped) usr.get();
-					Reserva res = new Reserva();
-					// res.getEstado().compareTo(ReservaEstado.EJECUTADA);
-					if (res.getEstado() == ReservaEstado.EJECUTADA || res.getEstado() == ReservaEstado.EN_CURSO) {
-						Calificacion calificacion = new Calificacion();
-						calificacion.setCalificacionAnfitrion(cal);
-						calificacionGlobal(calificacion.getCalificacionAnfitrion());
 
-						calificacion.setResena(resena);
-
-						return new ResponseEntity<>(repoU.save(hue), HttpStatus.OK);
-
-//					return new ResponseEntity<>(repoU.save(anf), HttpStatus.OK);
-
-					}
-				} else {
-					return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-				}
-			} else {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			}
-
-		} catch (Exception e) {
-			System.out.println(e.toString());
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-		return null;
-	}
-	
-	public void calificacionGlobal(int calificacion) {
-		//para armar la sumatoria
-	}
-	
-	public boolean modificarCalificacion(int idReserva) {
-		Boolean retorno = false;
-		try {
-
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		return retorno;
-	}
-	public DtCalificacion listarCalificacion(int idReserva) {
-		try {
-
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		return null;
-	}
 	// #######################Funciones de Facturas#######################
 		public boolean altaFactura() {
 			Boolean retorno = false;
