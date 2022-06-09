@@ -6,7 +6,7 @@ public class DtUsuario {
 	private String nombre;
 	private String apellido;
 	private boolean activo;
-	private boolean bloqueado;
+	private Boolean bloqueado;
 	private String pass;
 	private String tipo;
 	private String jwToken;
@@ -15,7 +15,7 @@ public class DtUsuario {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public DtUsuario(int id, String email, String nombre, String apellido, boolean activo, boolean bloqueado, String tipo, String jwToken) {
+	public DtUsuario(int id, String email, String nombre, String apellido, boolean activo, Boolean bloqueado, String tipo, String jwToken) {
 		super();
 		this.id = id;
 		this.email = email;
