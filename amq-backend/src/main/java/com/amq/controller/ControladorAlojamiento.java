@@ -314,6 +314,13 @@ public class ControladorAlojamiento {
 		return new ResponseEntity<>(data, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/getPaisesEnAlojamiento", method = { RequestMethod.GET })
+	public ResponseEntity< List<?> > getPaisesEnAlojamiento( ){
+		List<?> data =  repoPais.getPaisesEnAlojamiento();
+		
+		return new ResponseEntity<>(data, HttpStatus.OK);
+	}
+	
 	// #######################Funciones de prueba#######################
 	
 	//De prueba, se puede borrar
