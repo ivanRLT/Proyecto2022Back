@@ -258,6 +258,7 @@ public class ControladorUsuario {
 
     		if(optUsr.get() instanceof Huesped) {
     			cal.setCalificacionHuesped(dtEnvCal.getCalificacion());
+    			cal.setResena(dtEnvCal.getResena());
     		}
     		else if(optUsr.get() instanceof Anfitrion) {
     			if(dtEnvCal.getCalificacion()!=null) {
