@@ -483,8 +483,8 @@ public class ControladorUsuario {
 	}
 	
 	
-	
-	@PostMapping("/resetPassword")
+	@RequestMapping(value = "/resetPassword", method = { RequestMethod.POST })
+//	@PostMapping("/resetPassword")
 	public GenericResponse resetPassword( HttpServletRequest request, 
 			@RequestParam("email") String userEmail) {
 	    Usuario user = userService.findUserByEmail(userEmail);
@@ -492,8 +492,10 @@ public class ControladorUsuario {
 	    	String token = UUID.randomUUID().toString();
 	    	userService.createPasswordResetTokenForUser(user, token);
 	    	mailSender.send(constructResetTokenEmail(getAppUrl(request),request.getLocale(), token, user));
+	    	return new GenericResponse(messages.getMessage("message.resetPasswordEmail", null, request.getLocale()));
 	    }
-	    return new GenericResponse(messages.getMessage("message.resetPasswordEmail", null, request.getLocale()));
+	    return new GenericResponse(messages.getMessage("Email.user.email", null, request.getLocale()));
+	    
 	}
 	
 	// Save password
@@ -516,7 +518,8 @@ public class ControladorUsuario {
 	}
 
 	private SimpleMailMessage constructResetTokenEmail(String contextPath, Locale locale, String token, Usuario user) {
-		 String url = contextPath + "/usuario/changePassword?token=" + token;
+//		 String url = contextPath + "/usuario/changePassword?token=" + token;
+		 String url = token;
          String message = messages.getMessage("message.resetPassword", null, locale);
         return constructEmail("Reset Password  - Aquí me Quedo", message + " \r\n" + url, user);
     }

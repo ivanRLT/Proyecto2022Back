@@ -1,4 +1,4 @@
-/*TRUNCATE TABLE 
+TRUNCATE TABLE 
 	alojamientos,
 	usuarios, 
 	calificaciones,
@@ -11,9 +11,8 @@
 	recuperaciones,
 	reservas
 CASCADE;
-*/
 /* MYSQL >>>>*/
-SET FOREIGN_KEY_CHECKS = 0;
+/*SET FOREIGN_KEY_CHECKS = 0;
 
 TRUNCATE TABLE 	alojamientos;
 TRUNCATE TABLE 	usuarios; 
@@ -26,7 +25,7 @@ TRUNCATE TABLE 	huesped_push_tokens;
 TRUNCATE TABLE    password_reset_token;
 TRUNCATE TABLE 	recuperaciones;
 TRUNCATE TABLE 	reservas;
-
+*/
 
 INSERT INTO usuarios 
 (id, activo, bloqueado,	estado,   nombre, apellido, email, dtype, pass, user_id, calificacion_global)
