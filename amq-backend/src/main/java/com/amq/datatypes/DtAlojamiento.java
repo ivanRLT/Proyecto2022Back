@@ -11,16 +11,26 @@ public class DtAlojamiento {
 	private String descripcion;
 	private DtDireccion direcion;
 	private String nombre;
+	private Integer califcacion;
 
-	public DtAlojamiento(Integer id,Boolean activo, String descripcion, DtDireccion direcion, String nombre ) {
+	public DtAlojamiento(Integer id,Boolean activo, String descripcion, DtDireccion direcion, String nombre, Integer califcacion ) {
 		super();
 		this.id = id;
 		this.activo = activo;
 		this.descripcion = descripcion;
 		this.direcion = direcion;
 		this.nombre = nombre;
+		this.califcacion = califcacion;
 	}
 	
+	public Integer getCalifcacion() {
+		return califcacion;
+	}
+
+	public void setCalifcacion(Integer califcacion) {
+		this.califcacion = califcacion;
+	}
+
 	public Integer getId() {
 		return id;
 	}

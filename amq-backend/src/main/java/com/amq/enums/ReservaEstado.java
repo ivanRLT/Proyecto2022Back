@@ -2,6 +2,6 @@ package com.amq.enums;
 
 public enum ReservaEstado {
 	
-	PENDIENTE, APROBADO, RECHAZADO, EN_CURSO, EJECUTADA;
+	PENDIENTE, APROBADO, RECHAZADO, EJECUTADA;
 
 }

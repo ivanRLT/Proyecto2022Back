@@ -354,7 +354,7 @@ public class ControladorReserva {
 					hue = (Huesped) usr.get();
 					Reserva res = new Reserva();
 					// res.getEstado().compareTo(ReservaEstado.EJECUTADA);
-					if (res.getEstado() == ReservaEstado.EJECUTADA || res.getEstado() == ReservaEstado.EN_CURSO) {
+					if (res.getEstado() == ReservaEstado.EJECUTADA || res.getEstado() == ReservaEstado.APROBADO) {
 						Calificacion calificacion = new Calificacion();
 						calificacion.setCalificacionAnfitrion(cal);
 						calificacionGlobal(calificacion.getCalificacionAnfitrion());
