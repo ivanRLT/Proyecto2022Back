@@ -1,5 +1,7 @@
 package com.amq.datatypes;
 
+import com.amq.enums.ReservaEstado;
+
 public class DtEnviarCalificacion {
 	private int idUsuario;
 	private int idReserva;
@@ -38,6 +40,5 @@ public class DtEnviarCalificacion {
 	public void setResena(String resena) {
 		this.resena = resena;
 	}
-	
 	
 }

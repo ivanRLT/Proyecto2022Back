@@ -237,14 +237,20 @@ public class ControladorUsuario {
 	
 	@RequestMapping(value = "/calificar", method = { RequestMethod.POST })
     public ResponseEntity<String> calificar(@RequestBody DtEnviarCalificacion dtEnvCal) {
+		
 		Calificacion cal;
 		
-		if( dtEnvCal.getCalificacion()==null && dtEnvCal.getResena()==null) {
+		try {
+			Optional<Reserva> optRes = repoR.findById(dtEnvCal.getIdReserva());
+			
+			if (optRes.get().getEstado()==ReservaEstado.PENDIENTE || optRes.get().getEstado()== ReservaEstado.RECHAZADO){
+				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);				
+			}
+			
+		if( dtEnvCal.getCalificacion()==null && dtEnvCal.getResena()==null) {			
 			return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 		}
 		
-    	try {
-    		Optional<Reserva> optRes = repoR.findById(dtEnvCal.getIdReserva()); 
     		Optional<Usuario> optUsr = repoU.findById(dtEnvCal.getIdUsuario());
     		
     		if( optRes.get().getCalificacion()==null) {
