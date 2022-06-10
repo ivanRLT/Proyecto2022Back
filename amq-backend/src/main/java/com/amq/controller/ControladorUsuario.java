@@ -499,8 +499,9 @@ public class ControladorUsuario {
 	}
 	
 	// Save password
-	@PostMapping("/savePassword")
-	public GenericResponse savePassword(final Locale locale, @Valid PasswordDto passwordDto) {
+	@RequestMapping(value = "/savePassword", method = { RequestMethod.POST })
+//	@PostMapping("/savePassword")
+	public GenericResponse savePassword(final Locale locale, PasswordDto passwordDto) {
 		String result = userService.validatePasswordResetToken(passwordDto.getToken());
 
 		if (result != null) {

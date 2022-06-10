@@ -25,7 +25,8 @@ public class UsuarioService implements IUsuarioService{
 	private RepositoryResetPassword passwordTokenRepository;
 	
 	@Autowired(required = false)
-    private PasswordEncoder passwordEncoder;
+//    private PasswordEncoder passwordEncoder;
+	private String password;
 	
 	@Override
 	public Usuario findUserByEmail(String email) {
@@ -63,7 +64,8 @@ public class UsuarioService implements IUsuarioService{
 	
 	@Override
     public void changeUserPassword(final Usuario user, final String password) {
-        user.setPass(passwordEncoder.encode(password));
+//        user.setPass(passwordEncoder.encode(password));
+		user.setPass(password);
         repositoryUsuario.save(user);
     }
 
