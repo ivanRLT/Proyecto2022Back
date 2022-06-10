@@ -189,6 +189,7 @@ public class ControladorAlojamiento {
 	
 	@RequestMapping(value = "/desactivarAlojamiento/{id}", method = { RequestMethod.POST })
 	public ResponseEntity<Boolean> desactivarAlojamiento(@PathVariable("id") int idAlo ) {
+
 		Alojamiento a;
 		try {
 			Optional<Alojamiento> optA = repoA.findById(idAlo);
@@ -202,7 +203,7 @@ public class ControladorAlojamiento {
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}	
-		
+
 	}
 	
 	//public ResponseEntity<List<DtUsuario>> listarUsuarios() {
@@ -227,8 +228,7 @@ public class ControladorAlojamiento {
 							a.getActivo(), 
 							a.getDescripcion(), 
 							a.getDireccion(), 
-							a.getNombre(),
-							0
+							a.getNombre()
 						);
 					for( Habitacion hab : a.getHabitaciones() ) {
 						//Si no desea aplicar filtro de habitaciones o desea aplicar filtros y estos se cumplen
@@ -448,30 +448,33 @@ public class ControladorAlojamiento {
 			return false;
 		}
 		
-		if(filtros.isHab_serv_aire()!=null && !filtros.isHab_serv_aire()){ 
+		if(filtros.isHab_serv_aire()!=null && filtros.isHab_serv_aire() != hab.getServicios().isAire() ){ 
 			return false;
 		}
-		if(filtros.isHab_serv_desayuno()!=null && ! filtros.isHab_serv_desayuno()){ 
+		if(filtros.isHab_serv_desayuno()!=null && ! filtros.isHab_serv_desayuno() != hab.getServicios().isDesayuno()){ 
 			return false;
 		}
-		if(filtros.isHab_serv_jacuzzi() !=null&& ! filtros.isHab_serv_jacuzzi()){ 
+		if(filtros.isHab_serv_jacuzzi() !=null&& ! filtros.isHab_serv_jacuzzi() != hab.getServicios().isJacuzzi()){ 
 			return false;
 		}
-		if(filtros.isHab_serv_parking()!=null && ! filtros.isHab_serv_parking()){ 
+		if(filtros.isHab_serv_parking()!=null && ! filtros.isHab_serv_parking() != hab.getServicios().isParking()){ 
 			return false;
 		}
-		if(filtros.isHab_serv_tvCable()!=null && ! filtros.isHab_serv_tvCable()){ 
+		if(filtros.isHab_serv_tvCable()!=null && ! filtros.isHab_serv_tvCable() != hab.getServicios().isTvCable()){ 
 			return false;
 		}
-		if(filtros.isHab_serv_wifi()!=null && ! filtros.isHab_serv_wifi()){ 
+		if(filtros.isHab_serv_wifi()!=null && ! filtros.isHab_serv_wifi() != hab.getServicios().isWifi()){ 
+			return false;
+		}
+		if(filtros.getHuespedConReserva()!=null && !usrTieneReservaEnAlojamiento( hab.getId(), filtros.getHuespedConReserva() ) ) {
 			return false;
 		}
 		return true;
 	}
 	
-	private boolean usrTieneReservaEnAlojamiento( int idUsr, int idAloj ) {
+	private boolean usrTieneReservaEnAlojamiento( int idAloj, int idUsr) {
 		
-		List<DtIdValor> dtIdVal = repoRes.usrTieneReservaEnAlojamiento(idUsr, idAloj);
+		List<DtIdValor> dtIdVal = repoRes.usrTieneReservaEnAlojamiento( idAloj, idUsr);
 		
 		return dtIdVal.size()>0;
 		

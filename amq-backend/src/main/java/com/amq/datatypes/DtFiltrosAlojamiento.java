@@ -20,13 +20,13 @@ public class DtFiltrosAlojamiento {
 	private Boolean hab_serv_desayuno;
 	private Boolean hab_serv_parking;
 	
-	private Integer huespedConReserva;
+	private Integer idHuespedConReserva;
 
 	public DtFiltrosAlojamiento(Integer id_anf, Boolean aloj_activo, String aloj_nombre, String aloj_desc,
 			Integer aloj_idPais, String aloj_ciudad, String hab_desc, Double hab_precio, Double hab_precio_hasta,
 			Integer hab_camas, Integer hab_camas_mas_de, Boolean hab_serv_aire, Boolean hab_serv_tvCable,
 			Boolean hab_serv_jacuzzi, Boolean hab_serv_wifi, Boolean hab_serv_desayuno, Boolean hab_serv_parking,
-			Integer huespedConReserva) {
+			Integer idHuespedConReserva) {
 		super();
 		this.id_anf = id_anf;
 		this.aloj_activo = aloj_activo;
@@ -45,7 +45,7 @@ public class DtFiltrosAlojamiento {
 		this.hab_serv_wifi = hab_serv_wifi;
 		this.hab_serv_desayuno = hab_serv_desayuno;
 		this.hab_serv_parking = hab_serv_parking;
-		this.huespedConReserva = huespedConReserva;
+		this.idHuespedConReserva = idHuespedConReserva;
 	}
 
 	public Boolean isHab_serv_aire() {
@@ -210,11 +210,11 @@ public class DtFiltrosAlojamiento {
 	}
 
 	public Integer getHuespedConReserva() {
-		return huespedConReserva;
+		return idHuespedConReserva;
 	}
 
-	public void setHuespedConReserva(Integer huespedConReserva) {
-		this.huespedConReserva = huespedConReserva;
+	public void setHuespedConReserva(Integer idHuespedConReserva) {
+		this.idHuespedConReserva = idHuespedConReserva;
 	}
 	
 	

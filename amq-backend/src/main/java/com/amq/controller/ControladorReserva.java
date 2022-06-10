@@ -324,7 +324,7 @@ public class ControladorReserva {
 			repoH.save(hab);
 			
 
-			return new ResponseEntity<>(reserva, HttpStatus.CREATED);
+			return new ResponseEntity<>(reserva, HttpStatus.OK);
 					
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
