@@ -235,58 +235,7 @@ public class ControladorUsuario {
 		}
 	}
 	
-	@RequestMapping(value = "/calificar", method = { RequestMethod.POST })
-    public ResponseEntity<String> calificar(@RequestBody DtEnviarCalificacion dtEnvCal) {
-		
-		Calificacion cal;
-		
-		try {
-			Optional<Reserva> optRes = repoR.findById(dtEnvCal.getIdReserva());
-			
-			if (optRes.get().getEstado()==ReservaEstado.PENDIENTE || optRes.get().getEstado()== ReservaEstado.RECHAZADO){
-				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);				
-			}
-			
-		if( dtEnvCal.getCalificacion()==null && dtEnvCal.getResena()==null) {			
-			return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-		}
-		
-    		Optional<Usuario> optUsr = repoU.findById(dtEnvCal.getIdUsuario());
-    		
-    		if( optRes.get().getCalificacion()==null) {
-    			cal = new Calificacion( 0 ,0, 0 , null, new DtFecha(0, 0, 0));
-    			repoC.save(cal);
-    			optRes.get().setCalificacion( cal );
-    		}
-    		else {
-    			cal = optRes.get().getCalificacion();
-    		}
-
-    		if(optUsr.get() instanceof Huesped) {
-    			cal.setCalificacionHuesped(dtEnvCal.getCalificacion());
-    			cal.setResena(dtEnvCal.getResena());
-    		}
-    		else if(optUsr.get() instanceof Anfitrion) {
-    			if(dtEnvCal.getCalificacion()!=null) {
-    				cal.setCalificacionAnfitrion(dtEnvCal.getCalificacion());
-    			}
-    			if( dtEnvCal.getResena()!=null ) {
-    				cal.setResena(dtEnvCal.getResena());
-    				LocalDate hoy = LocalDate.now();
-					DtFecha dtFecha = new DtFecha( hoy.getDayOfMonth() , hoy.getMonthValue()-1, hoy.getYear());
-    				cal.setFechaResena(dtFecha);
-    			}
-    		}
-    		
-    		repoC.save(cal);
-    		repoU.save(optUsr.get());
-    		recalcularCalificacionGlobal(dtEnvCal.getIdUsuario());
-    		return new ResponseEntity<>(HttpStatus.OK);
-    	}
-    	catch(Exception e) {
-    		return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
-    	}
-    }
+	
 	
 	@RequestMapping(value = "/bloquear/{id}", method = { RequestMethod.POST })
 	public ResponseEntity<Usuario> bloquearUsuario(@PathVariable("id") int idUsr) {
@@ -582,38 +531,7 @@ public class ControladorUsuario {
         return "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
     }
     
-    private void recalcularCalificacionGlobal(int id) throws Exception{
-    	int calificacionGlobal=0;
-    	Optional<Usuario> optUsr = repoU.findById(id);
-    	Usuario usr = optUsr.get();
-    	if(usr instanceof Anfitrion ) {
-    		Anfitrion anf = (Anfitrion) usr;
-    		List<Alojamiento> alojs= anf.getAlojamientos();
-    		for(Alojamiento a : alojs) {
-    			List<Habitacion> habs = a.getHabitaciones();
-    			for(Habitacion hab : habs) {
-    				List<Reserva> ress = hab.getReservas();
-    				for(Reserva res : ress) {
-    					if( res.getCalificacion()!=null ) {
-    						calificacionGlobal += res.getCalificacion().getCalificacionAnfitrion();
-    					}
-    				}
-    			}
-    		}
-    		anf.setCalificacionGlobal(calificacionGlobal);
-    	}
-    	if(usr instanceof Huesped) {
-    		Huesped hu = (Huesped) usr;
-			List<Reserva> ress = hu.getReservas();
-			for(Reserva res : ress) {
-				if( res.getCalificacion()!=null ) {
-					calificacionGlobal += res.getCalificacion().getCalificacionHuesped();
-				}
-			}
-			hu.setCalificacionGlobal(calificacionGlobal);
-    	}
-    	repoU.save(usr);
-    }
+    
     
     private Boolean usuarioCumpleFiltros(Usuario usr, DtFiltrosUsuario filtros) {
     	if(usr==null) {

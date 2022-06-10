@@ -21,17 +21,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.amq.datatypes.DtAltaReserva;
 import com.amq.datatypes.DtCalificacion;
+import com.amq.datatypes.DtEnviarCalificacion;
 import com.amq.datatypes.DtFactura;
 import com.amq.datatypes.DtFecha;
 import com.amq.datatypes.DtReserva;
 import com.amq.enums.PagoEstado;
 import com.amq.enums.ReservaEstado;
+import com.amq.model.Alojamiento;
+import com.amq.model.Anfitrion;
 import com.amq.model.Calificacion;
 import com.amq.model.Factura;
 import com.amq.model.Habitacion;
 import com.amq.model.Huesped;
 import com.amq.model.Reserva;
 import com.amq.model.Usuario;
+import com.amq.repositories.RepositoryCalificacion;
 import com.amq.repositories.RepositoryFactura;
 import com.amq.repositories.RepositoryHabitacion;
 import com.amq.repositories.RepositoryReserva;
@@ -54,6 +58,9 @@ public class ControladorReserva {
 	
 	@Autowired
 	RepositoryFactura repoF;
+	
+	@Autowired
+	RepositoryCalificacion repoC;
 	
 	@Autowired
     private JavaMailSender mailSender;
@@ -225,6 +232,61 @@ public class ControladorReserva {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	@RequestMapping(value = "/calificar", method = { RequestMethod.POST })
+    public ResponseEntity<String> calificar(@RequestBody DtEnviarCalificacion dtEnvCal) {
+		
+		Calificacion cal;
+		
+		try {
+			Optional<Reserva> optRes = repoR.findById(dtEnvCal.getIdReserva());
+			
+			if (optRes.get().getEstado()==ReservaEstado.PENDIENTE || optRes.get().getEstado()== ReservaEstado.RECHAZADO){
+				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);				
+			}
+			
+			if( dtEnvCal.getCalificacion()==null && dtEnvCal.getResena()==null) {			
+				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+			}
+		
+    		Optional<Usuario> optUsr = repoU.findById(dtEnvCal.getIdUsuario());
+    		
+    		if( optRes.get().getCalificacion()==null) {
+    			cal = new Calificacion( 0 ,0, 0 , "", new DtFecha(0, 0, 0));
+    			repoC.save(cal);
+    			optRes.get().setCalificacion( cal );
+    		}
+    		else {
+    			cal = optRes.get().getCalificacion();
+    		}
+    		
+    		//Setea la reseña
+    		if( !optUsr.isPresent() ) {
+    			if( dtEnvCal.getResena()!=null ) {
+    				cal.setResena(dtEnvCal.getResena());
+    				LocalDate hoy = LocalDate.now();
+					DtFecha dtFecha = new DtFecha( hoy.getDayOfMonth() , hoy.getMonthValue()-1, hoy.getYear());
+    				cal.setFechaResena(dtFecha);
+    			}
+    		}
+    		else if(optUsr.get() instanceof Huesped) {
+    			cal.setCalificacionHuesped(dtEnvCal.getCalificacion());
+    		}
+    		else if(optUsr.get() instanceof Anfitrion) {
+    			if(dtEnvCal.getCalificacion()!=null) {
+    				cal.setCalificacionAnfitrion(dtEnvCal.getCalificacion());
+    			}
+    		}
+    		
+    		repoC.save(cal);
+    		repoU.save(optUsr.get());
+    		recalcularCalificacionGlobal(dtEnvCal.getIdUsuario());
+    		return new ResponseEntity<>(HttpStatus.OK);
+    	}
+    	catch(Exception e) {
+    		return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+    	}
+    }
 	
 	@RequestMapping(value = "/realizarReserva", method = { RequestMethod.POST })
 	public ResponseEntity<Reserva> realizarReserva(@RequestBody DtAltaReserva dtAltaRes) {
@@ -419,7 +481,41 @@ public class ControladorReserva {
 		private Boolean fechaMenorAFecha(Date f1, Date f2){
 			return f1.compareTo(f2) < 0;
 		}
+		
 		private Boolean fechaMayorAFecha(Date f1, Date f2){
 			return f1.compareTo(f2) > 0;
 		}
+		
+		private void recalcularCalificacionGlobal(int id) throws Exception{
+	    	int calificacionGlobal=0;
+	    	Optional<Usuario> optUsr = repoU.findById(id);
+	    	Usuario usr = optUsr.get();
+	    	if(usr instanceof Anfitrion ) {
+	    		Anfitrion anf = (Anfitrion) usr;
+	    		List<Alojamiento> alojs= anf.getAlojamientos();
+	    		for(Alojamiento a : alojs) {
+	    			List<Habitacion> habs = a.getHabitaciones();
+	    			for(Habitacion hab : habs) {
+	    				List<Reserva> ress = hab.getReservas();
+	    				for(Reserva res : ress) {
+	    					if( res.getCalificacion()!=null ) {
+	    						calificacionGlobal += res.getCalificacion().getCalificacionAnfitrion();
+	    					}
+	    				}
+	    			}
+	    		}
+	    		anf.setCalificacionGlobal(calificacionGlobal);
+	    	}
+	    	if(usr instanceof Huesped) {
+	    		Huesped hu = (Huesped) usr;
+				List<Reserva> ress = hu.getReservas();
+				for(Reserva res : ress) {
+					if( res.getCalificacion()!=null ) {
+						calificacionGlobal += res.getCalificacion().getCalificacionHuesped();
+					}
+				}
+				hu.setCalificacionGlobal(calificacionGlobal);
+	    	}
+	    	repoU.save(usr);
+	    }
 }

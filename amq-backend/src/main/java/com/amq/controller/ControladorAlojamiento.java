@@ -228,7 +228,8 @@ public class ControladorAlojamiento {
 							a.getActivo(), 
 							a.getDescripcion(), 
 							a.getDireccion(), 
-							a.getNombre()
+							a.getNombre(),
+							null
 						);
 					for( Habitacion hab : a.getHabitaciones() ) {
 						//Si no desea aplicar filtro de habitaciones o desea aplicar filtros y estos se cumplen
@@ -242,6 +243,7 @@ public class ControladorAlojamiento {
 						}
 					}
 					if( !filtrarHabitaciones || dtHabs.size()>0) {
+						dtA.setHabs(dtHabs);
 						dtAlojs.add(dtA);
 					}
 				}
@@ -451,19 +453,19 @@ public class ControladorAlojamiento {
 		if(filtros.isHab_serv_aire()!=null && filtros.isHab_serv_aire() != hab.getServicios().isAire() ){ 
 			return false;
 		}
-		if(filtros.isHab_serv_desayuno()!=null && ! filtros.isHab_serv_desayuno() != hab.getServicios().isDesayuno()){ 
+		if(filtros.isHab_serv_desayuno()!=null && filtros.isHab_serv_desayuno() != hab.getServicios().isDesayuno()){ 
 			return false;
 		}
-		if(filtros.isHab_serv_jacuzzi() !=null&& ! filtros.isHab_serv_jacuzzi() != hab.getServicios().isJacuzzi()){ 
+		if(filtros.isHab_serv_jacuzzi() !=null&& filtros.isHab_serv_jacuzzi() != hab.getServicios().isJacuzzi()){ 
 			return false;
 		}
-		if(filtros.isHab_serv_parking()!=null && ! filtros.isHab_serv_parking() != hab.getServicios().isParking()){ 
+		if(filtros.isHab_serv_parking()!=null && filtros.isHab_serv_parking() != hab.getServicios().isParking() ){ 
 			return false;
 		}
-		if(filtros.isHab_serv_tvCable()!=null && ! filtros.isHab_serv_tvCable() != hab.getServicios().isTvCable()){ 
+		if(filtros.isHab_serv_tvCable()!=null && filtros.isHab_serv_tvCable() != hab.getServicios().isTvCable()){ 
 			return false;
 		}
-		if(filtros.isHab_serv_wifi()!=null && ! filtros.isHab_serv_wifi() != hab.getServicios().isWifi()){ 
+		if(filtros.isHab_serv_wifi()!=null && filtros.isHab_serv_wifi() != hab.getServicios().isWifi()){ 
 			return false;
 		}
 		if(filtros.getHuespedConReserva()!=null && !usrTieneReservaEnAlojamiento( hab.getId(), filtros.getHuespedConReserva() ) ) {

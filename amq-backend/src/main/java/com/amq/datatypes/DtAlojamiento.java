@@ -1,5 +1,7 @@
 package com.amq.datatypes;
 
+import java.util.List;
+
 public class DtAlojamiento {
 	
 	private Integer id;
@@ -7,14 +9,17 @@ public class DtAlojamiento {
 	private String descripcion;
 	private DtDireccion direcion;
 	private String nombre;
+	private List<DtHabitacion> habitaciones;
 
-	public DtAlojamiento(Integer id,Boolean activo, String descripcion, DtDireccion direcion, String nombre ) {
+	public DtAlojamiento(Integer id,Boolean activo, String descripcion, DtDireccion direcion, 
+			String nombre, List<DtHabitacion> habitaciones ) {
 		super();
 		this.id = id;
 		this.activo = activo;
 		this.descripcion = descripcion;
 		this.direcion = direcion;
 		this.nombre = nombre;
+		this.habitaciones = habitaciones;
 	}
 	
 	public Integer getId() {
@@ -59,5 +64,13 @@ public class DtAlojamiento {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public List<DtHabitacion> getHabs() {
+		return habitaciones;
+	}
+
+	public void setHabs(List<DtHabitacion> habitaciones) {
+		this.habitaciones = habitaciones;
 	}
 }
