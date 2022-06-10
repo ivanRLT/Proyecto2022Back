@@ -9,6 +9,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -46,6 +47,7 @@ import com.amq.service.IUsuarioService;
 @RestController
 @RequestMapping("/reserva")
 public class ControladorReserva {
+	private static String HEADER_ERROR="AMQ_ERROR"; 
 	
 	@Autowired
 	RepositoryUsuario repoU;
@@ -534,4 +536,10 @@ public class ControladorReserva {
 	    	}
 	    	repoU.save(usr);
 	    }
+		
+		private HttpHeaders getHeaderError( String error ) {
+			HttpHeaders responseHeaders = new HttpHeaders();
+		    responseHeaders.set(HEADER_ERROR, error);
+		    return responseHeaders;
+		}
 }

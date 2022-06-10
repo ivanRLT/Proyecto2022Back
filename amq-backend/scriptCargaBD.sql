@@ -1,4 +1,4 @@
-TRUNCATE TABLE 
+/*TRUNCATE TABLE 
 	alojamientos,
 	usuarios, 
 	calificaciones,
@@ -11,8 +11,8 @@ TRUNCATE TABLE
 	recuperaciones,
 	reservas
 CASCADE;
-
-/* MYSQL >>>>
+*/
+/* MYSQL >>>>*/
 SET FOREIGN_KEY_CHECKS = 0;
 
 TRUNCATE TABLE 	alojamientos;
@@ -26,7 +26,7 @@ TRUNCATE TABLE 	huesped_push_tokens;
 TRUNCATE TABLE    password_reset_token;
 TRUNCATE TABLE 	recuperaciones;
 TRUNCATE TABLE 	reservas;
-*/
+
 
 INSERT INTO usuarios 
 (id, activo, bloqueado,	estado,   nombre, apellido, email, dtype, pass, user_id, calificacion_global)
@@ -467,3 +467,116 @@ VALUES
 ( 10047, TRUE,  10026, 'nombreAloj_ 10047_ 1000', 'desc_ 10047_ 1000' ), 
 ( 10047, TRUE,  10027, 'nombreAloj_ 10047_ 1001', 'desc_ 10047_ 1001' ), 
 ( 10049, TRUE,  10028, 'nombreAloj_ 10049_ 1000', 'desc_ 10049_ 1000' );
+
+INSERT INTO dt_servicios VALUES  ( 101, 1, 1, 1, 1, 1, 1 ); 
+INSERT INTO dt_servicios VALUES  ( 102, 1, 1, 1, 0, 0, 1 ); 
+INSERT INTO dt_servicios VALUES  ( 103, 1, 0, 0, 0, 1, 1 ); 
+INSERT INTO dt_servicios VALUES  ( 104, 1, 1, 1, 0, 1, 1 ); 
+INSERT INTO dt_servicios VALUES  ( 105, 1, 0, 1, 0, 0, 1 ); 
+INSERT INTO dt_servicios VALUES  ( 106, 0, 0, 0, 1, 0, 1 ); 
+INSERT INTO dt_servicios VALUES  ( 107, 1, 1, 0, 0, 0, 1 ); 
+INSERT INTO dt_servicios VALUES  ( 108, 1, 1, 0, 0, 0, 1 ); 
+INSERT INTO dt_servicios VALUES  ( 109, 1, 0, 0, 1, 1, 1 ); 
+INSERT INTO dt_servicios VALUES  ( 110, 1, 0, 1, 1, 0, 1 ); 
+INSERT INTO dt_servicios VALUES  ( 111, 0, 0, 0, 1, 0, 0 ); 
+INSERT INTO dt_servicios VALUES  ( 112, 0, 0, 0, 1, 1, 0 ); 
+INSERT INTO dt_servicios VALUES  ( 113, 0, 1, 0, 1, 0, 0 ); 
+INSERT INTO dt_servicios VALUES  ( 114, 1, 1, 0, 1, 0, 1 ); 
+INSERT INTO dt_servicios VALUES  ( 115, 0, 0, 1, 0, 0, 1 ); 
+INSERT INTO dt_servicios VALUES  ( 116, 1, 1, 0, 1, 1, 0 ); 
+INSERT INTO dt_servicios VALUES  ( 117, 0, 0, 0, 1, 1, 0 ); 
+INSERT INTO dt_servicios VALUES  ( 118, 1, 1, 1, 1, 1, 1 ); 
+INSERT INTO dt_servicios VALUES  ( 119, 0, 1, 1, 0, 1, 0 ); 
+INSERT INTO dt_servicios VALUES  ( 120, 0, 1, 1, 0, 1, 1 ); 
+INSERT INTO dt_servicios VALUES  ( 121, 1, 1, 0, 1, 0, 0 ); 
+INSERT INTO dt_servicios VALUES  ( 122, 1, 0, 0, 1, 1, 0 ); 
+INSERT INTO dt_servicios VALUES  ( 123, 0, 0, 0, 1, 1, 0 ); 
+INSERT INTO dt_servicios VALUES  ( 124, 1, 1, 0, 0, 0, 0 ); 
+INSERT INTO dt_servicios VALUES  ( 125, 0, 0, 0, 1, 0, 0 ); 
+INSERT INTO dt_servicios VALUES  ( 126, 1, 0, 0, 1, 0, 1 ); 
+INSERT INTO dt_servicios VALUES  ( 127, 1, 1, 0, 1, 0, 0 ); 
+INSERT INTO dt_servicios VALUES  ( 128, 0, 1, 0, 0, 1, 0 ); 
+
+
+INSERT INTO habitaciones VALUES (101, 2 , 'Desc hab 101', 500, 1, 101);
+INSERT INTO habitaciones VALUES (102, 4 , 'Desc hab 102', 1400, 2, 102);
+INSERT INTO habitaciones VALUES (103, 1 , 'Desc hab 103', 1200, 3, 103);
+INSERT INTO habitaciones VALUES (104, 1 , 'Desc hab 104', 1500, 4, 104);
+INSERT INTO habitaciones VALUES (105, 1 , 'Desc hab 105', 500, 5, 105);
+INSERT INTO habitaciones VALUES (106, 2 , 'Desc hab 106', 1250, 6, 106);
+INSERT INTO habitaciones VALUES (107, 2 , 'Desc hab 107', 1350, 7, 107);
+INSERT INTO habitaciones VALUES (108, 3 , 'Desc hab 108', 1450, 8, 108);
+INSERT INTO habitaciones VALUES (109, 2 , 'Desc hab 109', 1200, 9, 109);
+INSERT INTO habitaciones VALUES (110, 1 , 'Desc hab 110', 1150, 10, 110);
+INSERT INTO habitaciones VALUES (111, 3 , 'Desc hab 111', 1100, 11, 111);
+INSERT INTO habitaciones VALUES (112, 2 , 'Desc hab 112', 1050, 12, 112);
+INSERT INTO habitaciones VALUES (113, 3 , 'Desc hab 113', 750, 13, 113);
+INSERT INTO habitaciones VALUES (114, 1 , 'Desc hab 114', 1050, 14, 114);
+INSERT INTO habitaciones VALUES (115, 2 , 'Desc hab 115', 750, 15, 115);
+INSERT INTO habitaciones VALUES (116, 2 , 'Desc hab 116', 1500, 16, 116);
+INSERT INTO habitaciones VALUES (117, 4 , 'Desc hab 117', 750, 17, 117);
+INSERT INTO habitaciones VALUES (118, 3 , 'Desc hab 118', 1150, 18, 118);
+INSERT INTO habitaciones VALUES (119, 4 , 'Desc hab 119', 800, 19, 119);
+INSERT INTO habitaciones VALUES (120, 3 , 'Desc hab 120', 1100, 20, 120);
+INSERT INTO habitaciones VALUES (121, 2 , 'Desc hab 121', 1200, 21, 121);
+INSERT INTO habitaciones VALUES (122, 1 , 'Desc hab 122', 900, 22, 122);
+INSERT INTO habitaciones VALUES (123, 1 , 'Desc hab 123', 550, 23, 123);
+INSERT INTO habitaciones VALUES (124, 4 , 'Desc hab 124', 500, 24, 124);
+INSERT INTO habitaciones VALUES (125, 1 , 'Desc hab 125', 1000, 25, 125);
+INSERT INTO habitaciones VALUES (126, 1 , 'Desc hab 126', 850, 26, 126);
+INSERT INTO habitaciones VALUES (127, 2 , 'Desc hab 127', 1150, 27, 127);
+INSERT INTO habitaciones VALUES (128, 3 , 'Desc hab 128', 1150, 28, 128);
+
+INSERT INTO reservas VALUES (351, 2 , 'PENDIENTE', '2022-03-01', '2022-02-28', NULL, 351, 128, 10072 );
+INSERT INTO reservas VALUES (352, 3 , 'PENDIENTE', '2022-03-08', '2022-03-06', NULL, 351, 116, 10057 );
+INSERT INTO reservas VALUES (353, 4 , 'PENDIENTE', '2022-03-15', '2022-03-12', NULL, 351, 126, 10080 );
+INSERT INTO reservas VALUES (354, 5 , 'PENDIENTE', '2022-03-22', '2022-03-18', NULL, 351, 122, 10053 );
+INSERT INTO reservas VALUES (355, 6 , 'PENDIENTE', '2022-03-29', '2022-03-24', NULL, 351, 103, 10113 );
+INSERT INTO reservas VALUES (356, 7 , 'PENDIENTE', '2022-04-05', '2022-03-30', NULL, 351, 108, 10085 );
+INSERT INTO reservas VALUES (357, 8 , 'PENDIENTE', '2022-04-12', '2022-04-05', NULL, 351, 104, 10104 );
+INSERT INTO reservas VALUES (358, 9 , 'PENDIENTE', '2022-04-19', '2022-04-11', NULL, 351, 102, 10131 );
+INSERT INTO reservas VALUES (359, 10 , 'PENDIENTE', '2022-04-26', '2022-04-17', NULL, 351, 126, 10138 );
+INSERT INTO reservas VALUES (360, 11 , 'PENDIENTE', '2022-05-03', '2022-04-23', NULL, 351, 108, 10060 );
+INSERT INTO reservas VALUES (361, 12 , 'PENDIENTE', '2022-05-10', '2022-04-29', NULL, 351, 103, 10145 );
+INSERT INTO reservas VALUES (362, 13 , 'PENDIENTE', '2022-05-17', '2022-05-05', NULL, 351, 128, 10051 );
+INSERT INTO reservas VALUES (363, 14 , 'PENDIENTE', '2022-05-24', '2022-05-11', NULL, 351, 121, 10070 );
+INSERT INTO reservas VALUES (364, 15 , 'PENDIENTE', '2022-05-31', '2022-05-17', NULL, 351, 101, 10051 );
+INSERT INTO reservas VALUES (365, 1 , 'PENDIENTE', '2022-05-01', '2022-05-01', NULL, 351, 122, 10139 );
+INSERT INTO reservas VALUES (366, 2 , 'PENDIENTE', '2022-05-08', '2022-05-07', NULL, 351, 117, 10072 );
+INSERT INTO reservas VALUES (367, 3 , 'PENDIENTE', '2022-05-15', '2022-05-13', NULL, 351, 120, 10095 );
+INSERT INTO reservas VALUES (368, 4 , 'PENDIENTE', '2022-05-22', '2022-05-19', NULL, 351, 119, 10067 );
+INSERT INTO reservas VALUES (369, 5 , 'PENDIENTE', '2022-05-29', '2022-05-25', NULL, 351, 111, 10089 );
+INSERT INTO reservas VALUES (370, 6 , 'PENDIENTE', '2022-06-05', '2022-05-31', NULL, 351, 118, 10108 );
+INSERT INTO reservas VALUES (371, 7 , 'PENDIENTE', '2022-06-12', '2022-06-06', NULL, 351, 107, 10051 );
+INSERT INTO reservas VALUES (372, 8 , 'PENDIENTE', '2022-06-19', '2022-06-12', NULL, 351, 111, 10118 );
+INSERT INTO reservas VALUES (373, 9 , 'PENDIENTE', '2022-06-26', '2022-06-18', NULL, 351, 124, 10145 );
+INSERT INTO reservas VALUES (374, 10 , 'PENDIENTE', '2022-07-03', '2022-06-24', NULL, 351, 125, 10135 );
+INSERT INTO reservas VALUES (375, 11 , 'PENDIENTE', '2022-07-10', '2022-06-30', NULL, 351, 117, 10054 );
+INSERT INTO reservas VALUES (376, 12 , 'PENDIENTE', '2022-07-17', '2022-07-06', NULL, 351, 125, 10094 );
+INSERT INTO reservas VALUES (377, 13 , 'PENDIENTE', '2022-07-24', '2022-07-12', NULL, 351, 106, 10143 );
+INSERT INTO reservas VALUES (378, 14 , 'PENDIENTE', '2022-07-31', '2022-07-18', NULL, 351, 120, 10061 );
+INSERT INTO reservas VALUES (379, 3 , 'PENDIENTE', '2022-07-03', '2022-07-01', NULL, 351, 124, 10097 );
+INSERT INTO reservas VALUES (380, 3 , 'PENDIENTE', '2022-07-08', '2022-07-06', NULL, 351, 121, 10105 );
+INSERT INTO reservas VALUES (381, 3 , 'PENDIENTE', '2022-07-13', '2022-07-11', NULL, 351, 109, 10119 );
+INSERT INTO reservas VALUES (382, 3 , 'PENDIENTE', '2022-07-18', '2022-07-16', NULL, 351, 114, 10080 );
+INSERT INTO reservas VALUES (383, 3 , 'PENDIENTE', '2022-07-23', '2022-07-21', NULL, 351, 113, 10114 );
+INSERT INTO reservas VALUES (384, 3 , 'PENDIENTE', '2022-07-28', '2022-07-26', NULL, 351, 109, 10076 );
+
+
+INSERT INTO calificaciones VALUES (351, 3 , '4', '2022-05-03', 'RESEnA 351');
+INSERT INTO calificaciones VALUES (353, 4 , '2', '2022-05-05', 'RESEÑA 353');
+INSERT INTO calificaciones VALUES (355, 2 , '5', '2022-05-06', 'RESEÑA 355');
+INSERT INTO calificaciones VALUES (357, 5 , '4', '2022-05-07', 'RESEÑA 357');
+INSERT INTO calificaciones VALUES (359, 4 , '2', '2022-05-08', 'RESEÑA 359');
+INSERT INTO calificaciones VALUES (361, 5 , '4', '2022-05-09', 'RESEÑA 361');
+INSERT INTO calificaciones VALUES (363, 2 , '3', '2022-05-10', 'RESEÑA 363');
+INSERT INTO calificaciones VALUES (365, 5 , '5', '2022-05-11', 'RESEÑA 365');
+INSERT INTO calificaciones VALUES (367, 2 , '3', '2022-05-12', 'RESEÑA 367');
+INSERT INTO calificaciones VALUES (369, 4 , '4', '2022-05-13', 'RESEÑA 369');
+INSERT INTO calificaciones VALUES (371, 1 , '5', '2022-05-14', 'RESEÑA 371');
+INSERT INTO calificaciones VALUES (373, 4 , '3', '2022-05-15', 'RESEÑA 373');
+INSERT INTO calificaciones VALUES (375, 4 , '1', '2022-05-16', 'RESEÑA 375');
+INSERT INTO calificaciones VALUES (377, 5 , '1', '2022-05-17', 'RESEÑA 377');
+INSERT INTO calificaciones VALUES (379, 1 , '1', '2022-05-18', 'RESEÑA 379');
+INSERT INTO calificaciones VALUES (381, 3 , '1', '2022-05-19', 'RESEÑA 381');
+INSERT INTO calificaciones VALUES (383, 4 , '5', '2022-05-20', 'RESEÑA 383');

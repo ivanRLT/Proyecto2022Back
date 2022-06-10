@@ -151,6 +151,7 @@ public class ControladorUsuario {
 			List<Habitacion> habits = new ArrayList<Habitacion>();
 			alojamiento.setHabitaciones(habits);
 			alojamiento.setNombre(alojamientodt.getNombre());
+			alojamiento.setActivo(false);
 			anfR.agregarAlojamiento(alojamiento);
 			Alojamiento alojR = repoA.save(alojamiento);
 			
@@ -344,7 +345,7 @@ public class ControladorUsuario {
 			}
 		}
 		
-		@RequestMapping(value = "/aprobarAnfitrion/{id}", method = { RequestMethod.POST })
+		@RequestMapping(value = "/aprobarAnfitrion/{id}", method = { RequestMethod.GET })
 		public ResponseEntity<Usuario> aprobarAnfitrion(@PathVariable("id") int idUsr) {
 			try {
 				Optional<Usuario> usr = repoU.findById(idUsr);
@@ -352,6 +353,9 @@ public class ControladorUsuario {
 				if (usr.isPresent()) {
 					if (usr.get() instanceof Anfitrion) {
 						anf = (Anfitrion) usr.get();
+						for(Alojamiento aloj : anf.getAlojamientos()) {
+							aloj.setActivo(true);
+						}
 						anf.setEstado(AprobacionEstado.APROBADO);
 					}
 					return new ResponseEntity<>(repoU.save(anf), HttpStatus.OK);
