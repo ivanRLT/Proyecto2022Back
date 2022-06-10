@@ -11,11 +11,11 @@ import com.amq.model.Calificacion;
 
 public interface RepositoryCalificacion extends JpaRepository<Calificacion, Integer> {
 	
-	@Query("SELECT DISTINCT new com.amq.datatypes.DtIdValor( 0, '1' ) "
+	@Query("SELECT cal.resena "
 			+ "from Alojamiento a "
 			+ "join a.habitaciones habs "
 			+ "join habs.reservas r "
 			+ "join r.calificacion cal "
 			+ "where a.id= :#{#idAloj}")
-	public List<DtIdValor> getCalificacionEnAlojamiento(@Param("idAloj") int idAloj); 
+	public List<String> getResenasEnAlojamiento(@Param("idAloj") int idAloj); 
 }

@@ -288,6 +288,22 @@ public class ControladorReserva {
     	}
     }
 	
+	@RequestMapping( value = "/resenasDeAlojamiento/{id}", method = { RequestMethod.GET })
+	public ResponseEntity< List<String> > resenasDeAlojamiento(@PathVariable("id") int id){
+		try {
+			List<String> resenas =  repoC.getResenasEnAlojamiento(id);
+			if( resenas!=null && resenas.size()==0 ) {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+			else {
+				return new ResponseEntity<>(resenas, HttpStatus.OK);
+			}
+		}
+		catch(Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 	@RequestMapping(value = "/realizarReserva", method = { RequestMethod.POST })
 	public ResponseEntity<Reserva> realizarReserva(@RequestBody DtAltaReserva dtAltaRes) {
 		
