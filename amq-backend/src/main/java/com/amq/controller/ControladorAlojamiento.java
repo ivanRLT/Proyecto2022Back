@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.ReportAsSingleViolation;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,7 @@ import com.amq.datatypes.DtAlojamiento;
 import com.amq.datatypes.DtDireccion;
 import com.amq.datatypes.DtFiltrosAlojamiento;
 import com.amq.datatypes.DtHabitacion;
+import com.amq.datatypes.DtIdValor;
 import com.amq.datatypes.DtReserva;
 import com.amq.datatypes.DtServicios;
 import com.amq.datatypes.DtUsuario;
@@ -30,9 +33,11 @@ import com.amq.model.Reserva;
 import com.amq.model.Usuario;
 import com.amq.notification.FirebaseNotificationAdmin;
 import com.amq.repositories.RepositoryAlojamiento;
+import com.amq.repositories.RepositoryCalificacion;
 import com.amq.repositories.RepositoryDireccion;
 import com.amq.repositories.RepositoryHabitacion;
 import com.amq.repositories.RepositoryPais;
+import com.amq.repositories.RepositoryReserva;
 import com.amq.repositories.RepositoryServicios;
 import com.amq.repositories.RepositoryUsuario;
 import com.google.firebase.messaging.Notification;
@@ -59,6 +64,12 @@ public class ControladorAlojamiento {
 	
 	@Autowired
 	RepositoryHabitacion repoHab;
+	
+	@Autowired
+	RepositoryCalificacion repoCal;
+	
+	@Autowired
+	RepositoryReserva repoRes;
 	
 	// #######################Funciones de alojamiento#######################
 	
@@ -216,7 +227,8 @@ public class ControladorAlojamiento {
 							a.getActivo(), 
 							a.getDescripcion(), 
 							a.getDireccion(), 
-							a.getNombre()
+							a.getNombre(),
+							0
 						);
 					for( Habitacion hab : a.getHabitaciones() ) {
 						//Si no desea aplicar filtro de habitaciones o desea aplicar filtros y estos se cumplen
@@ -404,6 +416,7 @@ public class ControladorAlojamiento {
 				|| ( filtro.isHab_serv_parking()!=null )
 				|| ( filtro.isHab_serv_tvCable()!=null )
 				|| ( filtro.isHab_serv_wifi()!=null )
+				|| ( filtro.getHuespedConReserva()!=null )
 		) {
 			return true;
 		}
@@ -455,4 +468,13 @@ public class ControladorAlojamiento {
 		}
 		return true;
 	}
+	
+	private boolean usrTieneReservaEnAlojamiento( int idUsr, int idAloj ) {
+		
+		List<DtIdValor> dtIdVal = repoRes.usrTieneReservaEnAlojamiento(idUsr, idAloj);
+		
+		return dtIdVal.size()>0;
+		
+	}
+	
 }

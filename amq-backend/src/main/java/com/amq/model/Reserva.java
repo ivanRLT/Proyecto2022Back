@@ -111,6 +111,7 @@ public class Reserva implements Serializable {
 	public Date getFechaInicio() {
 		return this.fechaInicio;
 	}
+	@JsonIgnore
 	public DtFecha getDtFechaInicio() {
 		DateFormat stranio = new SimpleDateFormat("yyyy");  
         String anio = stranio.format(this.fechaInicio);  
@@ -135,6 +136,7 @@ public class Reserva implements Serializable {
 	public Date getFechaFin() {
 		return this.fechaFin;
 	}
+	@JsonIgnore
 	public DtFecha getDtFechaFin() {
 		DateFormat stranio = new SimpleDateFormat("yyyy");  
         String anio = stranio.format(this.fechaFin);  
