@@ -104,15 +104,21 @@ public class ControladorUsuario {
 //	 private Environment env;
 	
 	@RequestMapping(value = "/altaAdmin", method = { RequestMethod.POST })
-	public ResponseEntity<Administrador> altaAdministrador(@RequestBody DtAdministrador adminDT) {
+	public ResponseEntity<Administrador> altaAdministrador(@RequestBody DtAdministrador adminDt) {
 		try {
+			Usuario uOpt = repoU.findByEmail(adminDt.getEmail());
+			
+			if(uOpt!=null) {
+				return new ResponseEntity<>(HttpStatus.FOUND);
+			}
+			
 			// Creo usuario para persistir 
 			Administrador admin = new Administrador();
-			admin.setActivo(adminDT.isActivo());
-			admin.setEmail(adminDT.getEmail());
-			admin.setApellido(adminDT.getApellido());
-			admin.setPass(adminDT.getPass());
-			admin.setNombre(adminDT.getNombre());
+			admin.setActivo(adminDt.isActivo());
+			admin.setEmail(adminDt.getEmail());
+			admin.setApellido(adminDt.getApellido());
+			admin.setPass(adminDt.getPass());
+			admin.setNombre(adminDt.getNombre());
 			// El "save" devuleve el usuario agregado si funciono y lo guardo en aux para devolverlo
 			Administrador aminR = repoU.save(admin);
 			
@@ -128,6 +134,12 @@ public class ControladorUsuario {
 			DtAnfitrion anfDT = altaDT.getAnfitrion();
 			DtAlojamiento alojamientodt = altaDT.getAlojamiento();
 			DtHabitacion habitaciondt = altaDT.getHabitacion();
+			
+			Usuario uOpt = repoU.findByEmail(anfDT.getEmail());
+			
+			if(uOpt!=null) {
+				return new ResponseEntity<>(HttpStatus.FOUND);
+			}
 
 			Anfitrion anf = new Anfitrion();
 			anf.setActivo(anfDT.isActivo());
@@ -178,6 +190,13 @@ public class ControladorUsuario {
 	@RequestMapping(value = "/altaHuesped", method = { RequestMethod.POST })
 	public ResponseEntity<Huesped> altaHuesped(@RequestBody DtHuesped huesDT) {
 		try {
+			
+			Usuario uOpt = repoU.findByEmail(huesDT.getEmail());
+			
+			if(uOpt!=null) {
+				return new ResponseEntity<>(HttpStatus.FOUND);
+			}
+			
 			// Creo usuario para persistir 
 			Huesped hue = new Huesped();
 			hue.setActivo(huesDT.isActivo());
@@ -376,6 +395,9 @@ public class ControladorUsuario {
 				if (usr.isPresent()) {
 					if (usr.get() instanceof Anfitrion) {
 						anf = (Anfitrion) usr.get();
+						for(Alojamiento aloj : anf.getAlojamientos()) {
+							aloj.setActivo(false);
+						}
 						anf.setEstado(AprobacionEstado.RECHAZADO);
 					}
 					return new ResponseEntity<>(repoU.save(anf), HttpStatus.OK);
