@@ -511,18 +511,32 @@ public class ControladorUsuario {
 	}
 	
 	
+//	@RequestMapping(value = "/resetPassword", method = { RequestMethod.POST })
+////	@PostMapping("/resetPassword")
+//	public GenericResponse resetPassword( HttpServletRequest request, 
+//			@RequestParam("email") String userEmail) {
+//	    Usuario user = userService.findUserByEmail(userEmail);
+//	    if (user != null) {
+//	    	String token = UUID.randomUUID().toString();
+//	    	userService.createPasswordResetTokenForUser(user, token);
+//	    	mailSender.send(constructResetTokenEmail(getAppUrl(request),request.getLocale(), token, user));
+//	    	return new GenericResponse(messages.getMessage("message.resetPasswordEmail", null, request.getLocale()));
+//	    }
+//	    return new GenericResponse(messages.getMessage("Email.user.email", null, request.getLocale()));
+//	    
+//	}
+	
 	@RequestMapping(value = "/resetPassword", method = { RequestMethod.POST })
 //	@PostMapping("/resetPassword")
-	public GenericResponse resetPassword( HttpServletRequest request, 
-			@RequestParam("email") String userEmail) {
+	public GenericResponse resetPassword(@RequestParam("email") String userEmail) {
 	    Usuario user = userService.findUserByEmail(userEmail);
 	    if (user != null) {
 	    	String token = UUID.randomUUID().toString();
 	    	userService.createPasswordResetTokenForUser(user, token);
-	    	mailSender.send(constructResetTokenEmail(getAppUrl(request),request.getLocale(), token, user));
-	    	return new GenericResponse(messages.getMessage("message.resetPasswordEmail", null, request.getLocale()));
+	    	mailSender.send(constructResetTokenEmail(token, user));
+	    	return new GenericResponse(messages.getMessage("message.resetPasswordEmail", null, null));
 	    }
-	    return new GenericResponse(messages.getMessage("Email.user.email", null, request.getLocale()));
+	    return new GenericResponse(messages.getMessage("Email.user.email", null,null));
 	    
 	}
 	
@@ -546,10 +560,10 @@ public class ControladorUsuario {
 		
 	}
 
-	private SimpleMailMessage constructResetTokenEmail(String contextPath, Locale locale, String token, Usuario user) {
+	private SimpleMailMessage constructResetTokenEmail( String token, Usuario user) {
 //		 String url = contextPath + "/usuario/changePassword?token=" + token;
 		 String url = token;
-         String message = messages.getMessage("message.resetPassword", null, locale);
+         String message = messages.getMessage("message.resetPassword", null, null);
         return constructEmail("Reset Password  - Aquí me Quedo", message + " \r\n" + url, user);
     }
 	
@@ -563,9 +577,9 @@ public class ControladorUsuario {
         return email;
     }
 
-    private String getAppUrl(HttpServletRequest request) {
-        return "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
-    }
+//    private String getAppUrl(HttpServletRequest request) {
+//        return "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+//    }
     
     private Boolean usuarioCumpleFiltros(Usuario usr, DtFiltrosUsuario filtros) {
     	if(usr==null) {
