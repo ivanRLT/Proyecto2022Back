@@ -63,6 +63,7 @@ import com.amq.repositories.RepositoryReserva;
 import com.amq.repositories.RepositoryServicios;
 import com.amq.service.IUsuarioService;
 import com.amq.dto.PasswordDto;
+import com.amq.dto.ResetEmailDto;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -528,7 +529,7 @@ public class ControladorUsuario {
 //	public ResponseEntity<Huesped> altaHuesped(@RequestBody DtHuesped huesDT) borrar
 	
 	@RequestMapping(value = "/resetPassword", method = { RequestMethod.POST })
-	public ResponseEntity<DtUsuario> resetPassword(@RequestBody DtUsuario dtemail) {
+	public ResponseEntity<DtUsuario> resetPassword(@RequestBody ResetEmailDto dtemail) {
 
 		Usuario user;
 		String email = dtemail.getEmail();
@@ -539,9 +540,9 @@ public class ControladorUsuario {
 				String token = UUID.randomUUID().toString();
 				userService.createPasswordResetTokenForUser(user, token);
 				mailSender.send(constructResetTokenEmail(token, user));
-				return new ResponseEntity<>(dtemail, HttpStatus.OK);
+				return new ResponseEntity<>(HttpStatus.OK);
 			}
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -561,25 +562,50 @@ public class ControladorUsuario {
 //	    
 //	}
 	
-	// Save password
 	@RequestMapping(value = "/savePassword", method = { RequestMethod.POST })
-//	@PostMapping("/savePassword")
-	public GenericResponse savePassword(final Locale locale, PasswordDto passwordDto) {
-		String result = userService.validatePasswordResetToken(passwordDto.getToken());
+	public ResponseEntity<DtUsuario> savePassword(@RequestBody PasswordDto passwordDto) {
 
-		if (result != null) {
-			return new GenericResponse(messages.getMessage("auth.message." + result, null, locale));
+		Usuario user;
+
+		try {
+
+			String result = userService.validatePasswordResetToken(passwordDto.getToken());
+
+			if (result != null) {
+				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+			}
+
+			user = userService.getUserByPassResetToken(passwordDto.getToken());
+
+			if (user != null) {
+				userService.changeUserPassword(user, passwordDto.getNewPassword());
+				return new ResponseEntity<>(HttpStatus.OK);
+			}
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
-		Optional<Usuario> user = userService.getUserByPasswordResetToken(passwordDto.getToken());
-		if (user.isPresent()) {
-			userService.changeUserPassword(user.get(), passwordDto.getNewPassword());
-			return new GenericResponse(messages.getMessage("message.resetPasswordSuc", null, locale));
-		} else {
-			return new GenericResponse(messages.getMessage("auth.message.invalid", null, locale));
-		}
-		
 	}
+	
+	// Save password
+//	@RequestMapping(value = "/savePassword", method = { RequestMethod.POST })
+////	@PostMapping("/savePassword")
+//	public GenericResponse savePassword(final Locale locale, PasswordDto passwordDto) {
+//		String result = userService.validatePasswordResetToken(passwordDto.getToken());
+//
+//		if (result != null) {
+//			return new GenericResponse(messages.getMessage("auth.message." + result, null, locale));
+//		}
+//		
+//		Optional<Usuario> user = userService.getUserByPasswordResetToken(passwordDto.getToken());
+//		if (user.isPresent()) {
+//			userService.changeUserPassword(user.get(), passwordDto.getNewPassword());
+//			return new GenericResponse(messages.getMessage("message.resetPasswordSuc", null, locale));
+//		} else {
+//			return new GenericResponse(messages.getMessage("auth.message.invalid", null, locale));
+//		}
+//		
+//	}
 
 	private SimpleMailMessage constructResetTokenEmail( String token, Usuario user) {
 //		 String url = contextPath + "/usuario/changePassword?token=" + token;

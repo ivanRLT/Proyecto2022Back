@@ -19,6 +19,8 @@ public interface IUsuarioService {
 	 
 	 Optional<Usuario> getUserByPasswordResetToken(String token);
 	 
+	 Usuario getUserByPassResetToken(String token);
+	 
 	 void changeUserPassword(Usuario user, String password);
 
 }

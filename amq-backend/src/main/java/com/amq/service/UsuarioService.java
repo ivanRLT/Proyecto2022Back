@@ -63,6 +63,11 @@ public class UsuarioService implements IUsuarioService{
     }
 	
 	@Override
+    public Usuario getUserByPassResetToken(final String token) {
+        return passwordTokenRepository.findByToken(token) .getUsuario();
+    }
+	
+	@Override
     public void changeUserPassword(final Usuario user, final String password) {
 //        user.setPass(passwordEncoder.encode(password));
 		user.setPass(password);
