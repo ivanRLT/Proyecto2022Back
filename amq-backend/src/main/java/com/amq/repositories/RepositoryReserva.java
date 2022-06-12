@@ -18,7 +18,19 @@ public interface RepositoryReserva extends JpaRepository<Reserva, Integer> {
 			+ "join res.habitacion hab "
 			+ "where "
 				+ "hu.id= :#{#idHu} and "
-				+ "hab.id= :#{#idHab} "
+				+ "hab.id= :#{#idHab} and "
+				+ "res.estado in ('PENDIENTE','APROBADO') "
 		)
-	public List<DtIdValor> usrTieneReservaEnAlojamiento(@Param("idHab") int idHab, @Param("idHu") int idHu); 
+	public List<DtIdValor> usrTieneReservaEnAlojamiento(@Param("idHab") int idHab, @Param("idHu") int idHu);
+	
+	@Query("SELECT DISTINCT new com.amq.datatypes.DtIdValor( 1 , '1' ) "
+			+ "from Huesped hu "
+			+ "join hu.reservas res "
+			+ "join res.habitacion hab "
+			+ "where "
+				+ "hu.id= :#{#idHu} and "
+				+ "hab.id= :#{#idHab} and "
+				+ "res.estado in ('EJECUTADA') "
+			)
+	public List<DtIdValor> usrSeQuedoEnAlojamiento(@Param("idHab") int idHab, @Param("idHu") int idHu);
 }

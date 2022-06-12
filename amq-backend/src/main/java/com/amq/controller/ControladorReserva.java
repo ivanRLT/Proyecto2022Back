@@ -73,70 +73,81 @@ public class ControladorReserva {
 	 @Autowired
 	 private MessageSource messages;
 	
-/*	 @RequestMapping(value = "/cancelarReservaConfirmada/{idreserva}", method = { RequestMethod.POST })	
-		public ResponseEntity<Factura> cancelarReserva(@PathVariable("idreserva") int idreserva, @RequestBody DtFactura facturadt){
-			try {
-				Optional<Reserva> resOp = repoR.findById(idreserva);
-				if ( !resOp.isPresent()) {
-					return new ResponseEntity<>(;
-				}
-				
-				//*** Evaluar otros estados ***
-				if( resOp.get().getEstado()!=ReservaEstado.APROBADO ){
-					return new ResponseEntity<>(HttpStatus.PRECONDITION_FAILED);
-				}
-				
-				
-				
-				Reserva reservaC = resOP.get();
-				Habitacion habitacion = reservaC.getHabitacion();
-				List<Reserva> reservasH = habitacion.getReservas();
-				Boolean solapamiento = false;
-				for (Reserva r : reservasH) {
-					DtFecha reservasRI = r.getDtFechaInicio();
-					DtFecha reservasRF = r.getDtFechaFin();
-					DtFecha reservaI = reservaC.getDtFechaInicio();
-					DtFecha reservaF = reservaC.getDtFechaFin();
-					if (reservaI.getAnio() < reservasRF.getAnio() && reservaI.getAnio() > reservasRI.getAnio()) {
-						if (reservaI.getMes() < reservasRF.getMes() && reservaI.getMes() > reservasRI.getMes()) {
-							if (reservaI.getDia() < reservasRF.getDia() && reservaI.getDia() > reservasRI.getDia()) {
-								solapamiento = true;
-							}
-						}
+	 @RequestMapping(value = "/cancelarReservaAprobada/{idreserva}", method = { RequestMethod.POST })	
+		public ResponseEntity<Factura> cancelarReservaAprobada(@PathVariable("idreserva") int idreserva, @RequestBody DtFactura facturadt){
+		 try {
+				Optional<Reserva> resOP = repoR.findById(idreserva);
+				if (resOP.isPresent()) {
+					Reserva resAprob = resOP.get();
+					
+					if( resAprob.getEstado()!=ReservaEstado.APROBADO ) {
+						return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
 					}
-					if (reservaF.getAnio() < reservasRF.getAnio() && reservaF.getAnio() > reservasRI.getAnio()) {
-						if (reservaF.getMes() < reservasRF.getMes() && reservaF.getMes() > reservasRI.getMes()) {
-							if (reservaF.getDia() < reservasRF.getDia() && reservaF.getDia() > reservasRI.getDia()) {
-								solapamiento = true;
-							}
-						}
+					
+					Habitacion habitacion = resAprob.getHabitacion();
+					List<Reserva> reservas = habitacion.getReservas();
+					
+					Date fIniResPend = resAprob.getFechaInicio();
+
+					Date fFinResPend = resAprob.getFechaFin();
+					
+					//?? aplicar descuento si corresponde
+					
+					if( fIniResPend==null ) {
+						return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 					}
-					if (reservaI.getAnio() < reservasRI.getAnio() && reservaF.getAnio() > reservasRF.getAnio()) {
-						if (reservaI.getMes() < reservasRI.getMes() && reservaF.getMes() > reservasRF.getMes()) {
-							if (reservaI.getDia() < reservasRI.getDia() && reservaF.getDia() > reservasRF.getDia()) {
-								solapamiento = true;
-							}
-						}
+					if( fFinResPend==null ) {
+						return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 					}
-				}
-				if (!solapamiento) {
-					reservaC.setEstado(ReservaEstado.APROBADO);
-					List<Factura> facturas = reservaC.getFacturas();
-					Factura factura = null;
-					for (Factura f : facturas) {
-						if(f.getEstado() == PagoEstado.PENDIENTE) {
-							factura = f;
-						}
-					}
+					
+
+					resAprob.setEstado(ReservaEstado.RECHAZADO);
+					List<Factura> facturas = resAprob.getFacturas();
+					Factura factura = new Factura(
+							-1, 
+							facturadt.getMonto()!=null ? facturadt.getMonto() : 0, 
+							facturadt.getMontoDescuento()!=null ? true : false, 
+							facturadt.getMontoDescuento()!=null ? facturadt.getMontoDescuento() : 0, 
+							facturadt.getPagoEstado(), 
+							facturadt.getFecha(),
+							resAprob
+						);
+					
+					
+					resAprob.getFacturas().add(factura);
+					
+					repoR.save(resAprob);
 					return new ResponseEntity<>(factura, HttpStatus.OK);
-				}else {
-					return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-				}
+				} else {
+					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}	
 			} catch (Exception e) {
-				return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		}
-*/	 
+	@RequestMapping(value = "/cancelarReservaPendiente/{idreserva}", method = { RequestMethod.GET })	
+	public ResponseEntity<String> cancelarReservaPendiente(@PathVariable("idreserva") int idreserva){
+	 try {
+			Optional<Reserva> resOP = repoR.findById(idreserva);
+			if (resOP.isPresent()) {
+				Reserva resAprob = resOP.get();
+				
+				if( resAprob.getEstado()!=ReservaEstado.PENDIENTE ) {
+					return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+				}
+				
+				resAprob.setEstado(ReservaEstado.RECHAZADO);
+
+				repoR.save(resAprob);
+				return new ResponseEntity<>( HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}	
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 	@RequestMapping(value = "/confirmar/{idreserva}", method = { RequestMethod.POST })	
 	public ResponseEntity<Factura> confirmarReserva(@PathVariable("idreserva") int idreserva, @RequestBody DtFactura facturadt){
 		try {
@@ -150,8 +161,6 @@ public class ControladorReserva {
 				
 				Habitacion habitacion = reservaC.getHabitacion();
 				List<Reserva> habitaciones = habitacion.getReservas();
-				DtFecha dtFIniResPend = reservaC.getDtFechaInicio();
-				DtFecha dtFFinResPend = reservaC.getDtFechaFin();
 				
 				Date fIniResPend = reservaC.getFechaInicio();
 

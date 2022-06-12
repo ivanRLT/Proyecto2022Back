@@ -418,7 +418,8 @@ public class ControladorAlojamiento {
 				|| ( filtro.isHab_serv_parking()!=null )
 				|| ( filtro.isHab_serv_tvCable()!=null )
 				|| ( filtro.isHab_serv_wifi()!=null )
-				|| ( filtro.getHuespedConReserva()!=null )
+				|| ( filtro.getIdHuespedConReserva()!=null )
+				|| ( filtro.getIdHuespedSeQuedoEnAloj()!=null )
 		) {
 			return true;
 		}
@@ -468,7 +469,11 @@ public class ControladorAlojamiento {
 		if(filtros.isHab_serv_wifi()!=null && filtros.isHab_serv_wifi() != hab.getServicios().isWifi()){ 
 			return false;
 		}
-		if(filtros.getHuespedConReserva()!=null && !usrTieneReservaEnAlojamiento( hab.getId(), filtros.getHuespedConReserva() ) ) {
+		if(filtros.getIdHuespedConReserva()!=null && !usrTieneReservaEnAlojamiento( hab.getId(), filtros.getIdHuespedConReserva() ) ) {
+			return false;
+		}
+		
+		if(filtros.getIdHuespedSeQuedoEnAloj()!=null && !usrSeQuedoEnAlojamiento( hab.getId(), filtros.getIdHuespedSeQuedoEnAloj() ) ) {
 			return false;
 		}
 		return true;
@@ -482,4 +487,10 @@ public class ControladorAlojamiento {
 		
 	}
 	
+	private boolean usrSeQuedoEnAlojamiento( int idAloj, int idUsr) {
+		
+		List<DtIdValor> dtIdVal = repoRes.usrSeQuedoEnAlojamiento( idAloj, idUsr);
+		
+		return dtIdVal.size()>0;
+	}
 }

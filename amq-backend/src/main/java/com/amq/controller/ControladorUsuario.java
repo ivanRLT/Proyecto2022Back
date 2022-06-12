@@ -370,14 +370,17 @@ public class ControladorUsuario {
 				Optional<Usuario> usr = repoU.findById(idUsr);
 				Anfitrion anf = null;
 				if (usr.isPresent()) {
-					if (usr.get() instanceof Anfitrion) {
-						anf = (Anfitrion) usr.get();
-						for(Alojamiento aloj : anf.getAlojamientos()) {
-							aloj.setActivo(true);
-						}
-						anf.setEstado(AprobacionEstado.APROBADO);
+					if (!(usr.get() instanceof Anfitrion) ) {
+						return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
 					}
-					return new ResponseEntity<>(repoU.save(anf), HttpStatus.OK);
+					
+					anf = (Anfitrion) usr.get();
+					for(Alojamiento aloj : anf.getAlojamientos()) {
+						aloj.setActivo(true);
+					}
+					anf.setEstado(AprobacionEstado.APROBADO);
+					repoU.save(anf);
+					return new ResponseEntity<>(anf, HttpStatus.OK);
 				} else {
 					return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 				}
@@ -387,20 +390,23 @@ public class ControladorUsuario {
 			}
 		}
 		
-		@RequestMapping(value = "/rechazarAnfitrion/{id}", method = { RequestMethod.POST })
+		@RequestMapping(value = "/rechazarAnfitrion/{id}", method = { RequestMethod.GET })
 		public ResponseEntity<Usuario> rechazarAnfitrion(@PathVariable("id") int idUsr) {
 			try {
 				Optional<Usuario> usr = repoU.findById(idUsr);
 				Anfitrion anf = null;
 				if (usr.isPresent()) {
-					if (usr.get() instanceof Anfitrion) {
-						anf = (Anfitrion) usr.get();
-						for(Alojamiento aloj : anf.getAlojamientos()) {
-							aloj.setActivo(false);
-						}
-						anf.setEstado(AprobacionEstado.RECHAZADO);
+					if (!(usr.get() instanceof Anfitrion) ) {
+						return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
 					}
-					return new ResponseEntity<>(repoU.save(anf), HttpStatus.OK);
+					
+					anf = (Anfitrion) usr.get();
+					for(Alojamiento aloj : anf.getAlojamientos()) {
+						aloj.setActivo(false);
+					}
+					anf.setEstado(AprobacionEstado.RECHAZADO);
+					repoU.save(anf);
+					return new ResponseEntity<>(anf, HttpStatus.OK);
 				} else {
 					return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 				}
@@ -560,8 +566,6 @@ public class ControladorUsuario {
     private String getAppUrl(HttpServletRequest request) {
         return "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
     }
-    
-    
     
     private Boolean usuarioCumpleFiltros(Usuario usr, DtFiltrosUsuario filtros) {
     	if(usr==null) {
