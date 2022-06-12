@@ -1,10 +1,13 @@
 package com.amq.controller;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +24,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.amq.datatypes.DtAltaReserva;
+import com.amq.datatypes.DtAnioMes;
 import com.amq.datatypes.DtCalificacion;
 import com.amq.datatypes.DtEnviarCalificacion;
 import com.amq.datatypes.DtFactura;
 import com.amq.datatypes.DtFecha;
 import com.amq.datatypes.DtReserva;
+import com.amq.datatypes.DtXY;
 import com.amq.enums.PagoEstado;
 import com.amq.enums.ReservaEstado;
 import com.amq.model.Alojamiento;
@@ -51,31 +56,26 @@ public class ControladorReserva {
 	
 	@Autowired
 	RepositoryUsuario repoU;
-	
 	@Autowired
 	RepositoryReserva repoR;
-	
 	@Autowired
 	RepositoryHabitacion repoH;
-	
 	@Autowired
 	RepositoryFactura repoF;
-	
 	@Autowired
 	RepositoryCalificacion repoC;
 	
 	@Autowired
     private JavaMailSender mailSender;
-	
 	@Autowired
 	private IUsuarioService userService;
 	
-	 @Autowired
-	 private MessageSource messages;
+	@Autowired
+	private MessageSource messages;
 	
-	 @RequestMapping(value = "/cancelarReservaAprobada/{idreserva}", method = { RequestMethod.POST })	
-		public ResponseEntity<Factura> cancelarReservaAprobada(@PathVariable("idreserva") int idreserva, @RequestBody DtFactura facturadt){
-		 try {
+	@RequestMapping(value = "/cancelarReservaAprobada/{idreserva}", method = { RequestMethod.POST })	
+	public ResponseEntity<Factura> cancelarReservaAprobada(@PathVariable("idreserva") int idreserva, @RequestBody DtFactura facturadt){
+		try {
 				Optional<Reserva> resOP = repoR.findById(idreserva);
 				if (resOP.isPresent()) {
 					Reserva resAprob = resOP.get();
@@ -127,7 +127,7 @@ public class ControladorReserva {
 		}
 	@RequestMapping(value = "/cancelarReservaPendiente/{idreserva}", method = { RequestMethod.GET })	
 	public ResponseEntity<String> cancelarReservaPendiente(@PathVariable("idreserva") int idreserva){
-	 try {
+	try {
 			Optional<Reserva> resOP = repoR.findById(idreserva);
 			if (resOP.isPresent()) {
 				Reserva resAprob = resOP.get();
@@ -516,101 +516,153 @@ public class ControladorReserva {
 	}
 
 	// #######################Funciones de Facturas#######################
-		public boolean altaFactura() {
-			Boolean retorno = false;
-			try {
+	public boolean altaFactura() {
+		Boolean retorno = false;
+		try {
 
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
-			return retorno;
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
-		public boolean modificarFactura(int idReserva, int idFactura) {
-			Boolean retorno = false;
-			try {
+		return retorno;
+	}
+	public boolean modificarFactura(int idReserva, int idFactura) {
+		Boolean retorno = false;
+		try {
 
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
-			return retorno;
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
-		public DtFactura buscarFactura(int idReserva, int idFactura) {
-			try {
+		return retorno;
+	}
+	public DtFactura buscarFactura(int idReserva, int idFactura) {
+		try {
 
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
+	}
+	public List<DtFactura> listarFacturas(int idReserva) {
+		try {
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
+	}
+	
+	
+	@RequestMapping(value = "/estadisticas", method = { RequestMethod.POST })
+	public List<List<DtXY>> getEstadisticas( @RequestBody DtFiltrosEstadisticas dtFiltros ){
+		List<List<DtXY>> retorno = new ArrayList<>();
+		List<DtXY> dtXYs = new ArrayList<DtXY>(); 
+		
+		Date fIni  = dtFecha2Date ( dtFiltros.getDtFIni() );
+		Date fFin  = dtFecha2Date ( dtFiltros.getDtFFin() );
+		
+		List<DtAnioMes> dtAniosMeses = getRangoMeses(fIni,  fFin);
+		
+		DtXY dtXY;
+		
+		Integer cantXAnioMes;
+		for( DtAnioMes dtAnioMes : dtAniosMeses ) {
+			cantXAnioMes = repoR.estadisticaResXMes(dtAnioMes.getAnio(), dtAnioMes.getMes());
+			dtXY = new DtXY( 
+							dtAnioMes.getAnio().toString()+'-'+dtAnioMes.getMes().toString(), 
+							cantXAnioMes 
+						);
+			dtXYs.add(dtXY);
+		}
+		
+		retorno.add(dtXYs);
+		
+		return retorno;
+	}
+	
+	private Date dtFecha2Date(DtFecha dtF){
+		try {
+			String sFecha =  
+					((Integer)dtF.getDia()).toString()+"/"+
+					((Integer)dtF.getMes()).toString()+"/"+
+					((Integer)dtF.getAnio()).toString();
+			return new SimpleDateFormat("dd/MM/yyyy").parse(sFecha);  
+		}
+		catch(Exception d ) {
 			return null;
 		}
-		public List<DtFactura> listarFacturas(int idReserva) {
-			try {
-
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
-			return null;
-		}
 		
-		
-		
-		private Date dtFecha2Date(DtFecha dtF){
-			try {
-				String sFecha =  
-						((Integer)dtF.getDia()).toString()+"/"+
-						((Integer)dtF.getMes()).toString()+"/"+
-						((Integer)dtF.getAnio()).toString();
-				return new SimpleDateFormat("dd/MM/yyyy").parse(sFecha);  
-			}
-			catch(Exception d ) {
-				return null;
-			}
-			
-		}
-		
-		private Boolean fechaMenorAFecha(Date f1, Date f2){
-			return f1.compareTo(f2) < 0;
-		}
-		
-		private Boolean fechaMayorAFecha(Date f1, Date f2){
-			return f1.compareTo(f2) > 0;
-		}
-		
-		private void recalcularCalificacionGlobal(int id) throws Exception{
-	    	int calificacionGlobal=0;
-	    	Optional<Usuario> optUsr = repoU.findById(id);
-	    	Usuario usr = optUsr.get();
-	    	if(usr instanceof Anfitrion ) {
-	    		Anfitrion anf = (Anfitrion) usr;
-	    		List<Alojamiento> alojs= anf.getAlojamientos();
-	    		for(Alojamiento a : alojs) {
-	    			List<Habitacion> habs = a.getHabitaciones();
-	    			for(Habitacion hab : habs) {
-	    				List<Reserva> ress = hab.getReservas();
-	    				for(Reserva res : ress) {
-	    					if( res.getCalificacion()!=null ) {
-	    						calificacionGlobal += res.getCalificacion().getCalificacionAnfitrion();
-	    					}
-	    				}
-	    			}
-	    		}
-	    		anf.setCalificacionGlobal(calificacionGlobal);
-	    	}
-	    	if(usr instanceof Huesped) {
-	    		Huesped hu = (Huesped) usr;
-				List<Reserva> ress = hu.getReservas();
-				for(Reserva res : ress) {
-					if( res.getCalificacion()!=null ) {
-						calificacionGlobal += res.getCalificacion().getCalificacionHuesped();
-					}
+	}
+	
+	private Boolean fechaMenorAFecha(Date f1, Date f2){
+		return f1.compareTo(f2) < 0;
+	}
+	
+	private Boolean fechaMayorAFecha(Date f1, Date f2){
+		return f1.compareTo(f2) > 0;
+	}
+	
+	private void recalcularCalificacionGlobal(int id) throws Exception{
+    	int calificacionGlobal=0;
+    	Optional<Usuario> optUsr = repoU.findById(id);
+    	Usuario usr = optUsr.get();
+    	if(usr instanceof Anfitrion ) {
+    		Anfitrion anf = (Anfitrion) usr;
+    		List<Alojamiento> alojs= anf.getAlojamientos();
+    		for(Alojamiento a : alojs) {
+    			List<Habitacion> habs = a.getHabitaciones();
+    			for(Habitacion hab : habs) {
+    				List<Reserva> ress = hab.getReservas();
+    				for(Reserva res : ress) {
+    					if( res.getCalificacion()!=null ) {
+    						calificacionGlobal += res.getCalificacion().getCalificacionAnfitrion();
+    					}
+    				}
+    			}
+    		}
+    		anf.setCalificacionGlobal(calificacionGlobal);
+    	}
+    	if(usr instanceof Huesped) {
+    		Huesped hu = (Huesped) usr;
+			List<Reserva> ress = hu.getReservas();
+			for(Reserva res : ress) {
+				if( res.getCalificacion()!=null ) {
+					calificacionGlobal += res.getCalificacion().getCalificacionHuesped();
 				}
-				hu.setCalificacionGlobal(calificacionGlobal);
-	    	}
-	    	repoU.save(usr);
-	    }
+			}
+			hu.setCalificacionGlobal(calificacionGlobal);
+    	}
+    	repoU.save(usr);
+    }
+	
+	private HttpHeaders getHeaderError( String error ) {
+		HttpHeaders responseHeaders = new HttpHeaders();
+	   responseHeaders.set(HEADER_ERROR, error);
+	   return responseHeaders;
+	}
+	
+	private List<DtAnioMes> getRangoMeses(Date fIni, Date fFin){
+		List<DtAnioMes> retorno = new ArrayList<DtAnioMes>();
 		
-		private HttpHeaders getHeaderError( String error ) {
-			HttpHeaders responseHeaders = new HttpHeaders();
-		    responseHeaders.set(HEADER_ERROR, error);
-		    return responseHeaders;
+		Integer anioFIni = Integer.parseInt( (new SimpleDateFormat("yyyy")).format(fIni) );  
+		Integer mesFIni = Integer.parseInt( (new SimpleDateFormat("MM")).format(fIni) );
+		
+		Integer anioFFin = Integer.parseInt( (new SimpleDateFormat("yyyy")).format(fFin) );  
+		Integer mesFFin = Integer.parseInt( (new SimpleDateFormat("MM")).format(fFin) );
+		
+		Integer anioIter = anioFIni;
+		Integer mesIter = mesFIni;
+		while( anioIter.compareTo(anioFFin) < 0  || 
+				( anioIter.equals(anioFFin) && mesIter.compareTo(mesFFin) <= 0 ) 
+			) {
+			retorno.add( new DtAnioMes( anioIter, mesIter ) );
+			if( mesIter ==12 ) {
+				anioIter++;
+				mesIter=1;
+			}
+			else {
+				mesIter++;
+			}
 		}
+		return retorno;
+	}
 }

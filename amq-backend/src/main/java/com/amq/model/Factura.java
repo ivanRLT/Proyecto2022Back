@@ -59,7 +59,7 @@ public class Factura implements Serializable {
 		this.montoDescuento = montoDescuento;
 		this.estado = estado;
 		Calendar calendar = Calendar.getInstance();
-		calendar.set(fecha.getAnio(), fecha.getMes(), fecha.getDia(), 00, 00, 00);
+		calendar.set(fecha.getAnio(), fecha.getMes()-1, fecha.getDia(), 00, 00, 00);
 		this.fecha =(Date) calendar.getTime();
 		this.reserva = reserva;
 	}
@@ -96,7 +96,7 @@ public class Factura implements Serializable {
 	public DtFecha getFecha() {
 		DateFormat stranio = new SimpleDateFormat("yyyy");  
         String anio = stranio.format(this.fecha);  
-        DateFormat strmes = new SimpleDateFormat("mm");  
+        DateFormat strmes = new SimpleDateFormat("MM");  
         String mes = strmes.format(this.fecha);  
         DateFormat strdia = new SimpleDateFormat("dd");  
         String dia = strdia.format(this.fecha);
@@ -108,7 +108,7 @@ public class Factura implements Serializable {
 	}
 	public void setFecha(DtFecha fecha) {
 		Calendar calendar = Calendar.getInstance();
-		calendar.set(fecha.getAnio(), fecha.getMes(), fecha.getDia(), 00, 00, 00);
+		calendar.set(fecha.getAnio(), fecha.getMes()-1, fecha.getDia(), 00, 00, 00);
 		this.fecha =(Date) calendar.getTime();
 	}
 	public Reserva getReserva() {

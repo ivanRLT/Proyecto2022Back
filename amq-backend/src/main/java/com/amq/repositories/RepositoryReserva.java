@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.amq.datatypes.DtIdValor;
+import com.amq.datatypes.DtXY;
 import com.amq.model.Reserva;
 
 public interface RepositoryReserva extends JpaRepository<Reserva, Integer> {
@@ -74,4 +75,36 @@ public interface RepositoryReserva extends JpaRepository<Reserva, Integer> {
 				+ "alojs.id = :#{#idAloj} "
 			)
 	public List<Reserva> reservasAlojamiento(@Param("idAloj") int idAloj);
+	
+	/*@Query("SELECT new com.amq.datatypes.DtXY( "
+					+ "CONCAT( year(facs.fecha), '-', month(facs.fecha) ) ,"
+					+ "COUNT(1)*1.0 "
+				+ ") "
+			+ "from Reserva res "
+			+ "join res.facturas facs "
+			+ "where "
+				+ "year(facs.fecha) >= :anioIni and "
+				+ "month(facs.fecha) >= :mesIni and "
+				+ "year(facs.fecha) <= :anioFin and "
+				+ "month(facs.fecha) <= :mesFin and "
+				+ "res.estado in ('EJECUTADA')  and "
+				+ "facs.estado in ('REALIZADO') "
+			+ "GROUP BY year(facs.fecha), month(facs.fecha) "
+			)
+	public List<DtXY> estadisticaResXMes(
+			@Param("anioIni") int anioIni , @Param("mesIni") int mesIni,  
+			@Param("anioFin") int anioFin, @Param("mesFin") int mesFin
+		);*/
+
+	@Query("SELECT COALESCE( count(1), 0) "
+	+ "from Reserva res "
+	+ "join res.facturas facs "
+	+ "where "
+		+ "year(fecha) = :anio and "
+		+ "month(facs.fecha) = :mes and "
+		+ "res.estado in ('EJECUTADA')  and "
+		+ "facs.estado in ('REALIZADO') "
+	)
+	public Integer estadisticaResXMes( @Param("anio") int anio , @Param("mes") int mes );
+
 }
