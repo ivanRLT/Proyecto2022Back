@@ -454,6 +454,19 @@ public class ControladorReserva {
 		return retorno;
 	}
 
+	@RequestMapping(value = "/listarHistoricoReservasConfiramadas/{idAnf}", method = { RequestMethod.GET })
+	public ResponseEntity< List<Reserva> > listarHistoricoReservasConfiramadas(@PathVariable int idAnf) {
+		try {
+			List<Reserva> reservas =  repoR.getHistoricoReservasConfiramadas(idAnf);
+			if(reservas==null || reservas.size()==0) {
+				return new ResponseEntity<>( HttpStatus.NO_CONTENT);
+			}
+			return new ResponseEntity<>( reservas, HttpStatus.OK);
+		}
+		catch(Exception e ) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 
 	// #######################Funciones de Facturas#######################
 		public boolean altaFactura() {
@@ -490,6 +503,8 @@ public class ControladorReserva {
 			}
 			return null;
 		}
+		
+		
 		
 		private Date dtFecha2Date(DtFecha dtF){
 			try {

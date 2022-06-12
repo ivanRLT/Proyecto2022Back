@@ -33,4 +33,15 @@ public interface RepositoryReserva extends JpaRepository<Reserva, Integer> {
 				+ "res.estado in ('EJECUTADA') "
 			)
 	public List<DtIdValor> usrSeQuedoEnAlojamiento(@Param("idHab") int idHab, @Param("idHu") int idHu);
+	
+	@Query("SELECT res "
+			+ "from Anfitrion anf "
+			+ "join anf.alojamientos alojs "
+			+ "join alojs.habitaciones habs "
+			+ "join habs.reservas res "
+			+ "where "
+				+ "res.estado in ('EJECUTADA', 'APROBADO')  "
+				+ "and anf.id = :#{#idAnf} "
+			)
+	public List<Reserva> getHistoricoReservasConfiramadas(@Param("idAnf") int idAnf);
 }
