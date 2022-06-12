@@ -525,20 +525,41 @@ public class ControladorUsuario {
 //	    return new GenericResponse(messages.getMessage("Email.user.email", null, request.getLocale()));
 //	    
 //	}
+//	public ResponseEntity<Huesped> altaHuesped(@RequestBody DtHuesped huesDT) borrar
 	
 	@RequestMapping(value = "/resetPassword", method = { RequestMethod.POST })
-//	@PostMapping("/resetPassword")
-	public GenericResponse resetPassword(@RequestParam("email") String userEmail) {
-	    Usuario user = userService.findUserByEmail(userEmail);
-	    if (user != null) {
-	    	String token = UUID.randomUUID().toString();
-	    	userService.createPasswordResetTokenForUser(user, token);
-	    	mailSender.send(constructResetTokenEmail(token, user));
-	    	return new GenericResponse(messages.getMessage("message.resetPasswordEmail", null, null));
-	    }
-	    return new GenericResponse(messages.getMessage("Email.user.email", null,null));
-	    
+	public ResponseEntity<DtUsuario> resetPassword(@RequestBody DtUsuario dtemail) {
+
+		Usuario user;
+		String email = dtemail.getEmail();
+
+		try {
+			user = repoU.findByEmail(email);
+			if (user != null) {
+				String token = UUID.randomUUID().toString();
+				userService.createPasswordResetTokenForUser(user, token);
+				mailSender.send(constructResetTokenEmail(token, user));
+				return new ResponseEntity<>(dtemail, HttpStatus.OK);
+			}
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
+	
+//	@RequestMapping(value = "/resetPassword", method = { RequestMethod.POST })
+////	@PostMapping("/resetPassword")
+//	public GenericResponse resetPassword(@RequestParam("email") String userEmail) {
+//	    Usuario user = userService.findUserByEmail(userEmail);
+//	    if (user != null) {
+//	    	String token = UUID.randomUUID().toString();
+//	    	userService.createPasswordResetTokenForUser(user, token);
+//	    	mailSender.send(constructResetTokenEmail(token, user));
+//	    	return new GenericResponse(messages.getMessage("message.resetPasswordEmail", null, null));
+//	    }
+//	    return new GenericResponse(messages.getMessage("Email.user.email", null,null));
+//	    
+//	}
 	
 	// Save password
 	@RequestMapping(value = "/savePassword", method = { RequestMethod.POST })
