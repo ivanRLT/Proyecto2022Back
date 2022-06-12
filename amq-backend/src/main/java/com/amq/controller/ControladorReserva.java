@@ -455,10 +455,25 @@ public class ControladorReserva {
 		return retorno;
 	}
 
-	@RequestMapping(value = "/listarHistoricoReservasConfiramadas/{idAnf}", method = { RequestMethod.GET })
-	public ResponseEntity< List<DtReserva> > listarHistoricoReservasConfiramadas(@PathVariable int idAnf) {
+	@RequestMapping(value = "/listarReservasEjecutadasAnf/{idAnf}", method = { RequestMethod.GET })
+	public ResponseEntity< List<DtReserva> > listarReservasEjecutadasAnf(@PathVariable int idAnf) {
 		try {
-			List<Reserva> reservas =  repoR.getHistoricoReservasConfiramadas(idAnf);
+			List<Reserva> reservas =  repoR.reservasEjecutadasAnf(idAnf);
+			if(reservas==null || reservas.size()==0) {
+				return new ResponseEntity<>( HttpStatus.NO_CONTENT);
+			}
+			List<DtReserva> dtReservas = obtenerDtReservas(reservas);
+			return new ResponseEntity<>( dtReservas, HttpStatus.OK);
+		}
+		catch(Exception e ) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@RequestMapping(value = "/listarReservasAprobadasHuesp/{idAnf}", method = { RequestMethod.GET })
+	public ResponseEntity< List<DtReserva> > listarReservasAprobadasHuesp(@PathVariable int idHu) {
+		try {
+			List<Reserva> reservas =  repoR.reservasAprobadasHuesp(idHu);
 			if(reservas==null || reservas.size()==0) {
 				return new ResponseEntity<>( HttpStatus.NO_CONTENT);
 			}

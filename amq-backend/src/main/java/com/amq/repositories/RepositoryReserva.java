@@ -40,10 +40,20 @@ public interface RepositoryReserva extends JpaRepository<Reserva, Integer> {
 			+ "join alojs.habitaciones habs "
 			+ "join habs.reservas res "
 			+ "where "
-				+ "res.estado in ('EJECUTADA', 'APROBADO')  "
+				+ "res.estado in ('EJECUTADA')  "
 				+ "and anf.id = :#{#idAnf} "
 			)
-	public List<Reserva> getHistoricoReservasConfiramadas(@Param("idAnf") int idAnf);
+	public List<Reserva> reservasEjecutadasAnf(@Param("idAnf") int idAnf);
+	
+	@Query("SELECT res "
+			+ "from Huesped hu "
+			+ "join hu.reservas res "
+			+ "join res.habitacion hab "
+			+ "where "
+				+ "hu.id= :#{#idHu} and "
+				+ "res.estado in ('APROBADO') "
+		)
+	public List<Reserva> reservasAprobadasHuesp(@Param("idHu") int idHu);
 	
 	@Query("SELECT res "
 			+ "from Anfitrion anf "
