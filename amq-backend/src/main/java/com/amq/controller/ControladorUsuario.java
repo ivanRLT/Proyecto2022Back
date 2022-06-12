@@ -508,7 +508,7 @@ public class ControladorUsuario {
 	@RequestMapping(value = "/resetPassword", method = { RequestMethod.POST })
 //	@PostMapping("/resetPassword")
 	public GenericResponse resetPassword( HttpServletRequest request, 
-			@RequestParam("email") String userEmail) {
+			@PathVariable("email") String userEmail) {
 	    Usuario user = userService.findUserByEmail(userEmail);
 	    if (user != null) {
 	    	String token = UUID.randomUUID().toString();
