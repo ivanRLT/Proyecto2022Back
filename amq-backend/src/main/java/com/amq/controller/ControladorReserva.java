@@ -437,7 +437,8 @@ public class ControladorReserva {
 		}
 		//retono Dt
 	}
-	public List<DtReserva> obtenerDtReservas(List<Reserva> rs) {
+	
+	private List<DtReserva> obtenerDtReservas(List<Reserva> rs) {
 		List<DtReserva> retorno = new ArrayList<DtReserva>();
 		for(Reserva r:rs) {
 			List<DtFactura> facturasdt = new ArrayList<DtFactura>();
@@ -455,13 +456,44 @@ public class ControladorReserva {
 	}
 
 	@RequestMapping(value = "/listarHistoricoReservasConfiramadas/{idAnf}", method = { RequestMethod.GET })
-	public ResponseEntity< List<Reserva> > listarHistoricoReservasConfiramadas(@PathVariable int idAnf) {
+	public ResponseEntity< List<DtReserva> > listarHistoricoReservasConfiramadas(@PathVariable int idAnf) {
 		try {
 			List<Reserva> reservas =  repoR.getHistoricoReservasConfiramadas(idAnf);
 			if(reservas==null || reservas.size()==0) {
 				return new ResponseEntity<>( HttpStatus.NO_CONTENT);
 			}
-			return new ResponseEntity<>( reservas, HttpStatus.OK);
+			List<DtReserva> dtReservas = obtenerDtReservas(reservas);
+			return new ResponseEntity<>( dtReservas, HttpStatus.OK);
+		}
+		catch(Exception e ) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@RequestMapping(value = "/reservasHabitacion/{idHab}", method = { RequestMethod.GET })
+	public ResponseEntity< List<DtReserva> > reservasEnHabitacion(@PathVariable int idHab) {
+		try {
+			List<Reserva> reservas =  repoR.reservasHabitacion(idHab);
+			if(reservas==null || reservas.size()==0) {
+				return new ResponseEntity<>( HttpStatus.NO_CONTENT);
+			}
+			List<DtReserva> dtReservas = obtenerDtReservas(reservas);
+			return new ResponseEntity<>( dtReservas, HttpStatus.OK);
+		}
+		catch(Exception e ) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@RequestMapping(value = "/reservasAlojamiento/{idHab}", method = { RequestMethod.GET })
+	public ResponseEntity< List<DtReserva> > reservasAlojamiento(@PathVariable int idHab) {
+		try {
+			List<Reserva> reservas =  repoR.reservasAlojamiento(idHab);
+			if(reservas==null || reservas.size()==0) {
+				return new ResponseEntity<>( HttpStatus.NO_CONTENT);
+			}
+			List<DtReserva> dtReservas = obtenerDtReservas(reservas);
+			return new ResponseEntity<>( dtReservas, HttpStatus.OK);
 		}
 		catch(Exception e ) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

@@ -44,4 +44,24 @@ public interface RepositoryReserva extends JpaRepository<Reserva, Integer> {
 				+ "and anf.id = :#{#idAnf} "
 			)
 	public List<Reserva> getHistoricoReservasConfiramadas(@Param("idAnf") int idAnf);
+	
+	@Query("SELECT res "
+			+ "from Anfitrion anf "
+			+ "join anf.alojamientos alojs "
+			+ "join alojs.habitaciones habs "
+			+ "join habs.reservas res "
+			+ "where "
+				+ "habs.id = :#{#idHabs} "
+			)
+	public List<Reserva> reservasHabitacion(@Param("idHabs") int idHabs);
+	
+	@Query("SELECT res "
+			+ "from Anfitrion anf "
+			+ "join anf.alojamientos alojs "
+			+ "join alojs.habitaciones habs "
+			+ "join habs.reservas res "
+			+ "where "
+				+ "alojs.id = :#{#idAloj} "
+			)
+	public List<Reserva> reservasAlojamiento(@Param("idAloj") int idAloj);
 }
