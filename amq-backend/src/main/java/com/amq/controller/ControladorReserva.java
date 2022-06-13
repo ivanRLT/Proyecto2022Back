@@ -459,8 +459,22 @@ public class ControladorReserva {
 	public ResponseEntity< List<DtReserva> > listarReservasEjecutadasAnf(@PathVariable int idAnf) {
 		try {
 			List<Reserva> reservas =  repoR.reservasEjecutadasAnf(idAnf);
+			
+			Optional usrOpt = repoU.findById(idAnf);
+			
+			if( !usrOpt.isPresent() || !(usrOpt.get() instanceof Anfitrion ) ) {
+				return new ResponseEntity<>( 
+						getHeaderError("No existe un usuario anfitrión con el id ingresado."), 
+						HttpStatus.NOT_FOUND 
+					);
+			}
+			
 			if(reservas==null || reservas.size()==0) {
-				return new ResponseEntity<>( HttpStatus.NO_CONTENT);
+				
+				return new ResponseEntity<>( 
+						getHeaderError("No se encontraron reservas ejecutadas."), 
+						HttpStatus.NO_CONTENT 
+					);
 			}
 			List<DtReserva> dtReservas = obtenerDtReservas(reservas);
 			return new ResponseEntity<>( dtReservas, HttpStatus.OK);
@@ -515,7 +529,7 @@ public class ControladorReserva {
 		}
 	}
 
-	// #######################Funciones de Facturas#######################
+	// ####################### Funciones de Facturas #######################
 	public boolean altaFactura() {
 		Boolean retorno = false;
 		try {
@@ -552,6 +566,8 @@ public class ControladorReserva {
 	}
 	
 	
+	
+	// ####################### Funciones Auxiliares #######################
 	@RequestMapping(value = "/estadisticas", method = { RequestMethod.POST })
 	public List<List<DtXY>> getEstadisticas( @RequestBody DtFiltrosEstadisticas dtFiltros ){
 		List<List<DtXY>> retorno = new ArrayList<>();
