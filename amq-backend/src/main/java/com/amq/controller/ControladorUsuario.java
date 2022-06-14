@@ -212,7 +212,7 @@ public class ControladorUsuario {
 			// El "save" devuleve el usuario agregado si funciono y lo guardo en aux para devolverlo
 			Huesped hueR = repoU.save(hue);
 			
-			return new ResponseEntity<>(hueR, HttpStatus.CREATED);
+			return new ResponseEntity<>(hueR, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}	

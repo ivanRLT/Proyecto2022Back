@@ -581,3 +581,6 @@ INSERT INTO reservas VALUES (383, 3 , 'APROBADO', '2022-07-23', '2022-07-21', NU
 INSERT INTO reservas VALUES (384, 3 , 'PENDIENTE', '2022-07-28', '2022-07-26', NULL, 351, 109, 10076 );
 
 UPDATE reservas SET calificacion_id=id WHERE id%2=1;
+
+
+UPDATE usuarios SET f_creacion_usuario = '2022-05-13' 
