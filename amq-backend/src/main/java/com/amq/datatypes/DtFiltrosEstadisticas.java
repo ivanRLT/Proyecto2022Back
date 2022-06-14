@@ -1,6 +1,4 @@
-package com.amq.controller;
-
-import com.amq.datatypes.DtFecha;
+package com.amq.datatypes;
 
 public class DtFiltrosEstadisticas {
 	DtFecha dtFIni;

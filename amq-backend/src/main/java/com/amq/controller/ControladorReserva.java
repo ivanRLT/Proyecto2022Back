@@ -26,10 +26,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.amq.datatypes.DtAltaReserva;
 import com.amq.datatypes.DtAnioMes;
 import com.amq.datatypes.DtCalificacion;
+import com.amq.datatypes.DtDireccion;
 import com.amq.datatypes.DtEnviarCalificacion;
 import com.amq.datatypes.DtFactura;
 import com.amq.datatypes.DtFecha;
+import com.amq.datatypes.DtFiltrosEstadisticas;
+import com.amq.datatypes.DtResHuespEstado;
 import com.amq.datatypes.DtReserva;
+import com.amq.datatypes.DtReservaAlojHab;
+import com.amq.datatypes.DtReservaAlojamiento;
+import com.amq.datatypes.DtServicios;
 import com.amq.datatypes.DtXY;
 import com.amq.enums.PagoEstado;
 import com.amq.enums.ReservaEstado;
@@ -299,23 +305,6 @@ public class ControladorReserva {
     	}
     }
 	
-	@RequestMapping( value = "/resenasDeAlojamiento/{id}", method = { RequestMethod.GET })
-	public ResponseEntity< List<String> > resenasDeAlojamiento(@PathVariable("id") int id){
-		try {
-			List<String> resenas =  repoC.getResenasEnAlojamiento(id);
-			if( resenas!=null && resenas.size()==0 ) {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			}
-			else {
-				return new ResponseEntity<>(resenas, HttpStatus.OK);
-			}
-		}
-		catch(Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-	
-	@RequestMapping(value = "/realizarReserva", method = { RequestMethod.POST })
 	public ResponseEntity<Reserva> realizarReserva(@RequestBody DtAltaReserva dtAltaRes) {
 		
 		try {
@@ -529,6 +518,62 @@ public class ControladorReserva {
 		}
 	}
 
+	@RequestMapping(value = "/reservasXHuespConEstado", method = { RequestMethod.POST })
+	public ResponseEntity< List<DtReservaAlojHab> > reservasXHuespConEstado( @RequestBody DtResHuespEstado filtro ){
+		try {
+			Optional usrOpt = repoU.findById(filtro.getIdHu() );
+			if(!usrOpt.isPresent() || !( usrOpt.get() instanceof Huesped ) ) {
+				return new ResponseEntity<>( HttpStatus.NOT_FOUND );
+			}
+			if(filtro.getResEstado()== null || filtro.getResEstado().isEmpty()) {
+				filtro.setResEstado( new ArrayList<ReservaEstado>() );
+				filtro.getResEstado().add(ReservaEstado.APROBADO);
+				filtro.getResEstado().add(ReservaEstado.EJECUTADA);
+				filtro.getResEstado().add(ReservaEstado.PENDIENTE);
+				filtro.getResEstado().add(ReservaEstado.RECHAZADO);
+			}
+			
+			DtReservaAlojHab resAlojHab;
+			List<DtReservaAlojHab> resAlojHabs = new ArrayList<DtReservaAlojHab>();
+			List<DtReservaAlojamiento> resAlojs = new ArrayList<DtReservaAlojamiento>();
+			
+			resAlojs = repoR.findReservasXHuespConEstado(filtro.getIdHu(), filtro.getResEstado() );
+			
+			//Elimino información innecesaria
+			for(DtReservaAlojamiento resA : resAlojs ) {
+				resAlojHab = new DtReservaAlojHab();
+				
+				resAlojHab.setRes_id(resA.getReserva().getId());
+				resAlojHab.setRes_estado( resA.getReserva().getEstado());
+				resAlojHab.setRes_fechaInicio( resA.getReserva().getFechaInicio() );
+				resAlojHab.setRes_fechaFin( resA.getReserva().getFechaFin() );
+				resAlojHab.setRes_cantDias( resA.getReserva().getCantDias() );;
+				resAlojHab.setRes_calificacion( resA.getReserva().getCalificacion() );;
+				
+				resAlojHab.setAloj_id( resA.getAlojamiento().getId() );
+				resAlojHab.setAloj_activo( resA.getAlojamiento().getActivo() ) ;
+				resAlojHab.setAloj_descripcion( resA.getAlojamiento().getDescripcion() );
+				resAlojHab.setAloj_idAnfitrion( resA.getAlojamiento().getAnfitrion().getId() );
+				resAlojHab.setAloj_direccion( resA.getAlojamiento().getDireccion() );
+				resAlojHab.setAloj_nombre( resA.getAlojamiento().getNombre() );
+				
+				resAlojHab.setHab_id( resA.getHabitacion().getId() );
+				resAlojHab.setHab_descripcion( resA.getHabitacion().getDescripcion() );
+				resAlojHab.setHab_precioNoche( resA.getHabitacion().getPrecioNoche());
+				resAlojHab.setHab_camas( resA.getHabitacion().getCamas() );
+				resAlojHab.setHab_servicios( resA.getHabitacion().getServicios() );
+				
+				resAlojHabs.add(resAlojHab);
+			}
+			
+			return new ResponseEntity<>( resAlojHabs , HttpStatus.OK );
+		}
+		catch(Exception e) {
+			return new ResponseEntity<>( HttpStatus.INTERNAL_SERVER_ERROR );
+		}
+		
+	}
+	
 	// ####################### Funciones de Facturas #######################
 	public boolean altaFactura() {
 		Boolean retorno = false;

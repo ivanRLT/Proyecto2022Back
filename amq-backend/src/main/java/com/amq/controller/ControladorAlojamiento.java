@@ -49,27 +49,22 @@ public class ControladorAlojamiento {
 	
 	@Autowired
 	RepositoryUsuario repoU;
-	
 	@Autowired
 	RepositoryAlojamiento repoA;
-	
 	@Autowired
 	RepositoryDireccion repoDir;
-	
 	@Autowired
 	RepositoryPais repoPais;
-	
 	@Autowired
 	RepositoryServicios repoSer;
-	
 	@Autowired
 	RepositoryHabitacion repoHab;
-	
 	@Autowired
 	RepositoryCalificacion repoCal;
-	
 	@Autowired
 	RepositoryReserva repoRes;
+	@Autowired
+	RepositoryCalificacion repoC;
 	
 	// #######################Funciones de alojamiento#######################
 	
@@ -334,7 +329,21 @@ public class ControladorAlojamiento {
 		
 		return new ResponseEntity<>(data, HttpStatus.OK);
 	}
-	
+	@RequestMapping( value = "/resenasDeAlojamiento/{id}", method = { RequestMethod.GET })
+	public ResponseEntity< List<String> > resenasDeAlojamiento(@PathVariable("id") int id){
+		try {
+			List<String> resenas =  repoC.getResenasEnAlojamiento(id);
+			if( resenas!=null && resenas.size()==0 ) {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+			else {
+				return new ResponseEntity<>(resenas, HttpStatus.OK);
+			}
+		}
+		catch(Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 	// #######################Funciones de prueba#######################
 	
 	//De prueba, se puede borrar

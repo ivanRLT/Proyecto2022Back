@@ -7,7 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.amq.datatypes.DtIdValor;
+import com.amq.datatypes.DtReservaAlojamiento;
 import com.amq.datatypes.DtXY;
+import com.amq.enums.ReservaEstado;
 import com.amq.model.Reserva;
 
 public interface RepositoryReserva extends JpaRepository<Reserva, Integer> {
@@ -106,5 +108,17 @@ public interface RepositoryReserva extends JpaRepository<Reserva, Integer> {
 		+ "facs.estado in ('REALIZADO') "
 	)
 	public Integer estadisticaResXMes( @Param("anio") int anio , @Param("mes") int mes );
-
+	
+	@Query("SELECT new com.amq.datatypes.DtReservaAlojamiento( res, aloj, hab) "
+			+ "FROM Huesped hu "
+			+ "JOIN hu.reservas res "
+			+ "JOIN res.habitacion hab "
+			+ "JOIN res.calificacion cal "
+			+ "JOIN hab.alojamiento aloj "
+			+ "WHERE "
+				+ "res.estado in (:estados) AND "
+				+ "hu.id = :idHu "
+			)
+	public List<DtReservaAlojamiento> findReservasXHuespConEstado( @Param("idHu") int idHu , @Param("estados")List<ReservaEstado> estados);
+	
 }
