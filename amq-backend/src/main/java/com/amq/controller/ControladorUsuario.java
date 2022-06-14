@@ -39,7 +39,9 @@ import com.amq.datatypes.DtFecha;
 import com.amq.datatypes.DtFiltrosUsuario;
 import com.amq.datatypes.DtHabitacion;
 import com.amq.datatypes.DtHuesped;
+import com.amq.datatypes.DtPassword;
 import com.amq.datatypes.DtReserva;
+import com.amq.datatypes.DtResetEmail;
 import com.amq.datatypes.DtServicios;
 import com.amq.datatypes.DtUsuario;
 import com.amq.enums.AprobacionEstado;
@@ -54,6 +56,7 @@ import com.amq.model.Habitacion;
 import com.amq.model.Huesped;
 import com.amq.model.Reserva;
 import com.amq.model.Usuario;
+import com.amq.passwordReset.IUsuarioService;
 import com.amq.repositories.RepositoryUsuario;
 import com.amq.repositories.RepositoryAlojamiento;
 import com.amq.repositories.RepositoryCalificacion;
@@ -61,9 +64,6 @@ import com.amq.repositories.RepositoryDireccion;
 import com.amq.repositories.RepositoryHabitacion;
 import com.amq.repositories.RepositoryReserva;
 import com.amq.repositories.RepositoryServicios;
-import com.amq.service.IUsuarioService;
-import com.amq.dto.PasswordDto;
-import com.amq.dto.ResetEmailDto;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -529,7 +529,7 @@ public class ControladorUsuario {
 //	public ResponseEntity<Huesped> altaHuesped(@RequestBody DtHuesped huesDT) borrar
 	
 	@RequestMapping(value = "/resetPassword", method = { RequestMethod.POST })
-	public ResponseEntity<DtUsuario> resetPassword(@RequestBody ResetEmailDto dtemail) {
+	public ResponseEntity<DtUsuario> resetPassword(@RequestBody DtResetEmail dtemail) {
 
 		Usuario user;
 		String email = dtemail.getEmail();
@@ -563,22 +563,22 @@ public class ControladorUsuario {
 //	}
 	
 	@RequestMapping(value = "/savePassword", method = { RequestMethod.POST })
-	public ResponseEntity<DtUsuario> savePassword(@RequestBody PasswordDto passwordDto) {
+	public ResponseEntity<DtUsuario> savePassword(@RequestBody DtPassword dtPassword) {
 
 		Usuario user;
 
 		try {
 
-			String result = userService.validatePasswordResetToken(passwordDto.getToken());
+			String result = userService.validatePasswordResetToken(dtPassword.getToken());
 
 			if (result != null) {
 				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 			}
 
-			user = userService.getUserByPassResetToken(passwordDto.getToken());
+			user = userService.getUserByPassResetToken(dtPassword.getToken());
 
 			if (user != null) {
-				userService.changeUserPassword(user, passwordDto.getNewPassword());
+				userService.changeUserPassword(user, dtPassword.getNewPassword());
 				return new ResponseEntity<>(HttpStatus.OK);
 			}
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -590,7 +590,7 @@ public class ControladorUsuario {
 	// Save password
 //	@RequestMapping(value = "/savePassword", method = { RequestMethod.POST })
 ////	@PostMapping("/savePassword")
-//	public GenericResponse savePassword(final Locale locale, PasswordDto passwordDto) {
+//	public GenericResponse savePassword(final Locale locale, DtPassword passwordDto) {
 //		String result = userService.validatePasswordResetToken(passwordDto.getToken());
 //
 //		if (result != null) {

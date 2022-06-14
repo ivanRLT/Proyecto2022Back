@@ -1,6 +1,6 @@
-package com.amq.dto;
+package com.amq.datatypes;
 
-public class ResetEmailDto {
+public class DtResetEmail {
 	
 	private String email;
 

@@ -1,4 +1,4 @@
-package com.amq.service;
+package com.amq.passwordReset;
 
 import java.util.Optional;
 

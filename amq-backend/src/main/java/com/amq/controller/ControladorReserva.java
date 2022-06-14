@@ -47,12 +47,12 @@ import com.amq.model.Habitacion;
 import com.amq.model.Huesped;
 import com.amq.model.Reserva;
 import com.amq.model.Usuario;
+import com.amq.passwordReset.IUsuarioService;
 import com.amq.repositories.RepositoryCalificacion;
 import com.amq.repositories.RepositoryFactura;
 import com.amq.repositories.RepositoryHabitacion;
 import com.amq.repositories.RepositoryReserva;
 import com.amq.repositories.RepositoryUsuario;
-import com.amq.service.IUsuarioService;
 
 @CrossOrigin(origins = "*")
 @RestController

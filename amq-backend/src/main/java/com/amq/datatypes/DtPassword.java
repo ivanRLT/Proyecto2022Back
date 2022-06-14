@@ -1,6 +1,6 @@
-package com.amq.dto;
+package com.amq.datatypes;
 
-public class PasswordDto {
+public class DtPassword {
 	
 //	private String oldPassword;
 
