@@ -518,7 +518,7 @@ public class ControladorReserva {
 		}
 	}
 
-	@RequestMapping(value = "/reservasXHuespConEstado", method = { RequestMethod.POST })
+	@RequestMapping(value = "/reservasXHuespXEstado", method = { RequestMethod.POST })
 	public ResponseEntity< List<DtReservaAlojHab> > reservasXHuespConEstado( @RequestBody DtResHuespEstado filtro ){
 		try {
 			Optional usrOpt = repoU.findById(filtro.getIdHu() );
@@ -533,13 +533,13 @@ public class ControladorReserva {
 				filtro.getResEstado().add(ReservaEstado.RECHAZADO);
 			}
 			
+			//pasaje de datos a dt
 			DtReservaAlojHab resAlojHab;
 			List<DtReservaAlojHab> resAlojHabs = new ArrayList<DtReservaAlojHab>();
 			List<DtReservaAlojamiento> resAlojs = new ArrayList<DtReservaAlojamiento>();
 			
 			resAlojs = repoR.findReservasXHuespConEstado(filtro.getIdHu(), filtro.getResEstado() );
 			
-			//Elimino información innecesaria
 			for(DtReservaAlojamiento resA : resAlojs ) {
 				resAlojHab = new DtReservaAlojHab();
 				
