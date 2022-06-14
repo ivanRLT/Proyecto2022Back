@@ -1,4 +1,4 @@
---
+
 -- PostgreSQL database dump
 --
 
@@ -16,7 +16,7 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
-ALTER TABLE ONLY public.huesped_push_tokens DROP CONSTRAINT fkmr4u6cwn25gn8um3emcf519lg;
+ALTER TABLE IF EXISTS ONLY public.huesped_push_tokens DROP CONSTRAINT fkmr4u6cwn25gn8um3emcf519lg;
 ALTER TABLE ONLY public.facturas DROP CONSTRAINT fkks11dlpkrred6an8o8simxxut;
 ALTER TABLE ONLY public.reservas DROP CONSTRAINT fkj1dyoxal4rnhdcxo4mv6bcivc;
 ALTER TABLE ONLY public.reservas DROP CONSTRAINT fkgqrp4r80giaq2op07c9h4iuht;
@@ -572,2805 +572,2781 @@ ALTER TABLE ONLY public.usuarios ALTER COLUMN id SET DEFAULT nextval('public.usu
 -- Data for Name: alojamientos; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.alojamientos (id, activo, descripcion, nombre, anfitrion_id, alojamiento_dir) FROM stdin;
-1	t	desc_ 10022_ 1000	nombreAloj_ 10022_ 1000	10022	1001
-2	t	desc_ 10023_ 1000	nombreAloj_ 10023_ 1000	10023	1002
-3	t	desc_ 10023_ 1001	nombreAloj_ 10023_ 1001	10023	1003
-4	t	desc_ 10025_ 1000	nombreAloj_ 10025_ 1000	10025	1004
-5	t	desc_ 10026_ 1000	nombreAloj_ 10026_ 1000	10026	1005
-6	t	desc_ 10026_ 1001	nombreAloj_ 10026_ 1001	10026	1006
-7	t	desc_ 10028_ 1000	nombreAloj_ 10028_ 1000	10028	1007
-8	t	desc_ 10029_ 1000	nombreAloj_ 10029_ 1000	10029	1008
-9	t	desc_ 10029_ 1001	nombreAloj_ 10029_ 1001	10029	1009
-11	t	desc_ 10032_ 1000	nombreAloj_ 10032_ 1000	10032	10011
-12	t	desc_ 10032_ 1001	nombreAloj_ 10032_ 1001	10032	10012
-13	t	desc_ 10034_ 1000	nombreAloj_ 10034_ 1000	10034	10013
-14	t	desc_ 10035_ 1000	nombreAloj_ 10035_ 1000	10035	10014
-15	t	desc_ 10035_ 1001	nombreAloj_ 10035_ 1001	10035	10015
-16	t	desc_ 10037_ 1000	nombreAloj_ 10037_ 1000	10037	10016
-17	t	desc_ 10038_ 1000	nombreAloj_ 10038_ 1000	10038	10017
-18	t	desc_ 10038_ 1001	nombreAloj_ 10038_ 1001	10038	10018
-19	t	desc_ 10040_ 1000	nombreAloj_ 10040_ 1000	10040	10019
-20	t	desc_ 10041_ 1000	nombreAloj_ 10041_ 1000	10041	10020
-21	t	desc_ 10041_ 1001	nombreAloj_ 10041_ 1001	10041	10021
-22	t	desc_ 10043_ 1000	nombreAloj_ 10043_ 1000	10043	10022
-23	t	desc_ 10044_ 1000	nombreAloj_ 10044_ 1000	10044	10023
-24	t	desc_ 10044_ 1001	nombreAloj_ 10044_ 1001	10044	10024
-25	t	desc_ 10046_ 1000	nombreAloj_ 10046_ 1000	10046	10025
-26	t	desc_ 10047_ 1000	nombreAloj_ 10047_ 1000	10047	10026
-27	t	desc_ 10047_ 1001	nombreAloj_ 10047_ 1001	10047	10027
-28	t	desc_ 10049_ 1000	nombreAloj_ 10049_ 1000	10049	10028
-10	f	desc_ 10031_ 1000	nombreAloj_ 10031_ 1000	10031	10010
-\.
+INSERT INTO public.alojamientos VALUES (1, true, 'desc_ 10022_ 1000', 'nombreAloj_ 10022_ 1000', 10022, 1001);
+INSERT INTO public.alojamientos VALUES (2, true, 'desc_ 10023_ 1000', 'nombreAloj_ 10023_ 1000', 10023, 1002);
+INSERT INTO public.alojamientos VALUES (3, true, 'desc_ 10023_ 1001', 'nombreAloj_ 10023_ 1001', 10023, 1003);
+INSERT INTO public.alojamientos VALUES (4, true, 'desc_ 10025_ 1000', 'nombreAloj_ 10025_ 1000', 10025, 1004);
+INSERT INTO public.alojamientos VALUES (5, true, 'desc_ 10026_ 1000', 'nombreAloj_ 10026_ 1000', 10026, 1005);
+INSERT INTO public.alojamientos VALUES (6, true, 'desc_ 10026_ 1001', 'nombreAloj_ 10026_ 1001', 10026, 1006);
+INSERT INTO public.alojamientos VALUES (7, true, 'desc_ 10028_ 1000', 'nombreAloj_ 10028_ 1000', 10028, 1007);
+INSERT INTO public.alojamientos VALUES (8, true, 'desc_ 10029_ 1000', 'nombreAloj_ 10029_ 1000', 10029, 1008);
+INSERT INTO public.alojamientos VALUES (9, true, 'desc_ 10029_ 1001', 'nombreAloj_ 10029_ 1001', 10029, 1009);
+INSERT INTO public.alojamientos VALUES (11, true, 'desc_ 10032_ 1000', 'nombreAloj_ 10032_ 1000', 10032, 10011);
+INSERT INTO public.alojamientos VALUES (12, true, 'desc_ 10032_ 1001', 'nombreAloj_ 10032_ 1001', 10032, 10012);
+INSERT INTO public.alojamientos VALUES (13, true, 'desc_ 10034_ 1000', 'nombreAloj_ 10034_ 1000', 10034, 10013);
+INSERT INTO public.alojamientos VALUES (14, true, 'desc_ 10035_ 1000', 'nombreAloj_ 10035_ 1000', 10035, 10014);
+INSERT INTO public.alojamientos VALUES (15, true, 'desc_ 10035_ 1001', 'nombreAloj_ 10035_ 1001', 10035, 10015);
+INSERT INTO public.alojamientos VALUES (16, true, 'desc_ 10037_ 1000', 'nombreAloj_ 10037_ 1000', 10037, 10016);
+INSERT INTO public.alojamientos VALUES (17, true, 'desc_ 10038_ 1000', 'nombreAloj_ 10038_ 1000', 10038, 10017);
+INSERT INTO public.alojamientos VALUES (18, true, 'desc_ 10038_ 1001', 'nombreAloj_ 10038_ 1001', 10038, 10018);
+INSERT INTO public.alojamientos VALUES (19, true, 'desc_ 10040_ 1000', 'nombreAloj_ 10040_ 1000', 10040, 10019);
+INSERT INTO public.alojamientos VALUES (20, true, 'desc_ 10041_ 1000', 'nombreAloj_ 10041_ 1000', 10041, 10020);
+INSERT INTO public.alojamientos VALUES (21, true, 'desc_ 10041_ 1001', 'nombreAloj_ 10041_ 1001', 10041, 10021);
+INSERT INTO public.alojamientos VALUES (22, true, 'desc_ 10043_ 1000', 'nombreAloj_ 10043_ 1000', 10043, 10022);
+INSERT INTO public.alojamientos VALUES (23, true, 'desc_ 10044_ 1000', 'nombreAloj_ 10044_ 1000', 10044, 10023);
+INSERT INTO public.alojamientos VALUES (24, true, 'desc_ 10044_ 1001', 'nombreAloj_ 10044_ 1001', 10044, 10024);
+INSERT INTO public.alojamientos VALUES (25, true, 'desc_ 10046_ 1000', 'nombreAloj_ 10046_ 1000', 10046, 10025);
+INSERT INTO public.alojamientos VALUES (26, true, 'desc_ 10047_ 1000', 'nombreAloj_ 10047_ 1000', 10047, 10026);
+INSERT INTO public.alojamientos VALUES (27, true, 'desc_ 10047_ 1001', 'nombreAloj_ 10047_ 1001', 10047, 10027);
+INSERT INTO public.alojamientos VALUES (28, true, 'desc_ 10049_ 1000', 'nombreAloj_ 10049_ 1000', 10049, 10028);
+INSERT INTO public.alojamientos VALUES (10, false, 'desc_ 10031_ 1000', 'nombreAloj_ 10031_ 1000', 10031, 10010);
 
 
 --
 -- Data for Name: calificaciones; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.calificaciones (id, calificacion_anfitrion, calificacion_huesped, fecha_resena, resena) FROM stdin;
-351	3	4	2022-05-03 00:00:00	RESEnA 351
-353	4	2	2022-05-05 00:00:00	RESEÑA 353
-355	2	5	2022-05-06 00:00:00	RESEÑA 355
-357	5	4	2022-05-07 00:00:00	RESEÑA 357
-359	4	2	2022-05-08 00:00:00	RESEÑA 359
-361	5	4	2022-05-09 00:00:00	RESEÑA 361
-363	2	3	2022-05-10 00:00:00	RESEÑA 363
-365	5	5	2022-05-11 00:00:00	RESEÑA 365
-367	2	3	2022-05-12 00:00:00	RESEÑA 367
-369	4	4	2022-05-13 00:00:00	RESEÑA 369
-371	1	5	2022-05-14 00:00:00	RESEÑA 371
-373	4	3	2022-05-15 00:00:00	RESEÑA 373
-375	4	1	2022-05-16 00:00:00	RESEÑA 375
-377	5	1	2022-05-17 00:00:00	RESEÑA 377
-379	1	1	2022-05-18 00:00:00	RESEÑA 379
-381	3	1	2022-05-19 00:00:00	RESEÑA 381
-383	4	5	2022-05-20 00:00:00	RESEÑA 383
-\.
+INSERT INTO public.calificaciones VALUES (351, 3, 4, '2022-05-03 00:00:00', 'RESEnA 351');
+INSERT INTO public.calificaciones VALUES (353, 4, 2, '2022-05-05 00:00:00', 'RESEÑA 353');
+INSERT INTO public.calificaciones VALUES (355, 2, 5, '2022-05-06 00:00:00', 'RESEÑA 355');
+INSERT INTO public.calificaciones VALUES (357, 5, 4, '2022-05-07 00:00:00', 'RESEÑA 357');
+INSERT INTO public.calificaciones VALUES (359, 4, 2, '2022-05-08 00:00:00', 'RESEÑA 359');
+INSERT INTO public.calificaciones VALUES (361, 5, 4, '2022-05-09 00:00:00', 'RESEÑA 361');
+INSERT INTO public.calificaciones VALUES (363, 2, 3, '2022-05-10 00:00:00', 'RESEÑA 363');
+INSERT INTO public.calificaciones VALUES (365, 5, 5, '2022-05-11 00:00:00', 'RESEÑA 365');
+INSERT INTO public.calificaciones VALUES (367, 2, 3, '2022-05-12 00:00:00', 'RESEÑA 367');
+INSERT INTO public.calificaciones VALUES (369, 4, 4, '2022-05-13 00:00:00', 'RESEÑA 369');
+INSERT INTO public.calificaciones VALUES (371, 1, 5, '2022-05-14 00:00:00', 'RESEÑA 371');
+INSERT INTO public.calificaciones VALUES (373, 4, 3, '2022-05-15 00:00:00', 'RESEÑA 373');
+INSERT INTO public.calificaciones VALUES (375, 4, 1, '2022-05-16 00:00:00', 'RESEÑA 375');
+INSERT INTO public.calificaciones VALUES (377, 5, 1, '2022-05-17 00:00:00', 'RESEÑA 377');
+INSERT INTO public.calificaciones VALUES (379, 1, 1, '2022-05-18 00:00:00', 'RESEÑA 379');
+INSERT INTO public.calificaciones VALUES (381, 3, 1, '2022-05-19 00:00:00', 'RESEÑA 381');
+INSERT INTO public.calificaciones VALUES (383, 4, 5, '2022-05-20 00:00:00', 'RESEÑA 383');
 
 
 --
 -- Data for Name: dt_direccion; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.dt_direccion (id, calle, ciudad, numero, pais) FROM stdin;
-1001	calle_dir$	ciudad 1001	 1001	1
-1002	calle_dir$	ciudad 1002	 1001	1
-1003	calle_dir$	ciudad 1000	 1001	1
-1004	calle_dir$	ciudad 1001	 1001	1
-1005	calle_dir$	ciudad 1002	 1001	2
-1006	calle_dir$	ciudad 1000	 1001	1
-1007	calle_dir$	ciudad 1001	 1001	1
-1008	calle_dir$	ciudad 1002	 1001	3
-1009	calle_dir$	ciudad 1000	 1001	1
-10010	calle_dir$	ciudad 1001	 1001	1
-10011	calle_dir$	ciudad 1002	 1001	1
-10012	calle_dir$	ciudad 1000	 1001	2
-10013	calle_dir$	ciudad 1001	 1001	1
-10014	calle_dir$	ciudad 1002	 1001	1
-10015	calle_dir$	ciudad 1000	 1001	1
-10016	calle_dir$	ciudad 1001	 1001	1
-10017	calle_dir$	ciudad 1002	 1001	3
-10018	calle_dir$	ciudad 1000	 1001	1
-10019	calle_dir$	ciudad 1001	 1001	1
-10020	calle_dir$	ciudad 1002	 1001	1
-10021	calle_dir$	ciudad 1000	 1001	1
-10022	calle_dir$	ciudad 1001	 1001	1
-10023	calle_dir$	ciudad 1002	 1001	1
-10024	calle_dir$	ciudad 1000	 1001	4
-10025	calle_dir$	ciudad 1001	 1001	1
-10026	calle_dir$	ciudad 1002	 1001	1
-10027	calle_dir$	ciudad 1000	 1001	1
-10028	calle_dir$	ciudad 1001	 1001	1
-10029	calle_dir$	ciudad 1002	 1001	2
-10030	calle_dir$	ciudad 1000	 1001	1
-10031	calle_dir$	ciudad 1001	 1001	1
-10032	calle_dir$	ciudad 1002	 1001	1
-10033	calle_dir$	ciudad 1000	 1001	1
-10034	calle_dir$	ciudad 1001	 1001	1
-10035	calle_dir$	ciudad 1002	 1001	1
-10036	calle_dir$	ciudad 1000	 1001	8
-10037	calle_dir$	ciudad 1001	 1001	1
-10038	calle_dir$	ciudad 1002	 1001	1
-10039	calle_dir$	ciudad 1000	 1001	15
-10040	calle_dir$	ciudad 1001	 1001	1
-10041	calle_dir$	ciudad 1002	 1001	1
-10042	calle_dir$	ciudad 1000	 1001	8
-10043	calle_dir$	ciudad 1001	 1001	1
-10044	calle_dir$	ciudad 1002	 1001	1
-10045	calle_dir$	ciudad 1000	 1001	1
-10046	calle_dir$	ciudad 1001	 1001	15
-10047	calle_dir$	ciudad 1002	 1001	1
-10048	calle_dir$	ciudad 1000	 1001	1
-10049	calle_dir$	ciudad 1001	 1001	1
-\.
+INSERT INTO public.dt_direccion VALUES (1001, 'calle_dir$', 'ciudad 1001', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (1002, 'calle_dir$', 'ciudad 1002', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (1003, 'calle_dir$', 'ciudad 1000', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (1004, 'calle_dir$', 'ciudad 1001', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (1005, 'calle_dir$', 'ciudad 1002', ' 1001', 2);
+INSERT INTO public.dt_direccion VALUES (1006, 'calle_dir$', 'ciudad 1000', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (1007, 'calle_dir$', 'ciudad 1001', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (1008, 'calle_dir$', 'ciudad 1002', ' 1001', 3);
+INSERT INTO public.dt_direccion VALUES (1009, 'calle_dir$', 'ciudad 1000', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (10010, 'calle_dir$', 'ciudad 1001', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (10011, 'calle_dir$', 'ciudad 1002', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (10012, 'calle_dir$', 'ciudad 1000', ' 1001', 2);
+INSERT INTO public.dt_direccion VALUES (10013, 'calle_dir$', 'ciudad 1001', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (10014, 'calle_dir$', 'ciudad 1002', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (10015, 'calle_dir$', 'ciudad 1000', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (10016, 'calle_dir$', 'ciudad 1001', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (10017, 'calle_dir$', 'ciudad 1002', ' 1001', 3);
+INSERT INTO public.dt_direccion VALUES (10018, 'calle_dir$', 'ciudad 1000', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (10019, 'calle_dir$', 'ciudad 1001', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (10020, 'calle_dir$', 'ciudad 1002', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (10021, 'calle_dir$', 'ciudad 1000', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (10022, 'calle_dir$', 'ciudad 1001', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (10023, 'calle_dir$', 'ciudad 1002', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (10024, 'calle_dir$', 'ciudad 1000', ' 1001', 4);
+INSERT INTO public.dt_direccion VALUES (10025, 'calle_dir$', 'ciudad 1001', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (10026, 'calle_dir$', 'ciudad 1002', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (10027, 'calle_dir$', 'ciudad 1000', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (10028, 'calle_dir$', 'ciudad 1001', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (10029, 'calle_dir$', 'ciudad 1002', ' 1001', 2);
+INSERT INTO public.dt_direccion VALUES (10030, 'calle_dir$', 'ciudad 1000', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (10031, 'calle_dir$', 'ciudad 1001', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (10032, 'calle_dir$', 'ciudad 1002', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (10033, 'calle_dir$', 'ciudad 1000', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (10034, 'calle_dir$', 'ciudad 1001', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (10035, 'calle_dir$', 'ciudad 1002', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (10036, 'calle_dir$', 'ciudad 1000', ' 1001', 8);
+INSERT INTO public.dt_direccion VALUES (10037, 'calle_dir$', 'ciudad 1001', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (10038, 'calle_dir$', 'ciudad 1002', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (10039, 'calle_dir$', 'ciudad 1000', ' 1001', 15);
+INSERT INTO public.dt_direccion VALUES (10040, 'calle_dir$', 'ciudad 1001', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (10041, 'calle_dir$', 'ciudad 1002', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (10042, 'calle_dir$', 'ciudad 1000', ' 1001', 8);
+INSERT INTO public.dt_direccion VALUES (10043, 'calle_dir$', 'ciudad 1001', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (10044, 'calle_dir$', 'ciudad 1002', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (10045, 'calle_dir$', 'ciudad 1000', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (10046, 'calle_dir$', 'ciudad 1001', ' 1001', 15);
+INSERT INTO public.dt_direccion VALUES (10047, 'calle_dir$', 'ciudad 1002', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (10048, 'calle_dir$', 'ciudad 1000', ' 1001', 1);
+INSERT INTO public.dt_direccion VALUES (10049, 'calle_dir$', 'ciudad 1001', ' 1001', 1);
 
 
 --
 -- Data for Name: dt_pais; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.dt_pais (id, nombre) FROM stdin;
-1	Afganistán
-2	Albania
-3	Alemania
-4	Andorra
-5	Ango
-6	Antigua y Barbuda
-7	Arabia Saudita
-8	Argia
-9	Argentina
-10	Armenia
-11	Australia
-12	Austria
-13	Azerbaiyán
-14	Bahamas s
-15	Bahrein
-16	Bangdesh
-17	Barbados
-18	Barús
-19	Bélgica
-20	Bice
-21	Benin
-22	Bhután
-23	Bolivia Estado Plurinacional de
-24	Bosnia y Herzegovina
-25	Botswana
-26	Brasil
-27	Brunei Darussam
-28	Bulgaria
-29	Burkina Faso
-30	Burundi
-31	Cabo Verde
-32	Camboya
-33	Camerún
-34	Canadá
-35	Chad
-36	Chequia
-37	Chile
-38	China
-39	Chipre
-40	Colombia
-41	Comoras s
-42	Congo
-43	Costa Rica
-44	Côte d’Ivoire
-45	Croacia
-46	Cuba
-47	Dinamarca
-48	Djibouti
-49	Dominica
-50	Ecuador
-51	Egipto
-52	 Salvador
-53	Emiratos Árabes Unidos
-54	Eritrea
-55	Eslovaquia
-56	Eslovenia
-57	España
-58	Estados Unidos de América
-59	Estonia
-60	Eswatini
-61	Etiopía
-62	Federación de Rusia
-63	Fiji
-64	Filipinas
-65	Finndia
-66	Francia
-67	Gabón
-68	Gambia
-69	Georgia
-70	Ghana
-71	Granada
-72	Grecia
-73	Guatema
-74	Guinea
-75	Guinea Ecuatorial
-76	Guinea-Bissau
-77	Guyana
-78	Haití
-79	Honduras
-80	Hungría
-81	India
-82	Indonesia
-83	Irán República Islámica d
-84	Iraq
-85	Irnda
-86	Isndia
-87	Iss Cook s
-88	Iss Marshall s
-89	Iss Salomón s
-90	Isra
-91	Italia
-92	Jamaica
-93	Japón
-94	Jordania
-95	Kazajstán
-96	Kenya
-97	Kirguistán
-98	Kiribati
-99	Kuwait
-100	Lesotho
-101	Letonia
-102	Líbano
-103	Liberia
-104	Libia
-105	Liechtenstein
-106	Lituania
-107	Luxemburgo
-108	Madagascar
-109	Masia
-110	Mawi
-111	Maldivas
-112	Malí
-113	Malta
-114	Marruecos
-115	Mauricio
-116	Mauritania
-117	México
-118	Micronesia Estados Federados de
-119	Mónaco
-120	Mongolia
-121	Montenegro
-122	Mozambique
-123	Myanmar
-124	Namibia
-125	Nauru
-126	Nepal
-127	Nicaragua
-128	Níger
-129	Nigeria
-130	Niue
-131	Noruega
-132	Nueva Zandia
-133	Omán
-134	Países Bajos
-135	Pakistán
-136	Pau
-137	Panamá
-138	Papua Nueva Guinea
-139	Paraguay
-140	Perú
-141	Polonia
-142	Portugal
-143	Qatar
-144	Reino Unido de Gran Bretaña e Irnda d Norte
-145	República Árabe Siria
-146	República Centroafricana
-147	República de Corea
-148	República de Macedonia d Norte
-149	Nombre corto: Macedonia d Norte
-150	República de Moldova
-151	República Democrática d Congo
-152	República Democrática Popur o
-153	República Dominicana
-154	República Popur Democrática de Corea
-155	República Unida de Tanzanía
-156	Rumania
-157	Rwanda
-158	Saint Kitts y Nevis
-159	Samoa
-160	San Marino
-161	San Vicente y s Granadinas
-162	Santa Lucía
-163	Santa Sede
-164	Santo Tomé y Príncipe
-165	Senegal
-166	Serbia
-167	Seychles
-168	Sierra Leona
-169	Singapur
-170	Somalia
-171	Sri nka
-172	Sudáfrica
-173	Sudán
-174	Sudán d Sur
-175	Suecia
-176	Suiza
-177	Suriname
-178	Taindia
-179	Tayikistán
-180	Timor-Leste
-181	Togo
-182	Tonga
-183	Trinidad y Tabago
-184	Túnez
-185	Turkmenistán
-186	Turquía
-187	Tuvalu
-188	Ucrania
-189	Uganda
-190	Uruguay
-191	Uzbekistán
-192	Vanuatu
-193	Venezua República Bolivariana de
-194	Viet Nam
-195	Yemen
-196	Zambia
-197	Zimbabwe
-1183	Afganistán
-1184	Albania
-1185	Alemania
-1186	Andorra
-1187	Ango
-1188	Antigua y Barbuda
-1189	Arabia Saudita
-1190	Argia
-1191	Argentina
-1192	Armenia
-1193	Australia
-1194	Austria
-1195	Azerbaiyán
-1196	Bahamas s
-1197	Bahrein
-1198	Bangdesh
-1199	Barbados
-1200	Barús
-1201	Bélgica
-1202	Bice
-1203	Benin
-1204	Bhután
-1205	Bolivia Estado Plurinacional de
-1206	Bosnia y Herzegovina
-1207	Botswana
-1208	Brasil
-1209	Brunei Darussam
-1210	Bulgaria
-1211	Burkina Faso
-1212	Burundi
-1213	Cabo Verde
-1214	Camboya
-1215	Camerún
-1216	Canadá
-1217	Chad
-1218	Chequia
-1219	Chile
-1220	China
-1221	Chipre
-1222	Colombia
-1223	Comoras s
-1224	Congo
-1225	Costa Rica
-1226	Côte d’Ivoire
-1227	Croacia
-1228	Cuba
-1229	Dinamarca
-1230	Djibouti
-1231	Dominica
-1232	Ecuador
-1233	Egipto
-1234	 Salvador
-1235	Emiratos Árabes Unidos
-1236	Eritrea
-1237	Eslovaquia
-1238	Eslovenia
-1239	España
-1240	Estados Unidos de América
-1241	Estonia
-1242	Eswatini
-1243	Etiopía
-1244	Federación de Rusia
-1245	Fiji
-1246	Filipinas
-1247	Finndia
-1248	Francia
-1249	Gabón
-1250	Gambia
-1251	Georgia
-1252	Ghana
-1253	Granada
-1254	Grecia
-1255	Guatema
-1256	Guinea
-1257	Guinea Ecuatorial
-1258	Guinea-Bissau
-1259	Guyana
-1260	Haití
-1261	Honduras
-1262	Hungría
-1263	India
-1264	Indonesia
-1265	Irán República Islámica d
-1266	Iraq
-1267	Irnda
-1268	Isndia
-1269	Iss Cook s
-1270	Iss Marshall s
-1271	Iss Salomón s
-1272	Isra
-1273	Italia
-1274	Jamaica
-1275	Japón
-1276	Jordania
-1277	Kazajstán
-1278	Kenya
-1279	Kirguistán
-1280	Kiribati
-1281	Kuwait
-1282	Lesotho
-1283	Letonia
-1284	Líbano
-1285	Liberia
-1286	Libia
-1287	Liechtenstein
-1288	Lituania
-1289	Luxemburgo
-1290	Madagascar
-1291	Masia
-1292	Mawi
-1293	Maldivas
-1294	Malí
-1295	Malta
-1296	Marruecos
-1297	Mauricio
-1298	Mauritania
-1299	México
-1300	Micronesia Estados Federados de
-1301	Mónaco
-1302	Mongolia
-1303	Montenegro
-1304	Mozambique
-1305	Myanmar
-1306	Namibia
-1307	Nauru
-1308	Nepal
-1309	Nicaragua
-1310	Níger
-1311	Nigeria
-1312	Niue
-1313	Noruega
-1314	Nueva Zandia
-1315	Omán
-1316	Países Bajos
-1317	Pakistán
-1318	Pau
-1319	Panamá
-1320	Papua Nueva Guinea
-1321	Paraguay
-1322	Perú
-1323	Polonia
-1324	Portugal
-1325	Qatar
-1326	Reino Unido de Gran Bretaña e Irnda d Norte
-1327	República Árabe Siria
-1328	República Centroafricana
-1329	República de Corea
-1330	República de Macedonia d Norte
-1331	Nombre corto: Macedonia d Norte
-1332	República de Moldova
-1333	República Democrática d Congo
-1334	República Democrática Popur o
-1335	República Dominicana
-1336	República Popur Democrática de Corea
-1337	República Unida de Tanzanía
-1338	Rumania
-1339	Rwanda
-1340	Saint Kitts y Nevis
-1341	Samoa
-1342	San Marino
-1343	San Vicente y s Granadinas
-1344	Santa Lucía
-1345	Santa Sede
-1346	Santo Tomé y Príncipe
-1347	Senegal
-1348	Serbia
-1349	Seychles
-1350	Sierra Leona
-1351	Singapur
-1352	Somalia
-1353	Sri nka
-1354	Sudáfrica
-1355	Sudán
-1356	Sudán d Sur
-1357	Suecia
-1358	Suiza
-1359	Suriname
-1360	Taindia
-1361	Tayikistán
-1362	Timor-Leste
-1363	Togo
-1364	Tonga
-1365	Trinidad y Tabago
-1366	Túnez
-1367	Turkmenistán
-1368	Turquía
-1369	Tuvalu
-1370	Ucrania
-1371	Uganda
-1372	Uruguay
-1373	Uzbekistán
-1374	Vanuatu
-1375	Venezua República Bolivariana de
-1376	Viet Nam
-1377	Yemen
-1378	Zambia
-1379	Zimbabwe
-1380	Afganistán
-1381	Albania
-1382	Alemania
-1383	Andorra
-1384	Ango
-1385	Antigua y Barbuda
-1386	Arabia Saudita
-1387	Argia
-1388	Argentina
-1389	Armenia
-1390	Australia
-1391	Austria
-1392	Azerbaiyán
-1393	Bahamas s
-1394	Bahrein
-1395	Bangdesh
-1396	Barbados
-1397	Barús
-1398	Bélgica
-1399	Bice
-1400	Benin
-1401	Bhután
-1402	Bolivia Estado Plurinacional de
-1403	Bosnia y Herzegovina
-1404	Botswana
-1405	Brasil
-1406	Brunei Darussam
-1407	Bulgaria
-1408	Burkina Faso
-1409	Burundi
-1410	Cabo Verde
-1411	Camboya
-1412	Camerún
-1413	Canadá
-1414	Chad
-1415	Chequia
-1416	Chile
-1417	China
-1418	Chipre
-1419	Colombia
-1420	Comoras s
-1421	Congo
-1422	Costa Rica
-1423	Côte d’Ivoire
-1424	Croacia
-1425	Cuba
-1426	Dinamarca
-1427	Djibouti
-1428	Dominica
-1429	Ecuador
-1430	Egipto
-1431	 Salvador
-1432	Emiratos Árabes Unidos
-1433	Eritrea
-1434	Eslovaquia
-1435	Eslovenia
-1436	España
-1437	Estados Unidos de América
-1438	Estonia
-1439	Eswatini
-1440	Etiopía
-1441	Federación de Rusia
-1442	Fiji
-1443	Filipinas
-1444	Finndia
-1445	Francia
-1446	Gabón
-1447	Gambia
-1448	Georgia
-1449	Ghana
-1450	Granada
-1451	Grecia
-1452	Guatema
-1453	Guinea
-1454	Guinea Ecuatorial
-1455	Guinea-Bissau
-1456	Guyana
-1457	Haití
-1458	Honduras
-1459	Hungría
-1460	India
-1461	Indonesia
-1462	Irán República Islámica d
-1463	Iraq
-1464	Irnda
-1465	Isndia
-1466	Iss Cook s
-1467	Iss Marshall s
-1468	Iss Salomón s
-1469	Isra
-1470	Italia
-1471	Jamaica
-1472	Japón
-1473	Jordania
-1474	Kazajstán
-1475	Kenya
-1476	Kirguistán
-1477	Kiribati
-1478	Kuwait
-1479	Lesotho
-1480	Letonia
-1481	Líbano
-1482	Liberia
-1483	Libia
-1484	Liechtenstein
-1485	Lituania
-1486	Luxemburgo
-1487	Madagascar
-1488	Masia
-1489	Mawi
-1490	Maldivas
-1491	Malí
-1492	Malta
-1493	Marruecos
-1494	Mauricio
-1495	Mauritania
-1496	México
-1497	Micronesia Estados Federados de
-1498	Mónaco
-1499	Mongolia
-1500	Montenegro
-1501	Mozambique
-1502	Myanmar
-1503	Namibia
-1504	Nauru
-1505	Nepal
-1506	Nicaragua
-1507	Níger
-1508	Nigeria
-1509	Niue
-1510	Noruega
-1511	Nueva Zandia
-1512	Omán
-1513	Países Bajos
-1514	Pakistán
-1515	Pau
-1516	Panamá
-1517	Papua Nueva Guinea
-1518	Paraguay
-1519	Perú
-1520	Polonia
-1521	Portugal
-1522	Qatar
-1523	Reino Unido de Gran Bretaña e Irnda d Norte
-1524	República Árabe Siria
-1525	República Centroafricana
-1526	República de Corea
-1527	República de Macedonia d Norte
-1528	Nombre corto: Macedonia d Norte
-1529	República de Moldova
-1530	República Democrática d Congo
-1531	República Democrática Popur o
-1532	República Dominicana
-1533	República Popur Democrática de Corea
-1534	República Unida de Tanzanía
-1535	Rumania
-1536	Rwanda
-1537	Saint Kitts y Nevis
-1538	Samoa
-1539	San Marino
-1540	San Vicente y s Granadinas
-1541	Santa Lucía
-1542	Santa Sede
-1543	Santo Tomé y Príncipe
-1544	Senegal
-1545	Serbia
-1546	Seychles
-1547	Sierra Leona
-1548	Singapur
-1549	Somalia
-1550	Sri nka
-1551	Sudáfrica
-1552	Sudán
-1553	Sudán d Sur
-1554	Suecia
-1555	Suiza
-1556	Suriname
-1557	Taindia
-1558	Tayikistán
-1559	Timor-Leste
-1560	Togo
-1561	Tonga
-1562	Trinidad y Tabago
-1563	Túnez
-1564	Turkmenistán
-1565	Turquía
-1566	Tuvalu
-1567	Ucrania
-1568	Uganda
-1569	Uruguay
-1570	Uzbekistán
-1571	Vanuatu
-1572	Venezua República Bolivariana de
-1573	Viet Nam
-1574	Yemen
-1575	Zambia
-1576	Zimbabwe
-1577	Afganistán
-1578	Albania
-1579	Alemania
-1580	Andorra
-1581	Ango
-1582	Antigua y Barbuda
-1583	Arabia Saudita
-1584	Argia
-1585	Argentina
-1586	Armenia
-1587	Australia
-1588	Austria
-1589	Azerbaiyán
-1590	Bahamas s
-1591	Bahrein
-1592	Bangdesh
-1593	Barbados
-1594	Barús
-1595	Bélgica
-1596	Bice
-1597	Benin
-1598	Bhután
-1599	Bolivia Estado Plurinacional de
-1600	Bosnia y Herzegovina
-1601	Botswana
-1602	Brasil
-1603	Brunei Darussam
-1604	Bulgaria
-1605	Burkina Faso
-1606	Burundi
-1607	Cabo Verde
-1608	Camboya
-1609	Camerún
-1610	Canadá
-1611	Chad
-1612	Chequia
-1613	Chile
-1614	China
-1615	Chipre
-1616	Colombia
-1617	Comoras s
-1618	Congo
-1619	Costa Rica
-1620	Côte d’Ivoire
-1621	Croacia
-1622	Cuba
-1623	Dinamarca
-1624	Djibouti
-1625	Dominica
-1626	Ecuador
-1627	Egipto
-1628	 Salvador
-1629	Emiratos Árabes Unidos
-1630	Eritrea
-1631	Eslovaquia
-1632	Eslovenia
-1633	España
-1634	Estados Unidos de América
-1635	Estonia
-1636	Eswatini
-1637	Etiopía
-1638	Federación de Rusia
-1639	Fiji
-1640	Filipinas
-1641	Finndia
-1642	Francia
-1643	Gabón
-1644	Gambia
-1645	Georgia
-1646	Ghana
-1647	Granada
-1648	Grecia
-1649	Guatema
-1650	Guinea
-1651	Guinea Ecuatorial
-1652	Guinea-Bissau
-1653	Guyana
-1654	Haití
-1655	Honduras
-1656	Hungría
-1657	India
-1658	Indonesia
-1659	Irán República Islámica d
-1660	Iraq
-1661	Irnda
-1662	Isndia
-1663	Iss Cook s
-1664	Iss Marshall s
-1665	Iss Salomón s
-1666	Isra
-1667	Italia
-1668	Jamaica
-1669	Japón
-1670	Jordania
-1671	Kazajstán
-1672	Kenya
-1673	Kirguistán
-1674	Kiribati
-1675	Kuwait
-1676	Lesotho
-1677	Letonia
-1678	Líbano
-1679	Liberia
-1680	Libia
-1681	Liechtenstein
-1682	Lituania
-1683	Luxemburgo
-1684	Madagascar
-1685	Masia
-1686	Mawi
-1687	Maldivas
-1688	Malí
-1689	Malta
-1690	Marruecos
-1691	Mauricio
-1692	Mauritania
-1693	México
-1694	Micronesia Estados Federados de
-1695	Mónaco
-1696	Mongolia
-1697	Montenegro
-1698	Mozambique
-1699	Myanmar
-1700	Namibia
-1701	Nauru
-1702	Nepal
-1703	Nicaragua
-1704	Níger
-1705	Nigeria
-1706	Niue
-1707	Noruega
-1708	Nueva Zandia
-1709	Omán
-1710	Países Bajos
-1711	Pakistán
-1712	Pau
-1713	Panamá
-1714	Papua Nueva Guinea
-1715	Paraguay
-1716	Perú
-1717	Polonia
-1718	Portugal
-1719	Qatar
-1720	Reino Unido de Gran Bretaña e Irnda d Norte
-1721	República Árabe Siria
-1722	República Centroafricana
-1723	República de Corea
-1724	República de Macedonia d Norte
-1725	Nombre corto: Macedonia d Norte
-1726	República de Moldova
-1727	República Democrática d Congo
-1728	República Democrática Popur o
-1729	República Dominicana
-1730	República Popur Democrática de Corea
-1731	República Unida de Tanzanía
-1732	Rumania
-1733	Rwanda
-1734	Saint Kitts y Nevis
-1735	Samoa
-1736	San Marino
-1737	San Vicente y s Granadinas
-1738	Santa Lucía
-1739	Santa Sede
-1740	Santo Tomé y Príncipe
-1741	Senegal
-1742	Serbia
-1743	Seychles
-1744	Sierra Leona
-1745	Singapur
-1746	Somalia
-1747	Sri nka
-1748	Sudáfrica
-1749	Sudán
-1750	Sudán d Sur
-1751	Suecia
-1752	Suiza
-1753	Suriname
-1754	Taindia
-1755	Tayikistán
-1756	Timor-Leste
-1757	Togo
-1758	Tonga
-1759	Trinidad y Tabago
-1760	Túnez
-1761	Turkmenistán
-1762	Turquía
-1763	Tuvalu
-1764	Ucrania
-1765	Uganda
-1766	Uruguay
-1767	Uzbekistán
-1768	Vanuatu
-1769	Venezua República Bolivariana de
-1770	Viet Nam
-1771	Yemen
-1772	Zambia
-1773	Zimbabwe
-1774	Afganistán
-1775	Albania
-1776	Alemania
-1777	Andorra
-1778	Ango
-1779	Antigua y Barbuda
-1780	Arabia Saudita
-1781	Argia
-1782	Argentina
-1783	Armenia
-1784	Australia
-1785	Austria
-1786	Azerbaiyán
-1787	Bahamas s
-1788	Bahrein
-1789	Bangdesh
-1790	Barbados
-1791	Barús
-1792	Bélgica
-1793	Bice
-1794	Benin
-1795	Bhután
-1796	Bolivia Estado Plurinacional de
-1797	Bosnia y Herzegovina
-1798	Botswana
-1799	Brasil
-1800	Brunei Darussam
-1801	Bulgaria
-1802	Burkina Faso
-1803	Burundi
-1804	Cabo Verde
-1805	Camboya
-1806	Camerún
-1807	Canadá
-1808	Chad
-1809	Chequia
-1810	Chile
-1811	China
-1812	Chipre
-1813	Colombia
-1814	Comoras s
-1815	Congo
-1816	Costa Rica
-1817	Côte d’Ivoire
-1818	Croacia
-1819	Cuba
-1820	Dinamarca
-1821	Djibouti
-1822	Dominica
-1823	Ecuador
-1824	Egipto
-1825	 Salvador
-1826	Emiratos Árabes Unidos
-1827	Eritrea
-1828	Eslovaquia
-1829	Eslovenia
-1830	España
-1831	Estados Unidos de América
-1832	Estonia
-1833	Eswatini
-1834	Etiopía
-1835	Federación de Rusia
-1836	Fiji
-1837	Filipinas
-1838	Finndia
-1839	Francia
-1840	Gabón
-1841	Gambia
-1842	Georgia
-1843	Ghana
-1844	Granada
-1845	Grecia
-1846	Guatema
-1847	Guinea
-1848	Guinea Ecuatorial
-1849	Guinea-Bissau
-1850	Guyana
-1851	Haití
-1852	Honduras
-1853	Hungría
-1854	India
-1855	Indonesia
-1856	Irán República Islámica d
-1857	Iraq
-1858	Irnda
-1859	Isndia
-1860	Iss Cook s
-1861	Iss Marshall s
-1862	Iss Salomón s
-1863	Isra
-1864	Italia
-1865	Jamaica
-1866	Japón
-1867	Jordania
-1868	Kazajstán
-1869	Kenya
-1870	Kirguistán
-1871	Kiribati
-1872	Kuwait
-1873	Lesotho
-1874	Letonia
-1875	Líbano
-1876	Liberia
-1877	Libia
-1878	Liechtenstein
-1879	Lituania
-1880	Luxemburgo
-1881	Madagascar
-1882	Masia
-1883	Mawi
-1884	Maldivas
-1885	Malí
-1886	Malta
-1887	Marruecos
-1888	Mauricio
-1889	Mauritania
-1890	México
-1891	Micronesia Estados Federados de
-1892	Mónaco
-1893	Mongolia
-1894	Montenegro
-1895	Mozambique
-1896	Myanmar
-1897	Namibia
-1898	Nauru
-1899	Nepal
-1900	Nicaragua
-1901	Níger
-1902	Nigeria
-1903	Niue
-1904	Noruega
-1905	Nueva Zandia
-1906	Omán
-1907	Países Bajos
-1908	Pakistán
-1909	Pau
-1910	Panamá
-1911	Papua Nueva Guinea
-1912	Paraguay
-1913	Perú
-1914	Polonia
-1915	Portugal
-1916	Qatar
-1917	Reino Unido de Gran Bretaña e Irnda d Norte
-1918	República Árabe Siria
-1919	República Centroafricana
-1920	República de Corea
-1921	República de Macedonia d Norte
-1922	Nombre corto: Macedonia d Norte
-1923	República de Moldova
-1924	República Democrática d Congo
-1925	República Democrática Popur o
-1926	República Dominicana
-1927	República Popur Democrática de Corea
-1928	República Unida de Tanzanía
-1929	Rumania
-1930	Rwanda
-1931	Saint Kitts y Nevis
-1932	Samoa
-1933	San Marino
-1934	San Vicente y s Granadinas
-1935	Santa Lucía
-1936	Santa Sede
-1937	Santo Tomé y Príncipe
-1938	Senegal
-1939	Serbia
-1940	Seychles
-1941	Sierra Leona
-1942	Singapur
-1943	Somalia
-1944	Sri nka
-1945	Sudáfrica
-1946	Sudán
-1947	Sudán d Sur
-1948	Suecia
-1949	Suiza
-1950	Suriname
-1951	Taindia
-1952	Tayikistán
-1953	Timor-Leste
-1954	Togo
-1955	Tonga
-1956	Trinidad y Tabago
-1957	Túnez
-1958	Turkmenistán
-1959	Turquía
-1960	Tuvalu
-1961	Ucrania
-1962	Uganda
-1963	Uruguay
-1964	Uzbekistán
-1965	Vanuatu
-1966	Venezua República Bolivariana de
-1967	Viet Nam
-1968	Yemen
-1969	Zambia
-1970	Zimbabwe
-1971	Afganistán
-1972	Albania
-1973	Alemania
-1974	Andorra
-1975	Ango
-1976	Antigua y Barbuda
-1977	Arabia Saudita
-1978	Argia
-1979	Argentina
-1980	Armenia
-1981	Australia
-1982	Austria
-1983	Azerbaiyán
-1984	Bahamas s
-1985	Bahrein
-1986	Bangdesh
-1987	Barbados
-1988	Barús
-1989	Bélgica
-1990	Bice
-1991	Benin
-1992	Bhután
-1993	Bolivia Estado Plurinacional de
-1994	Bosnia y Herzegovina
-1995	Botswana
-1996	Brasil
-1997	Brunei Darussam
-1998	Bulgaria
-1999	Burkina Faso
-2000	Burundi
-2001	Cabo Verde
-2002	Camboya
-2003	Camerún
-2004	Canadá
-2005	Chad
-2006	Chequia
-2007	Chile
-2008	China
-2009	Chipre
-2010	Colombia
-2011	Comoras s
-2012	Congo
-2013	Costa Rica
-2014	Côte d’Ivoire
-2015	Croacia
-2016	Cuba
-2017	Dinamarca
-2018	Djibouti
-2019	Dominica
-2020	Ecuador
-2021	Egipto
-2022	 Salvador
-2023	Emiratos Árabes Unidos
-2024	Eritrea
-2025	Eslovaquia
-2026	Eslovenia
-2027	España
-2028	Estados Unidos de América
-2029	Estonia
-2030	Eswatini
-2031	Etiopía
-2032	Federación de Rusia
-2033	Fiji
-2034	Filipinas
-2035	Finndia
-2036	Francia
-2037	Gabón
-2038	Gambia
-2039	Georgia
-2040	Ghana
-2041	Granada
-2042	Grecia
-2043	Guatema
-2044	Guinea
-2045	Guinea Ecuatorial
-2046	Guinea-Bissau
-2047	Guyana
-2048	Haití
-2049	Honduras
-2050	Hungría
-2051	India
-2052	Indonesia
-2053	Irán República Islámica d
-2054	Iraq
-2055	Irnda
-2056	Isndia
-2057	Iss Cook s
-2058	Iss Marshall s
-2059	Iss Salomón s
-2060	Isra
-2061	Italia
-2062	Jamaica
-2063	Japón
-2064	Jordania
-2065	Kazajstán
-2066	Kenya
-2067	Kirguistán
-2068	Kiribati
-2069	Kuwait
-2070	Lesotho
-2071	Letonia
-2072	Líbano
-2073	Liberia
-2074	Libia
-2075	Liechtenstein
-2076	Lituania
-2077	Luxemburgo
-2078	Madagascar
-2079	Masia
-2080	Mawi
-2081	Maldivas
-2082	Malí
-2083	Malta
-2084	Marruecos
-2085	Mauricio
-2086	Mauritania
-2087	México
-2088	Micronesia Estados Federados de
-2089	Mónaco
-2090	Mongolia
-2091	Montenegro
-2092	Mozambique
-2093	Myanmar
-2094	Namibia
-2095	Nauru
-2096	Nepal
-2097	Nicaragua
-2098	Níger
-2099	Nigeria
-2100	Niue
-2101	Noruega
-2102	Nueva Zandia
-2103	Omán
-2104	Países Bajos
-2105	Pakistán
-2106	Pau
-2107	Panamá
-2108	Papua Nueva Guinea
-2109	Paraguay
-2110	Perú
-2111	Polonia
-2112	Portugal
-2113	Qatar
-2114	Reino Unido de Gran Bretaña e Irnda d Norte
-2115	República Árabe Siria
-2116	República Centroafricana
-2117	República de Corea
-2118	República de Macedonia d Norte
-2119	Nombre corto: Macedonia d Norte
-2120	República de Moldova
-2121	República Democrática d Congo
-2122	República Democrática Popur o
-2123	República Dominicana
-2124	República Popur Democrática de Corea
-2125	República Unida de Tanzanía
-2126	Rumania
-2127	Rwanda
-2128	Saint Kitts y Nevis
-2129	Samoa
-2130	San Marino
-2131	San Vicente y s Granadinas
-2132	Santa Lucía
-2133	Santa Sede
-2134	Santo Tomé y Príncipe
-2135	Senegal
-2136	Serbia
-2137	Seychles
-2138	Sierra Leona
-2139	Singapur
-2140	Somalia
-2141	Sri nka
-2142	Sudáfrica
-2143	Sudán
-2144	Sudán d Sur
-2145	Suecia
-2146	Suiza
-2147	Suriname
-2148	Taindia
-2149	Tayikistán
-2150	Timor-Leste
-2151	Togo
-2152	Tonga
-2153	Trinidad y Tabago
-2154	Túnez
-2155	Turkmenistán
-2156	Turquía
-2157	Tuvalu
-2158	Ucrania
-2159	Uganda
-2160	Uruguay
-2161	Uzbekistán
-2162	Vanuatu
-2163	Venezua República Bolivariana de
-2164	Viet Nam
-2165	Yemen
-2166	Zambia
-2167	Zimbabwe
-2168	Afganistán
-2169	Albania
-2170	Alemania
-2171	Andorra
-2172	Ango
-2173	Antigua y Barbuda
-2174	Arabia Saudita
-2175	Argia
-2176	Argentina
-2177	Armenia
-2178	Australia
-2179	Austria
-2180	Azerbaiyán
-2181	Bahamas s
-2182	Bahrein
-2183	Bangdesh
-2184	Barbados
-2185	Barús
-2186	Bélgica
-2187	Bice
-2188	Benin
-2189	Bhután
-2190	Bolivia Estado Plurinacional de
-2191	Bosnia y Herzegovina
-2192	Botswana
-2193	Brasil
-2194	Brunei Darussam
-2195	Bulgaria
-2196	Burkina Faso
-2197	Burundi
-2198	Cabo Verde
-2199	Camboya
-2200	Camerún
-2201	Canadá
-2202	Chad
-2203	Chequia
-2204	Chile
-2205	China
-2206	Chipre
-2207	Colombia
-2208	Comoras s
-2209	Congo
-2210	Costa Rica
-2211	Côte d’Ivoire
-2212	Croacia
-2213	Cuba
-2214	Dinamarca
-2215	Djibouti
-2216	Dominica
-2217	Ecuador
-2218	Egipto
-2219	 Salvador
-2220	Emiratos Árabes Unidos
-2221	Eritrea
-2222	Eslovaquia
-2223	Eslovenia
-2224	España
-2225	Estados Unidos de América
-2226	Estonia
-2227	Eswatini
-2228	Etiopía
-2229	Federación de Rusia
-2230	Fiji
-2231	Filipinas
-2232	Finndia
-2233	Francia
-2234	Gabón
-2235	Gambia
-2236	Georgia
-2237	Ghana
-2238	Granada
-2239	Grecia
-2240	Guatema
-2241	Guinea
-2242	Guinea Ecuatorial
-2243	Guinea-Bissau
-2244	Guyana
-2245	Haití
-2246	Honduras
-2247	Hungría
-2248	India
-2249	Indonesia
-2250	Irán República Islámica d
-2251	Iraq
-2252	Irnda
-2253	Isndia
-2254	Iss Cook s
-2255	Iss Marshall s
-2256	Iss Salomón s
-2257	Isra
-2258	Italia
-2259	Jamaica
-2260	Japón
-2261	Jordania
-2262	Kazajstán
-2263	Kenya
-2264	Kirguistán
-2265	Kiribati
-2266	Kuwait
-2267	Lesotho
-2268	Letonia
-2269	Líbano
-2270	Liberia
-2271	Libia
-2272	Liechtenstein
-2273	Lituania
-2274	Luxemburgo
-2275	Madagascar
-2276	Masia
-2277	Mawi
-2278	Maldivas
-2279	Malí
-2280	Malta
-2281	Marruecos
-2282	Mauricio
-2283	Mauritania
-2284	México
-2285	Micronesia Estados Federados de
-2286	Mónaco
-2287	Mongolia
-2288	Montenegro
-2289	Mozambique
-2290	Myanmar
-2291	Namibia
-2292	Nauru
-2293	Nepal
-2294	Nicaragua
-2295	Níger
-2296	Nigeria
-2297	Niue
-2298	Noruega
-2299	Nueva Zandia
-2300	Omán
-2301	Países Bajos
-2302	Pakistán
-2303	Pau
-2304	Panamá
-2305	Papua Nueva Guinea
-2306	Paraguay
-2307	Perú
-2308	Polonia
-2309	Portugal
-2310	Qatar
-2311	Reino Unido de Gran Bretaña e Irnda d Norte
-2312	República Árabe Siria
-2313	República Centroafricana
-2314	República de Corea
-2315	República de Macedonia d Norte
-2316	Nombre corto: Macedonia d Norte
-2317	República de Moldova
-2318	República Democrática d Congo
-2319	República Democrática Popur o
-2320	República Dominicana
-2321	República Popur Democrática de Corea
-2322	República Unida de Tanzanía
-2323	Rumania
-2324	Rwanda
-2325	Saint Kitts y Nevis
-2326	Samoa
-2327	San Marino
-2328	San Vicente y s Granadinas
-2329	Santa Lucía
-2330	Santa Sede
-2331	Santo Tomé y Príncipe
-2332	Senegal
-2333	Serbia
-2334	Seychles
-2335	Sierra Leona
-2336	Singapur
-2337	Somalia
-2338	Sri nka
-2339	Sudáfrica
-2340	Sudán
-2341	Sudán d Sur
-2342	Suecia
-2343	Suiza
-2344	Suriname
-2345	Taindia
-2346	Tayikistán
-2347	Timor-Leste
-2348	Togo
-2349	Tonga
-2350	Trinidad y Tabago
-2351	Túnez
-2352	Turkmenistán
-2353	Turquía
-2354	Tuvalu
-2355	Ucrania
-2356	Uganda
-2357	Uruguay
-2358	Uzbekistán
-2359	Vanuatu
-2360	Venezua República Bolivariana de
-2361	Viet Nam
-2362	Yemen
-2363	Zambia
-2364	Zimbabwe
-2365	Afganistán
-2366	Albania
-2367	Alemania
-2368	Andorra
-2369	Ango
-2370	Antigua y Barbuda
-2371	Arabia Saudita
-2372	Argia
-2373	Argentina
-2374	Armenia
-2375	Australia
-2376	Austria
-2377	Azerbaiyán
-2378	Bahamas s
-2379	Bahrein
-2380	Bangdesh
-2381	Barbados
-2382	Barús
-2383	Bélgica
-2384	Bice
-2385	Benin
-2386	Bhután
-2387	Bolivia Estado Plurinacional de
-2388	Bosnia y Herzegovina
-2389	Botswana
-2390	Brasil
-2391	Brunei Darussam
-2392	Bulgaria
-2393	Burkina Faso
-2394	Burundi
-2395	Cabo Verde
-2396	Camboya
-2397	Camerún
-2398	Canadá
-2399	Chad
-2400	Chequia
-2401	Chile
-2402	China
-2403	Chipre
-2404	Colombia
-2405	Comoras s
-2406	Congo
-2407	Costa Rica
-2408	Côte d’Ivoire
-2409	Croacia
-2410	Cuba
-2411	Dinamarca
-2412	Djibouti
-2413	Dominica
-2414	Ecuador
-2415	Egipto
-2416	 Salvador
-2417	Emiratos Árabes Unidos
-2418	Eritrea
-2419	Eslovaquia
-2420	Eslovenia
-2421	España
-2422	Estados Unidos de América
-2423	Estonia
-2424	Eswatini
-2425	Etiopía
-2426	Federación de Rusia
-2427	Fiji
-2428	Filipinas
-2429	Finndia
-2430	Francia
-2431	Gabón
-2432	Gambia
-2433	Georgia
-2434	Ghana
-2435	Granada
-2436	Grecia
-2437	Guatema
-2438	Guinea
-2439	Guinea Ecuatorial
-2440	Guinea-Bissau
-2441	Guyana
-2442	Haití
-2443	Honduras
-2444	Hungría
-2445	India
-2446	Indonesia
-2447	Irán República Islámica d
-2448	Iraq
-2449	Irnda
-2450	Isndia
-2451	Iss Cook s
-2452	Iss Marshall s
-2453	Iss Salomón s
-2454	Isra
-2455	Italia
-2456	Jamaica
-2457	Japón
-2458	Jordania
-2459	Kazajstán
-2460	Kenya
-2461	Kirguistán
-2462	Kiribati
-2463	Kuwait
-2464	Lesotho
-2465	Letonia
-2466	Líbano
-2467	Liberia
-2468	Libia
-2469	Liechtenstein
-2470	Lituania
-2471	Luxemburgo
-2472	Madagascar
-2473	Masia
-2474	Mawi
-2475	Maldivas
-2476	Malí
-2477	Malta
-2478	Marruecos
-2479	Mauricio
-2480	Mauritania
-2481	México
-2482	Micronesia Estados Federados de
-2483	Mónaco
-2484	Mongolia
-2485	Montenegro
-2486	Mozambique
-2487	Myanmar
-2488	Namibia
-2489	Nauru
-2490	Nepal
-2491	Nicaragua
-2492	Níger
-2493	Nigeria
-2494	Niue
-2495	Noruega
-2496	Nueva Zandia
-2497	Omán
-2498	Países Bajos
-2499	Pakistán
-2500	Pau
-2501	Panamá
-2502	Papua Nueva Guinea
-2503	Paraguay
-2504	Perú
-2505	Polonia
-2506	Portugal
-2507	Qatar
-2508	Reino Unido de Gran Bretaña e Irnda d Norte
-2509	República Árabe Siria
-2510	República Centroafricana
-2511	República de Corea
-2512	República de Macedonia d Norte
-2513	Nombre corto: Macedonia d Norte
-2514	República de Moldova
-2515	República Democrática d Congo
-2516	República Democrática Popur o
-2517	República Dominicana
-2518	República Popur Democrática de Corea
-2519	República Unida de Tanzanía
-2520	Rumania
-2521	Rwanda
-2522	Saint Kitts y Nevis
-2523	Samoa
-2524	San Marino
-2525	San Vicente y s Granadinas
-2526	Santa Lucía
-2527	Santa Sede
-2528	Santo Tomé y Príncipe
-2529	Senegal
-2530	Serbia
-2531	Seychles
-2532	Sierra Leona
-2533	Singapur
-2534	Somalia
-2535	Sri nka
-2536	Sudáfrica
-2537	Sudán
-2538	Sudán d Sur
-2539	Suecia
-2540	Suiza
-2541	Suriname
-2542	Taindia
-2543	Tayikistán
-2544	Timor-Leste
-2545	Togo
-2546	Tonga
-2547	Trinidad y Tabago
-2548	Túnez
-2549	Turkmenistán
-2550	Turquía
-2551	Tuvalu
-2552	Ucrania
-2553	Uganda
-2554	Uruguay
-2555	Uzbekistán
-2556	Vanuatu
-2557	Venezua República Bolivariana de
-2558	Viet Nam
-2559	Yemen
-2560	Zambia
-2561	Zimbabwe
-2562	Afganistán
-2563	Albania
-2564	Alemania
-2565	Andorra
-2566	Ango
-2567	Antigua y Barbuda
-2568	Arabia Saudita
-2569	Argia
-2570	Argentina
-2571	Armenia
-2572	Australia
-2573	Austria
-2574	Azerbaiyán
-2575	Bahamas s
-2576	Bahrein
-2577	Bangdesh
-2578	Barbados
-2579	Barús
-2580	Bélgica
-2581	Bice
-2582	Benin
-2583	Bhután
-2584	Bolivia Estado Plurinacional de
-2585	Bosnia y Herzegovina
-2586	Botswana
-2587	Brasil
-2588	Brunei Darussam
-2589	Bulgaria
-2590	Burkina Faso
-2591	Burundi
-2592	Cabo Verde
-2593	Camboya
-2594	Camerún
-2595	Canadá
-2596	Chad
-2597	Chequia
-2598	Chile
-2599	China
-2600	Chipre
-2601	Colombia
-2602	Comoras s
-2603	Congo
-2604	Costa Rica
-2605	Côte d’Ivoire
-2606	Croacia
-2607	Cuba
-2608	Dinamarca
-2609	Djibouti
-2610	Dominica
-2611	Ecuador
-2612	Egipto
-2613	 Salvador
-2614	Emiratos Árabes Unidos
-2615	Eritrea
-2616	Eslovaquia
-2617	Eslovenia
-2618	España
-2619	Estados Unidos de América
-2620	Estonia
-2621	Eswatini
-2622	Etiopía
-2623	Federación de Rusia
-2624	Fiji
-2625	Filipinas
-2626	Finndia
-2627	Francia
-2628	Gabón
-2629	Gambia
-2630	Georgia
-2631	Ghana
-2632	Granada
-2633	Grecia
-2634	Guatema
-2635	Guinea
-2636	Guinea Ecuatorial
-2637	Guinea-Bissau
-2638	Guyana
-2639	Haití
-2640	Honduras
-2641	Hungría
-2642	India
-2643	Indonesia
-2644	Irán República Islámica d
-2645	Iraq
-2646	Irnda
-2647	Isndia
-2648	Iss Cook s
-2649	Iss Marshall s
-2650	Iss Salomón s
-2651	Isra
-2652	Italia
-2653	Jamaica
-2654	Japón
-2655	Jordania
-2656	Kazajstán
-2657	Kenya
-2658	Kirguistán
-2659	Kiribati
-2660	Kuwait
-2661	Lesotho
-2662	Letonia
-2663	Líbano
-2664	Liberia
-2665	Libia
-2666	Liechtenstein
-2667	Lituania
-2668	Luxemburgo
-2669	Madagascar
-2670	Masia
-2671	Mawi
-2672	Maldivas
-2673	Malí
-2674	Malta
-2675	Marruecos
-2676	Mauricio
-2677	Mauritania
-2678	México
-2679	Micronesia Estados Federados de
-2680	Mónaco
-2681	Mongolia
-2682	Montenegro
-2683	Mozambique
-2684	Myanmar
-2685	Namibia
-2686	Nauru
-2687	Nepal
-2688	Nicaragua
-2689	Níger
-2690	Nigeria
-2691	Niue
-2692	Noruega
-2693	Nueva Zandia
-2694	Omán
-2695	Países Bajos
-2696	Pakistán
-2697	Pau
-2698	Panamá
-2699	Papua Nueva Guinea
-2700	Paraguay
-2701	Perú
-2702	Polonia
-2703	Portugal
-2704	Qatar
-2705	Reino Unido de Gran Bretaña e Irnda d Norte
-2706	República Árabe Siria
-2707	República Centroafricana
-2708	República de Corea
-2709	República de Macedonia d Norte
-2710	Nombre corto: Macedonia d Norte
-2711	República de Moldova
-2712	República Democrática d Congo
-2713	República Democrática Popur o
-2714	República Dominicana
-2715	República Popur Democrática de Corea
-2716	República Unida de Tanzanía
-2717	Rumania
-2718	Rwanda
-2719	Saint Kitts y Nevis
-2720	Samoa
-2721	San Marino
-2722	San Vicente y s Granadinas
-2723	Santa Lucía
-2724	Santa Sede
-2725	Santo Tomé y Príncipe
-2726	Senegal
-2727	Serbia
-2728	Seychles
-2729	Sierra Leona
-2730	Singapur
-2731	Somalia
-2732	Sri nka
-2733	Sudáfrica
-2734	Sudán
-2735	Sudán d Sur
-2736	Suecia
-2737	Suiza
-2738	Suriname
-2739	Taindia
-2740	Tayikistán
-2741	Timor-Leste
-2742	Togo
-2743	Tonga
-2744	Trinidad y Tabago
-2745	Túnez
-2746	Turkmenistán
-2747	Turquía
-2748	Tuvalu
-2749	Ucrania
-2750	Uganda
-2751	Uruguay
-2752	Uzbekistán
-2753	Vanuatu
-2754	Venezua República Bolivariana de
-2755	Viet Nam
-2756	Yemen
-2757	Zambia
-2758	Zimbabwe
-2759	Afganistán
-2760	Albania
-2761	Alemania
-2762	Andorra
-2763	Ango
-2764	Antigua y Barbuda
-2765	Arabia Saudita
-2766	Argia
-2767	Argentina
-2768	Armenia
-2769	Australia
-2770	Austria
-2771	Azerbaiyán
-2772	Bahamas s
-2773	Bahrein
-2774	Bangdesh
-2775	Barbados
-2776	Barús
-2777	Bélgica
-2778	Bice
-2779	Benin
-2780	Bhután
-2781	Bolivia Estado Plurinacional de
-2782	Bosnia y Herzegovina
-2783	Botswana
-2784	Brasil
-2785	Brunei Darussam
-2786	Bulgaria
-2787	Burkina Faso
-2788	Burundi
-2789	Cabo Verde
-2790	Camboya
-2791	Camerún
-2792	Canadá
-2793	Chad
-2794	Chequia
-2795	Chile
-2796	China
-2797	Chipre
-2798	Colombia
-2799	Comoras s
-2800	Congo
-2801	Costa Rica
-2802	Côte d’Ivoire
-2803	Croacia
-2804	Cuba
-2805	Dinamarca
-2806	Djibouti
-2807	Dominica
-2808	Ecuador
-2809	Egipto
-2810	 Salvador
-2811	Emiratos Árabes Unidos
-2812	Eritrea
-2813	Eslovaquia
-2814	Eslovenia
-2815	España
-2816	Estados Unidos de América
-2817	Estonia
-2818	Eswatini
-2819	Etiopía
-2820	Federación de Rusia
-2821	Fiji
-2822	Filipinas
-2823	Finndia
-2824	Francia
-2825	Gabón
-2826	Gambia
-2827	Georgia
-2828	Ghana
-2829	Granada
-2830	Grecia
-2831	Guatema
-2832	Guinea
-2833	Guinea Ecuatorial
-2834	Guinea-Bissau
-2835	Guyana
-2836	Haití
-2837	Honduras
-2838	Hungría
-2839	India
-2840	Indonesia
-2841	Irán República Islámica d
-2842	Iraq
-2843	Irnda
-2844	Isndia
-2845	Iss Cook s
-2846	Iss Marshall s
-2847	Iss Salomón s
-2848	Isra
-2849	Italia
-2850	Jamaica
-2851	Japón
-2852	Jordania
-2853	Kazajstán
-2854	Kenya
-2855	Kirguistán
-2856	Kiribati
-2857	Kuwait
-2858	Lesotho
-2859	Letonia
-2860	Líbano
-2861	Liberia
-2862	Libia
-2863	Liechtenstein
-2864	Lituania
-2865	Luxemburgo
-2866	Madagascar
-2867	Masia
-2868	Mawi
-2869	Maldivas
-2870	Malí
-2871	Malta
-2872	Marruecos
-2873	Mauricio
-2874	Mauritania
-2875	México
-2876	Micronesia Estados Federados de
-2877	Mónaco
-2878	Mongolia
-2879	Montenegro
-2880	Mozambique
-2881	Myanmar
-2882	Namibia
-2883	Nauru
-2884	Nepal
-2885	Nicaragua
-2886	Níger
-2887	Nigeria
-2888	Niue
-2889	Noruega
-2890	Nueva Zandia
-2891	Omán
-2892	Países Bajos
-2893	Pakistán
-2894	Pau
-2895	Panamá
-2896	Papua Nueva Guinea
-2897	Paraguay
-2898	Perú
-2899	Polonia
-2900	Portugal
-2901	Qatar
-2902	Reino Unido de Gran Bretaña e Irnda d Norte
-2903	República Árabe Siria
-2904	República Centroafricana
-2905	República de Corea
-2906	República de Macedonia d Norte
-2907	Nombre corto: Macedonia d Norte
-2908	República de Moldova
-2909	República Democrática d Congo
-2910	República Democrática Popur o
-2911	República Dominicana
-2912	República Popur Democrática de Corea
-2913	República Unida de Tanzanía
-2914	Rumania
-2915	Rwanda
-2916	Saint Kitts y Nevis
-2917	Samoa
-2918	San Marino
-2919	San Vicente y s Granadinas
-2920	Santa Lucía
-2921	Santa Sede
-2922	Santo Tomé y Príncipe
-2923	Senegal
-2924	Serbia
-2925	Seychles
-2926	Sierra Leona
-2927	Singapur
-2928	Somalia
-2929	Sri nka
-2930	Sudáfrica
-2931	Sudán
-2932	Sudán d Sur
-2933	Suecia
-2934	Suiza
-2935	Suriname
-2936	Taindia
-2937	Tayikistán
-2938	Timor-Leste
-2939	Togo
-2940	Tonga
-2941	Trinidad y Tabago
-2942	Túnez
-2943	Turkmenistán
-2944	Turquía
-2945	Tuvalu
-2946	Ucrania
-2947	Uganda
-2948	Uruguay
-2949	Uzbekistán
-2950	Vanuatu
-2951	Venezua República Bolivariana de
-2952	Viet Nam
-2953	Yemen
-2954	Zambia
-2955	Zimbabwe
-2956	Afganistán
-2957	Albania
-2958	Alemania
-2959	Andorra
-2960	Ango
-2961	Antigua y Barbuda
-2962	Arabia Saudita
-2963	Argia
-2964	Argentina
-2965	Armenia
-2966	Australia
-2967	Austria
-2968	Azerbaiyán
-2969	Bahamas s
-2970	Bahrein
-2971	Bangdesh
-2972	Barbados
-2973	Barús
-2974	Bélgica
-2975	Bice
-2976	Benin
-2977	Bhután
-2978	Bolivia Estado Plurinacional de
-2979	Bosnia y Herzegovina
-2980	Botswana
-2981	Brasil
-2982	Brunei Darussam
-2983	Bulgaria
-2984	Burkina Faso
-2985	Burundi
-2986	Cabo Verde
-2987	Camboya
-2988	Camerún
-2989	Canadá
-2990	Chad
-2991	Chequia
-2992	Chile
-2993	China
-2994	Chipre
-2995	Colombia
-2996	Comoras s
-2997	Congo
-2998	Costa Rica
-2999	Côte d’Ivoire
-3000	Croacia
-3001	Cuba
-3002	Dinamarca
-3003	Djibouti
-3004	Dominica
-3005	Ecuador
-3006	Egipto
-3007	 Salvador
-3008	Emiratos Árabes Unidos
-3009	Eritrea
-3010	Eslovaquia
-3011	Eslovenia
-3012	España
-3013	Estados Unidos de América
-3014	Estonia
-3015	Eswatini
-3016	Etiopía
-3017	Federación de Rusia
-3018	Fiji
-3019	Filipinas
-3020	Finndia
-3021	Francia
-3022	Gabón
-3023	Gambia
-3024	Georgia
-3025	Ghana
-3026	Granada
-3027	Grecia
-3028	Guatema
-3029	Guinea
-3030	Guinea Ecuatorial
-3031	Guinea-Bissau
-3032	Guyana
-3033	Haití
-3034	Honduras
-3035	Hungría
-3036	India
-3037	Indonesia
-3038	Irán República Islámica d
-3039	Iraq
-3040	Irnda
-3041	Isndia
-3042	Iss Cook s
-3043	Iss Marshall s
-3044	Iss Salomón s
-3045	Isra
-3046	Italia
-3047	Jamaica
-3048	Japón
-3049	Jordania
-3050	Kazajstán
-3051	Kenya
-3052	Kirguistán
-3053	Kiribati
-3054	Kuwait
-3055	Lesotho
-3056	Letonia
-3057	Líbano
-3058	Liberia
-3059	Libia
-3060	Liechtenstein
-3061	Lituania
-3062	Luxemburgo
-3063	Madagascar
-3064	Masia
-3065	Mawi
-3066	Maldivas
-3067	Malí
-3068	Malta
-3069	Marruecos
-3070	Mauricio
-3071	Mauritania
-3072	México
-3073	Micronesia Estados Federados de
-3074	Mónaco
-3075	Mongolia
-3076	Montenegro
-3077	Mozambique
-3078	Myanmar
-3079	Namibia
-3080	Nauru
-3081	Nepal
-3082	Nicaragua
-3083	Níger
-3084	Nigeria
-3085	Niue
-3086	Noruega
-3087	Nueva Zandia
-3088	Omán
-3089	Países Bajos
-3090	Pakistán
-3091	Pau
-3092	Panamá
-3093	Papua Nueva Guinea
-3094	Paraguay
-3095	Perú
-3096	Polonia
-3097	Portugal
-3098	Qatar
-3099	Reino Unido de Gran Bretaña e Irnda d Norte
-3100	República Árabe Siria
-3101	República Centroafricana
-3102	República de Corea
-3103	República de Macedonia d Norte
-3104	Nombre corto: Macedonia d Norte
-3105	República de Moldova
-3106	República Democrática d Congo
-3107	República Democrática Popur o
-3108	República Dominicana
-3109	República Popur Democrática de Corea
-3110	República Unida de Tanzanía
-3111	Rumania
-3112	Rwanda
-3113	Saint Kitts y Nevis
-3114	Samoa
-3115	San Marino
-3116	San Vicente y s Granadinas
-3117	Santa Lucía
-3118	Santa Sede
-3119	Santo Tomé y Príncipe
-3120	Senegal
-3121	Serbia
-3122	Seychles
-3123	Sierra Leona
-3124	Singapur
-3125	Somalia
-3126	Sri nka
-3127	Sudáfrica
-3128	Sudán
-3129	Sudán d Sur
-3130	Suecia
-3131	Suiza
-3132	Suriname
-3133	Taindia
-3134	Tayikistán
-3135	Timor-Leste
-3136	Togo
-3137	Tonga
-3138	Trinidad y Tabago
-3139	Túnez
-3140	Turkmenistán
-3141	Turquía
-3142	Tuvalu
-3143	Ucrania
-3144	Uganda
-3145	Uruguay
-3146	Uzbekistán
-3147	Vanuatu
-3148	Venezua República Bolivariana de
-3149	Viet Nam
-3150	Yemen
-3151	Zambia
-3152	Zimbabwe
-\.
+INSERT INTO public.dt_pais VALUES (1, 'Afganistán');
+INSERT INTO public.dt_pais VALUES (2, 'Albania');
+INSERT INTO public.dt_pais VALUES (3, 'Alemania');
+INSERT INTO public.dt_pais VALUES (4, 'Andorra');
+INSERT INTO public.dt_pais VALUES (5, 'Ango');
+INSERT INTO public.dt_pais VALUES (6, 'Antigua y Barbuda');
+INSERT INTO public.dt_pais VALUES (7, 'Arabia Saudita');
+INSERT INTO public.dt_pais VALUES (8, 'Argia');
+INSERT INTO public.dt_pais VALUES (9, 'Argentina');
+INSERT INTO public.dt_pais VALUES (10, 'Armenia');
+INSERT INTO public.dt_pais VALUES (11, 'Australia');
+INSERT INTO public.dt_pais VALUES (12, 'Austria');
+INSERT INTO public.dt_pais VALUES (13, 'Azerbaiyán');
+INSERT INTO public.dt_pais VALUES (14, 'Bahamas s');
+INSERT INTO public.dt_pais VALUES (15, 'Bahrein');
+INSERT INTO public.dt_pais VALUES (16, 'Bangdesh');
+INSERT INTO public.dt_pais VALUES (17, 'Barbados');
+INSERT INTO public.dt_pais VALUES (18, 'Barús');
+INSERT INTO public.dt_pais VALUES (19, 'Bélgica');
+INSERT INTO public.dt_pais VALUES (20, 'Bice');
+INSERT INTO public.dt_pais VALUES (21, 'Benin');
+INSERT INTO public.dt_pais VALUES (22, 'Bhután');
+INSERT INTO public.dt_pais VALUES (23, 'Bolivia Estado Plurinacional de');
+INSERT INTO public.dt_pais VALUES (24, 'Bosnia y Herzegovina');
+INSERT INTO public.dt_pais VALUES (25, 'Botswana');
+INSERT INTO public.dt_pais VALUES (26, 'Brasil');
+INSERT INTO public.dt_pais VALUES (27, 'Brunei Darussam');
+INSERT INTO public.dt_pais VALUES (28, 'Bulgaria');
+INSERT INTO public.dt_pais VALUES (29, 'Burkina Faso');
+INSERT INTO public.dt_pais VALUES (30, 'Burundi');
+INSERT INTO public.dt_pais VALUES (31, 'Cabo Verde');
+INSERT INTO public.dt_pais VALUES (32, 'Camboya');
+INSERT INTO public.dt_pais VALUES (33, 'Camerún');
+INSERT INTO public.dt_pais VALUES (34, 'Canadá');
+INSERT INTO public.dt_pais VALUES (35, 'Chad');
+INSERT INTO public.dt_pais VALUES (36, 'Chequia');
+INSERT INTO public.dt_pais VALUES (37, 'Chile');
+INSERT INTO public.dt_pais VALUES (38, 'China');
+INSERT INTO public.dt_pais VALUES (39, 'Chipre');
+INSERT INTO public.dt_pais VALUES (40, 'Colombia');
+INSERT INTO public.dt_pais VALUES (41, 'Comoras s');
+INSERT INTO public.dt_pais VALUES (42, 'Congo');
+INSERT INTO public.dt_pais VALUES (43, 'Costa Rica');
+INSERT INTO public.dt_pais VALUES (44, 'Côte d’Ivoire');
+INSERT INTO public.dt_pais VALUES (45, 'Croacia');
+INSERT INTO public.dt_pais VALUES (46, 'Cuba');
+INSERT INTO public.dt_pais VALUES (47, 'Dinamarca');
+INSERT INTO public.dt_pais VALUES (48, 'Djibouti');
+INSERT INTO public.dt_pais VALUES (49, 'Dominica');
+INSERT INTO public.dt_pais VALUES (50, 'Ecuador');
+INSERT INTO public.dt_pais VALUES (51, 'Egipto');
+INSERT INTO public.dt_pais VALUES (52, ' Salvador');
+INSERT INTO public.dt_pais VALUES (53, 'Emiratos Árabes Unidos');
+INSERT INTO public.dt_pais VALUES (54, 'Eritrea');
+INSERT INTO public.dt_pais VALUES (55, 'Eslovaquia');
+INSERT INTO public.dt_pais VALUES (56, 'Eslovenia');
+INSERT INTO public.dt_pais VALUES (57, 'España');
+INSERT INTO public.dt_pais VALUES (58, 'Estados Unidos de América');
+INSERT INTO public.dt_pais VALUES (59, 'Estonia');
+INSERT INTO public.dt_pais VALUES (60, 'Eswatini');
+INSERT INTO public.dt_pais VALUES (61, 'Etiopía');
+INSERT INTO public.dt_pais VALUES (62, 'Federación de Rusia');
+INSERT INTO public.dt_pais VALUES (63, 'Fiji');
+INSERT INTO public.dt_pais VALUES (64, 'Filipinas');
+INSERT INTO public.dt_pais VALUES (65, 'Finndia');
+INSERT INTO public.dt_pais VALUES (66, 'Francia');
+INSERT INTO public.dt_pais VALUES (67, 'Gabón');
+INSERT INTO public.dt_pais VALUES (68, 'Gambia');
+INSERT INTO public.dt_pais VALUES (69, 'Georgia');
+INSERT INTO public.dt_pais VALUES (70, 'Ghana');
+INSERT INTO public.dt_pais VALUES (71, 'Granada');
+INSERT INTO public.dt_pais VALUES (72, 'Grecia');
+INSERT INTO public.dt_pais VALUES (73, 'Guatema');
+INSERT INTO public.dt_pais VALUES (74, 'Guinea');
+INSERT INTO public.dt_pais VALUES (75, 'Guinea Ecuatorial');
+INSERT INTO public.dt_pais VALUES (76, 'Guinea-Bissau');
+INSERT INTO public.dt_pais VALUES (77, 'Guyana');
+INSERT INTO public.dt_pais VALUES (78, 'Haití');
+INSERT INTO public.dt_pais VALUES (79, 'Honduras');
+INSERT INTO public.dt_pais VALUES (80, 'Hungría');
+INSERT INTO public.dt_pais VALUES (81, 'India');
+INSERT INTO public.dt_pais VALUES (82, 'Indonesia');
+INSERT INTO public.dt_pais VALUES (83, 'Irán República Islámica d');
+INSERT INTO public.dt_pais VALUES (84, 'Iraq');
+INSERT INTO public.dt_pais VALUES (85, 'Irnda');
+INSERT INTO public.dt_pais VALUES (86, 'Isndia');
+INSERT INTO public.dt_pais VALUES (87, 'Iss Cook s');
+INSERT INTO public.dt_pais VALUES (88, 'Iss Marshall s');
+INSERT INTO public.dt_pais VALUES (89, 'Iss Salomón s');
+INSERT INTO public.dt_pais VALUES (90, 'Isra');
+INSERT INTO public.dt_pais VALUES (91, 'Italia');
+INSERT INTO public.dt_pais VALUES (92, 'Jamaica');
+INSERT INTO public.dt_pais VALUES (93, 'Japón');
+INSERT INTO public.dt_pais VALUES (94, 'Jordania');
+INSERT INTO public.dt_pais VALUES (95, 'Kazajstán');
+INSERT INTO public.dt_pais VALUES (96, 'Kenya');
+INSERT INTO public.dt_pais VALUES (97, 'Kirguistán');
+INSERT INTO public.dt_pais VALUES (98, 'Kiribati');
+INSERT INTO public.dt_pais VALUES (99, 'Kuwait');
+INSERT INTO public.dt_pais VALUES (100, 'Lesotho');
+INSERT INTO public.dt_pais VALUES (101, 'Letonia');
+INSERT INTO public.dt_pais VALUES (102, 'Líbano');
+INSERT INTO public.dt_pais VALUES (103, 'Liberia');
+INSERT INTO public.dt_pais VALUES (104, 'Libia');
+INSERT INTO public.dt_pais VALUES (105, 'Liechtenstein');
+INSERT INTO public.dt_pais VALUES (106, 'Lituania');
+INSERT INTO public.dt_pais VALUES (107, 'Luxemburgo');
+INSERT INTO public.dt_pais VALUES (108, 'Madagascar');
+INSERT INTO public.dt_pais VALUES (109, 'Masia');
+INSERT INTO public.dt_pais VALUES (110, 'Mawi');
+INSERT INTO public.dt_pais VALUES (111, 'Maldivas');
+INSERT INTO public.dt_pais VALUES (112, 'Malí');
+INSERT INTO public.dt_pais VALUES (113, 'Malta');
+INSERT INTO public.dt_pais VALUES (114, 'Marruecos');
+INSERT INTO public.dt_pais VALUES (115, 'Mauricio');
+INSERT INTO public.dt_pais VALUES (116, 'Mauritania');
+INSERT INTO public.dt_pais VALUES (117, 'México');
+INSERT INTO public.dt_pais VALUES (118, 'Micronesia Estados Federados de');
+INSERT INTO public.dt_pais VALUES (119, 'Mónaco');
+INSERT INTO public.dt_pais VALUES (120, 'Mongolia');
+INSERT INTO public.dt_pais VALUES (121, 'Montenegro');
+INSERT INTO public.dt_pais VALUES (122, 'Mozambique');
+INSERT INTO public.dt_pais VALUES (123, 'Myanmar');
+INSERT INTO public.dt_pais VALUES (124, 'Namibia');
+INSERT INTO public.dt_pais VALUES (125, 'Nauru');
+INSERT INTO public.dt_pais VALUES (126, 'Nepal');
+INSERT INTO public.dt_pais VALUES (127, 'Nicaragua');
+INSERT INTO public.dt_pais VALUES (128, 'Níger');
+INSERT INTO public.dt_pais VALUES (129, 'Nigeria');
+INSERT INTO public.dt_pais VALUES (130, 'Niue');
+INSERT INTO public.dt_pais VALUES (131, 'Noruega');
+INSERT INTO public.dt_pais VALUES (132, 'Nueva Zandia');
+INSERT INTO public.dt_pais VALUES (133, 'Omán');
+INSERT INTO public.dt_pais VALUES (134, 'Países Bajos');
+INSERT INTO public.dt_pais VALUES (135, 'Pakistán');
+INSERT INTO public.dt_pais VALUES (136, 'Pau');
+INSERT INTO public.dt_pais VALUES (137, 'Panamá');
+INSERT INTO public.dt_pais VALUES (138, 'Papua Nueva Guinea');
+INSERT INTO public.dt_pais VALUES (139, 'Paraguay');
+INSERT INTO public.dt_pais VALUES (140, 'Perú');
+INSERT INTO public.dt_pais VALUES (141, 'Polonia');
+INSERT INTO public.dt_pais VALUES (142, 'Portugal');
+INSERT INTO public.dt_pais VALUES (143, 'Qatar');
+INSERT INTO public.dt_pais VALUES (144, 'Reino Unido de Gran Bretaña e Irnda d Norte');
+INSERT INTO public.dt_pais VALUES (145, 'República Árabe Siria');
+INSERT INTO public.dt_pais VALUES (146, 'República Centroafricana');
+INSERT INTO public.dt_pais VALUES (147, 'República de Corea');
+INSERT INTO public.dt_pais VALUES (148, 'República de Macedonia d Norte');
+INSERT INTO public.dt_pais VALUES (149, 'Nombre corto: Macedonia d Norte');
+INSERT INTO public.dt_pais VALUES (150, 'República de Moldova');
+INSERT INTO public.dt_pais VALUES (151, 'República Democrática d Congo');
+INSERT INTO public.dt_pais VALUES (152, 'República Democrática Popur o');
+INSERT INTO public.dt_pais VALUES (153, 'República Dominicana');
+INSERT INTO public.dt_pais VALUES (154, 'República Popur Democrática de Corea');
+INSERT INTO public.dt_pais VALUES (155, 'República Unida de Tanzanía');
+INSERT INTO public.dt_pais VALUES (156, 'Rumania');
+INSERT INTO public.dt_pais VALUES (157, 'Rwanda');
+INSERT INTO public.dt_pais VALUES (158, 'Saint Kitts y Nevis');
+INSERT INTO public.dt_pais VALUES (159, 'Samoa');
+INSERT INTO public.dt_pais VALUES (160, 'San Marino');
+INSERT INTO public.dt_pais VALUES (161, 'San Vicente y s Granadinas');
+INSERT INTO public.dt_pais VALUES (162, 'Santa Lucía');
+INSERT INTO public.dt_pais VALUES (163, 'Santa Sede');
+INSERT INTO public.dt_pais VALUES (164, 'Santo Tomé y Príncipe');
+INSERT INTO public.dt_pais VALUES (165, 'Senegal');
+INSERT INTO public.dt_pais VALUES (166, 'Serbia');
+INSERT INTO public.dt_pais VALUES (167, 'Seychles');
+INSERT INTO public.dt_pais VALUES (168, 'Sierra Leona');
+INSERT INTO public.dt_pais VALUES (169, 'Singapur');
+INSERT INTO public.dt_pais VALUES (170, 'Somalia');
+INSERT INTO public.dt_pais VALUES (171, 'Sri nka');
+INSERT INTO public.dt_pais VALUES (172, 'Sudáfrica');
+INSERT INTO public.dt_pais VALUES (173, 'Sudán');
+INSERT INTO public.dt_pais VALUES (174, 'Sudán d Sur');
+INSERT INTO public.dt_pais VALUES (175, 'Suecia');
+INSERT INTO public.dt_pais VALUES (176, 'Suiza');
+INSERT INTO public.dt_pais VALUES (177, 'Suriname');
+INSERT INTO public.dt_pais VALUES (178, 'Taindia');
+INSERT INTO public.dt_pais VALUES (179, 'Tayikistán');
+INSERT INTO public.dt_pais VALUES (180, 'Timor-Leste');
+INSERT INTO public.dt_pais VALUES (181, 'Togo');
+INSERT INTO public.dt_pais VALUES (182, 'Tonga');
+INSERT INTO public.dt_pais VALUES (183, 'Trinidad y Tabago');
+INSERT INTO public.dt_pais VALUES (184, 'Túnez');
+INSERT INTO public.dt_pais VALUES (185, 'Turkmenistán');
+INSERT INTO public.dt_pais VALUES (186, 'Turquía');
+INSERT INTO public.dt_pais VALUES (187, 'Tuvalu');
+INSERT INTO public.dt_pais VALUES (188, 'Ucrania');
+INSERT INTO public.dt_pais VALUES (189, 'Uganda');
+INSERT INTO public.dt_pais VALUES (190, 'Uruguay');
+INSERT INTO public.dt_pais VALUES (191, 'Uzbekistán');
+INSERT INTO public.dt_pais VALUES (192, 'Vanuatu');
+INSERT INTO public.dt_pais VALUES (193, 'Venezua República Bolivariana de');
+INSERT INTO public.dt_pais VALUES (194, 'Viet Nam');
+INSERT INTO public.dt_pais VALUES (195, 'Yemen');
+INSERT INTO public.dt_pais VALUES (196, 'Zambia');
+INSERT INTO public.dt_pais VALUES (197, 'Zimbabwe');
+INSERT INTO public.dt_pais VALUES (1183, 'Afganistán');
+INSERT INTO public.dt_pais VALUES (1184, 'Albania');
+INSERT INTO public.dt_pais VALUES (1185, 'Alemania');
+INSERT INTO public.dt_pais VALUES (1186, 'Andorra');
+INSERT INTO public.dt_pais VALUES (1187, 'Ango');
+INSERT INTO public.dt_pais VALUES (1188, 'Antigua y Barbuda');
+INSERT INTO public.dt_pais VALUES (1189, 'Arabia Saudita');
+INSERT INTO public.dt_pais VALUES (1190, 'Argia');
+INSERT INTO public.dt_pais VALUES (1191, 'Argentina');
+INSERT INTO public.dt_pais VALUES (1192, 'Armenia');
+INSERT INTO public.dt_pais VALUES (1193, 'Australia');
+INSERT INTO public.dt_pais VALUES (1194, 'Austria');
+INSERT INTO public.dt_pais VALUES (1195, 'Azerbaiyán');
+INSERT INTO public.dt_pais VALUES (1196, 'Bahamas s');
+INSERT INTO public.dt_pais VALUES (1197, 'Bahrein');
+INSERT INTO public.dt_pais VALUES (1198, 'Bangdesh');
+INSERT INTO public.dt_pais VALUES (1199, 'Barbados');
+INSERT INTO public.dt_pais VALUES (1200, 'Barús');
+INSERT INTO public.dt_pais VALUES (1201, 'Bélgica');
+INSERT INTO public.dt_pais VALUES (1202, 'Bice');
+INSERT INTO public.dt_pais VALUES (1203, 'Benin');
+INSERT INTO public.dt_pais VALUES (1204, 'Bhután');
+INSERT INTO public.dt_pais VALUES (1205, 'Bolivia Estado Plurinacional de');
+INSERT INTO public.dt_pais VALUES (1206, 'Bosnia y Herzegovina');
+INSERT INTO public.dt_pais VALUES (1207, 'Botswana');
+INSERT INTO public.dt_pais VALUES (1208, 'Brasil');
+INSERT INTO public.dt_pais VALUES (1209, 'Brunei Darussam');
+INSERT INTO public.dt_pais VALUES (1210, 'Bulgaria');
+INSERT INTO public.dt_pais VALUES (1211, 'Burkina Faso');
+INSERT INTO public.dt_pais VALUES (1212, 'Burundi');
+INSERT INTO public.dt_pais VALUES (1213, 'Cabo Verde');
+INSERT INTO public.dt_pais VALUES (1214, 'Camboya');
+INSERT INTO public.dt_pais VALUES (1215, 'Camerún');
+INSERT INTO public.dt_pais VALUES (1216, 'Canadá');
+INSERT INTO public.dt_pais VALUES (1217, 'Chad');
+INSERT INTO public.dt_pais VALUES (1218, 'Chequia');
+INSERT INTO public.dt_pais VALUES (1219, 'Chile');
+INSERT INTO public.dt_pais VALUES (1220, 'China');
+INSERT INTO public.dt_pais VALUES (1221, 'Chipre');
+INSERT INTO public.dt_pais VALUES (1222, 'Colombia');
+INSERT INTO public.dt_pais VALUES (1223, 'Comoras s');
+INSERT INTO public.dt_pais VALUES (1224, 'Congo');
+INSERT INTO public.dt_pais VALUES (1225, 'Costa Rica');
+INSERT INTO public.dt_pais VALUES (1226, 'Côte d’Ivoire');
+INSERT INTO public.dt_pais VALUES (1227, 'Croacia');
+INSERT INTO public.dt_pais VALUES (1228, 'Cuba');
+INSERT INTO public.dt_pais VALUES (1229, 'Dinamarca');
+INSERT INTO public.dt_pais VALUES (1230, 'Djibouti');
+INSERT INTO public.dt_pais VALUES (1231, 'Dominica');
+INSERT INTO public.dt_pais VALUES (1232, 'Ecuador');
+INSERT INTO public.dt_pais VALUES (1233, 'Egipto');
+INSERT INTO public.dt_pais VALUES (1234, ' Salvador');
+INSERT INTO public.dt_pais VALUES (1235, 'Emiratos Árabes Unidos');
+INSERT INTO public.dt_pais VALUES (1236, 'Eritrea');
+INSERT INTO public.dt_pais VALUES (1237, 'Eslovaquia');
+INSERT INTO public.dt_pais VALUES (1238, 'Eslovenia');
+INSERT INTO public.dt_pais VALUES (1239, 'España');
+INSERT INTO public.dt_pais VALUES (1240, 'Estados Unidos de América');
+INSERT INTO public.dt_pais VALUES (1241, 'Estonia');
+INSERT INTO public.dt_pais VALUES (1242, 'Eswatini');
+INSERT INTO public.dt_pais VALUES (1243, 'Etiopía');
+INSERT INTO public.dt_pais VALUES (1244, 'Federación de Rusia');
+INSERT INTO public.dt_pais VALUES (1245, 'Fiji');
+INSERT INTO public.dt_pais VALUES (1246, 'Filipinas');
+INSERT INTO public.dt_pais VALUES (1247, 'Finndia');
+INSERT INTO public.dt_pais VALUES (1248, 'Francia');
+INSERT INTO public.dt_pais VALUES (1249, 'Gabón');
+INSERT INTO public.dt_pais VALUES (1250, 'Gambia');
+INSERT INTO public.dt_pais VALUES (1251, 'Georgia');
+INSERT INTO public.dt_pais VALUES (1252, 'Ghana');
+INSERT INTO public.dt_pais VALUES (1253, 'Granada');
+INSERT INTO public.dt_pais VALUES (1254, 'Grecia');
+INSERT INTO public.dt_pais VALUES (1255, 'Guatema');
+INSERT INTO public.dt_pais VALUES (1256, 'Guinea');
+INSERT INTO public.dt_pais VALUES (1257, 'Guinea Ecuatorial');
+INSERT INTO public.dt_pais VALUES (1258, 'Guinea-Bissau');
+INSERT INTO public.dt_pais VALUES (1259, 'Guyana');
+INSERT INTO public.dt_pais VALUES (1260, 'Haití');
+INSERT INTO public.dt_pais VALUES (1261, 'Honduras');
+INSERT INTO public.dt_pais VALUES (1262, 'Hungría');
+INSERT INTO public.dt_pais VALUES (1263, 'India');
+INSERT INTO public.dt_pais VALUES (1264, 'Indonesia');
+INSERT INTO public.dt_pais VALUES (1265, 'Irán República Islámica d');
+INSERT INTO public.dt_pais VALUES (1266, 'Iraq');
+INSERT INTO public.dt_pais VALUES (1267, 'Irnda');
+INSERT INTO public.dt_pais VALUES (1268, 'Isndia');
+INSERT INTO public.dt_pais VALUES (1269, 'Iss Cook s');
+INSERT INTO public.dt_pais VALUES (1270, 'Iss Marshall s');
+INSERT INTO public.dt_pais VALUES (1271, 'Iss Salomón s');
+INSERT INTO public.dt_pais VALUES (1272, 'Isra');
+INSERT INTO public.dt_pais VALUES (1273, 'Italia');
+INSERT INTO public.dt_pais VALUES (1274, 'Jamaica');
+INSERT INTO public.dt_pais VALUES (1275, 'Japón');
+INSERT INTO public.dt_pais VALUES (1276, 'Jordania');
+INSERT INTO public.dt_pais VALUES (1277, 'Kazajstán');
+INSERT INTO public.dt_pais VALUES (1278, 'Kenya');
+INSERT INTO public.dt_pais VALUES (1279, 'Kirguistán');
+INSERT INTO public.dt_pais VALUES (1280, 'Kiribati');
+INSERT INTO public.dt_pais VALUES (1281, 'Kuwait');
+INSERT INTO public.dt_pais VALUES (1282, 'Lesotho');
+INSERT INTO public.dt_pais VALUES (1283, 'Letonia');
+INSERT INTO public.dt_pais VALUES (1284, 'Líbano');
+INSERT INTO public.dt_pais VALUES (1285, 'Liberia');
+INSERT INTO public.dt_pais VALUES (1286, 'Libia');
+INSERT INTO public.dt_pais VALUES (1287, 'Liechtenstein');
+INSERT INTO public.dt_pais VALUES (1288, 'Lituania');
+INSERT INTO public.dt_pais VALUES (1289, 'Luxemburgo');
+INSERT INTO public.dt_pais VALUES (1290, 'Madagascar');
+INSERT INTO public.dt_pais VALUES (1291, 'Masia');
+INSERT INTO public.dt_pais VALUES (1292, 'Mawi');
+INSERT INTO public.dt_pais VALUES (1293, 'Maldivas');
+INSERT INTO public.dt_pais VALUES (1294, 'Malí');
+INSERT INTO public.dt_pais VALUES (1295, 'Malta');
+INSERT INTO public.dt_pais VALUES (1296, 'Marruecos');
+INSERT INTO public.dt_pais VALUES (1297, 'Mauricio');
+INSERT INTO public.dt_pais VALUES (1298, 'Mauritania');
+INSERT INTO public.dt_pais VALUES (1299, 'México');
+INSERT INTO public.dt_pais VALUES (1300, 'Micronesia Estados Federados de');
+INSERT INTO public.dt_pais VALUES (1301, 'Mónaco');
+INSERT INTO public.dt_pais VALUES (1302, 'Mongolia');
+INSERT INTO public.dt_pais VALUES (1303, 'Montenegro');
+INSERT INTO public.dt_pais VALUES (1304, 'Mozambique');
+INSERT INTO public.dt_pais VALUES (1305, 'Myanmar');
+INSERT INTO public.dt_pais VALUES (1306, 'Namibia');
+INSERT INTO public.dt_pais VALUES (1307, 'Nauru');
+INSERT INTO public.dt_pais VALUES (1308, 'Nepal');
+INSERT INTO public.dt_pais VALUES (1309, 'Nicaragua');
+INSERT INTO public.dt_pais VALUES (1310, 'Níger');
+INSERT INTO public.dt_pais VALUES (1311, 'Nigeria');
+INSERT INTO public.dt_pais VALUES (1312, 'Niue');
+INSERT INTO public.dt_pais VALUES (1313, 'Noruega');
+INSERT INTO public.dt_pais VALUES (1314, 'Nueva Zandia');
+INSERT INTO public.dt_pais VALUES (1315, 'Omán');
+INSERT INTO public.dt_pais VALUES (1316, 'Países Bajos');
+INSERT INTO public.dt_pais VALUES (1317, 'Pakistán');
+INSERT INTO public.dt_pais VALUES (1318, 'Pau');
+INSERT INTO public.dt_pais VALUES (1319, 'Panamá');
+INSERT INTO public.dt_pais VALUES (1320, 'Papua Nueva Guinea');
+INSERT INTO public.dt_pais VALUES (1321, 'Paraguay');
+INSERT INTO public.dt_pais VALUES (1322, 'Perú');
+INSERT INTO public.dt_pais VALUES (1323, 'Polonia');
+INSERT INTO public.dt_pais VALUES (1324, 'Portugal');
+INSERT INTO public.dt_pais VALUES (1325, 'Qatar');
+INSERT INTO public.dt_pais VALUES (1326, 'Reino Unido de Gran Bretaña e Irnda d Norte');
+INSERT INTO public.dt_pais VALUES (1327, 'República Árabe Siria');
+INSERT INTO public.dt_pais VALUES (1328, 'República Centroafricana');
+INSERT INTO public.dt_pais VALUES (1329, 'República de Corea');
+INSERT INTO public.dt_pais VALUES (1330, 'República de Macedonia d Norte');
+INSERT INTO public.dt_pais VALUES (1331, 'Nombre corto: Macedonia d Norte');
+INSERT INTO public.dt_pais VALUES (1332, 'República de Moldova');
+INSERT INTO public.dt_pais VALUES (1333, 'República Democrática d Congo');
+INSERT INTO public.dt_pais VALUES (1334, 'República Democrática Popur o');
+INSERT INTO public.dt_pais VALUES (1335, 'República Dominicana');
+INSERT INTO public.dt_pais VALUES (1336, 'República Popur Democrática de Corea');
+INSERT INTO public.dt_pais VALUES (1337, 'República Unida de Tanzanía');
+INSERT INTO public.dt_pais VALUES (1338, 'Rumania');
+INSERT INTO public.dt_pais VALUES (1339, 'Rwanda');
+INSERT INTO public.dt_pais VALUES (1340, 'Saint Kitts y Nevis');
+INSERT INTO public.dt_pais VALUES (1341, 'Samoa');
+INSERT INTO public.dt_pais VALUES (1342, 'San Marino');
+INSERT INTO public.dt_pais VALUES (1343, 'San Vicente y s Granadinas');
+INSERT INTO public.dt_pais VALUES (1344, 'Santa Lucía');
+INSERT INTO public.dt_pais VALUES (1345, 'Santa Sede');
+INSERT INTO public.dt_pais VALUES (1346, 'Santo Tomé y Príncipe');
+INSERT INTO public.dt_pais VALUES (1347, 'Senegal');
+INSERT INTO public.dt_pais VALUES (1348, 'Serbia');
+INSERT INTO public.dt_pais VALUES (1349, 'Seychles');
+INSERT INTO public.dt_pais VALUES (1350, 'Sierra Leona');
+INSERT INTO public.dt_pais VALUES (1351, 'Singapur');
+INSERT INTO public.dt_pais VALUES (1352, 'Somalia');
+INSERT INTO public.dt_pais VALUES (1353, 'Sri nka');
+INSERT INTO public.dt_pais VALUES (1354, 'Sudáfrica');
+INSERT INTO public.dt_pais VALUES (1355, 'Sudán');
+INSERT INTO public.dt_pais VALUES (1356, 'Sudán d Sur');
+INSERT INTO public.dt_pais VALUES (1357, 'Suecia');
+INSERT INTO public.dt_pais VALUES (1358, 'Suiza');
+INSERT INTO public.dt_pais VALUES (1359, 'Suriname');
+INSERT INTO public.dt_pais VALUES (1360, 'Taindia');
+INSERT INTO public.dt_pais VALUES (1361, 'Tayikistán');
+INSERT INTO public.dt_pais VALUES (1362, 'Timor-Leste');
+INSERT INTO public.dt_pais VALUES (1363, 'Togo');
+INSERT INTO public.dt_pais VALUES (1364, 'Tonga');
+INSERT INTO public.dt_pais VALUES (1365, 'Trinidad y Tabago');
+INSERT INTO public.dt_pais VALUES (1366, 'Túnez');
+INSERT INTO public.dt_pais VALUES (1367, 'Turkmenistán');
+INSERT INTO public.dt_pais VALUES (1368, 'Turquía');
+INSERT INTO public.dt_pais VALUES (1369, 'Tuvalu');
+INSERT INTO public.dt_pais VALUES (1370, 'Ucrania');
+INSERT INTO public.dt_pais VALUES (1371, 'Uganda');
+INSERT INTO public.dt_pais VALUES (1372, 'Uruguay');
+INSERT INTO public.dt_pais VALUES (1373, 'Uzbekistán');
+INSERT INTO public.dt_pais VALUES (1374, 'Vanuatu');
+INSERT INTO public.dt_pais VALUES (1375, 'Venezua República Bolivariana de');
+INSERT INTO public.dt_pais VALUES (1376, 'Viet Nam');
+INSERT INTO public.dt_pais VALUES (1377, 'Yemen');
+INSERT INTO public.dt_pais VALUES (1378, 'Zambia');
+INSERT INTO public.dt_pais VALUES (1379, 'Zimbabwe');
+INSERT INTO public.dt_pais VALUES (1380, 'Afganistán');
+INSERT INTO public.dt_pais VALUES (1381, 'Albania');
+INSERT INTO public.dt_pais VALUES (1382, 'Alemania');
+INSERT INTO public.dt_pais VALUES (1383, 'Andorra');
+INSERT INTO public.dt_pais VALUES (1384, 'Ango');
+INSERT INTO public.dt_pais VALUES (1385, 'Antigua y Barbuda');
+INSERT INTO public.dt_pais VALUES (1386, 'Arabia Saudita');
+INSERT INTO public.dt_pais VALUES (1387, 'Argia');
+INSERT INTO public.dt_pais VALUES (1388, 'Argentina');
+INSERT INTO public.dt_pais VALUES (1389, 'Armenia');
+INSERT INTO public.dt_pais VALUES (1390, 'Australia');
+INSERT INTO public.dt_pais VALUES (1391, 'Austria');
+INSERT INTO public.dt_pais VALUES (1392, 'Azerbaiyán');
+INSERT INTO public.dt_pais VALUES (1393, 'Bahamas s');
+INSERT INTO public.dt_pais VALUES (1394, 'Bahrein');
+INSERT INTO public.dt_pais VALUES (1395, 'Bangdesh');
+INSERT INTO public.dt_pais VALUES (1396, 'Barbados');
+INSERT INTO public.dt_pais VALUES (1397, 'Barús');
+INSERT INTO public.dt_pais VALUES (1398, 'Bélgica');
+INSERT INTO public.dt_pais VALUES (1399, 'Bice');
+INSERT INTO public.dt_pais VALUES (1400, 'Benin');
+INSERT INTO public.dt_pais VALUES (1401, 'Bhután');
+INSERT INTO public.dt_pais VALUES (1402, 'Bolivia Estado Plurinacional de');
+INSERT INTO public.dt_pais VALUES (1403, 'Bosnia y Herzegovina');
+INSERT INTO public.dt_pais VALUES (1404, 'Botswana');
+INSERT INTO public.dt_pais VALUES (1405, 'Brasil');
+INSERT INTO public.dt_pais VALUES (1406, 'Brunei Darussam');
+INSERT INTO public.dt_pais VALUES (1407, 'Bulgaria');
+INSERT INTO public.dt_pais VALUES (1408, 'Burkina Faso');
+INSERT INTO public.dt_pais VALUES (1409, 'Burundi');
+INSERT INTO public.dt_pais VALUES (1410, 'Cabo Verde');
+INSERT INTO public.dt_pais VALUES (1411, 'Camboya');
+INSERT INTO public.dt_pais VALUES (1412, 'Camerún');
+INSERT INTO public.dt_pais VALUES (1413, 'Canadá');
+INSERT INTO public.dt_pais VALUES (1414, 'Chad');
+INSERT INTO public.dt_pais VALUES (1415, 'Chequia');
+INSERT INTO public.dt_pais VALUES (1416, 'Chile');
+INSERT INTO public.dt_pais VALUES (1417, 'China');
+INSERT INTO public.dt_pais VALUES (1418, 'Chipre');
+INSERT INTO public.dt_pais VALUES (1419, 'Colombia');
+INSERT INTO public.dt_pais VALUES (1420, 'Comoras s');
+INSERT INTO public.dt_pais VALUES (1421, 'Congo');
+INSERT INTO public.dt_pais VALUES (1422, 'Costa Rica');
+INSERT INTO public.dt_pais VALUES (1423, 'Côte d’Ivoire');
+INSERT INTO public.dt_pais VALUES (1424, 'Croacia');
+INSERT INTO public.dt_pais VALUES (1425, 'Cuba');
+INSERT INTO public.dt_pais VALUES (1426, 'Dinamarca');
+INSERT INTO public.dt_pais VALUES (1427, 'Djibouti');
+INSERT INTO public.dt_pais VALUES (1428, 'Dominica');
+INSERT INTO public.dt_pais VALUES (1429, 'Ecuador');
+INSERT INTO public.dt_pais VALUES (1430, 'Egipto');
+INSERT INTO public.dt_pais VALUES (1431, ' Salvador');
+INSERT INTO public.dt_pais VALUES (1432, 'Emiratos Árabes Unidos');
+INSERT INTO public.dt_pais VALUES (1433, 'Eritrea');
+INSERT INTO public.dt_pais VALUES (1434, 'Eslovaquia');
+INSERT INTO public.dt_pais VALUES (1435, 'Eslovenia');
+INSERT INTO public.dt_pais VALUES (1436, 'España');
+INSERT INTO public.dt_pais VALUES (1437, 'Estados Unidos de América');
+INSERT INTO public.dt_pais VALUES (1438, 'Estonia');
+INSERT INTO public.dt_pais VALUES (1439, 'Eswatini');
+INSERT INTO public.dt_pais VALUES (1440, 'Etiopía');
+INSERT INTO public.dt_pais VALUES (1441, 'Federación de Rusia');
+INSERT INTO public.dt_pais VALUES (1442, 'Fiji');
+INSERT INTO public.dt_pais VALUES (1443, 'Filipinas');
+INSERT INTO public.dt_pais VALUES (1444, 'Finndia');
+INSERT INTO public.dt_pais VALUES (1445, 'Francia');
+INSERT INTO public.dt_pais VALUES (1446, 'Gabón');
+INSERT INTO public.dt_pais VALUES (1447, 'Gambia');
+INSERT INTO public.dt_pais VALUES (1448, 'Georgia');
+INSERT INTO public.dt_pais VALUES (1449, 'Ghana');
+INSERT INTO public.dt_pais VALUES (1450, 'Granada');
+INSERT INTO public.dt_pais VALUES (1451, 'Grecia');
+INSERT INTO public.dt_pais VALUES (1452, 'Guatema');
+INSERT INTO public.dt_pais VALUES (1453, 'Guinea');
+INSERT INTO public.dt_pais VALUES (1454, 'Guinea Ecuatorial');
+INSERT INTO public.dt_pais VALUES (1455, 'Guinea-Bissau');
+INSERT INTO public.dt_pais VALUES (1456, 'Guyana');
+INSERT INTO public.dt_pais VALUES (1457, 'Haití');
+INSERT INTO public.dt_pais VALUES (1458, 'Honduras');
+INSERT INTO public.dt_pais VALUES (1459, 'Hungría');
+INSERT INTO public.dt_pais VALUES (1460, 'India');
+INSERT INTO public.dt_pais VALUES (1461, 'Indonesia');
+INSERT INTO public.dt_pais VALUES (1462, 'Irán República Islámica d');
+INSERT INTO public.dt_pais VALUES (1463, 'Iraq');
+INSERT INTO public.dt_pais VALUES (1464, 'Irnda');
+INSERT INTO public.dt_pais VALUES (1465, 'Isndia');
+INSERT INTO public.dt_pais VALUES (1466, 'Iss Cook s');
+INSERT INTO public.dt_pais VALUES (1467, 'Iss Marshall s');
+INSERT INTO public.dt_pais VALUES (1468, 'Iss Salomón s');
+INSERT INTO public.dt_pais VALUES (1469, 'Isra');
+INSERT INTO public.dt_pais VALUES (1470, 'Italia');
+INSERT INTO public.dt_pais VALUES (1471, 'Jamaica');
+INSERT INTO public.dt_pais VALUES (1472, 'Japón');
+INSERT INTO public.dt_pais VALUES (1473, 'Jordania');
+INSERT INTO public.dt_pais VALUES (1474, 'Kazajstán');
+INSERT INTO public.dt_pais VALUES (1475, 'Kenya');
+INSERT INTO public.dt_pais VALUES (1476, 'Kirguistán');
+INSERT INTO public.dt_pais VALUES (1477, 'Kiribati');
+INSERT INTO public.dt_pais VALUES (1478, 'Kuwait');
+INSERT INTO public.dt_pais VALUES (1479, 'Lesotho');
+INSERT INTO public.dt_pais VALUES (1480, 'Letonia');
+INSERT INTO public.dt_pais VALUES (1481, 'Líbano');
+INSERT INTO public.dt_pais VALUES (1482, 'Liberia');
+INSERT INTO public.dt_pais VALUES (1483, 'Libia');
+INSERT INTO public.dt_pais VALUES (1484, 'Liechtenstein');
+INSERT INTO public.dt_pais VALUES (1485, 'Lituania');
+INSERT INTO public.dt_pais VALUES (1486, 'Luxemburgo');
+INSERT INTO public.dt_pais VALUES (1487, 'Madagascar');
+INSERT INTO public.dt_pais VALUES (1488, 'Masia');
+INSERT INTO public.dt_pais VALUES (1489, 'Mawi');
+INSERT INTO public.dt_pais VALUES (1490, 'Maldivas');
+INSERT INTO public.dt_pais VALUES (1491, 'Malí');
+INSERT INTO public.dt_pais VALUES (1492, 'Malta');
+INSERT INTO public.dt_pais VALUES (1493, 'Marruecos');
+INSERT INTO public.dt_pais VALUES (1494, 'Mauricio');
+INSERT INTO public.dt_pais VALUES (1495, 'Mauritania');
+INSERT INTO public.dt_pais VALUES (1496, 'México');
+INSERT INTO public.dt_pais VALUES (1497, 'Micronesia Estados Federados de');
+INSERT INTO public.dt_pais VALUES (1498, 'Mónaco');
+INSERT INTO public.dt_pais VALUES (1499, 'Mongolia');
+INSERT INTO public.dt_pais VALUES (1500, 'Montenegro');
+INSERT INTO public.dt_pais VALUES (1501, 'Mozambique');
+INSERT INTO public.dt_pais VALUES (1502, 'Myanmar');
+INSERT INTO public.dt_pais VALUES (1503, 'Namibia');
+INSERT INTO public.dt_pais VALUES (1504, 'Nauru');
+INSERT INTO public.dt_pais VALUES (1505, 'Nepal');
+INSERT INTO public.dt_pais VALUES (1506, 'Nicaragua');
+INSERT INTO public.dt_pais VALUES (1507, 'Níger');
+INSERT INTO public.dt_pais VALUES (1508, 'Nigeria');
+INSERT INTO public.dt_pais VALUES (1509, 'Niue');
+INSERT INTO public.dt_pais VALUES (1510, 'Noruega');
+INSERT INTO public.dt_pais VALUES (1511, 'Nueva Zandia');
+INSERT INTO public.dt_pais VALUES (1512, 'Omán');
+INSERT INTO public.dt_pais VALUES (1513, 'Países Bajos');
+INSERT INTO public.dt_pais VALUES (1514, 'Pakistán');
+INSERT INTO public.dt_pais VALUES (1515, 'Pau');
+INSERT INTO public.dt_pais VALUES (1516, 'Panamá');
+INSERT INTO public.dt_pais VALUES (1517, 'Papua Nueva Guinea');
+INSERT INTO public.dt_pais VALUES (1518, 'Paraguay');
+INSERT INTO public.dt_pais VALUES (1519, 'Perú');
+INSERT INTO public.dt_pais VALUES (1520, 'Polonia');
+INSERT INTO public.dt_pais VALUES (1521, 'Portugal');
+INSERT INTO public.dt_pais VALUES (1522, 'Qatar');
+INSERT INTO public.dt_pais VALUES (1523, 'Reino Unido de Gran Bretaña e Irnda d Norte');
+INSERT INTO public.dt_pais VALUES (1524, 'República Árabe Siria');
+INSERT INTO public.dt_pais VALUES (1525, 'República Centroafricana');
+INSERT INTO public.dt_pais VALUES (1526, 'República de Corea');
+INSERT INTO public.dt_pais VALUES (1527, 'República de Macedonia d Norte');
+INSERT INTO public.dt_pais VALUES (1528, 'Nombre corto: Macedonia d Norte');
+INSERT INTO public.dt_pais VALUES (1529, 'República de Moldova');
+INSERT INTO public.dt_pais VALUES (1530, 'República Democrática d Congo');
+INSERT INTO public.dt_pais VALUES (1531, 'República Democrática Popur o');
+INSERT INTO public.dt_pais VALUES (1532, 'República Dominicana');
+INSERT INTO public.dt_pais VALUES (1533, 'República Popur Democrática de Corea');
+INSERT INTO public.dt_pais VALUES (1534, 'República Unida de Tanzanía');
+INSERT INTO public.dt_pais VALUES (1535, 'Rumania');
+INSERT INTO public.dt_pais VALUES (1536, 'Rwanda');
+INSERT INTO public.dt_pais VALUES (1537, 'Saint Kitts y Nevis');
+INSERT INTO public.dt_pais VALUES (1538, 'Samoa');
+INSERT INTO public.dt_pais VALUES (1539, 'San Marino');
+INSERT INTO public.dt_pais VALUES (1540, 'San Vicente y s Granadinas');
+INSERT INTO public.dt_pais VALUES (1541, 'Santa Lucía');
+INSERT INTO public.dt_pais VALUES (1542, 'Santa Sede');
+INSERT INTO public.dt_pais VALUES (1543, 'Santo Tomé y Príncipe');
+INSERT INTO public.dt_pais VALUES (1544, 'Senegal');
+INSERT INTO public.dt_pais VALUES (1545, 'Serbia');
+INSERT INTO public.dt_pais VALUES (1546, 'Seychles');
+INSERT INTO public.dt_pais VALUES (1547, 'Sierra Leona');
+INSERT INTO public.dt_pais VALUES (1548, 'Singapur');
+INSERT INTO public.dt_pais VALUES (1549, 'Somalia');
+INSERT INTO public.dt_pais VALUES (1550, 'Sri nka');
+INSERT INTO public.dt_pais VALUES (1551, 'Sudáfrica');
+INSERT INTO public.dt_pais VALUES (1552, 'Sudán');
+INSERT INTO public.dt_pais VALUES (1553, 'Sudán d Sur');
+INSERT INTO public.dt_pais VALUES (1554, 'Suecia');
+INSERT INTO public.dt_pais VALUES (1555, 'Suiza');
+INSERT INTO public.dt_pais VALUES (1556, 'Suriname');
+INSERT INTO public.dt_pais VALUES (1557, 'Taindia');
+INSERT INTO public.dt_pais VALUES (1558, 'Tayikistán');
+INSERT INTO public.dt_pais VALUES (1559, 'Timor-Leste');
+INSERT INTO public.dt_pais VALUES (1560, 'Togo');
+INSERT INTO public.dt_pais VALUES (1561, 'Tonga');
+INSERT INTO public.dt_pais VALUES (1562, 'Trinidad y Tabago');
+INSERT INTO public.dt_pais VALUES (1563, 'Túnez');
+INSERT INTO public.dt_pais VALUES (1564, 'Turkmenistán');
+INSERT INTO public.dt_pais VALUES (1565, 'Turquía');
+INSERT INTO public.dt_pais VALUES (1566, 'Tuvalu');
+INSERT INTO public.dt_pais VALUES (1567, 'Ucrania');
+INSERT INTO public.dt_pais VALUES (1568, 'Uganda');
+INSERT INTO public.dt_pais VALUES (1569, 'Uruguay');
+INSERT INTO public.dt_pais VALUES (1570, 'Uzbekistán');
+INSERT INTO public.dt_pais VALUES (1571, 'Vanuatu');
+INSERT INTO public.dt_pais VALUES (1572, 'Venezua República Bolivariana de');
+INSERT INTO public.dt_pais VALUES (1573, 'Viet Nam');
+INSERT INTO public.dt_pais VALUES (1574, 'Yemen');
+INSERT INTO public.dt_pais VALUES (1575, 'Zambia');
+INSERT INTO public.dt_pais VALUES (1576, 'Zimbabwe');
+INSERT INTO public.dt_pais VALUES (1577, 'Afganistán');
+INSERT INTO public.dt_pais VALUES (1578, 'Albania');
+INSERT INTO public.dt_pais VALUES (1579, 'Alemania');
+INSERT INTO public.dt_pais VALUES (1580, 'Andorra');
+INSERT INTO public.dt_pais VALUES (1581, 'Ango');
+INSERT INTO public.dt_pais VALUES (1582, 'Antigua y Barbuda');
+INSERT INTO public.dt_pais VALUES (1583, 'Arabia Saudita');
+INSERT INTO public.dt_pais VALUES (1584, 'Argia');
+INSERT INTO public.dt_pais VALUES (1585, 'Argentina');
+INSERT INTO public.dt_pais VALUES (1586, 'Armenia');
+INSERT INTO public.dt_pais VALUES (1587, 'Australia');
+INSERT INTO public.dt_pais VALUES (1588, 'Austria');
+INSERT INTO public.dt_pais VALUES (1589, 'Azerbaiyán');
+INSERT INTO public.dt_pais VALUES (1590, 'Bahamas s');
+INSERT INTO public.dt_pais VALUES (1591, 'Bahrein');
+INSERT INTO public.dt_pais VALUES (1592, 'Bangdesh');
+INSERT INTO public.dt_pais VALUES (1593, 'Barbados');
+INSERT INTO public.dt_pais VALUES (1594, 'Barús');
+INSERT INTO public.dt_pais VALUES (1595, 'Bélgica');
+INSERT INTO public.dt_pais VALUES (1596, 'Bice');
+INSERT INTO public.dt_pais VALUES (1597, 'Benin');
+INSERT INTO public.dt_pais VALUES (1598, 'Bhután');
+INSERT INTO public.dt_pais VALUES (1599, 'Bolivia Estado Plurinacional de');
+INSERT INTO public.dt_pais VALUES (1600, 'Bosnia y Herzegovina');
+INSERT INTO public.dt_pais VALUES (1601, 'Botswana');
+INSERT INTO public.dt_pais VALUES (1602, 'Brasil');
+INSERT INTO public.dt_pais VALUES (1603, 'Brunei Darussam');
+INSERT INTO public.dt_pais VALUES (1604, 'Bulgaria');
+INSERT INTO public.dt_pais VALUES (1605, 'Burkina Faso');
+INSERT INTO public.dt_pais VALUES (1606, 'Burundi');
+INSERT INTO public.dt_pais VALUES (1607, 'Cabo Verde');
+INSERT INTO public.dt_pais VALUES (1608, 'Camboya');
+INSERT INTO public.dt_pais VALUES (1609, 'Camerún');
+INSERT INTO public.dt_pais VALUES (1610, 'Canadá');
+INSERT INTO public.dt_pais VALUES (1611, 'Chad');
+INSERT INTO public.dt_pais VALUES (1612, 'Chequia');
+INSERT INTO public.dt_pais VALUES (1613, 'Chile');
+INSERT INTO public.dt_pais VALUES (1614, 'China');
+INSERT INTO public.dt_pais VALUES (1615, 'Chipre');
+INSERT INTO public.dt_pais VALUES (1616, 'Colombia');
+INSERT INTO public.dt_pais VALUES (1617, 'Comoras s');
+INSERT INTO public.dt_pais VALUES (1618, 'Congo');
+INSERT INTO public.dt_pais VALUES (1619, 'Costa Rica');
+INSERT INTO public.dt_pais VALUES (1620, 'Côte d’Ivoire');
+INSERT INTO public.dt_pais VALUES (1621, 'Croacia');
+INSERT INTO public.dt_pais VALUES (1622, 'Cuba');
+INSERT INTO public.dt_pais VALUES (1623, 'Dinamarca');
+INSERT INTO public.dt_pais VALUES (1624, 'Djibouti');
+INSERT INTO public.dt_pais VALUES (1625, 'Dominica');
+INSERT INTO public.dt_pais VALUES (1626, 'Ecuador');
+INSERT INTO public.dt_pais VALUES (1627, 'Egipto');
+INSERT INTO public.dt_pais VALUES (1628, ' Salvador');
+INSERT INTO public.dt_pais VALUES (1629, 'Emiratos Árabes Unidos');
+INSERT INTO public.dt_pais VALUES (1630, 'Eritrea');
+INSERT INTO public.dt_pais VALUES (1631, 'Eslovaquia');
+INSERT INTO public.dt_pais VALUES (1632, 'Eslovenia');
+INSERT INTO public.dt_pais VALUES (1633, 'España');
+INSERT INTO public.dt_pais VALUES (1634, 'Estados Unidos de América');
+INSERT INTO public.dt_pais VALUES (1635, 'Estonia');
+INSERT INTO public.dt_pais VALUES (1636, 'Eswatini');
+INSERT INTO public.dt_pais VALUES (1637, 'Etiopía');
+INSERT INTO public.dt_pais VALUES (1638, 'Federación de Rusia');
+INSERT INTO public.dt_pais VALUES (1639, 'Fiji');
+INSERT INTO public.dt_pais VALUES (1640, 'Filipinas');
+INSERT INTO public.dt_pais VALUES (1641, 'Finndia');
+INSERT INTO public.dt_pais VALUES (1642, 'Francia');
+INSERT INTO public.dt_pais VALUES (1643, 'Gabón');
+INSERT INTO public.dt_pais VALUES (1644, 'Gambia');
+INSERT INTO public.dt_pais VALUES (1645, 'Georgia');
+INSERT INTO public.dt_pais VALUES (1646, 'Ghana');
+INSERT INTO public.dt_pais VALUES (1647, 'Granada');
+INSERT INTO public.dt_pais VALUES (1648, 'Grecia');
+INSERT INTO public.dt_pais VALUES (1649, 'Guatema');
+INSERT INTO public.dt_pais VALUES (1650, 'Guinea');
+INSERT INTO public.dt_pais VALUES (1651, 'Guinea Ecuatorial');
+INSERT INTO public.dt_pais VALUES (1652, 'Guinea-Bissau');
+INSERT INTO public.dt_pais VALUES (1653, 'Guyana');
+INSERT INTO public.dt_pais VALUES (1654, 'Haití');
+INSERT INTO public.dt_pais VALUES (1655, 'Honduras');
+INSERT INTO public.dt_pais VALUES (1656, 'Hungría');
+INSERT INTO public.dt_pais VALUES (1657, 'India');
+INSERT INTO public.dt_pais VALUES (1658, 'Indonesia');
+INSERT INTO public.dt_pais VALUES (1659, 'Irán República Islámica d');
+INSERT INTO public.dt_pais VALUES (1660, 'Iraq');
+INSERT INTO public.dt_pais VALUES (1661, 'Irnda');
+INSERT INTO public.dt_pais VALUES (1662, 'Isndia');
+INSERT INTO public.dt_pais VALUES (1663, 'Iss Cook s');
+INSERT INTO public.dt_pais VALUES (1664, 'Iss Marshall s');
+INSERT INTO public.dt_pais VALUES (1665, 'Iss Salomón s');
+INSERT INTO public.dt_pais VALUES (1666, 'Isra');
+INSERT INTO public.dt_pais VALUES (1667, 'Italia');
+INSERT INTO public.dt_pais VALUES (1668, 'Jamaica');
+INSERT INTO public.dt_pais VALUES (1669, 'Japón');
+INSERT INTO public.dt_pais VALUES (1670, 'Jordania');
+INSERT INTO public.dt_pais VALUES (1671, 'Kazajstán');
+INSERT INTO public.dt_pais VALUES (1672, 'Kenya');
+INSERT INTO public.dt_pais VALUES (1673, 'Kirguistán');
+INSERT INTO public.dt_pais VALUES (1674, 'Kiribati');
+INSERT INTO public.dt_pais VALUES (1675, 'Kuwait');
+INSERT INTO public.dt_pais VALUES (1676, 'Lesotho');
+INSERT INTO public.dt_pais VALUES (1677, 'Letonia');
+INSERT INTO public.dt_pais VALUES (1678, 'Líbano');
+INSERT INTO public.dt_pais VALUES (1679, 'Liberia');
+INSERT INTO public.dt_pais VALUES (1680, 'Libia');
+INSERT INTO public.dt_pais VALUES (1681, 'Liechtenstein');
+INSERT INTO public.dt_pais VALUES (1682, 'Lituania');
+INSERT INTO public.dt_pais VALUES (1683, 'Luxemburgo');
+INSERT INTO public.dt_pais VALUES (1684, 'Madagascar');
+INSERT INTO public.dt_pais VALUES (1685, 'Masia');
+INSERT INTO public.dt_pais VALUES (1686, 'Mawi');
+INSERT INTO public.dt_pais VALUES (1687, 'Maldivas');
+INSERT INTO public.dt_pais VALUES (1688, 'Malí');
+INSERT INTO public.dt_pais VALUES (1689, 'Malta');
+INSERT INTO public.dt_pais VALUES (1690, 'Marruecos');
+INSERT INTO public.dt_pais VALUES (1691, 'Mauricio');
+INSERT INTO public.dt_pais VALUES (1692, 'Mauritania');
+INSERT INTO public.dt_pais VALUES (1693, 'México');
+INSERT INTO public.dt_pais VALUES (1694, 'Micronesia Estados Federados de');
+INSERT INTO public.dt_pais VALUES (1695, 'Mónaco');
+INSERT INTO public.dt_pais VALUES (1696, 'Mongolia');
+INSERT INTO public.dt_pais VALUES (1697, 'Montenegro');
+INSERT INTO public.dt_pais VALUES (1698, 'Mozambique');
+INSERT INTO public.dt_pais VALUES (1699, 'Myanmar');
+INSERT INTO public.dt_pais VALUES (1700, 'Namibia');
+INSERT INTO public.dt_pais VALUES (1701, 'Nauru');
+INSERT INTO public.dt_pais VALUES (1702, 'Nepal');
+INSERT INTO public.dt_pais VALUES (1703, 'Nicaragua');
+INSERT INTO public.dt_pais VALUES (1704, 'Níger');
+INSERT INTO public.dt_pais VALUES (1705, 'Nigeria');
+INSERT INTO public.dt_pais VALUES (1706, 'Niue');
+INSERT INTO public.dt_pais VALUES (1707, 'Noruega');
+INSERT INTO public.dt_pais VALUES (1708, 'Nueva Zandia');
+INSERT INTO public.dt_pais VALUES (1709, 'Omán');
+INSERT INTO public.dt_pais VALUES (1710, 'Países Bajos');
+INSERT INTO public.dt_pais VALUES (1711, 'Pakistán');
+INSERT INTO public.dt_pais VALUES (1712, 'Pau');
+INSERT INTO public.dt_pais VALUES (1713, 'Panamá');
+INSERT INTO public.dt_pais VALUES (1714, 'Papua Nueva Guinea');
+INSERT INTO public.dt_pais VALUES (1715, 'Paraguay');
+INSERT INTO public.dt_pais VALUES (1716, 'Perú');
+INSERT INTO public.dt_pais VALUES (1717, 'Polonia');
+INSERT INTO public.dt_pais VALUES (1718, 'Portugal');
+INSERT INTO public.dt_pais VALUES (1719, 'Qatar');
+INSERT INTO public.dt_pais VALUES (1720, 'Reino Unido de Gran Bretaña e Irnda d Norte');
+INSERT INTO public.dt_pais VALUES (1721, 'República Árabe Siria');
+INSERT INTO public.dt_pais VALUES (1722, 'República Centroafricana');
+INSERT INTO public.dt_pais VALUES (1723, 'República de Corea');
+INSERT INTO public.dt_pais VALUES (1724, 'República de Macedonia d Norte');
+INSERT INTO public.dt_pais VALUES (1725, 'Nombre corto: Macedonia d Norte');
+INSERT INTO public.dt_pais VALUES (1726, 'República de Moldova');
+INSERT INTO public.dt_pais VALUES (1727, 'República Democrática d Congo');
+INSERT INTO public.dt_pais VALUES (1728, 'República Democrática Popur o');
+INSERT INTO public.dt_pais VALUES (1729, 'República Dominicana');
+INSERT INTO public.dt_pais VALUES (1730, 'República Popur Democrática de Corea');
+INSERT INTO public.dt_pais VALUES (1731, 'República Unida de Tanzanía');
+INSERT INTO public.dt_pais VALUES (1732, 'Rumania');
+INSERT INTO public.dt_pais VALUES (1733, 'Rwanda');
+INSERT INTO public.dt_pais VALUES (1734, 'Saint Kitts y Nevis');
+INSERT INTO public.dt_pais VALUES (1735, 'Samoa');
+INSERT INTO public.dt_pais VALUES (1736, 'San Marino');
+INSERT INTO public.dt_pais VALUES (1737, 'San Vicente y s Granadinas');
+INSERT INTO public.dt_pais VALUES (1738, 'Santa Lucía');
+INSERT INTO public.dt_pais VALUES (1739, 'Santa Sede');
+INSERT INTO public.dt_pais VALUES (1740, 'Santo Tomé y Príncipe');
+INSERT INTO public.dt_pais VALUES (1741, 'Senegal');
+INSERT INTO public.dt_pais VALUES (1742, 'Serbia');
+INSERT INTO public.dt_pais VALUES (1743, 'Seychles');
+INSERT INTO public.dt_pais VALUES (1744, 'Sierra Leona');
+INSERT INTO public.dt_pais VALUES (1745, 'Singapur');
+INSERT INTO public.dt_pais VALUES (1746, 'Somalia');
+INSERT INTO public.dt_pais VALUES (1747, 'Sri nka');
+INSERT INTO public.dt_pais VALUES (1748, 'Sudáfrica');
+INSERT INTO public.dt_pais VALUES (1749, 'Sudán');
+INSERT INTO public.dt_pais VALUES (1750, 'Sudán d Sur');
+INSERT INTO public.dt_pais VALUES (1751, 'Suecia');
+INSERT INTO public.dt_pais VALUES (1752, 'Suiza');
+INSERT INTO public.dt_pais VALUES (1753, 'Suriname');
+INSERT INTO public.dt_pais VALUES (1754, 'Taindia');
+INSERT INTO public.dt_pais VALUES (1755, 'Tayikistán');
+INSERT INTO public.dt_pais VALUES (1756, 'Timor-Leste');
+INSERT INTO public.dt_pais VALUES (1757, 'Togo');
+INSERT INTO public.dt_pais VALUES (1758, 'Tonga');
+INSERT INTO public.dt_pais VALUES (1759, 'Trinidad y Tabago');
+INSERT INTO public.dt_pais VALUES (1760, 'Túnez');
+INSERT INTO public.dt_pais VALUES (1761, 'Turkmenistán');
+INSERT INTO public.dt_pais VALUES (1762, 'Turquía');
+INSERT INTO public.dt_pais VALUES (1763, 'Tuvalu');
+INSERT INTO public.dt_pais VALUES (1764, 'Ucrania');
+INSERT INTO public.dt_pais VALUES (1765, 'Uganda');
+INSERT INTO public.dt_pais VALUES (1766, 'Uruguay');
+INSERT INTO public.dt_pais VALUES (1767, 'Uzbekistán');
+INSERT INTO public.dt_pais VALUES (1768, 'Vanuatu');
+INSERT INTO public.dt_pais VALUES (1769, 'Venezua República Bolivariana de');
+INSERT INTO public.dt_pais VALUES (1770, 'Viet Nam');
+INSERT INTO public.dt_pais VALUES (1771, 'Yemen');
+INSERT INTO public.dt_pais VALUES (1772, 'Zambia');
+INSERT INTO public.dt_pais VALUES (1773, 'Zimbabwe');
+INSERT INTO public.dt_pais VALUES (1774, 'Afganistán');
+INSERT INTO public.dt_pais VALUES (1775, 'Albania');
+INSERT INTO public.dt_pais VALUES (1776, 'Alemania');
+INSERT INTO public.dt_pais VALUES (1777, 'Andorra');
+INSERT INTO public.dt_pais VALUES (1778, 'Ango');
+INSERT INTO public.dt_pais VALUES (1779, 'Antigua y Barbuda');
+INSERT INTO public.dt_pais VALUES (1780, 'Arabia Saudita');
+INSERT INTO public.dt_pais VALUES (1781, 'Argia');
+INSERT INTO public.dt_pais VALUES (1782, 'Argentina');
+INSERT INTO public.dt_pais VALUES (1783, 'Armenia');
+INSERT INTO public.dt_pais VALUES (1784, 'Australia');
+INSERT INTO public.dt_pais VALUES (1785, 'Austria');
+INSERT INTO public.dt_pais VALUES (1786, 'Azerbaiyán');
+INSERT INTO public.dt_pais VALUES (1787, 'Bahamas s');
+INSERT INTO public.dt_pais VALUES (1788, 'Bahrein');
+INSERT INTO public.dt_pais VALUES (1789, 'Bangdesh');
+INSERT INTO public.dt_pais VALUES (1790, 'Barbados');
+INSERT INTO public.dt_pais VALUES (1791, 'Barús');
+INSERT INTO public.dt_pais VALUES (1792, 'Bélgica');
+INSERT INTO public.dt_pais VALUES (1793, 'Bice');
+INSERT INTO public.dt_pais VALUES (1794, 'Benin');
+INSERT INTO public.dt_pais VALUES (1795, 'Bhután');
+INSERT INTO public.dt_pais VALUES (1796, 'Bolivia Estado Plurinacional de');
+INSERT INTO public.dt_pais VALUES (1797, 'Bosnia y Herzegovina');
+INSERT INTO public.dt_pais VALUES (1798, 'Botswana');
+INSERT INTO public.dt_pais VALUES (1799, 'Brasil');
+INSERT INTO public.dt_pais VALUES (1800, 'Brunei Darussam');
+INSERT INTO public.dt_pais VALUES (1801, 'Bulgaria');
+INSERT INTO public.dt_pais VALUES (1802, 'Burkina Faso');
+INSERT INTO public.dt_pais VALUES (1803, 'Burundi');
+INSERT INTO public.dt_pais VALUES (1804, 'Cabo Verde');
+INSERT INTO public.dt_pais VALUES (1805, 'Camboya');
+INSERT INTO public.dt_pais VALUES (1806, 'Camerún');
+INSERT INTO public.dt_pais VALUES (1807, 'Canadá');
+INSERT INTO public.dt_pais VALUES (1808, 'Chad');
+INSERT INTO public.dt_pais VALUES (1809, 'Chequia');
+INSERT INTO public.dt_pais VALUES (1810, 'Chile');
+INSERT INTO public.dt_pais VALUES (1811, 'China');
+INSERT INTO public.dt_pais VALUES (1812, 'Chipre');
+INSERT INTO public.dt_pais VALUES (1813, 'Colombia');
+INSERT INTO public.dt_pais VALUES (1814, 'Comoras s');
+INSERT INTO public.dt_pais VALUES (1815, 'Congo');
+INSERT INTO public.dt_pais VALUES (1816, 'Costa Rica');
+INSERT INTO public.dt_pais VALUES (1817, 'Côte d’Ivoire');
+INSERT INTO public.dt_pais VALUES (1818, 'Croacia');
+INSERT INTO public.dt_pais VALUES (1819, 'Cuba');
+INSERT INTO public.dt_pais VALUES (1820, 'Dinamarca');
+INSERT INTO public.dt_pais VALUES (1821, 'Djibouti');
+INSERT INTO public.dt_pais VALUES (1822, 'Dominica');
+INSERT INTO public.dt_pais VALUES (1823, 'Ecuador');
+INSERT INTO public.dt_pais VALUES (1824, 'Egipto');
+INSERT INTO public.dt_pais VALUES (1825, ' Salvador');
+INSERT INTO public.dt_pais VALUES (1826, 'Emiratos Árabes Unidos');
+INSERT INTO public.dt_pais VALUES (1827, 'Eritrea');
+INSERT INTO public.dt_pais VALUES (1828, 'Eslovaquia');
+INSERT INTO public.dt_pais VALUES (1829, 'Eslovenia');
+INSERT INTO public.dt_pais VALUES (1830, 'España');
+INSERT INTO public.dt_pais VALUES (1831, 'Estados Unidos de América');
+INSERT INTO public.dt_pais VALUES (1832, 'Estonia');
+INSERT INTO public.dt_pais VALUES (1833, 'Eswatini');
+INSERT INTO public.dt_pais VALUES (1834, 'Etiopía');
+INSERT INTO public.dt_pais VALUES (1835, 'Federación de Rusia');
+INSERT INTO public.dt_pais VALUES (1836, 'Fiji');
+INSERT INTO public.dt_pais VALUES (1837, 'Filipinas');
+INSERT INTO public.dt_pais VALUES (1838, 'Finndia');
+INSERT INTO public.dt_pais VALUES (1839, 'Francia');
+INSERT INTO public.dt_pais VALUES (1840, 'Gabón');
+INSERT INTO public.dt_pais VALUES (1841, 'Gambia');
+INSERT INTO public.dt_pais VALUES (1842, 'Georgia');
+INSERT INTO public.dt_pais VALUES (1843, 'Ghana');
+INSERT INTO public.dt_pais VALUES (1844, 'Granada');
+INSERT INTO public.dt_pais VALUES (1845, 'Grecia');
+INSERT INTO public.dt_pais VALUES (1846, 'Guatema');
+INSERT INTO public.dt_pais VALUES (1847, 'Guinea');
+INSERT INTO public.dt_pais VALUES (1848, 'Guinea Ecuatorial');
+INSERT INTO public.dt_pais VALUES (1849, 'Guinea-Bissau');
+INSERT INTO public.dt_pais VALUES (1850, 'Guyana');
+INSERT INTO public.dt_pais VALUES (1851, 'Haití');
+INSERT INTO public.dt_pais VALUES (1852, 'Honduras');
+INSERT INTO public.dt_pais VALUES (1853, 'Hungría');
+INSERT INTO public.dt_pais VALUES (1854, 'India');
+INSERT INTO public.dt_pais VALUES (1855, 'Indonesia');
+INSERT INTO public.dt_pais VALUES (1856, 'Irán República Islámica d');
+INSERT INTO public.dt_pais VALUES (1857, 'Iraq');
+INSERT INTO public.dt_pais VALUES (1858, 'Irnda');
+INSERT INTO public.dt_pais VALUES (1859, 'Isndia');
+INSERT INTO public.dt_pais VALUES (1860, 'Iss Cook s');
+INSERT INTO public.dt_pais VALUES (1861, 'Iss Marshall s');
+INSERT INTO public.dt_pais VALUES (1862, 'Iss Salomón s');
+INSERT INTO public.dt_pais VALUES (1863, 'Isra');
+INSERT INTO public.dt_pais VALUES (1864, 'Italia');
+INSERT INTO public.dt_pais VALUES (1865, 'Jamaica');
+INSERT INTO public.dt_pais VALUES (1866, 'Japón');
+INSERT INTO public.dt_pais VALUES (1867, 'Jordania');
+INSERT INTO public.dt_pais VALUES (1868, 'Kazajstán');
+INSERT INTO public.dt_pais VALUES (1869, 'Kenya');
+INSERT INTO public.dt_pais VALUES (1870, 'Kirguistán');
+INSERT INTO public.dt_pais VALUES (1871, 'Kiribati');
+INSERT INTO public.dt_pais VALUES (1872, 'Kuwait');
+INSERT INTO public.dt_pais VALUES (1873, 'Lesotho');
+INSERT INTO public.dt_pais VALUES (1874, 'Letonia');
+INSERT INTO public.dt_pais VALUES (1875, 'Líbano');
+INSERT INTO public.dt_pais VALUES (1876, 'Liberia');
+INSERT INTO public.dt_pais VALUES (1877, 'Libia');
+INSERT INTO public.dt_pais VALUES (1878, 'Liechtenstein');
+INSERT INTO public.dt_pais VALUES (1879, 'Lituania');
+INSERT INTO public.dt_pais VALUES (1880, 'Luxemburgo');
+INSERT INTO public.dt_pais VALUES (1881, 'Madagascar');
+INSERT INTO public.dt_pais VALUES (1882, 'Masia');
+INSERT INTO public.dt_pais VALUES (1883, 'Mawi');
+INSERT INTO public.dt_pais VALUES (1884, 'Maldivas');
+INSERT INTO public.dt_pais VALUES (1885, 'Malí');
+INSERT INTO public.dt_pais VALUES (1886, 'Malta');
+INSERT INTO public.dt_pais VALUES (1887, 'Marruecos');
+INSERT INTO public.dt_pais VALUES (1888, 'Mauricio');
+INSERT INTO public.dt_pais VALUES (1889, 'Mauritania');
+INSERT INTO public.dt_pais VALUES (1890, 'México');
+INSERT INTO public.dt_pais VALUES (1891, 'Micronesia Estados Federados de');
+INSERT INTO public.dt_pais VALUES (1892, 'Mónaco');
+INSERT INTO public.dt_pais VALUES (1893, 'Mongolia');
+INSERT INTO public.dt_pais VALUES (1894, 'Montenegro');
+INSERT INTO public.dt_pais VALUES (1895, 'Mozambique');
+INSERT INTO public.dt_pais VALUES (1896, 'Myanmar');
+INSERT INTO public.dt_pais VALUES (1897, 'Namibia');
+INSERT INTO public.dt_pais VALUES (1898, 'Nauru');
+INSERT INTO public.dt_pais VALUES (1899, 'Nepal');
+INSERT INTO public.dt_pais VALUES (1900, 'Nicaragua');
+INSERT INTO public.dt_pais VALUES (1901, 'Níger');
+INSERT INTO public.dt_pais VALUES (1902, 'Nigeria');
+INSERT INTO public.dt_pais VALUES (1903, 'Niue');
+INSERT INTO public.dt_pais VALUES (1904, 'Noruega');
+INSERT INTO public.dt_pais VALUES (1905, 'Nueva Zandia');
+INSERT INTO public.dt_pais VALUES (1906, 'Omán');
+INSERT INTO public.dt_pais VALUES (1907, 'Países Bajos');
+INSERT INTO public.dt_pais VALUES (1908, 'Pakistán');
+INSERT INTO public.dt_pais VALUES (1909, 'Pau');
+INSERT INTO public.dt_pais VALUES (1910, 'Panamá');
+INSERT INTO public.dt_pais VALUES (1911, 'Papua Nueva Guinea');
+INSERT INTO public.dt_pais VALUES (1912, 'Paraguay');
+INSERT INTO public.dt_pais VALUES (1913, 'Perú');
+INSERT INTO public.dt_pais VALUES (1914, 'Polonia');
+INSERT INTO public.dt_pais VALUES (1915, 'Portugal');
+INSERT INTO public.dt_pais VALUES (1916, 'Qatar');
+INSERT INTO public.dt_pais VALUES (1917, 'Reino Unido de Gran Bretaña e Irnda d Norte');
+INSERT INTO public.dt_pais VALUES (1918, 'República Árabe Siria');
+INSERT INTO public.dt_pais VALUES (1919, 'República Centroafricana');
+INSERT INTO public.dt_pais VALUES (1920, 'República de Corea');
+INSERT INTO public.dt_pais VALUES (1921, 'República de Macedonia d Norte');
+INSERT INTO public.dt_pais VALUES (1922, 'Nombre corto: Macedonia d Norte');
+INSERT INTO public.dt_pais VALUES (1923, 'República de Moldova');
+INSERT INTO public.dt_pais VALUES (1924, 'República Democrática d Congo');
+INSERT INTO public.dt_pais VALUES (1925, 'República Democrática Popur o');
+INSERT INTO public.dt_pais VALUES (1926, 'República Dominicana');
+INSERT INTO public.dt_pais VALUES (1927, 'República Popur Democrática de Corea');
+INSERT INTO public.dt_pais VALUES (1928, 'República Unida de Tanzanía');
+INSERT INTO public.dt_pais VALUES (1929, 'Rumania');
+INSERT INTO public.dt_pais VALUES (1930, 'Rwanda');
+INSERT INTO public.dt_pais VALUES (1931, 'Saint Kitts y Nevis');
+INSERT INTO public.dt_pais VALUES (1932, 'Samoa');
+INSERT INTO public.dt_pais VALUES (1933, 'San Marino');
+INSERT INTO public.dt_pais VALUES (1934, 'San Vicente y s Granadinas');
+INSERT INTO public.dt_pais VALUES (1935, 'Santa Lucía');
+INSERT INTO public.dt_pais VALUES (1936, 'Santa Sede');
+INSERT INTO public.dt_pais VALUES (1937, 'Santo Tomé y Príncipe');
+INSERT INTO public.dt_pais VALUES (1938, 'Senegal');
+INSERT INTO public.dt_pais VALUES (1939, 'Serbia');
+INSERT INTO public.dt_pais VALUES (1940, 'Seychles');
+INSERT INTO public.dt_pais VALUES (1941, 'Sierra Leona');
+INSERT INTO public.dt_pais VALUES (1942, 'Singapur');
+INSERT INTO public.dt_pais VALUES (1943, 'Somalia');
+INSERT INTO public.dt_pais VALUES (1944, 'Sri nka');
+INSERT INTO public.dt_pais VALUES (1945, 'Sudáfrica');
+INSERT INTO public.dt_pais VALUES (1946, 'Sudán');
+INSERT INTO public.dt_pais VALUES (1947, 'Sudán d Sur');
+INSERT INTO public.dt_pais VALUES (1948, 'Suecia');
+INSERT INTO public.dt_pais VALUES (1949, 'Suiza');
+INSERT INTO public.dt_pais VALUES (1950, 'Suriname');
+INSERT INTO public.dt_pais VALUES (1951, 'Taindia');
+INSERT INTO public.dt_pais VALUES (1952, 'Tayikistán');
+INSERT INTO public.dt_pais VALUES (1953, 'Timor-Leste');
+INSERT INTO public.dt_pais VALUES (1954, 'Togo');
+INSERT INTO public.dt_pais VALUES (1955, 'Tonga');
+INSERT INTO public.dt_pais VALUES (1956, 'Trinidad y Tabago');
+INSERT INTO public.dt_pais VALUES (1957, 'Túnez');
+INSERT INTO public.dt_pais VALUES (1958, 'Turkmenistán');
+INSERT INTO public.dt_pais VALUES (1959, 'Turquía');
+INSERT INTO public.dt_pais VALUES (1960, 'Tuvalu');
+INSERT INTO public.dt_pais VALUES (1961, 'Ucrania');
+INSERT INTO public.dt_pais VALUES (1962, 'Uganda');
+INSERT INTO public.dt_pais VALUES (1963, 'Uruguay');
+INSERT INTO public.dt_pais VALUES (1964, 'Uzbekistán');
+INSERT INTO public.dt_pais VALUES (1965, 'Vanuatu');
+INSERT INTO public.dt_pais VALUES (1966, 'Venezua República Bolivariana de');
+INSERT INTO public.dt_pais VALUES (1967, 'Viet Nam');
+INSERT INTO public.dt_pais VALUES (1968, 'Yemen');
+INSERT INTO public.dt_pais VALUES (1969, 'Zambia');
+INSERT INTO public.dt_pais VALUES (1970, 'Zimbabwe');
+INSERT INTO public.dt_pais VALUES (1971, 'Afganistán');
+INSERT INTO public.dt_pais VALUES (1972, 'Albania');
+INSERT INTO public.dt_pais VALUES (1973, 'Alemania');
+INSERT INTO public.dt_pais VALUES (1974, 'Andorra');
+INSERT INTO public.dt_pais VALUES (1975, 'Ango');
+INSERT INTO public.dt_pais VALUES (1976, 'Antigua y Barbuda');
+INSERT INTO public.dt_pais VALUES (1977, 'Arabia Saudita');
+INSERT INTO public.dt_pais VALUES (1978, 'Argia');
+INSERT INTO public.dt_pais VALUES (1979, 'Argentina');
+INSERT INTO public.dt_pais VALUES (1980, 'Armenia');
+INSERT INTO public.dt_pais VALUES (1981, 'Australia');
+INSERT INTO public.dt_pais VALUES (1982, 'Austria');
+INSERT INTO public.dt_pais VALUES (1983, 'Azerbaiyán');
+INSERT INTO public.dt_pais VALUES (1984, 'Bahamas s');
+INSERT INTO public.dt_pais VALUES (1985, 'Bahrein');
+INSERT INTO public.dt_pais VALUES (1986, 'Bangdesh');
+INSERT INTO public.dt_pais VALUES (1987, 'Barbados');
+INSERT INTO public.dt_pais VALUES (1988, 'Barús');
+INSERT INTO public.dt_pais VALUES (1989, 'Bélgica');
+INSERT INTO public.dt_pais VALUES (1990, 'Bice');
+INSERT INTO public.dt_pais VALUES (1991, 'Benin');
+INSERT INTO public.dt_pais VALUES (1992, 'Bhután');
+INSERT INTO public.dt_pais VALUES (1993, 'Bolivia Estado Plurinacional de');
+INSERT INTO public.dt_pais VALUES (1994, 'Bosnia y Herzegovina');
+INSERT INTO public.dt_pais VALUES (1995, 'Botswana');
+INSERT INTO public.dt_pais VALUES (1996, 'Brasil');
+INSERT INTO public.dt_pais VALUES (1997, 'Brunei Darussam');
+INSERT INTO public.dt_pais VALUES (1998, 'Bulgaria');
+INSERT INTO public.dt_pais VALUES (1999, 'Burkina Faso');
+INSERT INTO public.dt_pais VALUES (2000, 'Burundi');
+INSERT INTO public.dt_pais VALUES (2001, 'Cabo Verde');
+INSERT INTO public.dt_pais VALUES (2002, 'Camboya');
+INSERT INTO public.dt_pais VALUES (2003, 'Camerún');
+INSERT INTO public.dt_pais VALUES (2004, 'Canadá');
+INSERT INTO public.dt_pais VALUES (2005, 'Chad');
+INSERT INTO public.dt_pais VALUES (2006, 'Chequia');
+INSERT INTO public.dt_pais VALUES (2007, 'Chile');
+INSERT INTO public.dt_pais VALUES (2008, 'China');
+INSERT INTO public.dt_pais VALUES (2009, 'Chipre');
+INSERT INTO public.dt_pais VALUES (2010, 'Colombia');
+INSERT INTO public.dt_pais VALUES (2011, 'Comoras s');
+INSERT INTO public.dt_pais VALUES (2012, 'Congo');
+INSERT INTO public.dt_pais VALUES (2013, 'Costa Rica');
+INSERT INTO public.dt_pais VALUES (2014, 'Côte d’Ivoire');
+INSERT INTO public.dt_pais VALUES (2015, 'Croacia');
+INSERT INTO public.dt_pais VALUES (2016, 'Cuba');
+INSERT INTO public.dt_pais VALUES (2017, 'Dinamarca');
+INSERT INTO public.dt_pais VALUES (2018, 'Djibouti');
+INSERT INTO public.dt_pais VALUES (2019, 'Dominica');
+INSERT INTO public.dt_pais VALUES (2020, 'Ecuador');
+INSERT INTO public.dt_pais VALUES (2021, 'Egipto');
+INSERT INTO public.dt_pais VALUES (2022, ' Salvador');
+INSERT INTO public.dt_pais VALUES (2023, 'Emiratos Árabes Unidos');
+INSERT INTO public.dt_pais VALUES (2024, 'Eritrea');
+INSERT INTO public.dt_pais VALUES (2025, 'Eslovaquia');
+INSERT INTO public.dt_pais VALUES (2026, 'Eslovenia');
+INSERT INTO public.dt_pais VALUES (2027, 'España');
+INSERT INTO public.dt_pais VALUES (2028, 'Estados Unidos de América');
+INSERT INTO public.dt_pais VALUES (2029, 'Estonia');
+INSERT INTO public.dt_pais VALUES (2030, 'Eswatini');
+INSERT INTO public.dt_pais VALUES (2031, 'Etiopía');
+INSERT INTO public.dt_pais VALUES (2032, 'Federación de Rusia');
+INSERT INTO public.dt_pais VALUES (2033, 'Fiji');
+INSERT INTO public.dt_pais VALUES (2034, 'Filipinas');
+INSERT INTO public.dt_pais VALUES (2035, 'Finndia');
+INSERT INTO public.dt_pais VALUES (2036, 'Francia');
+INSERT INTO public.dt_pais VALUES (2037, 'Gabón');
+INSERT INTO public.dt_pais VALUES (2038, 'Gambia');
+INSERT INTO public.dt_pais VALUES (2039, 'Georgia');
+INSERT INTO public.dt_pais VALUES (2040, 'Ghana');
+INSERT INTO public.dt_pais VALUES (2041, 'Granada');
+INSERT INTO public.dt_pais VALUES (2042, 'Grecia');
+INSERT INTO public.dt_pais VALUES (2043, 'Guatema');
+INSERT INTO public.dt_pais VALUES (2044, 'Guinea');
+INSERT INTO public.dt_pais VALUES (2045, 'Guinea Ecuatorial');
+INSERT INTO public.dt_pais VALUES (2046, 'Guinea-Bissau');
+INSERT INTO public.dt_pais VALUES (2047, 'Guyana');
+INSERT INTO public.dt_pais VALUES (2048, 'Haití');
+INSERT INTO public.dt_pais VALUES (2049, 'Honduras');
+INSERT INTO public.dt_pais VALUES (2050, 'Hungría');
+INSERT INTO public.dt_pais VALUES (2051, 'India');
+INSERT INTO public.dt_pais VALUES (2052, 'Indonesia');
+INSERT INTO public.dt_pais VALUES (2053, 'Irán República Islámica d');
+INSERT INTO public.dt_pais VALUES (2054, 'Iraq');
+INSERT INTO public.dt_pais VALUES (2055, 'Irnda');
+INSERT INTO public.dt_pais VALUES (2056, 'Isndia');
+INSERT INTO public.dt_pais VALUES (2057, 'Iss Cook s');
+INSERT INTO public.dt_pais VALUES (2058, 'Iss Marshall s');
+INSERT INTO public.dt_pais VALUES (2059, 'Iss Salomón s');
+INSERT INTO public.dt_pais VALUES (2060, 'Isra');
+INSERT INTO public.dt_pais VALUES (2061, 'Italia');
+INSERT INTO public.dt_pais VALUES (2062, 'Jamaica');
+INSERT INTO public.dt_pais VALUES (2063, 'Japón');
+INSERT INTO public.dt_pais VALUES (2064, 'Jordania');
+INSERT INTO public.dt_pais VALUES (2065, 'Kazajstán');
+INSERT INTO public.dt_pais VALUES (2066, 'Kenya');
+INSERT INTO public.dt_pais VALUES (2067, 'Kirguistán');
+INSERT INTO public.dt_pais VALUES (2068, 'Kiribati');
+INSERT INTO public.dt_pais VALUES (2069, 'Kuwait');
+INSERT INTO public.dt_pais VALUES (2070, 'Lesotho');
+INSERT INTO public.dt_pais VALUES (2071, 'Letonia');
+INSERT INTO public.dt_pais VALUES (2072, 'Líbano');
+INSERT INTO public.dt_pais VALUES (2073, 'Liberia');
+INSERT INTO public.dt_pais VALUES (2074, 'Libia');
+INSERT INTO public.dt_pais VALUES (2075, 'Liechtenstein');
+INSERT INTO public.dt_pais VALUES (2076, 'Lituania');
+INSERT INTO public.dt_pais VALUES (2077, 'Luxemburgo');
+INSERT INTO public.dt_pais VALUES (2078, 'Madagascar');
+INSERT INTO public.dt_pais VALUES (2079, 'Masia');
+INSERT INTO public.dt_pais VALUES (2080, 'Mawi');
+INSERT INTO public.dt_pais VALUES (2081, 'Maldivas');
+INSERT INTO public.dt_pais VALUES (2082, 'Malí');
+INSERT INTO public.dt_pais VALUES (2083, 'Malta');
+INSERT INTO public.dt_pais VALUES (2084, 'Marruecos');
+INSERT INTO public.dt_pais VALUES (2085, 'Mauricio');
+INSERT INTO public.dt_pais VALUES (2086, 'Mauritania');
+INSERT INTO public.dt_pais VALUES (2087, 'México');
+INSERT INTO public.dt_pais VALUES (2088, 'Micronesia Estados Federados de');
+INSERT INTO public.dt_pais VALUES (2089, 'Mónaco');
+INSERT INTO public.dt_pais VALUES (2090, 'Mongolia');
+INSERT INTO public.dt_pais VALUES (2091, 'Montenegro');
+INSERT INTO public.dt_pais VALUES (2092, 'Mozambique');
+INSERT INTO public.dt_pais VALUES (2093, 'Myanmar');
+INSERT INTO public.dt_pais VALUES (2094, 'Namibia');
+INSERT INTO public.dt_pais VALUES (2095, 'Nauru');
+INSERT INTO public.dt_pais VALUES (2096, 'Nepal');
+INSERT INTO public.dt_pais VALUES (2097, 'Nicaragua');
+INSERT INTO public.dt_pais VALUES (2098, 'Níger');
+INSERT INTO public.dt_pais VALUES (2099, 'Nigeria');
+INSERT INTO public.dt_pais VALUES (2100, 'Niue');
+INSERT INTO public.dt_pais VALUES (2101, 'Noruega');
+INSERT INTO public.dt_pais VALUES (2102, 'Nueva Zandia');
+INSERT INTO public.dt_pais VALUES (2103, 'Omán');
+INSERT INTO public.dt_pais VALUES (2104, 'Países Bajos');
+INSERT INTO public.dt_pais VALUES (2105, 'Pakistán');
+INSERT INTO public.dt_pais VALUES (2106, 'Pau');
+INSERT INTO public.dt_pais VALUES (2107, 'Panamá');
+INSERT INTO public.dt_pais VALUES (2108, 'Papua Nueva Guinea');
+INSERT INTO public.dt_pais VALUES (2109, 'Paraguay');
+INSERT INTO public.dt_pais VALUES (2110, 'Perú');
+INSERT INTO public.dt_pais VALUES (2111, 'Polonia');
+INSERT INTO public.dt_pais VALUES (2112, 'Portugal');
+INSERT INTO public.dt_pais VALUES (2113, 'Qatar');
+INSERT INTO public.dt_pais VALUES (2114, 'Reino Unido de Gran Bretaña e Irnda d Norte');
+INSERT INTO public.dt_pais VALUES (2115, 'República Árabe Siria');
+INSERT INTO public.dt_pais VALUES (2116, 'República Centroafricana');
+INSERT INTO public.dt_pais VALUES (2117, 'República de Corea');
+INSERT INTO public.dt_pais VALUES (2118, 'República de Macedonia d Norte');
+INSERT INTO public.dt_pais VALUES (2119, 'Nombre corto: Macedonia d Norte');
+INSERT INTO public.dt_pais VALUES (2120, 'República de Moldova');
+INSERT INTO public.dt_pais VALUES (2121, 'República Democrática d Congo');
+INSERT INTO public.dt_pais VALUES (2122, 'República Democrática Popur o');
+INSERT INTO public.dt_pais VALUES (2123, 'República Dominicana');
+INSERT INTO public.dt_pais VALUES (2124, 'República Popur Democrática de Corea');
+INSERT INTO public.dt_pais VALUES (2125, 'República Unida de Tanzanía');
+INSERT INTO public.dt_pais VALUES (2126, 'Rumania');
+INSERT INTO public.dt_pais VALUES (2127, 'Rwanda');
+INSERT INTO public.dt_pais VALUES (2128, 'Saint Kitts y Nevis');
+INSERT INTO public.dt_pais VALUES (2129, 'Samoa');
+INSERT INTO public.dt_pais VALUES (2130, 'San Marino');
+INSERT INTO public.dt_pais VALUES (2131, 'San Vicente y s Granadinas');
+INSERT INTO public.dt_pais VALUES (2132, 'Santa Lucía');
+INSERT INTO public.dt_pais VALUES (2133, 'Santa Sede');
+INSERT INTO public.dt_pais VALUES (2134, 'Santo Tomé y Príncipe');
+INSERT INTO public.dt_pais VALUES (2135, 'Senegal');
+INSERT INTO public.dt_pais VALUES (2136, 'Serbia');
+INSERT INTO public.dt_pais VALUES (2137, 'Seychles');
+INSERT INTO public.dt_pais VALUES (2138, 'Sierra Leona');
+INSERT INTO public.dt_pais VALUES (2139, 'Singapur');
+INSERT INTO public.dt_pais VALUES (2140, 'Somalia');
+INSERT INTO public.dt_pais VALUES (2141, 'Sri nka');
+INSERT INTO public.dt_pais VALUES (2142, 'Sudáfrica');
+INSERT INTO public.dt_pais VALUES (2143, 'Sudán');
+INSERT INTO public.dt_pais VALUES (2144, 'Sudán d Sur');
+INSERT INTO public.dt_pais VALUES (2145, 'Suecia');
+INSERT INTO public.dt_pais VALUES (2146, 'Suiza');
+INSERT INTO public.dt_pais VALUES (2147, 'Suriname');
+INSERT INTO public.dt_pais VALUES (2148, 'Taindia');
+INSERT INTO public.dt_pais VALUES (2149, 'Tayikistán');
+INSERT INTO public.dt_pais VALUES (2150, 'Timor-Leste');
+INSERT INTO public.dt_pais VALUES (2151, 'Togo');
+INSERT INTO public.dt_pais VALUES (2152, 'Tonga');
+INSERT INTO public.dt_pais VALUES (2153, 'Trinidad y Tabago');
+INSERT INTO public.dt_pais VALUES (2154, 'Túnez');
+INSERT INTO public.dt_pais VALUES (2155, 'Turkmenistán');
+INSERT INTO public.dt_pais VALUES (2156, 'Turquía');
+INSERT INTO public.dt_pais VALUES (2157, 'Tuvalu');
+INSERT INTO public.dt_pais VALUES (2158, 'Ucrania');
+INSERT INTO public.dt_pais VALUES (2159, 'Uganda');
+INSERT INTO public.dt_pais VALUES (2160, 'Uruguay');
+INSERT INTO public.dt_pais VALUES (2161, 'Uzbekistán');
+INSERT INTO public.dt_pais VALUES (2162, 'Vanuatu');
+INSERT INTO public.dt_pais VALUES (2163, 'Venezua República Bolivariana de');
+INSERT INTO public.dt_pais VALUES (2164, 'Viet Nam');
+INSERT INTO public.dt_pais VALUES (2165, 'Yemen');
+INSERT INTO public.dt_pais VALUES (2166, 'Zambia');
+INSERT INTO public.dt_pais VALUES (2167, 'Zimbabwe');
+INSERT INTO public.dt_pais VALUES (2168, 'Afganistán');
+INSERT INTO public.dt_pais VALUES (2169, 'Albania');
+INSERT INTO public.dt_pais VALUES (2170, 'Alemania');
+INSERT INTO public.dt_pais VALUES (2171, 'Andorra');
+INSERT INTO public.dt_pais VALUES (2172, 'Ango');
+INSERT INTO public.dt_pais VALUES (2173, 'Antigua y Barbuda');
+INSERT INTO public.dt_pais VALUES (2174, 'Arabia Saudita');
+INSERT INTO public.dt_pais VALUES (2175, 'Argia');
+INSERT INTO public.dt_pais VALUES (2176, 'Argentina');
+INSERT INTO public.dt_pais VALUES (2177, 'Armenia');
+INSERT INTO public.dt_pais VALUES (2178, 'Australia');
+INSERT INTO public.dt_pais VALUES (2179, 'Austria');
+INSERT INTO public.dt_pais VALUES (2180, 'Azerbaiyán');
+INSERT INTO public.dt_pais VALUES (2181, 'Bahamas s');
+INSERT INTO public.dt_pais VALUES (2182, 'Bahrein');
+INSERT INTO public.dt_pais VALUES (2183, 'Bangdesh');
+INSERT INTO public.dt_pais VALUES (2184, 'Barbados');
+INSERT INTO public.dt_pais VALUES (2185, 'Barús');
+INSERT INTO public.dt_pais VALUES (2186, 'Bélgica');
+INSERT INTO public.dt_pais VALUES (2187, 'Bice');
+INSERT INTO public.dt_pais VALUES (2188, 'Benin');
+INSERT INTO public.dt_pais VALUES (2189, 'Bhután');
+INSERT INTO public.dt_pais VALUES (2190, 'Bolivia Estado Plurinacional de');
+INSERT INTO public.dt_pais VALUES (2191, 'Bosnia y Herzegovina');
+INSERT INTO public.dt_pais VALUES (2192, 'Botswana');
+INSERT INTO public.dt_pais VALUES (2193, 'Brasil');
+INSERT INTO public.dt_pais VALUES (2194, 'Brunei Darussam');
+INSERT INTO public.dt_pais VALUES (2195, 'Bulgaria');
+INSERT INTO public.dt_pais VALUES (2196, 'Burkina Faso');
+INSERT INTO public.dt_pais VALUES (2197, 'Burundi');
+INSERT INTO public.dt_pais VALUES (2198, 'Cabo Verde');
+INSERT INTO public.dt_pais VALUES (2199, 'Camboya');
+INSERT INTO public.dt_pais VALUES (2200, 'Camerún');
+INSERT INTO public.dt_pais VALUES (2201, 'Canadá');
+INSERT INTO public.dt_pais VALUES (2202, 'Chad');
+INSERT INTO public.dt_pais VALUES (2203, 'Chequia');
+INSERT INTO public.dt_pais VALUES (2204, 'Chile');
+INSERT INTO public.dt_pais VALUES (2205, 'China');
+INSERT INTO public.dt_pais VALUES (2206, 'Chipre');
+INSERT INTO public.dt_pais VALUES (2207, 'Colombia');
+INSERT INTO public.dt_pais VALUES (2208, 'Comoras s');
+INSERT INTO public.dt_pais VALUES (2209, 'Congo');
+INSERT INTO public.dt_pais VALUES (2210, 'Costa Rica');
+INSERT INTO public.dt_pais VALUES (2211, 'Côte d’Ivoire');
+INSERT INTO public.dt_pais VALUES (2212, 'Croacia');
+INSERT INTO public.dt_pais VALUES (2213, 'Cuba');
+INSERT INTO public.dt_pais VALUES (2214, 'Dinamarca');
+INSERT INTO public.dt_pais VALUES (2215, 'Djibouti');
+INSERT INTO public.dt_pais VALUES (2216, 'Dominica');
+INSERT INTO public.dt_pais VALUES (2217, 'Ecuador');
+INSERT INTO public.dt_pais VALUES (2218, 'Egipto');
+INSERT INTO public.dt_pais VALUES (2219, ' Salvador');
+INSERT INTO public.dt_pais VALUES (2220, 'Emiratos Árabes Unidos');
+INSERT INTO public.dt_pais VALUES (2221, 'Eritrea');
+INSERT INTO public.dt_pais VALUES (2222, 'Eslovaquia');
+INSERT INTO public.dt_pais VALUES (2223, 'Eslovenia');
+INSERT INTO public.dt_pais VALUES (2224, 'España');
+INSERT INTO public.dt_pais VALUES (2225, 'Estados Unidos de América');
+INSERT INTO public.dt_pais VALUES (2226, 'Estonia');
+INSERT INTO public.dt_pais VALUES (2227, 'Eswatini');
+INSERT INTO public.dt_pais VALUES (2228, 'Etiopía');
+INSERT INTO public.dt_pais VALUES (2229, 'Federación de Rusia');
+INSERT INTO public.dt_pais VALUES (2230, 'Fiji');
+INSERT INTO public.dt_pais VALUES (2231, 'Filipinas');
+INSERT INTO public.dt_pais VALUES (2232, 'Finndia');
+INSERT INTO public.dt_pais VALUES (2233, 'Francia');
+INSERT INTO public.dt_pais VALUES (2234, 'Gabón');
+INSERT INTO public.dt_pais VALUES (2235, 'Gambia');
+INSERT INTO public.dt_pais VALUES (2236, 'Georgia');
+INSERT INTO public.dt_pais VALUES (2237, 'Ghana');
+INSERT INTO public.dt_pais VALUES (2238, 'Granada');
+INSERT INTO public.dt_pais VALUES (2239, 'Grecia');
+INSERT INTO public.dt_pais VALUES (2240, 'Guatema');
+INSERT INTO public.dt_pais VALUES (2241, 'Guinea');
+INSERT INTO public.dt_pais VALUES (2242, 'Guinea Ecuatorial');
+INSERT INTO public.dt_pais VALUES (2243, 'Guinea-Bissau');
+INSERT INTO public.dt_pais VALUES (2244, 'Guyana');
+INSERT INTO public.dt_pais VALUES (2245, 'Haití');
+INSERT INTO public.dt_pais VALUES (2246, 'Honduras');
+INSERT INTO public.dt_pais VALUES (2247, 'Hungría');
+INSERT INTO public.dt_pais VALUES (2248, 'India');
+INSERT INTO public.dt_pais VALUES (2249, 'Indonesia');
+INSERT INTO public.dt_pais VALUES (2250, 'Irán República Islámica d');
+INSERT INTO public.dt_pais VALUES (2251, 'Iraq');
+INSERT INTO public.dt_pais VALUES (2252, 'Irnda');
+INSERT INTO public.dt_pais VALUES (2253, 'Isndia');
+INSERT INTO public.dt_pais VALUES (2254, 'Iss Cook s');
+INSERT INTO public.dt_pais VALUES (2255, 'Iss Marshall s');
+INSERT INTO public.dt_pais VALUES (2256, 'Iss Salomón s');
+INSERT INTO public.dt_pais VALUES (2257, 'Isra');
+INSERT INTO public.dt_pais VALUES (2258, 'Italia');
+INSERT INTO public.dt_pais VALUES (2259, 'Jamaica');
+INSERT INTO public.dt_pais VALUES (2260, 'Japón');
+INSERT INTO public.dt_pais VALUES (2261, 'Jordania');
+INSERT INTO public.dt_pais VALUES (2262, 'Kazajstán');
+INSERT INTO public.dt_pais VALUES (2263, 'Kenya');
+INSERT INTO public.dt_pais VALUES (2264, 'Kirguistán');
+INSERT INTO public.dt_pais VALUES (2265, 'Kiribati');
+INSERT INTO public.dt_pais VALUES (2266, 'Kuwait');
+INSERT INTO public.dt_pais VALUES (2267, 'Lesotho');
+INSERT INTO public.dt_pais VALUES (2268, 'Letonia');
+INSERT INTO public.dt_pais VALUES (2269, 'Líbano');
+INSERT INTO public.dt_pais VALUES (2270, 'Liberia');
+INSERT INTO public.dt_pais VALUES (2271, 'Libia');
+INSERT INTO public.dt_pais VALUES (2272, 'Liechtenstein');
+INSERT INTO public.dt_pais VALUES (2273, 'Lituania');
+INSERT INTO public.dt_pais VALUES (2274, 'Luxemburgo');
+INSERT INTO public.dt_pais VALUES (2275, 'Madagascar');
+INSERT INTO public.dt_pais VALUES (2276, 'Masia');
+INSERT INTO public.dt_pais VALUES (2277, 'Mawi');
+INSERT INTO public.dt_pais VALUES (2278, 'Maldivas');
+INSERT INTO public.dt_pais VALUES (2279, 'Malí');
+INSERT INTO public.dt_pais VALUES (2280, 'Malta');
+INSERT INTO public.dt_pais VALUES (2281, 'Marruecos');
+INSERT INTO public.dt_pais VALUES (2282, 'Mauricio');
+INSERT INTO public.dt_pais VALUES (2283, 'Mauritania');
+INSERT INTO public.dt_pais VALUES (2284, 'México');
+INSERT INTO public.dt_pais VALUES (2285, 'Micronesia Estados Federados de');
+INSERT INTO public.dt_pais VALUES (2286, 'Mónaco');
+INSERT INTO public.dt_pais VALUES (2287, 'Mongolia');
+INSERT INTO public.dt_pais VALUES (2288, 'Montenegro');
+INSERT INTO public.dt_pais VALUES (2289, 'Mozambique');
+INSERT INTO public.dt_pais VALUES (2290, 'Myanmar');
+INSERT INTO public.dt_pais VALUES (2291, 'Namibia');
+INSERT INTO public.dt_pais VALUES (2292, 'Nauru');
+INSERT INTO public.dt_pais VALUES (2293, 'Nepal');
+INSERT INTO public.dt_pais VALUES (2294, 'Nicaragua');
+INSERT INTO public.dt_pais VALUES (2295, 'Níger');
+INSERT INTO public.dt_pais VALUES (2296, 'Nigeria');
+INSERT INTO public.dt_pais VALUES (2297, 'Niue');
+INSERT INTO public.dt_pais VALUES (2298, 'Noruega');
+INSERT INTO public.dt_pais VALUES (2299, 'Nueva Zandia');
+INSERT INTO public.dt_pais VALUES (2300, 'Omán');
+INSERT INTO public.dt_pais VALUES (2301, 'Países Bajos');
+INSERT INTO public.dt_pais VALUES (2302, 'Pakistán');
+INSERT INTO public.dt_pais VALUES (2303, 'Pau');
+INSERT INTO public.dt_pais VALUES (2304, 'Panamá');
+INSERT INTO public.dt_pais VALUES (2305, 'Papua Nueva Guinea');
+INSERT INTO public.dt_pais VALUES (2306, 'Paraguay');
+INSERT INTO public.dt_pais VALUES (2307, 'Perú');
+INSERT INTO public.dt_pais VALUES (2308, 'Polonia');
+INSERT INTO public.dt_pais VALUES (2309, 'Portugal');
+INSERT INTO public.dt_pais VALUES (2310, 'Qatar');
+INSERT INTO public.dt_pais VALUES (2311, 'Reino Unido de Gran Bretaña e Irnda d Norte');
+INSERT INTO public.dt_pais VALUES (2312, 'República Árabe Siria');
+INSERT INTO public.dt_pais VALUES (2313, 'República Centroafricana');
+INSERT INTO public.dt_pais VALUES (2314, 'República de Corea');
+INSERT INTO public.dt_pais VALUES (2315, 'República de Macedonia d Norte');
+INSERT INTO public.dt_pais VALUES (2316, 'Nombre corto: Macedonia d Norte');
+INSERT INTO public.dt_pais VALUES (2317, 'República de Moldova');
+INSERT INTO public.dt_pais VALUES (2318, 'República Democrática d Congo');
+INSERT INTO public.dt_pais VALUES (2319, 'República Democrática Popur o');
+INSERT INTO public.dt_pais VALUES (2320, 'República Dominicana');
+INSERT INTO public.dt_pais VALUES (2321, 'República Popur Democrática de Corea');
+INSERT INTO public.dt_pais VALUES (2322, 'República Unida de Tanzanía');
+INSERT INTO public.dt_pais VALUES (2323, 'Rumania');
+INSERT INTO public.dt_pais VALUES (2324, 'Rwanda');
+INSERT INTO public.dt_pais VALUES (2325, 'Saint Kitts y Nevis');
+INSERT INTO public.dt_pais VALUES (2326, 'Samoa');
+INSERT INTO public.dt_pais VALUES (2327, 'San Marino');
+INSERT INTO public.dt_pais VALUES (2328, 'San Vicente y s Granadinas');
+INSERT INTO public.dt_pais VALUES (2329, 'Santa Lucía');
+INSERT INTO public.dt_pais VALUES (2330, 'Santa Sede');
+INSERT INTO public.dt_pais VALUES (2331, 'Santo Tomé y Príncipe');
+INSERT INTO public.dt_pais VALUES (2332, 'Senegal');
+INSERT INTO public.dt_pais VALUES (2333, 'Serbia');
+INSERT INTO public.dt_pais VALUES (2334, 'Seychles');
+INSERT INTO public.dt_pais VALUES (2335, 'Sierra Leona');
+INSERT INTO public.dt_pais VALUES (2336, 'Singapur');
+INSERT INTO public.dt_pais VALUES (2337, 'Somalia');
+INSERT INTO public.dt_pais VALUES (2338, 'Sri nka');
+INSERT INTO public.dt_pais VALUES (2339, 'Sudáfrica');
+INSERT INTO public.dt_pais VALUES (2340, 'Sudán');
+INSERT INTO public.dt_pais VALUES (2341, 'Sudán d Sur');
+INSERT INTO public.dt_pais VALUES (2342, 'Suecia');
+INSERT INTO public.dt_pais VALUES (2343, 'Suiza');
+INSERT INTO public.dt_pais VALUES (2344, 'Suriname');
+INSERT INTO public.dt_pais VALUES (2345, 'Taindia');
+INSERT INTO public.dt_pais VALUES (2346, 'Tayikistán');
+INSERT INTO public.dt_pais VALUES (2347, 'Timor-Leste');
+INSERT INTO public.dt_pais VALUES (2348, 'Togo');
+INSERT INTO public.dt_pais VALUES (2349, 'Tonga');
+INSERT INTO public.dt_pais VALUES (2350, 'Trinidad y Tabago');
+INSERT INTO public.dt_pais VALUES (2351, 'Túnez');
+INSERT INTO public.dt_pais VALUES (2352, 'Turkmenistán');
+INSERT INTO public.dt_pais VALUES (2353, 'Turquía');
+INSERT INTO public.dt_pais VALUES (2354, 'Tuvalu');
+INSERT INTO public.dt_pais VALUES (2355, 'Ucrania');
+INSERT INTO public.dt_pais VALUES (2356, 'Uganda');
+INSERT INTO public.dt_pais VALUES (2357, 'Uruguay');
+INSERT INTO public.dt_pais VALUES (2358, 'Uzbekistán');
+INSERT INTO public.dt_pais VALUES (2359, 'Vanuatu');
+INSERT INTO public.dt_pais VALUES (2360, 'Venezua República Bolivariana de');
+INSERT INTO public.dt_pais VALUES (2361, 'Viet Nam');
+INSERT INTO public.dt_pais VALUES (2362, 'Yemen');
+INSERT INTO public.dt_pais VALUES (2363, 'Zambia');
+INSERT INTO public.dt_pais VALUES (2364, 'Zimbabwe');
+INSERT INTO public.dt_pais VALUES (2365, 'Afganistán');
+INSERT INTO public.dt_pais VALUES (2366, 'Albania');
+INSERT INTO public.dt_pais VALUES (2367, 'Alemania');
+INSERT INTO public.dt_pais VALUES (2368, 'Andorra');
+INSERT INTO public.dt_pais VALUES (2369, 'Ango');
+INSERT INTO public.dt_pais VALUES (2370, 'Antigua y Barbuda');
+INSERT INTO public.dt_pais VALUES (2371, 'Arabia Saudita');
+INSERT INTO public.dt_pais VALUES (2372, 'Argia');
+INSERT INTO public.dt_pais VALUES (2373, 'Argentina');
+INSERT INTO public.dt_pais VALUES (2374, 'Armenia');
+INSERT INTO public.dt_pais VALUES (2375, 'Australia');
+INSERT INTO public.dt_pais VALUES (2376, 'Austria');
+INSERT INTO public.dt_pais VALUES (2377, 'Azerbaiyán');
+INSERT INTO public.dt_pais VALUES (2378, 'Bahamas s');
+INSERT INTO public.dt_pais VALUES (2379, 'Bahrein');
+INSERT INTO public.dt_pais VALUES (2380, 'Bangdesh');
+INSERT INTO public.dt_pais VALUES (2381, 'Barbados');
+INSERT INTO public.dt_pais VALUES (2382, 'Barús');
+INSERT INTO public.dt_pais VALUES (2383, 'Bélgica');
+INSERT INTO public.dt_pais VALUES (2384, 'Bice');
+INSERT INTO public.dt_pais VALUES (2385, 'Benin');
+INSERT INTO public.dt_pais VALUES (2386, 'Bhután');
+INSERT INTO public.dt_pais VALUES (2387, 'Bolivia Estado Plurinacional de');
+INSERT INTO public.dt_pais VALUES (2388, 'Bosnia y Herzegovina');
+INSERT INTO public.dt_pais VALUES (2389, 'Botswana');
+INSERT INTO public.dt_pais VALUES (2390, 'Brasil');
+INSERT INTO public.dt_pais VALUES (2391, 'Brunei Darussam');
+INSERT INTO public.dt_pais VALUES (2392, 'Bulgaria');
+INSERT INTO public.dt_pais VALUES (2393, 'Burkina Faso');
+INSERT INTO public.dt_pais VALUES (2394, 'Burundi');
+INSERT INTO public.dt_pais VALUES (2395, 'Cabo Verde');
+INSERT INTO public.dt_pais VALUES (2396, 'Camboya');
+INSERT INTO public.dt_pais VALUES (2397, 'Camerún');
+INSERT INTO public.dt_pais VALUES (2398, 'Canadá');
+INSERT INTO public.dt_pais VALUES (2399, 'Chad');
+INSERT INTO public.dt_pais VALUES (2400, 'Chequia');
+INSERT INTO public.dt_pais VALUES (2401, 'Chile');
+INSERT INTO public.dt_pais VALUES (2402, 'China');
+INSERT INTO public.dt_pais VALUES (2403, 'Chipre');
+INSERT INTO public.dt_pais VALUES (2404, 'Colombia');
+INSERT INTO public.dt_pais VALUES (2405, 'Comoras s');
+INSERT INTO public.dt_pais VALUES (2406, 'Congo');
+INSERT INTO public.dt_pais VALUES (2407, 'Costa Rica');
+INSERT INTO public.dt_pais VALUES (2408, 'Côte d’Ivoire');
+INSERT INTO public.dt_pais VALUES (2409, 'Croacia');
+INSERT INTO public.dt_pais VALUES (2410, 'Cuba');
+INSERT INTO public.dt_pais VALUES (2411, 'Dinamarca');
+INSERT INTO public.dt_pais VALUES (2412, 'Djibouti');
+INSERT INTO public.dt_pais VALUES (2413, 'Dominica');
+INSERT INTO public.dt_pais VALUES (2414, 'Ecuador');
+INSERT INTO public.dt_pais VALUES (2415, 'Egipto');
+INSERT INTO public.dt_pais VALUES (2416, ' Salvador');
+INSERT INTO public.dt_pais VALUES (2417, 'Emiratos Árabes Unidos');
+INSERT INTO public.dt_pais VALUES (2418, 'Eritrea');
+INSERT INTO public.dt_pais VALUES (2419, 'Eslovaquia');
+INSERT INTO public.dt_pais VALUES (2420, 'Eslovenia');
+INSERT INTO public.dt_pais VALUES (2421, 'España');
+INSERT INTO public.dt_pais VALUES (2422, 'Estados Unidos de América');
+INSERT INTO public.dt_pais VALUES (2423, 'Estonia');
+INSERT INTO public.dt_pais VALUES (2424, 'Eswatini');
+INSERT INTO public.dt_pais VALUES (2425, 'Etiopía');
+INSERT INTO public.dt_pais VALUES (2426, 'Federación de Rusia');
+INSERT INTO public.dt_pais VALUES (2427, 'Fiji');
+INSERT INTO public.dt_pais VALUES (2428, 'Filipinas');
+INSERT INTO public.dt_pais VALUES (2429, 'Finndia');
+INSERT INTO public.dt_pais VALUES (2430, 'Francia');
+INSERT INTO public.dt_pais VALUES (2431, 'Gabón');
+INSERT INTO public.dt_pais VALUES (2432, 'Gambia');
+INSERT INTO public.dt_pais VALUES (2433, 'Georgia');
+INSERT INTO public.dt_pais VALUES (2434, 'Ghana');
+INSERT INTO public.dt_pais VALUES (2435, 'Granada');
+INSERT INTO public.dt_pais VALUES (2436, 'Grecia');
+INSERT INTO public.dt_pais VALUES (2437, 'Guatema');
+INSERT INTO public.dt_pais VALUES (2438, 'Guinea');
+INSERT INTO public.dt_pais VALUES (2439, 'Guinea Ecuatorial');
+INSERT INTO public.dt_pais VALUES (2440, 'Guinea-Bissau');
+INSERT INTO public.dt_pais VALUES (2441, 'Guyana');
+INSERT INTO public.dt_pais VALUES (2442, 'Haití');
+INSERT INTO public.dt_pais VALUES (2443, 'Honduras');
+INSERT INTO public.dt_pais VALUES (2444, 'Hungría');
+INSERT INTO public.dt_pais VALUES (2445, 'India');
+INSERT INTO public.dt_pais VALUES (2446, 'Indonesia');
+INSERT INTO public.dt_pais VALUES (2447, 'Irán República Islámica d');
+INSERT INTO public.dt_pais VALUES (2448, 'Iraq');
+INSERT INTO public.dt_pais VALUES (2449, 'Irnda');
+INSERT INTO public.dt_pais VALUES (2450, 'Isndia');
+INSERT INTO public.dt_pais VALUES (2451, 'Iss Cook s');
+INSERT INTO public.dt_pais VALUES (2452, 'Iss Marshall s');
+INSERT INTO public.dt_pais VALUES (2453, 'Iss Salomón s');
+INSERT INTO public.dt_pais VALUES (2454, 'Isra');
+INSERT INTO public.dt_pais VALUES (2455, 'Italia');
+INSERT INTO public.dt_pais VALUES (2456, 'Jamaica');
+INSERT INTO public.dt_pais VALUES (2457, 'Japón');
+INSERT INTO public.dt_pais VALUES (2458, 'Jordania');
+INSERT INTO public.dt_pais VALUES (2459, 'Kazajstán');
+INSERT INTO public.dt_pais VALUES (2460, 'Kenya');
+INSERT INTO public.dt_pais VALUES (2461, 'Kirguistán');
+INSERT INTO public.dt_pais VALUES (2462, 'Kiribati');
+INSERT INTO public.dt_pais VALUES (2463, 'Kuwait');
+INSERT INTO public.dt_pais VALUES (2464, 'Lesotho');
+INSERT INTO public.dt_pais VALUES (2465, 'Letonia');
+INSERT INTO public.dt_pais VALUES (2466, 'Líbano');
+INSERT INTO public.dt_pais VALUES (2467, 'Liberia');
+INSERT INTO public.dt_pais VALUES (2468, 'Libia');
+INSERT INTO public.dt_pais VALUES (2469, 'Liechtenstein');
+INSERT INTO public.dt_pais VALUES (2470, 'Lituania');
+INSERT INTO public.dt_pais VALUES (2471, 'Luxemburgo');
+INSERT INTO public.dt_pais VALUES (2472, 'Madagascar');
+INSERT INTO public.dt_pais VALUES (2473, 'Masia');
+INSERT INTO public.dt_pais VALUES (2474, 'Mawi');
+INSERT INTO public.dt_pais VALUES (2475, 'Maldivas');
+INSERT INTO public.dt_pais VALUES (2476, 'Malí');
+INSERT INTO public.dt_pais VALUES (2477, 'Malta');
+INSERT INTO public.dt_pais VALUES (2478, 'Marruecos');
+INSERT INTO public.dt_pais VALUES (2479, 'Mauricio');
+INSERT INTO public.dt_pais VALUES (2480, 'Mauritania');
+INSERT INTO public.dt_pais VALUES (2481, 'México');
+INSERT INTO public.dt_pais VALUES (2482, 'Micronesia Estados Federados de');
+INSERT INTO public.dt_pais VALUES (2483, 'Mónaco');
+INSERT INTO public.dt_pais VALUES (2484, 'Mongolia');
+INSERT INTO public.dt_pais VALUES (2485, 'Montenegro');
+INSERT INTO public.dt_pais VALUES (2486, 'Mozambique');
+INSERT INTO public.dt_pais VALUES (2487, 'Myanmar');
+INSERT INTO public.dt_pais VALUES (2488, 'Namibia');
+INSERT INTO public.dt_pais VALUES (2489, 'Nauru');
+INSERT INTO public.dt_pais VALUES (2490, 'Nepal');
+INSERT INTO public.dt_pais VALUES (2491, 'Nicaragua');
+INSERT INTO public.dt_pais VALUES (2492, 'Níger');
+INSERT INTO public.dt_pais VALUES (2493, 'Nigeria');
+INSERT INTO public.dt_pais VALUES (2494, 'Niue');
+INSERT INTO public.dt_pais VALUES (2495, 'Noruega');
+INSERT INTO public.dt_pais VALUES (2496, 'Nueva Zandia');
+INSERT INTO public.dt_pais VALUES (2497, 'Omán');
+INSERT INTO public.dt_pais VALUES (2498, 'Países Bajos');
+INSERT INTO public.dt_pais VALUES (2499, 'Pakistán');
+INSERT INTO public.dt_pais VALUES (2500, 'Pau');
+INSERT INTO public.dt_pais VALUES (2501, 'Panamá');
+INSERT INTO public.dt_pais VALUES (2502, 'Papua Nueva Guinea');
+INSERT INTO public.dt_pais VALUES (2503, 'Paraguay');
+INSERT INTO public.dt_pais VALUES (2504, 'Perú');
+INSERT INTO public.dt_pais VALUES (2505, 'Polonia');
+INSERT INTO public.dt_pais VALUES (2506, 'Portugal');
+INSERT INTO public.dt_pais VALUES (2507, 'Qatar');
+INSERT INTO public.dt_pais VALUES (2508, 'Reino Unido de Gran Bretaña e Irnda d Norte');
+INSERT INTO public.dt_pais VALUES (2509, 'República Árabe Siria');
+INSERT INTO public.dt_pais VALUES (2510, 'República Centroafricana');
+INSERT INTO public.dt_pais VALUES (2511, 'República de Corea');
+INSERT INTO public.dt_pais VALUES (2512, 'República de Macedonia d Norte');
+INSERT INTO public.dt_pais VALUES (2513, 'Nombre corto: Macedonia d Norte');
+INSERT INTO public.dt_pais VALUES (2514, 'República de Moldova');
+INSERT INTO public.dt_pais VALUES (2515, 'República Democrática d Congo');
+INSERT INTO public.dt_pais VALUES (2516, 'República Democrática Popur o');
+INSERT INTO public.dt_pais VALUES (2517, 'República Dominicana');
+INSERT INTO public.dt_pais VALUES (2518, 'República Popur Democrática de Corea');
+INSERT INTO public.dt_pais VALUES (2519, 'República Unida de Tanzanía');
+INSERT INTO public.dt_pais VALUES (2520, 'Rumania');
+INSERT INTO public.dt_pais VALUES (2521, 'Rwanda');
+INSERT INTO public.dt_pais VALUES (2522, 'Saint Kitts y Nevis');
+INSERT INTO public.dt_pais VALUES (2523, 'Samoa');
+INSERT INTO public.dt_pais VALUES (2524, 'San Marino');
+INSERT INTO public.dt_pais VALUES (2525, 'San Vicente y s Granadinas');
+INSERT INTO public.dt_pais VALUES (2526, 'Santa Lucía');
+INSERT INTO public.dt_pais VALUES (2527, 'Santa Sede');
+INSERT INTO public.dt_pais VALUES (2528, 'Santo Tomé y Príncipe');
+INSERT INTO public.dt_pais VALUES (2529, 'Senegal');
+INSERT INTO public.dt_pais VALUES (2530, 'Serbia');
+INSERT INTO public.dt_pais VALUES (2531, 'Seychles');
+INSERT INTO public.dt_pais VALUES (2532, 'Sierra Leona');
+INSERT INTO public.dt_pais VALUES (2533, 'Singapur');
+INSERT INTO public.dt_pais VALUES (2534, 'Somalia');
+INSERT INTO public.dt_pais VALUES (2535, 'Sri nka');
+INSERT INTO public.dt_pais VALUES (2536, 'Sudáfrica');
+INSERT INTO public.dt_pais VALUES (2537, 'Sudán');
+INSERT INTO public.dt_pais VALUES (2538, 'Sudán d Sur');
+INSERT INTO public.dt_pais VALUES (2539, 'Suecia');
+INSERT INTO public.dt_pais VALUES (2540, 'Suiza');
+INSERT INTO public.dt_pais VALUES (2541, 'Suriname');
+INSERT INTO public.dt_pais VALUES (2542, 'Taindia');
+INSERT INTO public.dt_pais VALUES (2543, 'Tayikistán');
+INSERT INTO public.dt_pais VALUES (2544, 'Timor-Leste');
+INSERT INTO public.dt_pais VALUES (2545, 'Togo');
+INSERT INTO public.dt_pais VALUES (2546, 'Tonga');
+INSERT INTO public.dt_pais VALUES (2547, 'Trinidad y Tabago');
+INSERT INTO public.dt_pais VALUES (2548, 'Túnez');
+INSERT INTO public.dt_pais VALUES (2549, 'Turkmenistán');
+INSERT INTO public.dt_pais VALUES (2550, 'Turquía');
+INSERT INTO public.dt_pais VALUES (2551, 'Tuvalu');
+INSERT INTO public.dt_pais VALUES (2552, 'Ucrania');
+INSERT INTO public.dt_pais VALUES (2553, 'Uganda');
+INSERT INTO public.dt_pais VALUES (2554, 'Uruguay');
+INSERT INTO public.dt_pais VALUES (2555, 'Uzbekistán');
+INSERT INTO public.dt_pais VALUES (2556, 'Vanuatu');
+INSERT INTO public.dt_pais VALUES (2557, 'Venezua República Bolivariana de');
+INSERT INTO public.dt_pais VALUES (2558, 'Viet Nam');
+INSERT INTO public.dt_pais VALUES (2559, 'Yemen');
+INSERT INTO public.dt_pais VALUES (2560, 'Zambia');
+INSERT INTO public.dt_pais VALUES (2561, 'Zimbabwe');
+INSERT INTO public.dt_pais VALUES (2562, 'Afganistán');
+INSERT INTO public.dt_pais VALUES (2563, 'Albania');
+INSERT INTO public.dt_pais VALUES (2564, 'Alemania');
+INSERT INTO public.dt_pais VALUES (2565, 'Andorra');
+INSERT INTO public.dt_pais VALUES (2566, 'Ango');
+INSERT INTO public.dt_pais VALUES (2567, 'Antigua y Barbuda');
+INSERT INTO public.dt_pais VALUES (2568, 'Arabia Saudita');
+INSERT INTO public.dt_pais VALUES (2569, 'Argia');
+INSERT INTO public.dt_pais VALUES (2570, 'Argentina');
+INSERT INTO public.dt_pais VALUES (2571, 'Armenia');
+INSERT INTO public.dt_pais VALUES (2572, 'Australia');
+INSERT INTO public.dt_pais VALUES (2573, 'Austria');
+INSERT INTO public.dt_pais VALUES (2574, 'Azerbaiyán');
+INSERT INTO public.dt_pais VALUES (2575, 'Bahamas s');
+INSERT INTO public.dt_pais VALUES (2576, 'Bahrein');
+INSERT INTO public.dt_pais VALUES (2577, 'Bangdesh');
+INSERT INTO public.dt_pais VALUES (2578, 'Barbados');
+INSERT INTO public.dt_pais VALUES (2579, 'Barús');
+INSERT INTO public.dt_pais VALUES (2580, 'Bélgica');
+INSERT INTO public.dt_pais VALUES (2581, 'Bice');
+INSERT INTO public.dt_pais VALUES (2582, 'Benin');
+INSERT INTO public.dt_pais VALUES (2583, 'Bhután');
+INSERT INTO public.dt_pais VALUES (2584, 'Bolivia Estado Plurinacional de');
+INSERT INTO public.dt_pais VALUES (2585, 'Bosnia y Herzegovina');
+INSERT INTO public.dt_pais VALUES (2586, 'Botswana');
+INSERT INTO public.dt_pais VALUES (2587, 'Brasil');
+INSERT INTO public.dt_pais VALUES (2588, 'Brunei Darussam');
+INSERT INTO public.dt_pais VALUES (2589, 'Bulgaria');
+INSERT INTO public.dt_pais VALUES (2590, 'Burkina Faso');
+INSERT INTO public.dt_pais VALUES (2591, 'Burundi');
+INSERT INTO public.dt_pais VALUES (2592, 'Cabo Verde');
+INSERT INTO public.dt_pais VALUES (2593, 'Camboya');
+INSERT INTO public.dt_pais VALUES (2594, 'Camerún');
+INSERT INTO public.dt_pais VALUES (2595, 'Canadá');
+INSERT INTO public.dt_pais VALUES (2596, 'Chad');
+INSERT INTO public.dt_pais VALUES (2597, 'Chequia');
+INSERT INTO public.dt_pais VALUES (2598, 'Chile');
+INSERT INTO public.dt_pais VALUES (2599, 'China');
+INSERT INTO public.dt_pais VALUES (2600, 'Chipre');
+INSERT INTO public.dt_pais VALUES (2601, 'Colombia');
+INSERT INTO public.dt_pais VALUES (2602, 'Comoras s');
+INSERT INTO public.dt_pais VALUES (2603, 'Congo');
+INSERT INTO public.dt_pais VALUES (2604, 'Costa Rica');
+INSERT INTO public.dt_pais VALUES (2605, 'Côte d’Ivoire');
+INSERT INTO public.dt_pais VALUES (2606, 'Croacia');
+INSERT INTO public.dt_pais VALUES (2607, 'Cuba');
+INSERT INTO public.dt_pais VALUES (2608, 'Dinamarca');
+INSERT INTO public.dt_pais VALUES (2609, 'Djibouti');
+INSERT INTO public.dt_pais VALUES (2610, 'Dominica');
+INSERT INTO public.dt_pais VALUES (2611, 'Ecuador');
+INSERT INTO public.dt_pais VALUES (2612, 'Egipto');
+INSERT INTO public.dt_pais VALUES (2613, ' Salvador');
+INSERT INTO public.dt_pais VALUES (2614, 'Emiratos Árabes Unidos');
+INSERT INTO public.dt_pais VALUES (2615, 'Eritrea');
+INSERT INTO public.dt_pais VALUES (2616, 'Eslovaquia');
+INSERT INTO public.dt_pais VALUES (2617, 'Eslovenia');
+INSERT INTO public.dt_pais VALUES (2618, 'España');
+INSERT INTO public.dt_pais VALUES (2619, 'Estados Unidos de América');
+INSERT INTO public.dt_pais VALUES (2620, 'Estonia');
+INSERT INTO public.dt_pais VALUES (2621, 'Eswatini');
+INSERT INTO public.dt_pais VALUES (2622, 'Etiopía');
+INSERT INTO public.dt_pais VALUES (2623, 'Federación de Rusia');
+INSERT INTO public.dt_pais VALUES (2624, 'Fiji');
+INSERT INTO public.dt_pais VALUES (2625, 'Filipinas');
+INSERT INTO public.dt_pais VALUES (2626, 'Finndia');
+INSERT INTO public.dt_pais VALUES (2627, 'Francia');
+INSERT INTO public.dt_pais VALUES (2628, 'Gabón');
+INSERT INTO public.dt_pais VALUES (2629, 'Gambia');
+INSERT INTO public.dt_pais VALUES (2630, 'Georgia');
+INSERT INTO public.dt_pais VALUES (2631, 'Ghana');
+INSERT INTO public.dt_pais VALUES (2632, 'Granada');
+INSERT INTO public.dt_pais VALUES (2633, 'Grecia');
+INSERT INTO public.dt_pais VALUES (2634, 'Guatema');
+INSERT INTO public.dt_pais VALUES (2635, 'Guinea');
+INSERT INTO public.dt_pais VALUES (2636, 'Guinea Ecuatorial');
+INSERT INTO public.dt_pais VALUES (2637, 'Guinea-Bissau');
+INSERT INTO public.dt_pais VALUES (2638, 'Guyana');
+INSERT INTO public.dt_pais VALUES (2639, 'Haití');
+INSERT INTO public.dt_pais VALUES (2640, 'Honduras');
+INSERT INTO public.dt_pais VALUES (2641, 'Hungría');
+INSERT INTO public.dt_pais VALUES (2642, 'India');
+INSERT INTO public.dt_pais VALUES (2643, 'Indonesia');
+INSERT INTO public.dt_pais VALUES (2644, 'Irán República Islámica d');
+INSERT INTO public.dt_pais VALUES (2645, 'Iraq');
+INSERT INTO public.dt_pais VALUES (2646, 'Irnda');
+INSERT INTO public.dt_pais VALUES (2647, 'Isndia');
+INSERT INTO public.dt_pais VALUES (2648, 'Iss Cook s');
+INSERT INTO public.dt_pais VALUES (2649, 'Iss Marshall s');
+INSERT INTO public.dt_pais VALUES (2650, 'Iss Salomón s');
+INSERT INTO public.dt_pais VALUES (2651, 'Isra');
+INSERT INTO public.dt_pais VALUES (2652, 'Italia');
+INSERT INTO public.dt_pais VALUES (2653, 'Jamaica');
+INSERT INTO public.dt_pais VALUES (2654, 'Japón');
+INSERT INTO public.dt_pais VALUES (2655, 'Jordania');
+INSERT INTO public.dt_pais VALUES (2656, 'Kazajstán');
+INSERT INTO public.dt_pais VALUES (2657, 'Kenya');
+INSERT INTO public.dt_pais VALUES (2658, 'Kirguistán');
+INSERT INTO public.dt_pais VALUES (2659, 'Kiribati');
+INSERT INTO public.dt_pais VALUES (2660, 'Kuwait');
+INSERT INTO public.dt_pais VALUES (2661, 'Lesotho');
+INSERT INTO public.dt_pais VALUES (2662, 'Letonia');
+INSERT INTO public.dt_pais VALUES (2663, 'Líbano');
+INSERT INTO public.dt_pais VALUES (2664, 'Liberia');
+INSERT INTO public.dt_pais VALUES (2665, 'Libia');
+INSERT INTO public.dt_pais VALUES (2666, 'Liechtenstein');
+INSERT INTO public.dt_pais VALUES (2667, 'Lituania');
+INSERT INTO public.dt_pais VALUES (2668, 'Luxemburgo');
+INSERT INTO public.dt_pais VALUES (2669, 'Madagascar');
+INSERT INTO public.dt_pais VALUES (2670, 'Masia');
+INSERT INTO public.dt_pais VALUES (2671, 'Mawi');
+INSERT INTO public.dt_pais VALUES (2672, 'Maldivas');
+INSERT INTO public.dt_pais VALUES (2673, 'Malí');
+INSERT INTO public.dt_pais VALUES (2674, 'Malta');
+INSERT INTO public.dt_pais VALUES (2675, 'Marruecos');
+INSERT INTO public.dt_pais VALUES (2676, 'Mauricio');
+INSERT INTO public.dt_pais VALUES (2677, 'Mauritania');
+INSERT INTO public.dt_pais VALUES (2678, 'México');
+INSERT INTO public.dt_pais VALUES (2679, 'Micronesia Estados Federados de');
+INSERT INTO public.dt_pais VALUES (2680, 'Mónaco');
+INSERT INTO public.dt_pais VALUES (2681, 'Mongolia');
+INSERT INTO public.dt_pais VALUES (2682, 'Montenegro');
+INSERT INTO public.dt_pais VALUES (2683, 'Mozambique');
+INSERT INTO public.dt_pais VALUES (2684, 'Myanmar');
+INSERT INTO public.dt_pais VALUES (2685, 'Namibia');
+INSERT INTO public.dt_pais VALUES (2686, 'Nauru');
+INSERT INTO public.dt_pais VALUES (2687, 'Nepal');
+INSERT INTO public.dt_pais VALUES (2688, 'Nicaragua');
+INSERT INTO public.dt_pais VALUES (2689, 'Níger');
+INSERT INTO public.dt_pais VALUES (2690, 'Nigeria');
+INSERT INTO public.dt_pais VALUES (2691, 'Niue');
+INSERT INTO public.dt_pais VALUES (2692, 'Noruega');
+INSERT INTO public.dt_pais VALUES (2693, 'Nueva Zandia');
+INSERT INTO public.dt_pais VALUES (2694, 'Omán');
+INSERT INTO public.dt_pais VALUES (2695, 'Países Bajos');
+INSERT INTO public.dt_pais VALUES (2696, 'Pakistán');
+INSERT INTO public.dt_pais VALUES (2697, 'Pau');
+INSERT INTO public.dt_pais VALUES (2698, 'Panamá');
+INSERT INTO public.dt_pais VALUES (2699, 'Papua Nueva Guinea');
+INSERT INTO public.dt_pais VALUES (2700, 'Paraguay');
+INSERT INTO public.dt_pais VALUES (2701, 'Perú');
+INSERT INTO public.dt_pais VALUES (2702, 'Polonia');
+INSERT INTO public.dt_pais VALUES (2703, 'Portugal');
+INSERT INTO public.dt_pais VALUES (2704, 'Qatar');
+INSERT INTO public.dt_pais VALUES (2705, 'Reino Unido de Gran Bretaña e Irnda d Norte');
+INSERT INTO public.dt_pais VALUES (2706, 'República Árabe Siria');
+INSERT INTO public.dt_pais VALUES (2707, 'República Centroafricana');
+INSERT INTO public.dt_pais VALUES (2708, 'República de Corea');
+INSERT INTO public.dt_pais VALUES (2709, 'República de Macedonia d Norte');
+INSERT INTO public.dt_pais VALUES (2710, 'Nombre corto: Macedonia d Norte');
+INSERT INTO public.dt_pais VALUES (2711, 'República de Moldova');
+INSERT INTO public.dt_pais VALUES (2712, 'República Democrática d Congo');
+INSERT INTO public.dt_pais VALUES (2713, 'República Democrática Popur o');
+INSERT INTO public.dt_pais VALUES (2714, 'República Dominicana');
+INSERT INTO public.dt_pais VALUES (2715, 'República Popur Democrática de Corea');
+INSERT INTO public.dt_pais VALUES (2716, 'República Unida de Tanzanía');
+INSERT INTO public.dt_pais VALUES (2717, 'Rumania');
+INSERT INTO public.dt_pais VALUES (2718, 'Rwanda');
+INSERT INTO public.dt_pais VALUES (2719, 'Saint Kitts y Nevis');
+INSERT INTO public.dt_pais VALUES (2720, 'Samoa');
+INSERT INTO public.dt_pais VALUES (2721, 'San Marino');
+INSERT INTO public.dt_pais VALUES (2722, 'San Vicente y s Granadinas');
+INSERT INTO public.dt_pais VALUES (2723, 'Santa Lucía');
+INSERT INTO public.dt_pais VALUES (2724, 'Santa Sede');
+INSERT INTO public.dt_pais VALUES (2725, 'Santo Tomé y Príncipe');
+INSERT INTO public.dt_pais VALUES (2726, 'Senegal');
+INSERT INTO public.dt_pais VALUES (2727, 'Serbia');
+INSERT INTO public.dt_pais VALUES (2728, 'Seychles');
+INSERT INTO public.dt_pais VALUES (2729, 'Sierra Leona');
+INSERT INTO public.dt_pais VALUES (2730, 'Singapur');
+INSERT INTO public.dt_pais VALUES (2731, 'Somalia');
+INSERT INTO public.dt_pais VALUES (2732, 'Sri nka');
+INSERT INTO public.dt_pais VALUES (2733, 'Sudáfrica');
+INSERT INTO public.dt_pais VALUES (2734, 'Sudán');
+INSERT INTO public.dt_pais VALUES (2735, 'Sudán d Sur');
+INSERT INTO public.dt_pais VALUES (2736, 'Suecia');
+INSERT INTO public.dt_pais VALUES (2737, 'Suiza');
+INSERT INTO public.dt_pais VALUES (2738, 'Suriname');
+INSERT INTO public.dt_pais VALUES (2739, 'Taindia');
+INSERT INTO public.dt_pais VALUES (2740, 'Tayikistán');
+INSERT INTO public.dt_pais VALUES (2741, 'Timor-Leste');
+INSERT INTO public.dt_pais VALUES (2742, 'Togo');
+INSERT INTO public.dt_pais VALUES (2743, 'Tonga');
+INSERT INTO public.dt_pais VALUES (2744, 'Trinidad y Tabago');
+INSERT INTO public.dt_pais VALUES (2745, 'Túnez');
+INSERT INTO public.dt_pais VALUES (2746, 'Turkmenistán');
+INSERT INTO public.dt_pais VALUES (2747, 'Turquía');
+INSERT INTO public.dt_pais VALUES (2748, 'Tuvalu');
+INSERT INTO public.dt_pais VALUES (2749, 'Ucrania');
+INSERT INTO public.dt_pais VALUES (2750, 'Uganda');
+INSERT INTO public.dt_pais VALUES (2751, 'Uruguay');
+INSERT INTO public.dt_pais VALUES (2752, 'Uzbekistán');
+INSERT INTO public.dt_pais VALUES (2753, 'Vanuatu');
+INSERT INTO public.dt_pais VALUES (2754, 'Venezua República Bolivariana de');
+INSERT INTO public.dt_pais VALUES (2755, 'Viet Nam');
+INSERT INTO public.dt_pais VALUES (2756, 'Yemen');
+INSERT INTO public.dt_pais VALUES (2757, 'Zambia');
+INSERT INTO public.dt_pais VALUES (2758, 'Zimbabwe');
+INSERT INTO public.dt_pais VALUES (2759, 'Afganistán');
+INSERT INTO public.dt_pais VALUES (2760, 'Albania');
+INSERT INTO public.dt_pais VALUES (2761, 'Alemania');
+INSERT INTO public.dt_pais VALUES (2762, 'Andorra');
+INSERT INTO public.dt_pais VALUES (2763, 'Ango');
+INSERT INTO public.dt_pais VALUES (2764, 'Antigua y Barbuda');
+INSERT INTO public.dt_pais VALUES (2765, 'Arabia Saudita');
+INSERT INTO public.dt_pais VALUES (2766, 'Argia');
+INSERT INTO public.dt_pais VALUES (2767, 'Argentina');
+INSERT INTO public.dt_pais VALUES (2768, 'Armenia');
+INSERT INTO public.dt_pais VALUES (2769, 'Australia');
+INSERT INTO public.dt_pais VALUES (2770, 'Austria');
+INSERT INTO public.dt_pais VALUES (2771, 'Azerbaiyán');
+INSERT INTO public.dt_pais VALUES (2772, 'Bahamas s');
+INSERT INTO public.dt_pais VALUES (2773, 'Bahrein');
+INSERT INTO public.dt_pais VALUES (2774, 'Bangdesh');
+INSERT INTO public.dt_pais VALUES (2775, 'Barbados');
+INSERT INTO public.dt_pais VALUES (2776, 'Barús');
+INSERT INTO public.dt_pais VALUES (2777, 'Bélgica');
+INSERT INTO public.dt_pais VALUES (2778, 'Bice');
+INSERT INTO public.dt_pais VALUES (2779, 'Benin');
+INSERT INTO public.dt_pais VALUES (2780, 'Bhután');
+INSERT INTO public.dt_pais VALUES (2781, 'Bolivia Estado Plurinacional de');
+INSERT INTO public.dt_pais VALUES (2782, 'Bosnia y Herzegovina');
+INSERT INTO public.dt_pais VALUES (2783, 'Botswana');
+INSERT INTO public.dt_pais VALUES (2784, 'Brasil');
+INSERT INTO public.dt_pais VALUES (2785, 'Brunei Darussam');
+INSERT INTO public.dt_pais VALUES (2786, 'Bulgaria');
+INSERT INTO public.dt_pais VALUES (2787, 'Burkina Faso');
+INSERT INTO public.dt_pais VALUES (2788, 'Burundi');
+INSERT INTO public.dt_pais VALUES (2789, 'Cabo Verde');
+INSERT INTO public.dt_pais VALUES (2790, 'Camboya');
+INSERT INTO public.dt_pais VALUES (2791, 'Camerún');
+INSERT INTO public.dt_pais VALUES (2792, 'Canadá');
+INSERT INTO public.dt_pais VALUES (2793, 'Chad');
+INSERT INTO public.dt_pais VALUES (2794, 'Chequia');
+INSERT INTO public.dt_pais VALUES (2795, 'Chile');
+INSERT INTO public.dt_pais VALUES (2796, 'China');
+INSERT INTO public.dt_pais VALUES (2797, 'Chipre');
+INSERT INTO public.dt_pais VALUES (2798, 'Colombia');
+INSERT INTO public.dt_pais VALUES (2799, 'Comoras s');
+INSERT INTO public.dt_pais VALUES (2800, 'Congo');
+INSERT INTO public.dt_pais VALUES (2801, 'Costa Rica');
+INSERT INTO public.dt_pais VALUES (2802, 'Côte d’Ivoire');
+INSERT INTO public.dt_pais VALUES (2803, 'Croacia');
+INSERT INTO public.dt_pais VALUES (2804, 'Cuba');
+INSERT INTO public.dt_pais VALUES (2805, 'Dinamarca');
+INSERT INTO public.dt_pais VALUES (2806, 'Djibouti');
+INSERT INTO public.dt_pais VALUES (2807, 'Dominica');
+INSERT INTO public.dt_pais VALUES (2808, 'Ecuador');
+INSERT INTO public.dt_pais VALUES (2809, 'Egipto');
+INSERT INTO public.dt_pais VALUES (2810, ' Salvador');
+INSERT INTO public.dt_pais VALUES (2811, 'Emiratos Árabes Unidos');
+INSERT INTO public.dt_pais VALUES (2812, 'Eritrea');
+INSERT INTO public.dt_pais VALUES (2813, 'Eslovaquia');
+INSERT INTO public.dt_pais VALUES (2814, 'Eslovenia');
+INSERT INTO public.dt_pais VALUES (2815, 'España');
+INSERT INTO public.dt_pais VALUES (2816, 'Estados Unidos de América');
+INSERT INTO public.dt_pais VALUES (2817, 'Estonia');
+INSERT INTO public.dt_pais VALUES (2818, 'Eswatini');
+INSERT INTO public.dt_pais VALUES (2819, 'Etiopía');
+INSERT INTO public.dt_pais VALUES (2820, 'Federación de Rusia');
+INSERT INTO public.dt_pais VALUES (2821, 'Fiji');
+INSERT INTO public.dt_pais VALUES (2822, 'Filipinas');
+INSERT INTO public.dt_pais VALUES (2823, 'Finndia');
+INSERT INTO public.dt_pais VALUES (2824, 'Francia');
+INSERT INTO public.dt_pais VALUES (2825, 'Gabón');
+INSERT INTO public.dt_pais VALUES (2826, 'Gambia');
+INSERT INTO public.dt_pais VALUES (2827, 'Georgia');
+INSERT INTO public.dt_pais VALUES (2828, 'Ghana');
+INSERT INTO public.dt_pais VALUES (2829, 'Granada');
+INSERT INTO public.dt_pais VALUES (2830, 'Grecia');
+INSERT INTO public.dt_pais VALUES (2831, 'Guatema');
+INSERT INTO public.dt_pais VALUES (2832, 'Guinea');
+INSERT INTO public.dt_pais VALUES (2833, 'Guinea Ecuatorial');
+INSERT INTO public.dt_pais VALUES (2834, 'Guinea-Bissau');
+INSERT INTO public.dt_pais VALUES (2835, 'Guyana');
+INSERT INTO public.dt_pais VALUES (2836, 'Haití');
+INSERT INTO public.dt_pais VALUES (2837, 'Honduras');
+INSERT INTO public.dt_pais VALUES (2838, 'Hungría');
+INSERT INTO public.dt_pais VALUES (2839, 'India');
+INSERT INTO public.dt_pais VALUES (2840, 'Indonesia');
+INSERT INTO public.dt_pais VALUES (2841, 'Irán República Islámica d');
+INSERT INTO public.dt_pais VALUES (2842, 'Iraq');
+INSERT INTO public.dt_pais VALUES (2843, 'Irnda');
+INSERT INTO public.dt_pais VALUES (2844, 'Isndia');
+INSERT INTO public.dt_pais VALUES (2845, 'Iss Cook s');
+INSERT INTO public.dt_pais VALUES (2846, 'Iss Marshall s');
+INSERT INTO public.dt_pais VALUES (2847, 'Iss Salomón s');
+INSERT INTO public.dt_pais VALUES (2848, 'Isra');
+INSERT INTO public.dt_pais VALUES (2849, 'Italia');
+INSERT INTO public.dt_pais VALUES (2850, 'Jamaica');
+INSERT INTO public.dt_pais VALUES (2851, 'Japón');
+INSERT INTO public.dt_pais VALUES (2852, 'Jordania');
+INSERT INTO public.dt_pais VALUES (2853, 'Kazajstán');
+INSERT INTO public.dt_pais VALUES (2854, 'Kenya');
+INSERT INTO public.dt_pais VALUES (2855, 'Kirguistán');
+INSERT INTO public.dt_pais VALUES (2856, 'Kiribati');
+INSERT INTO public.dt_pais VALUES (2857, 'Kuwait');
+INSERT INTO public.dt_pais VALUES (2858, 'Lesotho');
+INSERT INTO public.dt_pais VALUES (2859, 'Letonia');
+INSERT INTO public.dt_pais VALUES (2860, 'Líbano');
+INSERT INTO public.dt_pais VALUES (2861, 'Liberia');
+INSERT INTO public.dt_pais VALUES (2862, 'Libia');
+INSERT INTO public.dt_pais VALUES (2863, 'Liechtenstein');
+INSERT INTO public.dt_pais VALUES (2864, 'Lituania');
+INSERT INTO public.dt_pais VALUES (2865, 'Luxemburgo');
+INSERT INTO public.dt_pais VALUES (2866, 'Madagascar');
+INSERT INTO public.dt_pais VALUES (2867, 'Masia');
+INSERT INTO public.dt_pais VALUES (2868, 'Mawi');
+INSERT INTO public.dt_pais VALUES (2869, 'Maldivas');
+INSERT INTO public.dt_pais VALUES (2870, 'Malí');
+INSERT INTO public.dt_pais VALUES (2871, 'Malta');
+INSERT INTO public.dt_pais VALUES (2872, 'Marruecos');
+INSERT INTO public.dt_pais VALUES (2873, 'Mauricio');
+INSERT INTO public.dt_pais VALUES (2874, 'Mauritania');
+INSERT INTO public.dt_pais VALUES (2875, 'México');
+INSERT INTO public.dt_pais VALUES (2876, 'Micronesia Estados Federados de');
+INSERT INTO public.dt_pais VALUES (2877, 'Mónaco');
+INSERT INTO public.dt_pais VALUES (2878, 'Mongolia');
+INSERT INTO public.dt_pais VALUES (2879, 'Montenegro');
+INSERT INTO public.dt_pais VALUES (2880, 'Mozambique');
+INSERT INTO public.dt_pais VALUES (2881, 'Myanmar');
+INSERT INTO public.dt_pais VALUES (2882, 'Namibia');
+INSERT INTO public.dt_pais VALUES (2883, 'Nauru');
+INSERT INTO public.dt_pais VALUES (2884, 'Nepal');
+INSERT INTO public.dt_pais VALUES (2885, 'Nicaragua');
+INSERT INTO public.dt_pais VALUES (2886, 'Níger');
+INSERT INTO public.dt_pais VALUES (2887, 'Nigeria');
+INSERT INTO public.dt_pais VALUES (2888, 'Niue');
+INSERT INTO public.dt_pais VALUES (2889, 'Noruega');
+INSERT INTO public.dt_pais VALUES (2890, 'Nueva Zandia');
+INSERT INTO public.dt_pais VALUES (2891, 'Omán');
+INSERT INTO public.dt_pais VALUES (2892, 'Países Bajos');
+INSERT INTO public.dt_pais VALUES (2893, 'Pakistán');
+INSERT INTO public.dt_pais VALUES (2894, 'Pau');
+INSERT INTO public.dt_pais VALUES (2895, 'Panamá');
+INSERT INTO public.dt_pais VALUES (2896, 'Papua Nueva Guinea');
+INSERT INTO public.dt_pais VALUES (2897, 'Paraguay');
+INSERT INTO public.dt_pais VALUES (2898, 'Perú');
+INSERT INTO public.dt_pais VALUES (2899, 'Polonia');
+INSERT INTO public.dt_pais VALUES (2900, 'Portugal');
+INSERT INTO public.dt_pais VALUES (2901, 'Qatar');
+INSERT INTO public.dt_pais VALUES (2902, 'Reino Unido de Gran Bretaña e Irnda d Norte');
+INSERT INTO public.dt_pais VALUES (2903, 'República Árabe Siria');
+INSERT INTO public.dt_pais VALUES (2904, 'República Centroafricana');
+INSERT INTO public.dt_pais VALUES (2905, 'República de Corea');
+INSERT INTO public.dt_pais VALUES (2906, 'República de Macedonia d Norte');
+INSERT INTO public.dt_pais VALUES (2907, 'Nombre corto: Macedonia d Norte');
+INSERT INTO public.dt_pais VALUES (2908, 'República de Moldova');
+INSERT INTO public.dt_pais VALUES (2909, 'República Democrática d Congo');
+INSERT INTO public.dt_pais VALUES (2910, 'República Democrática Popur o');
+INSERT INTO public.dt_pais VALUES (2911, 'República Dominicana');
+INSERT INTO public.dt_pais VALUES (2912, 'República Popur Democrática de Corea');
+INSERT INTO public.dt_pais VALUES (2913, 'República Unida de Tanzanía');
+INSERT INTO public.dt_pais VALUES (2914, 'Rumania');
+INSERT INTO public.dt_pais VALUES (2915, 'Rwanda');
+INSERT INTO public.dt_pais VALUES (2916, 'Saint Kitts y Nevis');
+INSERT INTO public.dt_pais VALUES (2917, 'Samoa');
+INSERT INTO public.dt_pais VALUES (2918, 'San Marino');
+INSERT INTO public.dt_pais VALUES (2919, 'San Vicente y s Granadinas');
+INSERT INTO public.dt_pais VALUES (2920, 'Santa Lucía');
+INSERT INTO public.dt_pais VALUES (2921, 'Santa Sede');
+INSERT INTO public.dt_pais VALUES (2922, 'Santo Tomé y Príncipe');
+INSERT INTO public.dt_pais VALUES (2923, 'Senegal');
+INSERT INTO public.dt_pais VALUES (2924, 'Serbia');
+INSERT INTO public.dt_pais VALUES (2925, 'Seychles');
+INSERT INTO public.dt_pais VALUES (2926, 'Sierra Leona');
+INSERT INTO public.dt_pais VALUES (2927, 'Singapur');
+INSERT INTO public.dt_pais VALUES (2928, 'Somalia');
+INSERT INTO public.dt_pais VALUES (2929, 'Sri nka');
+INSERT INTO public.dt_pais VALUES (2930, 'Sudáfrica');
+INSERT INTO public.dt_pais VALUES (2931, 'Sudán');
+INSERT INTO public.dt_pais VALUES (2932, 'Sudán d Sur');
+INSERT INTO public.dt_pais VALUES (2933, 'Suecia');
+INSERT INTO public.dt_pais VALUES (2934, 'Suiza');
+INSERT INTO public.dt_pais VALUES (2935, 'Suriname');
+INSERT INTO public.dt_pais VALUES (2936, 'Taindia');
+INSERT INTO public.dt_pais VALUES (2937, 'Tayikistán');
+INSERT INTO public.dt_pais VALUES (2938, 'Timor-Leste');
+INSERT INTO public.dt_pais VALUES (2939, 'Togo');
+INSERT INTO public.dt_pais VALUES (2940, 'Tonga');
+INSERT INTO public.dt_pais VALUES (2941, 'Trinidad y Tabago');
+INSERT INTO public.dt_pais VALUES (2942, 'Túnez');
+INSERT INTO public.dt_pais VALUES (2943, 'Turkmenistán');
+INSERT INTO public.dt_pais VALUES (2944, 'Turquía');
+INSERT INTO public.dt_pais VALUES (2945, 'Tuvalu');
+INSERT INTO public.dt_pais VALUES (2946, 'Ucrania');
+INSERT INTO public.dt_pais VALUES (2947, 'Uganda');
+INSERT INTO public.dt_pais VALUES (2948, 'Uruguay');
+INSERT INTO public.dt_pais VALUES (2949, 'Uzbekistán');
+INSERT INTO public.dt_pais VALUES (2950, 'Vanuatu');
+INSERT INTO public.dt_pais VALUES (2951, 'Venezua República Bolivariana de');
+INSERT INTO public.dt_pais VALUES (2952, 'Viet Nam');
+INSERT INTO public.dt_pais VALUES (2953, 'Yemen');
+INSERT INTO public.dt_pais VALUES (2954, 'Zambia');
+INSERT INTO public.dt_pais VALUES (2955, 'Zimbabwe');
+INSERT INTO public.dt_pais VALUES (2956, 'Afganistán');
+INSERT INTO public.dt_pais VALUES (2957, 'Albania');
+INSERT INTO public.dt_pais VALUES (2958, 'Alemania');
+INSERT INTO public.dt_pais VALUES (2959, 'Andorra');
+INSERT INTO public.dt_pais VALUES (2960, 'Ango');
+INSERT INTO public.dt_pais VALUES (2961, 'Antigua y Barbuda');
+INSERT INTO public.dt_pais VALUES (2962, 'Arabia Saudita');
+INSERT INTO public.dt_pais VALUES (2963, 'Argia');
+INSERT INTO public.dt_pais VALUES (2964, 'Argentina');
+INSERT INTO public.dt_pais VALUES (2965, 'Armenia');
+INSERT INTO public.dt_pais VALUES (2966, 'Australia');
+INSERT INTO public.dt_pais VALUES (2967, 'Austria');
+INSERT INTO public.dt_pais VALUES (2968, 'Azerbaiyán');
+INSERT INTO public.dt_pais VALUES (2969, 'Bahamas s');
+INSERT INTO public.dt_pais VALUES (2970, 'Bahrein');
+INSERT INTO public.dt_pais VALUES (2971, 'Bangdesh');
+INSERT INTO public.dt_pais VALUES (2972, 'Barbados');
+INSERT INTO public.dt_pais VALUES (2973, 'Barús');
+INSERT INTO public.dt_pais VALUES (2974, 'Bélgica');
+INSERT INTO public.dt_pais VALUES (2975, 'Bice');
+INSERT INTO public.dt_pais VALUES (2976, 'Benin');
+INSERT INTO public.dt_pais VALUES (2977, 'Bhután');
+INSERT INTO public.dt_pais VALUES (2978, 'Bolivia Estado Plurinacional de');
+INSERT INTO public.dt_pais VALUES (2979, 'Bosnia y Herzegovina');
+INSERT INTO public.dt_pais VALUES (2980, 'Botswana');
+INSERT INTO public.dt_pais VALUES (2981, 'Brasil');
+INSERT INTO public.dt_pais VALUES (2982, 'Brunei Darussam');
+INSERT INTO public.dt_pais VALUES (2983, 'Bulgaria');
+INSERT INTO public.dt_pais VALUES (2984, 'Burkina Faso');
+INSERT INTO public.dt_pais VALUES (2985, 'Burundi');
+INSERT INTO public.dt_pais VALUES (2986, 'Cabo Verde');
+INSERT INTO public.dt_pais VALUES (2987, 'Camboya');
+INSERT INTO public.dt_pais VALUES (2988, 'Camerún');
+INSERT INTO public.dt_pais VALUES (2989, 'Canadá');
+INSERT INTO public.dt_pais VALUES (2990, 'Chad');
+INSERT INTO public.dt_pais VALUES (2991, 'Chequia');
+INSERT INTO public.dt_pais VALUES (2992, 'Chile');
+INSERT INTO public.dt_pais VALUES (2993, 'China');
+INSERT INTO public.dt_pais VALUES (2994, 'Chipre');
+INSERT INTO public.dt_pais VALUES (2995, 'Colombia');
+INSERT INTO public.dt_pais VALUES (2996, 'Comoras s');
+INSERT INTO public.dt_pais VALUES (2997, 'Congo');
+INSERT INTO public.dt_pais VALUES (2998, 'Costa Rica');
+INSERT INTO public.dt_pais VALUES (2999, 'Côte d’Ivoire');
+INSERT INTO public.dt_pais VALUES (3000, 'Croacia');
+INSERT INTO public.dt_pais VALUES (3001, 'Cuba');
+INSERT INTO public.dt_pais VALUES (3002, 'Dinamarca');
+INSERT INTO public.dt_pais VALUES (3003, 'Djibouti');
+INSERT INTO public.dt_pais VALUES (3004, 'Dominica');
+INSERT INTO public.dt_pais VALUES (3005, 'Ecuador');
+INSERT INTO public.dt_pais VALUES (3006, 'Egipto');
+INSERT INTO public.dt_pais VALUES (3007, ' Salvador');
+INSERT INTO public.dt_pais VALUES (3008, 'Emiratos Árabes Unidos');
+INSERT INTO public.dt_pais VALUES (3009, 'Eritrea');
+INSERT INTO public.dt_pais VALUES (3010, 'Eslovaquia');
+INSERT INTO public.dt_pais VALUES (3011, 'Eslovenia');
+INSERT INTO public.dt_pais VALUES (3012, 'España');
+INSERT INTO public.dt_pais VALUES (3013, 'Estados Unidos de América');
+INSERT INTO public.dt_pais VALUES (3014, 'Estonia');
+INSERT INTO public.dt_pais VALUES (3015, 'Eswatini');
+INSERT INTO public.dt_pais VALUES (3016, 'Etiopía');
+INSERT INTO public.dt_pais VALUES (3017, 'Federación de Rusia');
+INSERT INTO public.dt_pais VALUES (3018, 'Fiji');
+INSERT INTO public.dt_pais VALUES (3019, 'Filipinas');
+INSERT INTO public.dt_pais VALUES (3020, 'Finndia');
+INSERT INTO public.dt_pais VALUES (3021, 'Francia');
+INSERT INTO public.dt_pais VALUES (3022, 'Gabón');
+INSERT INTO public.dt_pais VALUES (3023, 'Gambia');
+INSERT INTO public.dt_pais VALUES (3024, 'Georgia');
+INSERT INTO public.dt_pais VALUES (3025, 'Ghana');
+INSERT INTO public.dt_pais VALUES (3026, 'Granada');
+INSERT INTO public.dt_pais VALUES (3027, 'Grecia');
+INSERT INTO public.dt_pais VALUES (3028, 'Guatema');
+INSERT INTO public.dt_pais VALUES (3029, 'Guinea');
+INSERT INTO public.dt_pais VALUES (3030, 'Guinea Ecuatorial');
+INSERT INTO public.dt_pais VALUES (3031, 'Guinea-Bissau');
+INSERT INTO public.dt_pais VALUES (3032, 'Guyana');
+INSERT INTO public.dt_pais VALUES (3033, 'Haití');
+INSERT INTO public.dt_pais VALUES (3034, 'Honduras');
+INSERT INTO public.dt_pais VALUES (3035, 'Hungría');
+INSERT INTO public.dt_pais VALUES (3036, 'India');
+INSERT INTO public.dt_pais VALUES (3037, 'Indonesia');
+INSERT INTO public.dt_pais VALUES (3038, 'Irán República Islámica d');
+INSERT INTO public.dt_pais VALUES (3039, 'Iraq');
+INSERT INTO public.dt_pais VALUES (3040, 'Irnda');
+INSERT INTO public.dt_pais VALUES (3041, 'Isndia');
+INSERT INTO public.dt_pais VALUES (3042, 'Iss Cook s');
+INSERT INTO public.dt_pais VALUES (3043, 'Iss Marshall s');
+INSERT INTO public.dt_pais VALUES (3044, 'Iss Salomón s');
+INSERT INTO public.dt_pais VALUES (3045, 'Isra');
+INSERT INTO public.dt_pais VALUES (3046, 'Italia');
+INSERT INTO public.dt_pais VALUES (3047, 'Jamaica');
+INSERT INTO public.dt_pais VALUES (3048, 'Japón');
+INSERT INTO public.dt_pais VALUES (3049, 'Jordania');
+INSERT INTO public.dt_pais VALUES (3050, 'Kazajstán');
+INSERT INTO public.dt_pais VALUES (3051, 'Kenya');
+INSERT INTO public.dt_pais VALUES (3052, 'Kirguistán');
+INSERT INTO public.dt_pais VALUES (3053, 'Kiribati');
+INSERT INTO public.dt_pais VALUES (3054, 'Kuwait');
+INSERT INTO public.dt_pais VALUES (3055, 'Lesotho');
+INSERT INTO public.dt_pais VALUES (3056, 'Letonia');
+INSERT INTO public.dt_pais VALUES (3057, 'Líbano');
+INSERT INTO public.dt_pais VALUES (3058, 'Liberia');
+INSERT INTO public.dt_pais VALUES (3059, 'Libia');
+INSERT INTO public.dt_pais VALUES (3060, 'Liechtenstein');
+INSERT INTO public.dt_pais VALUES (3061, 'Lituania');
+INSERT INTO public.dt_pais VALUES (3062, 'Luxemburgo');
+INSERT INTO public.dt_pais VALUES (3063, 'Madagascar');
+INSERT INTO public.dt_pais VALUES (3064, 'Masia');
+INSERT INTO public.dt_pais VALUES (3065, 'Mawi');
+INSERT INTO public.dt_pais VALUES (3066, 'Maldivas');
+INSERT INTO public.dt_pais VALUES (3067, 'Malí');
+INSERT INTO public.dt_pais VALUES (3068, 'Malta');
+INSERT INTO public.dt_pais VALUES (3069, 'Marruecos');
+INSERT INTO public.dt_pais VALUES (3070, 'Mauricio');
+INSERT INTO public.dt_pais VALUES (3071, 'Mauritania');
+INSERT INTO public.dt_pais VALUES (3072, 'México');
+INSERT INTO public.dt_pais VALUES (3073, 'Micronesia Estados Federados de');
+INSERT INTO public.dt_pais VALUES (3074, 'Mónaco');
+INSERT INTO public.dt_pais VALUES (3075, 'Mongolia');
+INSERT INTO public.dt_pais VALUES (3076, 'Montenegro');
+INSERT INTO public.dt_pais VALUES (3077, 'Mozambique');
+INSERT INTO public.dt_pais VALUES (3078, 'Myanmar');
+INSERT INTO public.dt_pais VALUES (3079, 'Namibia');
+INSERT INTO public.dt_pais VALUES (3080, 'Nauru');
+INSERT INTO public.dt_pais VALUES (3081, 'Nepal');
+INSERT INTO public.dt_pais VALUES (3082, 'Nicaragua');
+INSERT INTO public.dt_pais VALUES (3083, 'Níger');
+INSERT INTO public.dt_pais VALUES (3084, 'Nigeria');
+INSERT INTO public.dt_pais VALUES (3085, 'Niue');
+INSERT INTO public.dt_pais VALUES (3086, 'Noruega');
+INSERT INTO public.dt_pais VALUES (3087, 'Nueva Zandia');
+INSERT INTO public.dt_pais VALUES (3088, 'Omán');
+INSERT INTO public.dt_pais VALUES (3089, 'Países Bajos');
+INSERT INTO public.dt_pais VALUES (3090, 'Pakistán');
+INSERT INTO public.dt_pais VALUES (3091, 'Pau');
+INSERT INTO public.dt_pais VALUES (3092, 'Panamá');
+INSERT INTO public.dt_pais VALUES (3093, 'Papua Nueva Guinea');
+INSERT INTO public.dt_pais VALUES (3094, 'Paraguay');
+INSERT INTO public.dt_pais VALUES (3095, 'Perú');
+INSERT INTO public.dt_pais VALUES (3096, 'Polonia');
+INSERT INTO public.dt_pais VALUES (3097, 'Portugal');
+INSERT INTO public.dt_pais VALUES (3098, 'Qatar');
+INSERT INTO public.dt_pais VALUES (3099, 'Reino Unido de Gran Bretaña e Irnda d Norte');
+INSERT INTO public.dt_pais VALUES (3100, 'República Árabe Siria');
+INSERT INTO public.dt_pais VALUES (3101, 'República Centroafricana');
+INSERT INTO public.dt_pais VALUES (3102, 'República de Corea');
+INSERT INTO public.dt_pais VALUES (3103, 'República de Macedonia d Norte');
+INSERT INTO public.dt_pais VALUES (3104, 'Nombre corto: Macedonia d Norte');
+INSERT INTO public.dt_pais VALUES (3105, 'República de Moldova');
+INSERT INTO public.dt_pais VALUES (3106, 'República Democrática d Congo');
+INSERT INTO public.dt_pais VALUES (3107, 'República Democrática Popur o');
+INSERT INTO public.dt_pais VALUES (3108, 'República Dominicana');
+INSERT INTO public.dt_pais VALUES (3109, 'República Popur Democrática de Corea');
+INSERT INTO public.dt_pais VALUES (3110, 'República Unida de Tanzanía');
+INSERT INTO public.dt_pais VALUES (3111, 'Rumania');
+INSERT INTO public.dt_pais VALUES (3112, 'Rwanda');
+INSERT INTO public.dt_pais VALUES (3113, 'Saint Kitts y Nevis');
+INSERT INTO public.dt_pais VALUES (3114, 'Samoa');
+INSERT INTO public.dt_pais VALUES (3115, 'San Marino');
+INSERT INTO public.dt_pais VALUES (3116, 'San Vicente y s Granadinas');
+INSERT INTO public.dt_pais VALUES (3117, 'Santa Lucía');
+INSERT INTO public.dt_pais VALUES (3118, 'Santa Sede');
+INSERT INTO public.dt_pais VALUES (3119, 'Santo Tomé y Príncipe');
+INSERT INTO public.dt_pais VALUES (3120, 'Senegal');
+INSERT INTO public.dt_pais VALUES (3121, 'Serbia');
+INSERT INTO public.dt_pais VALUES (3122, 'Seychles');
+INSERT INTO public.dt_pais VALUES (3123, 'Sierra Leona');
+INSERT INTO public.dt_pais VALUES (3124, 'Singapur');
+INSERT INTO public.dt_pais VALUES (3125, 'Somalia');
+INSERT INTO public.dt_pais VALUES (3126, 'Sri nka');
+INSERT INTO public.dt_pais VALUES (3127, 'Sudáfrica');
+INSERT INTO public.dt_pais VALUES (3128, 'Sudán');
+INSERT INTO public.dt_pais VALUES (3129, 'Sudán d Sur');
+INSERT INTO public.dt_pais VALUES (3130, 'Suecia');
+INSERT INTO public.dt_pais VALUES (3131, 'Suiza');
+INSERT INTO public.dt_pais VALUES (3132, 'Suriname');
+INSERT INTO public.dt_pais VALUES (3133, 'Taindia');
+INSERT INTO public.dt_pais VALUES (3134, 'Tayikistán');
+INSERT INTO public.dt_pais VALUES (3135, 'Timor-Leste');
+INSERT INTO public.dt_pais VALUES (3136, 'Togo');
+INSERT INTO public.dt_pais VALUES (3137, 'Tonga');
+INSERT INTO public.dt_pais VALUES (3138, 'Trinidad y Tabago');
+INSERT INTO public.dt_pais VALUES (3139, 'Túnez');
+INSERT INTO public.dt_pais VALUES (3140, 'Turkmenistán');
+INSERT INTO public.dt_pais VALUES (3141, 'Turquía');
+INSERT INTO public.dt_pais VALUES (3142, 'Tuvalu');
+INSERT INTO public.dt_pais VALUES (3143, 'Ucrania');
+INSERT INTO public.dt_pais VALUES (3144, 'Uganda');
+INSERT INTO public.dt_pais VALUES (3145, 'Uruguay');
+INSERT INTO public.dt_pais VALUES (3146, 'Uzbekistán');
+INSERT INTO public.dt_pais VALUES (3147, 'Vanuatu');
+INSERT INTO public.dt_pais VALUES (3148, 'Venezua República Bolivariana de');
+INSERT INTO public.dt_pais VALUES (3149, 'Viet Nam');
+INSERT INTO public.dt_pais VALUES (3150, 'Yemen');
+INSERT INTO public.dt_pais VALUES (3151, 'Zambia');
+INSERT INTO public.dt_pais VALUES (3152, 'Zimbabwe');
 
 
 --
 -- Data for Name: dt_servicios; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.dt_servicios (id, aire, desayuno, jacuzzi, parking, tv_cable, wifi) FROM stdin;
-101	t	t	t	t	t	t
-102	t	t	t	f	f	t
-103	t	f	f	f	t	t
-104	t	t	t	f	t	t
-105	t	f	t	f	f	t
-106	f	f	f	t	f	t
-107	t	t	f	f	f	t
-108	t	t	f	f	f	t
-109	t	f	f	t	t	t
-110	t	f	t	t	f	t
-111	f	f	f	t	f	f
-112	f	f	f	t	t	f
-113	f	t	f	t	f	f
-114	t	t	f	t	f	t
-115	f	f	t	f	f	t
-116	t	t	f	t	t	f
-117	f	f	f	t	t	f
-118	t	t	t	t	t	t
-119	f	t	t	f	t	f
-120	f	t	t	f	t	t
-121	t	t	f	t	f	f
-122	t	f	f	t	t	f
-123	f	f	f	t	t	f
-124	t	t	f	f	f	f
-125	f	f	f	t	f	f
-126	t	f	f	t	f	t
-127	t	t	f	t	f	f
-128	f	t	f	f	t	f
-\.
+INSERT INTO public.dt_servicios VALUES (101, true, true, true, true, true, true);
+INSERT INTO public.dt_servicios VALUES (102, true, true, true, false, false, true);
+INSERT INTO public.dt_servicios VALUES (103, true, false, false, false, true, true);
+INSERT INTO public.dt_servicios VALUES (104, true, true, true, false, true, true);
+INSERT INTO public.dt_servicios VALUES (105, true, false, true, false, false, true);
+INSERT INTO public.dt_servicios VALUES (106, false, false, false, true, false, true);
+INSERT INTO public.dt_servicios VALUES (107, true, true, false, false, false, true);
+INSERT INTO public.dt_servicios VALUES (108, true, true, false, false, false, true);
+INSERT INTO public.dt_servicios VALUES (109, true, false, false, true, true, true);
+INSERT INTO public.dt_servicios VALUES (110, true, false, true, true, false, true);
+INSERT INTO public.dt_servicios VALUES (111, false, false, false, true, false, false);
+INSERT INTO public.dt_servicios VALUES (112, false, false, false, true, true, false);
+INSERT INTO public.dt_servicios VALUES (113, false, true, false, true, false, false);
+INSERT INTO public.dt_servicios VALUES (114, true, true, false, true, false, true);
+INSERT INTO public.dt_servicios VALUES (115, false, false, true, false, false, true);
+INSERT INTO public.dt_servicios VALUES (116, true, true, false, true, true, false);
+INSERT INTO public.dt_servicios VALUES (117, false, false, false, true, true, false);
+INSERT INTO public.dt_servicios VALUES (118, true, true, true, true, true, true);
+INSERT INTO public.dt_servicios VALUES (119, false, true, true, false, true, false);
+INSERT INTO public.dt_servicios VALUES (120, false, true, true, false, true, true);
+INSERT INTO public.dt_servicios VALUES (121, true, true, false, true, false, false);
+INSERT INTO public.dt_servicios VALUES (122, true, false, false, true, true, false);
+INSERT INTO public.dt_servicios VALUES (123, false, false, false, true, true, false);
+INSERT INTO public.dt_servicios VALUES (124, true, true, false, false, false, false);
+INSERT INTO public.dt_servicios VALUES (125, false, false, false, true, false, false);
+INSERT INTO public.dt_servicios VALUES (126, true, false, false, true, false, true);
+INSERT INTO public.dt_servicios VALUES (127, true, true, false, true, false, false);
+INSERT INTO public.dt_servicios VALUES (128, false, true, false, false, true, false);
 
 
 --
 -- Data for Name: facturas; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.facturas (id, descuento, estado, fecha, id_paypal, monto, monto_descuento, reserva_id) FROM stdin;
-2	t	REALIZADO	2022-02-12 00:00:00.546	\N	1312	100	368
-3	t	REALIZADO	2022-02-12 00:00:00.619	\N	1312	100	373
-4	t	REALIZADO	2022-01-12 00:00:00.941	\N	1312	100	354
-5	t	REALIZADO	2022-01-12 00:00:00.158	\N	1312	100	376
-6	t	REALIZADO	2021-10-31 00:00:00.544	\N	1200	100	360
-7	t	REALIZADO	2021-10-31 00:00:00.099	\N	1210	100	356
-8	t	REALIZADO	2021-10-31 00:00:00.742	\N	1210	100	362
-\.
+INSERT INTO public.facturas VALUES (2, true, 'REALIZADO', '2022-02-12 00:00:00.546', NULL, 1312, 100, 368);
+INSERT INTO public.facturas VALUES (3, true, 'REALIZADO', '2022-02-12 00:00:00.619', NULL, 1312, 100, 373);
+INSERT INTO public.facturas VALUES (4, true, 'REALIZADO', '2022-01-12 00:00:00.941', NULL, 1312, 100, 354);
+INSERT INTO public.facturas VALUES (5, true, 'REALIZADO', '2022-01-12 00:00:00.158', NULL, 1312, 100, 376);
+INSERT INTO public.facturas VALUES (6, true, 'REALIZADO', '2021-10-31 00:00:00.544', NULL, 1200, 100, 360);
+INSERT INTO public.facturas VALUES (7, true, 'REALIZADO', '2021-10-31 00:00:00.099', NULL, 1210, 100, 356);
+INSERT INTO public.facturas VALUES (8, true, 'REALIZADO', '2021-10-31 00:00:00.742', NULL, 1210, 100, 362);
 
 
 --
 -- Data for Name: habitaciones; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.habitaciones (id, camas, descripcion, precio_noche, alojamiento_id, servicios_id) FROM stdin;
-101	2	Desc hab 101	500	1	101
-102	4	Desc hab 102	1400	2	102
-103	1	Desc hab 103	1200	3	103
-104	1	Desc hab 104	1500	4	104
-105	1	Desc hab 105	500	5	105
-106	2	Desc hab 106	1250	6	106
-107	2	Desc hab 107	1350	7	107
-108	3	Desc hab 108	1450	8	108
-109	2	Desc hab 109	1200	9	109
-110	1	Desc hab 110	1150	10	110
-111	3	Desc hab 111	1100	11	111
-112	2	Desc hab 112	1050	12	112
-113	3	Desc hab 113	750	13	113
-114	1	Desc hab 114	1050	14	114
-115	2	Desc hab 115	750	15	115
-116	2	Desc hab 116	1500	16	116
-117	4	Desc hab 117	750	17	117
-118	3	Desc hab 118	1150	18	118
-119	4	Desc hab 119	800	19	119
-120	3	Desc hab 120	1100	20	120
-121	2	Desc hab 121	1200	21	121
-122	1	Desc hab 122	900	22	122
-123	1	Desc hab 123	550	23	123
-124	4	Desc hab 124	500	24	124
-125	1	Desc hab 125	1000	25	125
-126	1	Desc hab 126	850	26	126
-127	2	Desc hab 127	1150	27	127
-128	3	Desc hab 128	1150	28	128
-\.
+INSERT INTO public.habitaciones VALUES (101, 2, 'Desc hab 101', 500, 1, 101);
+INSERT INTO public.habitaciones VALUES (102, 4, 'Desc hab 102', 1400, 2, 102);
+INSERT INTO public.habitaciones VALUES (103, 1, 'Desc hab 103', 1200, 3, 103);
+INSERT INTO public.habitaciones VALUES (104, 1, 'Desc hab 104', 1500, 4, 104);
+INSERT INTO public.habitaciones VALUES (105, 1, 'Desc hab 105', 500, 5, 105);
+INSERT INTO public.habitaciones VALUES (106, 2, 'Desc hab 106', 1250, 6, 106);
+INSERT INTO public.habitaciones VALUES (107, 2, 'Desc hab 107', 1350, 7, 107);
+INSERT INTO public.habitaciones VALUES (108, 3, 'Desc hab 108', 1450, 8, 108);
+INSERT INTO public.habitaciones VALUES (109, 2, 'Desc hab 109', 1200, 9, 109);
+INSERT INTO public.habitaciones VALUES (110, 1, 'Desc hab 110', 1150, 10, 110);
+INSERT INTO public.habitaciones VALUES (111, 3, 'Desc hab 111', 1100, 11, 111);
+INSERT INTO public.habitaciones VALUES (112, 2, 'Desc hab 112', 1050, 12, 112);
+INSERT INTO public.habitaciones VALUES (113, 3, 'Desc hab 113', 750, 13, 113);
+INSERT INTO public.habitaciones VALUES (114, 1, 'Desc hab 114', 1050, 14, 114);
+INSERT INTO public.habitaciones VALUES (115, 2, 'Desc hab 115', 750, 15, 115);
+INSERT INTO public.habitaciones VALUES (116, 2, 'Desc hab 116', 1500, 16, 116);
+INSERT INTO public.habitaciones VALUES (117, 4, 'Desc hab 117', 750, 17, 117);
+INSERT INTO public.habitaciones VALUES (118, 3, 'Desc hab 118', 1150, 18, 118);
+INSERT INTO public.habitaciones VALUES (119, 4, 'Desc hab 119', 800, 19, 119);
+INSERT INTO public.habitaciones VALUES (120, 3, 'Desc hab 120', 1100, 20, 120);
+INSERT INTO public.habitaciones VALUES (121, 2, 'Desc hab 121', 1200, 21, 121);
+INSERT INTO public.habitaciones VALUES (122, 1, 'Desc hab 122', 900, 22, 122);
+INSERT INTO public.habitaciones VALUES (123, 1, 'Desc hab 123', 550, 23, 123);
+INSERT INTO public.habitaciones VALUES (124, 4, 'Desc hab 124', 500, 24, 124);
+INSERT INTO public.habitaciones VALUES (125, 1, 'Desc hab 125', 1000, 25, 125);
+INSERT INTO public.habitaciones VALUES (126, 1, 'Desc hab 126', 850, 26, 126);
+INSERT INTO public.habitaciones VALUES (127, 2, 'Desc hab 127', 1150, 27, 127);
+INSERT INTO public.habitaciones VALUES (128, 3, 'Desc hab 128', 1150, 28, 128);
 
 
 --
 -- Data for Name: huesped_push_tokens; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.huesped_push_tokens (huesped_id, push_tokens) FROM stdin;
-\.
 
 
 --
 -- Data for Name: password_reset_token; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.password_reset_token (id, expiry_date, token, user_id) FROM stdin;
-\.
 
 
 --
 -- Data for Name: recuperaciones; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.recuperaciones (id, fecha) FROM stdin;
-\.
 
 
 --
 -- Data for Name: reservas; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.reservas (id, cant_dias, estado, fecha_fin, fecha_inicio, id_chat, calificacion_id, habitacion_id, huesped_id) FROM stdin;
-352	3	PENDIENTE	2022-03-08 00:00:00	2022-03-06 00:00:00	\N	351	116	10057
-358	9	PENDIENTE	2022-04-19 00:00:00	2022-04-11 00:00:00	\N	351	102	10071
-364	15	PENDIENTE	2022-05-31 00:00:00	2022-05-17 00:00:00	\N	351	101	10051
-366	2	PENDIENTE	2022-05-08 00:00:00	2022-05-07 00:00:00	\N	351	117	10072
-370	6	PENDIENTE	2022-06-05 00:00:00	2022-05-31 00:00:00	\N	351	118	10078
-372	8	PENDIENTE	2022-06-19 00:00:00	2022-06-12 00:00:00	\N	351	111	10099
-378	14	PENDIENTE	2022-07-31 00:00:00	2022-07-18 00:00:00	\N	351	120	10061
-380	3	EJECUTADA	2022-07-08 00:00:00	2022-07-06 00:00:00	\N	351	121	10085
-382	3	PENDIENTE	2022-07-18 00:00:00	2022-07-16 00:00:00	\N	351	114	10080
-384	3	PENDIENTE	2022-07-28 00:00:00	2022-07-26 00:00:00	\N	351	109	10076
-374	10	RECHAZADO	2022-07-03 00:00:00	2022-06-24 00:00:00	\N	351	125	10085
-367	3	EJECUTADA	2022-05-15 00:00:00	2022-05-13 00:00:00	\N	367	120	10095
-368	4	EJECUTADA	2022-05-22 00:00:00	2022-05-19 00:00:00	\N	351	119	10067
-373	9	EJECUTADA	2022-06-26 00:00:00	2022-06-18 00:00:00	\N	373	124	10091
-354	5	EJECUTADA	2022-03-22 00:00:00	2022-03-18 00:00:00	\N	351	122	10053
-360	11	EJECUTADA	2022-05-03 00:00:00	2022-04-23 00:00:00	\N	351	108	10060
-376	12	EJECUTADA	2022-07-17 00:00:00	2022-07-06 00:00:00	\N	351	125	10094
-362	13	EJECUTADA	2022-05-17 00:00:00	2022-05-05 00:00:00	\N	351	128	10051
-356	7	APROBADO	2022-04-05 00:00:00	2022-03-30 00:00:00	\N	351	108	10085
-351	2	APROBADO	2022-03-01 00:00:00	2022-02-28 00:00:00	\N	351	128	10072
-353	4	APROBADO	2022-03-15 00:00:00	2022-03-12 00:00:00	\N	353	126	10080
-355	6	APROBADO	2022-03-29 00:00:00	2022-03-24 00:00:00	\N	355	103	10053
-357	8	APROBADO	2022-04-12 00:00:00	2022-04-05 00:00:00	\N	357	104	10064
-359	10	APROBADO	2022-04-26 00:00:00	2022-04-17 00:00:00	\N	359	126	10088
-361	12	APROBADO	2022-05-10 00:00:00	2022-04-29 00:00:00	\N	361	103	10055
-363	14	APROBADO	2022-05-24 00:00:00	2022-05-11 00:00:00	\N	363	121	10070
-365	1	APROBADO	2022-05-01 00:00:00	2022-05-01 00:00:00	\N	365	122	10079
-369	5	APROBADO	2022-05-29 00:00:00	2022-05-25 00:00:00	\N	369	111	10089
-371	7	APROBADO	2022-06-12 00:00:00	2022-06-06 00:00:00	\N	371	107	10051
-375	11	APROBADO	2022-07-10 00:00:00	2022-06-30 00:00:00	\N	375	117	10054
-377	13	APROBADO	2022-07-24 00:00:00	2022-07-12 00:00:00	\N	377	106	10063
-379	3	APROBADO	2022-07-03 00:00:00	2022-07-01 00:00:00	\N	379	124	10097
-381	3	APROBADO	2022-07-13 00:00:00	2022-07-11 00:00:00	\N	381	109	10079
-383	3	APROBADO	2022-07-23 00:00:00	2022-07-21 00:00:00	\N	383	113	10074
-\.
+INSERT INTO public.reservas VALUES (352, 3, 'PENDIENTE', '2022-03-08 00:00:00', '2022-03-06 00:00:00', NULL, 351, 116, 10057);
+INSERT INTO public.reservas VALUES (358, 9, 'PENDIENTE', '2022-04-19 00:00:00', '2022-04-11 00:00:00', NULL, 351, 102, 10071);
+INSERT INTO public.reservas VALUES (364, 15, 'PENDIENTE', '2022-05-31 00:00:00', '2022-05-17 00:00:00', NULL, 351, 101, 10051);
+INSERT INTO public.reservas VALUES (366, 2, 'PENDIENTE', '2022-05-08 00:00:00', '2022-05-07 00:00:00', NULL, 351, 117, 10072);
+INSERT INTO public.reservas VALUES (370, 6, 'PENDIENTE', '2022-06-05 00:00:00', '2022-05-31 00:00:00', NULL, 351, 118, 10078);
+INSERT INTO public.reservas VALUES (372, 8, 'PENDIENTE', '2022-06-19 00:00:00', '2022-06-12 00:00:00', NULL, 351, 111, 10099);
+INSERT INTO public.reservas VALUES (378, 14, 'PENDIENTE', '2022-07-31 00:00:00', '2022-07-18 00:00:00', NULL, 351, 120, 10061);
+INSERT INTO public.reservas VALUES (380, 3, 'EJECUTADA', '2022-07-08 00:00:00', '2022-07-06 00:00:00', NULL, 351, 121, 10085);
+INSERT INTO public.reservas VALUES (382, 3, 'PENDIENTE', '2022-07-18 00:00:00', '2022-07-16 00:00:00', NULL, 351, 114, 10080);
+INSERT INTO public.reservas VALUES (384, 3, 'PENDIENTE', '2022-07-28 00:00:00', '2022-07-26 00:00:00', NULL, 351, 109, 10076);
+INSERT INTO public.reservas VALUES (374, 10, 'RECHAZADO', '2022-07-03 00:00:00', '2022-06-24 00:00:00', NULL, 351, 125, 10085);
+INSERT INTO public.reservas VALUES (367, 3, 'EJECUTADA', '2022-05-15 00:00:00', '2022-05-13 00:00:00', NULL, 367, 120, 10095);
+INSERT INTO public.reservas VALUES (368, 4, 'EJECUTADA', '2022-05-22 00:00:00', '2022-05-19 00:00:00', NULL, 351, 119, 10067);
+INSERT INTO public.reservas VALUES (373, 9, 'EJECUTADA', '2022-06-26 00:00:00', '2022-06-18 00:00:00', NULL, 373, 124, 10091);
+INSERT INTO public.reservas VALUES (354, 5, 'EJECUTADA', '2022-03-22 00:00:00', '2022-03-18 00:00:00', NULL, 351, 122, 10053);
+INSERT INTO public.reservas VALUES (360, 11, 'EJECUTADA', '2022-05-03 00:00:00', '2022-04-23 00:00:00', NULL, 351, 108, 10060);
+INSERT INTO public.reservas VALUES (376, 12, 'EJECUTADA', '2022-07-17 00:00:00', '2022-07-06 00:00:00', NULL, 351, 125, 10094);
+INSERT INTO public.reservas VALUES (362, 13, 'EJECUTADA', '2022-05-17 00:00:00', '2022-05-05 00:00:00', NULL, 351, 128, 10051);
+INSERT INTO public.reservas VALUES (356, 7, 'APROBADO', '2022-04-05 00:00:00', '2022-03-30 00:00:00', NULL, 351, 108, 10085);
+INSERT INTO public.reservas VALUES (351, 2, 'APROBADO', '2022-03-01 00:00:00', '2022-02-28 00:00:00', NULL, 351, 128, 10072);
+INSERT INTO public.reservas VALUES (353, 4, 'APROBADO', '2022-03-15 00:00:00', '2022-03-12 00:00:00', NULL, 353, 126, 10080);
+INSERT INTO public.reservas VALUES (355, 6, 'APROBADO', '2022-03-29 00:00:00', '2022-03-24 00:00:00', NULL, 355, 103, 10053);
+INSERT INTO public.reservas VALUES (357, 8, 'APROBADO', '2022-04-12 00:00:00', '2022-04-05 00:00:00', NULL, 357, 104, 10064);
+INSERT INTO public.reservas VALUES (359, 10, 'APROBADO', '2022-04-26 00:00:00', '2022-04-17 00:00:00', NULL, 359, 126, 10088);
+INSERT INTO public.reservas VALUES (361, 12, 'APROBADO', '2022-05-10 00:00:00', '2022-04-29 00:00:00', NULL, 361, 103, 10055);
+INSERT INTO public.reservas VALUES (363, 14, 'APROBADO', '2022-05-24 00:00:00', '2022-05-11 00:00:00', NULL, 363, 121, 10070);
+INSERT INTO public.reservas VALUES (365, 1, 'APROBADO', '2022-05-01 00:00:00', '2022-05-01 00:00:00', NULL, 365, 122, 10079);
+INSERT INTO public.reservas VALUES (369, 5, 'APROBADO', '2022-05-29 00:00:00', '2022-05-25 00:00:00', NULL, 369, 111, 10089);
+INSERT INTO public.reservas VALUES (371, 7, 'APROBADO', '2022-06-12 00:00:00', '2022-06-06 00:00:00', NULL, 371, 107, 10051);
+INSERT INTO public.reservas VALUES (375, 11, 'APROBADO', '2022-07-10 00:00:00', '2022-06-30 00:00:00', NULL, 375, 117, 10054);
+INSERT INTO public.reservas VALUES (377, 13, 'APROBADO', '2022-07-24 00:00:00', '2022-07-12 00:00:00', NULL, 377, 106, 10063);
+INSERT INTO public.reservas VALUES (379, 3, 'APROBADO', '2022-07-03 00:00:00', '2022-07-01 00:00:00', NULL, 379, 124, 10097);
+INSERT INTO public.reservas VALUES (381, 3, 'APROBADO', '2022-07-13 00:00:00', '2022-07-11 00:00:00', NULL, 381, 109, 10079);
+INSERT INTO public.reservas VALUES (383, 3, 'APROBADO', '2022-07-23 00:00:00', '2022-07-21 00:00:00', NULL, 383, 113, 10074);
 
 
 --
 -- Data for Name: usuarios; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.usuarios (dtype, id, activo, apellido, bloqueado, email, nombre, pass, calificacion_global, estado, user_id, f_creacion_usuario) FROM stdin;
-Ad	1001	t	apeAd 1001	f	emailAd 1001	nomAd 1001	adPass 1001	1000	\N	\N	2022-05-13 00:00:00
-Hu	10073	f	apeHu 10073	f	emailHu 10073	nomHu 10073	huPass 10073	1000	APROBADO	\N	2022-05-13 00:00:00
-Ad	1002	t	apeAd 1002	f	emailAd 1002	nomAd 1002	adPass 1002	1000	\N	\N	2022-05-13 00:00:00
-Ad	1003	t	apeAd 1003	f	emailAd 1003	nomAd 1003	adPass 1003	1000	\N	\N	2022-05-13 00:00:00
-Ad	1004	t	apeAd 1004	f	emailAd 1004	nomAd 1004	adPass 1004	1000	\N	\N	2022-05-13 00:00:00
-Ad	1005	f	apeAd 1005	f	emailAd 1005	nomAd 1005	adPass 1005	1000	\N	\N	2022-05-13 00:00:00
-Ad	1006	t	apeAd 1006	f	emailAd 1006	nomAd 1006	adPass 1006	1000	\N	\N	2022-05-13 00:00:00
-Ad	1007	t	apeAd 1007	t	emailAd 1007	nomAd 1007	adPass 1007	1000	\N	\N	2022-05-13 00:00:00
-Ad	1008	t	apeAd 1008	f	emailAd 1008	nomAd 1008	adPass 1008	1000	\N	\N	2022-05-13 00:00:00
-Ad	1009	t	apeAd 1009	f	emailAd 1009	nomAd 1009	adPass 1009	1000	\N	\N	2022-05-13 00:00:00
-Ad	10010	t	apeAd 10010	f	emailAd 10010	nomAd 10010	adPass 10010	1000	\N	\N	2022-05-13 00:00:00
-Ad	10011	t	apeAd 10011	f	emailAd 10011	nomAd 10011	adPass 10011	1000	\N	\N	2022-05-13 00:00:00
-Ad	10012	t	apeAd 10012	f	emailAd 10012	nomAd 10012	adPass 10012	1000	\N	\N	2022-05-13 00:00:00
-Ad	10013	f	apeAd 10013	f	emailAd 10013	nomAd 10013	adPass 10013	1000	\N	\N	2022-05-13 00:00:00
-Ad	10014	t	apeAd 10014	f	emailAd 10014	nomAd 10014	adPass 10014	1000	\N	\N	2022-05-13 00:00:00
-Ad	10015	t	apeAd 10015	f	emailAd 10015	nomAd 10015	adPass 10015	1000	\N	\N	2022-05-13 00:00:00
-Ad	10016	t	apeAd 10016	f	emailAd 10016	nomAd 10016	adPass 10016	1000	\N	\N	2022-05-13 00:00:00
-Ad	10017	t	apeAd 10017	f	emailAd 10017	nomAd 10017	adPass 10017	1000	\N	\N	2022-05-13 00:00:00
-Ad	10018	t	apeAd 10018	f	emailAd 10018	nomAd 10018	adPass 10018	1000	\N	\N	2022-05-13 00:00:00
-Ad	10019	t	apeAd 10019	f	emailAd 10019	nomAd 10019	adPass 10019	1000	\N	\N	2022-05-13 00:00:00
-Ad	10020	t	apeAd 10020	f	emailAd 10020	nomAd 10020	adPass 10020	1000	\N	\N	2022-05-13 00:00:00
-An	10021	t	apeAn 10021	f	emailAn 10021	nomAn 10021	anPass 10021	1000	APROBADO	\N	2022-05-13 00:00:00
-An	10022	t	apeAn 10022	f	emailAn 10022	nomAn 10022	anPass 10022	1000	APROBADO	\N	2022-05-13 00:00:00
-An	10023	f	apeAn 10023	f	emailAn 10023	nomAn 10023	anPass 10023	1000	APROBADO	\N	2022-05-13 00:00:00
-An	10024	t	apeAn 10024	f	emailAn 10024	nomAn 10024	anPass 10024	1000	APROBADO	\N	2022-05-13 00:00:00
-An	10025	t	apeAn 10025	f	emailAn 10025	nomAn 10025	anPass 10025	1000	APROBADO	\N	2022-05-13 00:00:00
-An	10026	t	apeAn 10026	f	emailAn 10026	nomAn 10026	anPass 10026	1000	APROBADO	\N	2022-05-13 00:00:00
-An	10027	t	apeAn 10027	f	emailAn 10027	nomAn 10027	anPass 10027	1000	APROBADO	\N	2022-05-13 00:00:00
-An	10028	t	apeAn 10028	f	emailAn 10028	nomAn 10028	anPass 10028	1000	APROBADO	\N	2022-05-13 00:00:00
-An	10029	t	apeAn 10029	f	emailAn 10029	nomAn 10029	anPass 10029	1000	APROBADO	\N	2022-05-13 00:00:00
-An	10030	t	apeAn 10030	f	emailAn 10030	nomAn 10030	anPass 10030	1000	APROBADO	\N	2022-05-13 00:00:00
-An	10032	t	apeAn 10032	f	emailAn 10032	nomAn 10032	anPass 10032	1000	APROBADO	\N	2022-05-13 00:00:00
-An	10033	f	apeAn 10033	f	emailAn 10033	nomAn 10033	anPass 10033	1000	APROBADO	\N	2022-05-13 00:00:00
-An	10034	t	apeAn 10034	f	emailAn 10034	nomAn 10034	anPass 10034	1000	APROBADO	\N	2022-05-13 00:00:00
-An	10035	t	apeAn 10035	t	emailAn 10035	nomAn 10035	anPass 10035	1000	APROBADO	\N	2022-05-13 00:00:00
-An	10036	t	apeAn 10036	f	emailAn 10036	nomAn 10036	anPass 10036	1000	RECHAZADO	\N	2022-05-13 00:00:00
-An	10037	t	apeAn 10037	f	emailAn 10037	nomAn 10037	anPass 10037	1000	APROBADO	\N	2022-05-13 00:00:00
-An	10038	t	apeAn 10038	t	emailAn 10038	nomAn 10038	anPass 10038	1000	APROBADO	\N	2022-05-13 00:00:00
-An	10039	t	apeAn 10039	f	emailAn 10039	nomAn 10039	anPass 10039	1000	APROBADO	\N	2022-05-13 00:00:00
-An	10040	t	apeAn 10040	f	emailAn 10040	nomAn 10040	anPass 10040	1000	PENDIENTE	\N	2022-05-13 00:00:00
-An	10041	t	apeAn 10041	f	emailAn 10041	nomAn 10041	anPass 10041	1000	APROBADO	\N	2022-05-13 00:00:00
-An	10042	t	apeAn 10042	f	emailAn 10042	nomAn 10042	anPass 10042	1000	APROBADO	\N	2022-05-13 00:00:00
-An	10043	f	apeAn 10043	f	emailAn 10043	nomAn 10043	anPass 10043	1000	APROBADO	\N	2022-05-13 00:00:00
-An	10044	t	apeAn 10044	f	emailAn 10044	nomAn 10044	anPass 10044	1000	APROBADO	\N	2022-05-13 00:00:00
-An	10045	t	apeAn 10045	f	emailAn 10045	nomAn 10045	anPass 10045	1000	APROBADO	\N	2022-05-13 00:00:00
-An	10046	t	apeAn 10046	f	emailAn 10046	nomAn 10046	anPass 10046	1000	APROBADO	\N	2022-05-13 00:00:00
-An	10047	t	apeAn 10047	f	emailAn 10047	nomAn 10047	anPass 10047	1000	APROBADO	\N	2022-05-13 00:00:00
-An	10048	t	apeAn 10048	f	emailAn 10048	nomAn 10048	anPass 10048	1000	APROBADO	\N	2022-05-13 00:00:00
-An	10049	t	apeAn 10049	f	emailAn 10049	nomAn 10049	anPass 10049	1000	APROBADO	\N	2022-05-13 00:00:00
-An	10050	t	apeAn 10050	f	emailAn 10050	nomAn 10050	anPass 10050	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10051	t	apeHu 10051	f	emailHu 10051	nomHu 10051	huPass 10051	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10052	t	apeHu 10052	f	emailHu 10052	nomHu 10052	huPass 10052	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10053	t	apeHu 10053	f	emailHu 10053	nomHu 10053	huPass 10053	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10054	t	apeHu 10054	f	emailHu 10054	nomHu 10054	huPass 10054	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100140	t	apeHu 100140	f	emailHu 100140	nomHu 100140	huPass 100140	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	1	t	string	f	string	string	string	0	\N	\N	2022-05-13 00:00:00
-Hu	10055	t	apeHu 10055	f	emailHu 10055	nomHu 10055	huPass 10055	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10056	t	apeHu 10056	f	emailHu 10056	nomHu 10056	huPass 10056	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10057	t	apeHu 10057	f	emailHu 10057	nomHu 10057	huPass 10057	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10058	t	apeHu 10058	f	emailHu 10058	nomHu 10058	huPass 10058	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10059	t	apeHu 10059	f	emailHu 10059	nomHu 10059	huPass 10059	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10060	t	apeHu 10060	t	emailHu 10060	nomHu 10060	huPass 10060	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10061	t	apeHu 10061	f	emailHu 10061	nomHu 10061	huPass 10061	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10062	t	apeHu 10062	f	emailHu 10062	nomHu 10062	huPass 10062	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10063	t	apeHu 10063	f	emailHu 10063	nomHu 10063	huPass 10063	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10064	t	apeHu 10064	f	emailHu 10064	nomHu 10064	huPass 10064	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10065	t	apeHu 10065	f	emailHu 10065	nomHu 10065	huPass 10065	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10066	t	apeHu 10066	f	emailHu 10066	nomHu 10066	huPass 10066	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10067	f	apeHu 10067	f	emailHu 10067	nomHu 10067	huPass 10067	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10068	t	apeHu 10068	f	emailHu 10068	nomHu 10068	huPass 10068	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10069	t	apeHu 10069	f	emailHu 10069	nomHu 10069	huPass 10069	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10070	t	apeHu 10070	f	emailHu 10070	nomHu 10070	huPass 10070	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10071	t	apeHu 10071	f	emailHu 10071	nomHu 10071	huPass 10071	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10072	t	apeHu 10072	f	emailHu 10072	nomHu 10072	huPass 10072	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10074	t	apeHu 10074	f	emailHu 10074	nomHu 10074	huPass 10074	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10075	t	apeHu 10075	f	emailHu 10075	nomHu 10075	huPass 10075	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10076	t	apeHu 10076	f	emailHu 10076	nomHu 10076	huPass 10076	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10077	t	apeHu 10077	f	emailHu 10077	nomHu 10077	huPass 10077	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10078	t	apeHu 10078	f	emailHu 10078	nomHu 10078	huPass 10078	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10079	t	apeHu 10079	f	emailHu 10079	nomHu 10079	huPass 10079	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10080	t	apeHu 10080	f	emailHu 10080	nomHu 10080	huPass 10080	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10081	t	apeHu 10081	f	emailHu 10081	nomHu 10081	huPass 10081	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10082	t	apeHu 10082	f	emailHu 10082	nomHu 10082	huPass 10082	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10083	t	apeHu 10083	f	emailHu 10083	nomHu 10083	huPass 10083	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10084	t	apeHu 10084	t	emailHu 10084	nomHu 10084	huPass 10084	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10085	t	apeHu 10085	f	emailHu 10085	nomHu 10085	huPass 10085	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10086	t	apeHu 10086	f	emailHu 10086	nomHu 10086	huPass 10086	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10087	t	apeHu 10087	f	emailHu 10087	nomHu 10087	huPass 10087	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10088	t	apeHu 10088	f	emailHu 10088	nomHu 10088	huPass 10088	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10089	t	apeHu 10089	f	emailHu 10089	nomHu 10089	huPass 10089	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10090	t	apeHu 10090	f	emailHu 10090	nomHu 10090	huPass 10090	1000	RECHAZADO	\N	2022-05-13 00:00:00
-Hu	10091	t	apeHu 10091	f	emailHu 10091	nomHu 10091	huPass 10091	1000	RECHAZADO	\N	2022-05-13 00:00:00
-Hu	10092	f	apeHu 10092	f	emailHu 10092	nomHu 10092	huPass 10092	1000	RECHAZADO	\N	2022-05-13 00:00:00
-Hu	10093	t	apeHu 10093	f	emailHu 10093	nomHu 10093	huPass 10093	1000	RECHAZADO	\N	2022-05-13 00:00:00
-Hu	10094	t	apeHu 10094	f	emailHu 10094	nomHu 10094	huPass 10094	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10095	t	apeHu 10095	f	emailHu 10095	nomHu 10095	huPass 10095	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10096	t	apeHu 10096	f	emailHu 10096	nomHu 10096	huPass 10096	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10097	t	apeHu 10097	t	emailHu 10097	nomHu 10097	huPass 10097	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10098	t	apeHu 10098	f	emailHu 10098	nomHu 10098	huPass 10098	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	10099	t	apeHu 10099	f	emailHu 10099	nomHu 10099	huPass 10099	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100100	t	apeHu 100100	f	emailHu 100100	nomHu 100100	huPass 100100	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100101	t	apeHu 100101	f	emailHu 100101	nomHu 100101	huPass 100101	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100102	t	apeHu 100102	f	emailHu 100102	nomHu 100102	huPass 100102	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100103	t	apeHu 100103	f	emailHu 100103	nomHu 100103	huPass 100103	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100104	t	apeHu 100104	f	emailHu 100104	nomHu 100104	huPass 100104	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100105	t	apeHu 100105	f	emailHu 100105	nomHu 100105	huPass 100105	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100106	t	apeHu 100106	f	emailHu 100106	nomHu 100106	huPass 100106	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100107	t	apeHu 100107	f	emailHu 100107	nomHu 100107	huPass 100107	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100108	t	apeHu 100108	f	emailHu 100108	nomHu 100108	huPass 100108	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100109	t	apeHu 100109	f	emailHu 100109	nomHu 100109	huPass 100109	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100111	t	apeHu 100111	f	emailHu 100111	nomHu 100111	huPass 100111	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100112	t	apeHu 100112	f	emailHu 100112	nomHu 100112	huPass 100112	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100113	t	apeHu 100113	f	emailHu 100113	nomHu 100113	huPass 100113	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100114	t	apeHu 100114	f	emailHu 100114	nomHu 100114	huPass 100114	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100116	t	apeHu 100116	f	emailHu 100116	nomHu 100116	huPass 100116	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100117	t	apeHu 100117	f	emailHu 100117	nomHu 100117	huPass 100117	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100118	t	apeHu 100118	f	emailHu 100118	nomHu 100118	huPass 100118	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100119	t	apeHu 100119	f	emailHu 100119	nomHu 100119	huPass 100119	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100120	t	apeHu 100120	f	emailHu 100120	nomHu 100120	huPass 100120	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100121	t	apeHu 100121	f	emailHu 100121	nomHu 100121	huPass 100121	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100122	t	apeHu 100122	f	emailHu 100122	nomHu 100122	huPass 100122	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100123	t	apeHu 100123	f	emailHu 100123	nomHu 100123	huPass 100123	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100124	t	apeHu 100124	t	emailHu 100124	nomHu 100124	huPass 100124	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100125	t	apeHu 100125	f	emailHu 100125	nomHu 100125	huPass 100125	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100126	t	apeHu 100126	f	emailHu 100126	nomHu 100126	huPass 100126	1000	PENDIENTE	\N	2022-05-13 00:00:00
-Hu	100127	t	apeHu 100127	f	emailHu 100127	nomHu 100127	huPass 100127	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100128	t	apeHu 100128	f	emailHu 100128	nomHu 100128	huPass 100128	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100129	t	apeHu 100129	f	emailHu 100129	nomHu 100129	huPass 100129	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100130	t	apeHu 100130	f	emailHu 100130	nomHu 100130	huPass 100130	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100131	t	apeHu 100131	f	emailHu 100131	nomHu 100131	huPass 100131	1000	PENDIENTE	\N	2022-05-13 00:00:00
-Hu	100132	t	apeHu 100132	f	emailHu 100132	nomHu 100132	huPass 100132	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100133	t	apeHu 100133	f	emailHu 100133	nomHu 100133	huPass 100133	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100134	t	apeHu 100134	f	emailHu 100134	nomHu 100134	huPass 100134	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100135	t	apeHu 100135	f	emailHu 100135	nomHu 100135	huPass 100135	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100136	t	apeHu 100136	f	emailHu 100136	nomHu 100136	huPass 100136	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100137	t	apeHu 100137	f	emailHu 100137	nomHu 100137	huPass 100137	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100138	t	apeHu 100138	f	emailHu 100138	nomHu 100138	huPass 100138	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100139	t	apeHu 100139	f	emailHu 100139	nomHu 100139	huPass 100139	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100115	t	apeHu 100115	t	emailHu 100115	nomHu 100115	huPass 100115	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100141	t	apeHu 100141	f	emailHu 100141	nomHu 100141	huPass 100141	1000	PENDIENTE	\N	2022-05-13 00:00:00
-Hu	100142	t	apeHu 100142	f	emailHu 100142	nomHu 100142	huPass 100142	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100143	t	apeHu 100143	f	emailHu 100143	nomHu 100143	huPass 100143	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100144	t	apeHu 100144	f	emailHu 100144	nomHu 100144	huPass 100144	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100145	t	apeHu 100145	f	emailHu 100145	nomHu 100145	huPass 100145	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100146	t	apeHu 100146	f	emailHu 100146	nomHu 100146	huPass 100146	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100147	t	apeHu 100147	f	emailHu 100147	nomHu 100147	huPass 100147	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100148	t	apeHu 100148	f	emailHu 100148	nomHu 100148	huPass 100148	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100149	t	apeHu 100149	f	emailHu 100149	nomHu 100149	huPass 100149	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100150	t	apeHu 100150	f	emailHu 100150	nomHu 100150	huPass 100150	1000	APROBADO	\N	2022-05-13 00:00:00
-Hu	100110	t	apeHu 100110	f	emailHu 100110	nomHu 100110	huPass 100110	1000	APROBADO	\N	2022-05-13 00:00:00
-An	10031	t	apeAn 10031	f	emailAn 10031	nomAn 10031	anPass 10031	1000	RECHAZADO	\N	2022-05-13 00:00:00
-Ad	15001	t	Thompson	f	e.thompson@randatmail.com	Eddy	15001	0	\N	\N	2021-10-14 00:00:00
-Ad	15002	t	Lloyd	f	m.lloyd@randatmail.com	Melanie	15002	0	\N	\N	2021-02-18 00:00:00
-Ad	15003	t	Johnston	f	j.johnston@randatmail.com	Jared	15003	0	\N	\N	2020-09-01 00:00:00
-Ad	15004	f	Clark	f	k.clark@randatmail.com	Kimberly	15004	0	\N	\N	2021-06-17 00:00:00
-Ad	15005	t	Perkins	f	a.perkins@randatmail.com	Adam	15005	0	\N	\N	2021-12-21 00:00:00
-Ad	15006	t	Morrison	f	a.morrison@randatmail.com	Abraham	15006	0	\N	\N	2020-03-15 00:00:00
-An	15007	t	Parker	f	m.parker@randatmail.com	Mike	15007	0	APROBADO	\N	2021-07-04 00:00:00
-An	15008	t	Stevens	f	m.stevens@randatmail.com	Max	15008	0	RECHAZADO	\N	2020-11-25 00:00:00
-An	15009	t	Martin	f	e.martin@randatmail.com	Elise	15009	0	APROBADO	\N	2021-03-24 00:00:00
-An	15010	t	Miller	f	d.miller@randatmail.com	Deanna	15010	0	APROBADO	\N	2021-03-07 00:00:00
-An	15011	t	Holmes	f	a.holmes@randatmail.com	Ada	15011	0	APROBADO	\N	2020-09-18 00:00:00
-An	15012	t	Armstrong	t	c.armstrong@randatmail.com	Charlotte	15012	0	APROBADO	\N	2020-04-18 00:00:00
-An	15013	t	Kelly	f	k.kelly@randatmail.com	Kate	15013	0	APROBADO	\N	2021-12-04 00:00:00
-An	15014	t	Ferguson	f	a.ferguson@randatmail.com	Aldus	15014	0	APROBADO	\N	2020-05-05 00:00:00
-An	15015	f	Allen	f	c.allen@randatmail.com	Cherry	15015	0	APROBADO	\N	2020-06-08 00:00:00
-An	15016	t	Evans	f	e.evans@randatmail.com	Edwin	15016	0	APROBADO	\N	2022-02-27 00:00:00
-An	15017	t	Moore	f	p.moore@randatmail.com	Penelope	15017	0	APROBADO	\N	2020-06-25 00:00:00
-An	15018	t	Douglas	f	a.douglas@randatmail.com	Aiden	15018	0	PENDIENTE	\N	2021-03-24 00:00:00
-An	15019	t	Crawford	f	c.crawford@randatmail.com	Chester	15019	0	APROBADO	\N	2020-09-18 00:00:00
-An	15020	t	Bailey	f	a.bailey@randatmail.com	Aida	15020	0	APROBADO	\N	2021-08-07 00:00:00
-An	15021	t	Warren	f	d.warren@randatmail.com	Dominik	15021	0	RECHAZADO	\N	2020-08-15 00:00:00
-An	15022	t	Sullivan	f	t.sullivan@randatmail.com	Tiana	15022	0	APROBADO	\N	2021-01-15 00:00:00
-An	15023	t	Parker	f	k.parker@randatmail.com	Kelvin	15023	0	APROBADO	\N	2022-02-27 00:00:00
-An	15024	t	Kelly	t	a.kelly@randatmail.com	Alford	15024	0	APROBADO	\N	2021-06-17 00:00:00
-An	15025	t	Barnes	f	l.barnes@randatmail.com	Lucia	15025	0	APROBADO	\N	2021-03-07 00:00:00
-An	15026	f	Brown	f	j.brown@randatmail.com	Julia	15026	0	APROBADO	\N	2020-05-05 00:00:00
-An	15027	t	Barnes	f	v.barnes@randatmail.com	Vivian	15027	0	APROBADO	\N	2021-09-27 00:00:00
-An	15028	t	Russell	f	s.russell@randatmail.com	Sienna	15028	0	APROBADO	\N	2020-07-29 00:00:00
-An	15029	t	Kelley	f	l.kelley@randatmail.com	Lucas	15029	0	APROBADO	\N	2020-08-15 00:00:00
-An	15030	t	Baker	f	j.baker@randatmail.com	Jack	15030	0	PENDIENTE	\N	2022-04-19 00:00:00
-An	15031	t	Williams	f	n.williams@randatmail.com	Nicholas	15031	0	APROBADO	\N	2022-06-09 00:00:00
-An	15032	t	Anderson	f	d.anderson@randatmail.com	David	15032	0	APROBADO	\N	2020-06-25 00:00:00
-An	15033	t	Mitchell	f	b.mitchell@randatmail.com	Belinda	15033	0	APROBADO	\N	2021-10-31 00:00:00
-An	15034	t	Miller	f	a.miller@randatmail.com	Alan	15034	0	RECHAZADO	\N	2020-10-22 00:00:00
-An	15035	t	Elliott	f	e.elliott@randatmail.com	Ellia	15035	0	APROBADO	\N	2021-04-10 00:00:00
-An	15036	t	Evans	t	t.evans@randatmail.com	Tony	15036	0	APROBADO	\N	2021-12-04 00:00:00
-An	15037	f	Wilson	f	s.wilson@randatmail.com	Sarah	15037	0	APROBADO	\N	2022-02-10 00:00:00
-An	15038	t	Hill	f	m.hill@randatmail.com	Mary	15038	0	APROBADO	\N	2022-01-24 00:00:00
-An	15039	t	Murray	f	a.murray@randatmail.com	Abraham	15039	0	APROBADO	\N	2021-09-27 00:00:00
-An	15040	t	Wright	f	a.wright@randatmail.com	Alisa	15040	0	APROBADO	\N	2021-05-31 00:00:00
-Hu	15041	t	Payne	f	c.payne@randatmail.com	Chelsea	15041	0	APROBADO	\N	2020-05-22 00:00:00
-Hu	15042	t	Brown	f	m.brown@randatmail.com	Maria	15042	0	PENDIENTE	\N	2020-10-05 00:00:00
-Hu	15043	t	Barrett	f	c.barrett@randatmail.com	Chloe	15043	0	APROBADO	\N	2022-03-16 00:00:00
-Hu	15044	t	Owens	f	d.owens@randatmail.com	Dale	15044	0	APROBADO	\N	2021-05-31 00:00:00
-Hu	15045	t	Baker	f	v.baker@randatmail.com	Vanessa	15045	0	APROBADO	\N	2020-03-15 00:00:00
-Hu	15046	t	Sullivan	f	a.sullivan@randatmail.com	Alen	15046	0	APROBADO	\N	2021-10-14 00:00:00
-Hu	15047	t	Adams	f	e.adams@randatmail.com	Emma	15047	0	RECHAZADO	\N	2021-06-17 00:00:00
-Hu	15048	f	Craig	t	l.craig@randatmail.com	Lydia	15048	0	APROBADO	\N	2021-05-31 00:00:00
-Hu	15049	t	Hill	f	a.hill@randatmail.com	Antony	15049	0	APROBADO	\N	2020-08-15 00:00:00
-Hu	15050	t	Parker	f	j.parker@randatmail.com	Jared	15050	0	APROBADO	\N	2020-07-29 00:00:00
-Hu	15051	t	Henderson	f	a.henderson@randatmail.com	Amelia	15051	0	APROBADO	\N	2020-05-05 00:00:00
-Hu	15052	t	Scott	f	c.scott@randatmail.com	Carlos	15052	0	APROBADO	\N	2022-02-27 00:00:00
-Hu	15053	t	Scott	f	h.scott@randatmail.com	Heather	15053	0	APROBADO	\N	2020-12-29 00:00:00
-Hu	15054	t	Owens	f	o.owens@randatmail.com	Olivia	15054	0	PENDIENTE	\N	2020-06-08 00:00:00
-Hu	15055	t	Brooks	f	a.brooks@randatmail.com	Abigail	15055	0	APROBADO	\N	2022-02-27 00:00:00
-Hu	15056	t	Campbell	f	m.campbell@randatmail.com	Michelle	15056	0	APROBADO	\N	2020-12-12 00:00:00
-Hu	15057	t	Andrews	f	c.andrews@randatmail.com	Charlie	15057	0	APROBADO	\N	2022-04-19 00:00:00
-Hu	15058	t	Howard	f	m.howard@randatmail.com	Marcus	15058	0	APROBADO	\N	2020-08-15 00:00:00
-Hu	15059	f	Campbell	f	v.campbell@randatmail.com	Victor	15059	0	APROBADO	\N	2020-10-22 00:00:00
-Hu	15060	t	Fowler	t	d.fowler@randatmail.com	Daisy	15060	0	RECHAZADO	\N	2021-02-18 00:00:00
-Hu	15061	t	Edwards	f	r.edwards@randatmail.com	Rosie	15061	0	APROBADO	\N	2022-04-19 00:00:00
-Hu	15062	t	Fowler	f	j.fowler@randatmail.com	Jacob	15062	0	APROBADO	\N	2020-08-15 00:00:00
-Hu	15063	t	Payne	f	f.payne@randatmail.com	Fenton	15063	0	APROBADO	\N	2021-04-10 00:00:00
-Hu	15064	t	Spencer	f	j.spencer@randatmail.com	John	15064	0	APROBADO	\N	2021-05-14 00:00:00
-Hu	15065	t	Watson	f	e.watson@randatmail.com	Edgar	15065	0	APROBADO	\N	2022-02-10 00:00:00
-Hu	15066	t	Baker	f	m.baker@randatmail.com	Melanie	15066	0	PENDIENTE	\N	2021-10-31 00:00:00
-Hu	15067	t	Andrews	f	e.andrews@randatmail.com	Ellia	15067	0	APROBADO	\N	2022-03-16 00:00:00
-Hu	15068	t	Morgan	f	j.morgan@randatmail.com	Jared	15068	0	APROBADO	\N	2021-08-07 00:00:00
-Hu	15069	t	Nelson	f	a.nelson@randatmail.com	Adelaide	15069	0	APROBADO	\N	2021-08-07 00:00:00
-Hu	15070	f	Farrell	f	s.farrell@randatmail.com	Sabrina	15070	0	APROBADO	\N	2020-11-25 00:00:00
-Hu	15071	t	Williams	f	s.williams@randatmail.com	Sofia	15071	0	APROBADO	\N	2021-02-01 00:00:00
-Hu	15072	t	Jones	t	a.jones@randatmail.com	Aston	15072	0	APROBADO	\N	2021-05-14 00:00:00
-Hu	15073	t	Wright	f	v.wright@randatmail.com	Victoria	15073	0	RECHAZADO	\N	2020-11-08 00:00:00
-Hu	15074	t	Moore	f	j.moore@randatmail.com	Jack	15074	0	APROBADO	\N	2021-04-27 00:00:00
-Hu	15075	t	Morgan	f	a.morgan@randatmail.com	Amy	15075	0	APROBADO	\N	2022-06-09 00:00:00
-Hu	15076	t	West	f	t.west@randatmail.com	Ted	15076	0	APROBADO	\N	2020-11-08 00:00:00
-Hu	15077	t	Stevens	f	e.stevens@randatmail.com	Ellia	15077	0	APROBADO	\N	2020-04-01 00:00:00
-Hu	15078	t	Lloyd	f	j.lloyd@randatmail.com	Jessica	15078	0	PENDIENTE	\N	2020-09-18 00:00:00
-Hu	15079	t	West	f	l.west@randatmail.com	Lucas	15079	0	APROBADO	\N	2021-09-27 00:00:00
-Hu	15080	t	Robinson	f	b.robinson@randatmail.com	Belinda	15080	0	APROBADO	\N	2021-05-14 00:00:00
-Hu	15081	f	Harris	f	n.harris@randatmail.com	Naomi	15081	0	APROBADO	\N	2020-07-12 00:00:00
-Hu	15082	t	Kelly	f	a.kelly@randatmail.com	Agata	15082	0	APROBADO	\N	2020-03-15 00:00:00
-Hu	15083	t	Ellis	f	r.ellis@randatmail.com	Rafael	15083	0	APROBADO	\N	2020-09-18 00:00:00
-Hu	15084	t	Moore	t	m.moore@randatmail.com	Melissa	15084	0	APROBADO	\N	2022-06-09 00:00:00
-Hu	15085	t	Chapman	f	e.chapman@randatmail.com	Edith	15085	0	APROBADO	\N	2021-06-17 00:00:00
-Hu	15086	t	Gray	f	a.gray@randatmail.com	Abraham	15086	0	RECHAZADO	\N	2021-06-17 00:00:00
-Hu	15087	t	Stevens	f	v.stevens@randatmail.com	Valeria	15087	0	APROBADO	\N	2021-09-10 00:00:00
-Hu	15088	t	Wright	f	v.wright@randatmail.com	Violet	15088	0	APROBADO	\N	2020-11-08 00:00:00
-Hu	15089	t	Payne	f	b.payne@randatmail.com	Briony	15089	0	APROBADO	\N	2020-11-25 00:00:00
-Hu	15090	t	Baker	f	o.baker@randatmail.com	Oliver	15090	0	PENDIENTE	\N	2020-12-29 00:00:00
-Hu	15091	t	Smith	f	l.smith@randatmail.com	Lenny	15091	0	APROBADO	\N	2020-05-22 00:00:00
-Hu	15092	f	Craig	f	b.craig@randatmail.com	Brianna	15092	0	APROBADO	\N	2022-02-10 00:00:00
-Hu	15093	t	Warren	f	a.warren@randatmail.com	Aston	15093	0	APROBADO	\N	2022-04-19 00:00:00
-Hu	15094	t	Wells	f	k.wells@randatmail.com	Kellan	15094	0	APROBADO	\N	2020-07-12 00:00:00
-Hu	15095	t	Russell	f	l.russell@randatmail.com	Leonardo	15095	0	APROBADO	\N	2020-07-12 00:00:00
-Hu	15096	t	Morgan	t	s.morgan@randatmail.com	Sophia	15096	0	APROBADO	\N	2020-10-05 00:00:00
-Hu	15097	t	Montgomery	f	n.montgomery@randatmail.com	Naomi	15097	0	APROBADO	\N	2021-03-24 00:00:00
-Hu	15098	t	Martin	f	e.martin@randatmail.com	Emily	15098	0	APROBADO	\N	2020-12-29 00:00:00
-Hu	15099	t	Baker	f	a.baker@randatmail.com	Ada	15099	0	RECHAZADO	\N	2021-08-24 00:00:00
-Hu	15100	t	Russell	f	m.russell@randatmail.com	Madaline	15100	0	APROBADO	\N	2021-08-24 00:00:00
-Hu	15101	t	Cunningham	f	b.cunningham@randatmail.com	Brooke	15101	0	APROBADO	\N	2022-01-07 00:00:00
-Hu	15102	t	Morris	f	r.morris@randatmail.com	Rebecca	15102	0	PENDIENTE	\N	2022-01-07 00:00:00
-Hu	15103	f	Hamilton	f	a.hamilton@randatmail.com	Arianna	15103	0	APROBADO	\N	2022-05-06 00:00:00
-Hu	15104	t	Farrell	f	a.farrell@randatmail.com	Alberta	15104	0	APROBADO	\N	2020-04-01 00:00:00
-Hu	15105	t	Thomas	f	p.thomas@randatmail.com	Preston	15105	0	APROBADO	\N	2021-03-24 00:00:00
-Hu	15106	t	Barnes	f	c.barnes@randatmail.com	Carlos	15106	0	APROBADO	\N	2020-10-05 00:00:00
-Hu	15107	t	Walker	f	d.walker@randatmail.com	Derek	15107	0	APROBADO	\N	2021-10-14 00:00:00
-Hu	15108	t	Lloyd	t	c.lloyd@randatmail.com	Carina	15108	0	APROBADO	\N	2021-08-24 00:00:00
-Hu	15109	t	Brown	f	t.brown@randatmail.com	Ted	15109	0	APROBADO	\N	2020-12-12 00:00:00
-Hu	15110	t	Brooks	f	m.brooks@randatmail.com	Miller	15110	0	APROBADO	\N	2021-02-18 00:00:00
-Hu	15111	t	Wilson	f	a.wilson@randatmail.com	Adelaide	15111	0	APROBADO	\N	2022-05-06 00:00:00
-Hu	15112	t	Farrell	f	a.farrell@randatmail.com	Ashton	15112	0	RECHAZADO	\N	2020-10-05 00:00:00
-Hu	15113	t	Alexander	f	i.alexander@randatmail.com	Isabella	15113	0	APROBADO	\N	2021-06-17 00:00:00
-Hu	15114	f	Lloyd	f	m.lloyd@randatmail.com	Max	15114	0	PENDIENTE	\N	2021-09-10 00:00:00
-Hu	15115	t	Clark	f	b.clark@randatmail.com	Brad	15115	0	APROBADO	\N	2022-04-02 00:00:00
-Hu	15116	t	Phillips	f	v.phillips@randatmail.com	Victoria	15116	0	APROBADO	\N	2021-08-07 00:00:00
-Hu	15117	t	Andrews	f	p.andrews@randatmail.com	Paige	15117	0	APROBADO	\N	2021-09-10 00:00:00
-Hu	15118	t	Nelson	f	r.nelson@randatmail.com	Reid	15118	0	APROBADO	\N	2020-05-05 00:00:00
-Hu	15119	t	Cameron	f	g.cameron@randatmail.com	Gianna	15119	0	APROBADO	\N	2022-02-10 00:00:00
-Hu	15120	t	Harris	t	j.harris@randatmail.com	Jack	15120	0	APROBADO	\N	2020-05-05 00:00:00
-Hu	15121	t	Mitchell	f	k.mitchell@randatmail.com	Kelvin	15121	0	APROBADO	\N	2021-06-17 00:00:00
-Hu	15122	t	Craig	f	m.craig@randatmail.com	Maximilian	15122	0	APROBADO	\N	2020-04-18 00:00:00
-Hu	15123	t	Johnson	f	s.johnson@randatmail.com	Sofia	15123	0	APROBADO	\N	2021-05-14 00:00:00
-Hu	15124	t	Russell	f	v.russell@randatmail.com	Vivian	15124	0	APROBADO	\N	2021-07-04 00:00:00
-Hu	15125	f	Johnson	f	d.johnson@randatmail.com	Dominik	15125	0	RECHAZADO	\N	2021-11-17 00:00:00
-Hu	15126	t	Hunt	f	t.hunt@randatmail.com	Tara	15126	0	PENDIENTE	\N	2021-04-27 00:00:00
-Hu	15127	t	Ellis	f	e.ellis@randatmail.com	Emily	15127	0	APROBADO	\N	2020-11-08 00:00:00
-Hu	15128	t	Riley	f	k.riley@randatmail.com	Kellan	15128	0	APROBADO	\N	2020-05-05 00:00:00
-Hu	15129	t	Howard	f	l.howard@randatmail.com	Leonardo	15129	0	APROBADO	\N	2020-12-12 00:00:00
-Hu	15130	t	Tucker	f	v.tucker@randatmail.com	Vivian	15130	0	APROBADO	\N	2022-04-02 00:00:00
-Hu	15131	t	Jones	f	h.jones@randatmail.com	Henry	15131	0	APROBADO	\N	2020-08-15 00:00:00
-Hu	15132	t	Holmes	t	t.holmes@randatmail.com	Ted	15132	0	APROBADO	\N	2020-10-22 00:00:00
-Hu	15133	t	Ferguson	f	b.ferguson@randatmail.com	Blake	15133	0	APROBADO	\N	2021-04-27 00:00:00
-Hu	15134	t	Barnes	f	t.barnes@randatmail.com	Tiana	15134	0	APROBADO	\N	2020-07-29 00:00:00
-Hu	15135	t	Chapman	f	a.chapman@randatmail.com	Abigail	15135	0	APROBADO	\N	2020-09-01 00:00:00
-Hu	15136	f	Clark	f	r.clark@randatmail.com	Rebecca	15136	0	APROBADO	\N	2020-12-12 00:00:00
-Hu	15137	t	Perry	f	j.perry@randatmail.com	James	15137	0	APROBADO	\N	2021-08-24 00:00:00
-Hu	15138	t	Dixon	f	l.dixon@randatmail.com	Lily	15138	0	RECHAZADO	\N	2020-09-18 00:00:00
-Hu	15139	t	Richards	f	e.richards@randatmail.com	Elise	15139	0	APROBADO	\N	2020-09-18 00:00:00
-Hu	15140	t	Hunt	f	e.hunt@randatmail.com	Ellia	15140	0	APROBADO	\N	2021-09-27 00:00:00
-Hu	15141	t	Wilson	f	v.wilson@randatmail.com	Valeria	15141	0	APROBADO	\N	2021-07-04 00:00:00
-Hu	15142	t	Harper	f	j.harper@randatmail.com	James	15142	0	APROBADO	\N	2021-06-17 00:00:00
-Hu	15143	t	Owens	f	s.owens@randatmail.com	Sophia	15143	0	APROBADO	\N	2020-09-01 00:00:00
-Hu	15144	t	Myers	t	b.myers@randatmail.com	Blake	15144	0	APROBADO	\N	2021-01-15 00:00:00
-Hu	15145	t	Harper	f	l.harper@randatmail.com	Lucia	15145	0	APROBADO	\N	2020-03-15 00:00:00
-Hu	15146	t	Henderson	f	o.henderson@randatmail.com	Olivia	15146	0	APROBADO	\N	2021-08-24 00:00:00
-Hu	15147	f	Hamilton	f	f.hamilton@randatmail.com	Frederick	15147	0	APROBADO	\N	2020-06-08 00:00:00
-Hu	15148	t	Perry	f	a.perry@randatmail.com	Amelia	15148	0	APROBADO	\N	2022-06-09 00:00:00
-Hu	15149	t	Murphy	f	l.murphy@randatmail.com	Lyndon	15149	0	APROBADO	\N	2021-02-01 00:00:00
-Hu	15150	t	Foster	f	h.foster@randatmail.com	Henry	15150	0	PENDIENTE	\N	2021-01-15 00:00:00
-Hu	15151	t	Mason	f	m.mason@randatmail.com	Marcus	15151	0	RECHAZADO	\N	2021-04-27 00:00:00
-Hu	15152	t	Allen	f	j.allen@randatmail.com	Jasmine	15152	0	APROBADO	\N	2020-05-22 00:00:00
-Hu	15153	t	Baker	f	a.baker@randatmail.com	Aldus	15153	0	APROBADO	\N	2022-02-27 00:00:00
-Hu	15154	t	Adams	f	a.adams@randatmail.com	Arianna	15154	0	APROBADO	\N	2020-09-01 00:00:00
-Hu	15155	t	Hill	f	a.hill@randatmail.com	Adelaide	15155	0	APROBADO	\N	2021-03-24 00:00:00
-Hu	15156	t	Spencer	t	t.spencer@randatmail.com	Tyler	15156	0	APROBADO	\N	2021-07-04 00:00:00
-Hu	15157	t	Perry	f	l.perry@randatmail.com	Lenny	15157	0	APROBADO	\N	2021-01-15 00:00:00
-Hu	15158	f	Armstrong	f	c.armstrong@randatmail.com	Chelsea	15158	0	APROBADO	\N	2022-06-09 00:00:00
-Hu	15159	t	Hamilton	f	l.hamilton@randatmail.com	Lucas	15159	0	APROBADO	\N	2021-09-27 00:00:00
-Hu	15160	t	Foster	f	a.foster@randatmail.com	Alford	15160	0	APROBADO	\N	2022-05-06 00:00:00
-Hu	15161	t	Nelson	f	t.nelson@randatmail.com	Tiana	15161	0	APROBADO	\N	2021-10-31 00:00:00
-Hu	15162	t	Holmes	f	r.holmes@randatmail.com	Roland	15162	0	PENDIENTE	\N	2022-03-16 00:00:00
-Hu	15163	t	Henderson	f	a.henderson@randatmail.com	Arianna	15163	0	APROBADO	\N	2022-03-16 00:00:00
-Hu	15164	t	Martin	f	k.martin@randatmail.com	Kelsey	15164	0	RECHAZADO	\N	2020-04-01 00:00:00
-Hu	15165	t	Hill	f	t.hill@randatmail.com	Tony	15165	0	APROBADO	\N	2020-10-22 00:00:00
-Hu	15166	t	Carter	f	a.carter@randatmail.com	Alexia	15166	0	APROBADO	\N	2022-01-24 00:00:00
-Hu	15167	t	Richardson	f	a.richardson@randatmail.com	Agata	15167	0	APROBADO	\N	2021-04-27 00:00:00
-Hu	15168	t	Edwards	t	e.edwards@randatmail.com	Emma	15168	0	APROBADO	\N	2022-05-23 00:00:00
-Hu	15169	f	Cooper	f	m.cooper@randatmail.com	Melanie	15169	0	APROBADO	\N	2020-10-05 00:00:00
-Hu	15170	t	Cooper	f	a.cooper@randatmail.com	Adrianna	15170	0	APROBADO	\N	2022-02-10 00:00:00
-Hu	15171	t	Taylor	f	e.taylor@randatmail.com	Edith	15171	0	APROBADO	\N	2021-05-31 00:00:00
-Hu	15172	t	Cooper	f	a.cooper@randatmail.com	Alexander	15172	0	APROBADO	\N	2022-04-19 00:00:00
-Hu	15173	t	Alexander	f	a.alexander@randatmail.com	Alissa	15173	0	APROBADO	\N	2020-04-18 00:00:00
-Hu	15174	t	Ryan	f	a.ryan@randatmail.com	Aston	15174	0	PENDIENTE	\N	2020-04-01 00:00:00
-Hu	15175	t	Richardson	f	b.richardson@randatmail.com	Brianna	15175	0	APROBADO	\N	2020-10-05 00:00:00
-Hu	15176	t	Murphy	f	a.murphy@randatmail.com	Andrew	15176	0	APROBADO	\N	2020-07-12 00:00:00
-Hu	15177	t	Kelly	f	r.kelly@randatmail.com	Rebecca	15177	0	RECHAZADO	\N	2020-04-01 00:00:00
-Hu	15178	t	Carter	f	t.carter@randatmail.com	Tara	15178	0	APROBADO	\N	2022-01-07 00:00:00
-Hu	15179	t	Craig	f	c.craig@randatmail.com	Chelsea	15179	0	APROBADO	\N	2021-11-17 00:00:00
-Hu	15180	f	Warren	t	t.warren@randatmail.com	Ted	15180	0	APROBADO	\N	2021-05-31 00:00:00
-Hu	15181	t	Campbell	f	a.campbell@randatmail.com	Andrew	15181	0	APROBADO	\N	2022-02-10 00:00:00
-Hu	15182	t	Martin	f	m.martin@randatmail.com	Maya	15182	0	APROBADO	\N	2022-01-07 00:00:00
-Hu	15183	t	Thomas	f	v.thomas@randatmail.com	Victor	15183	0	APROBADO	\N	2021-04-27 00:00:00
-Hu	15184	t	Higgins	f	t.higgins@randatmail.com	Thomas	15184	0	APROBADO	\N	2020-09-18 00:00:00
-Hu	15185	t	Davis	f	a.davis@randatmail.com	Alina	15185	0	APROBADO	\N	2021-07-04 00:00:00
-Hu	15186	t	Richardson	f	s.richardson@randatmail.com	Stella	15186	0	PENDIENTE	\N	2022-03-16 00:00:00
-Hu	15187	t	Grant	f	j.grant@randatmail.com	Julian	15187	0	APROBADO	\N	2021-03-24 00:00:00
-Hu	15188	t	Mason	f	a.mason@randatmail.com	Amanda	15188	0	APROBADO	\N	2020-06-25 00:00:00
-Hu	15189	t	Stewart	f	m.stewart@randatmail.com	Melissa	15189	0	APROBADO	\N	2021-07-04 00:00:00
-Hu	15190	t	Scott	f	a.scott@randatmail.com	Alexander	15190	0	RECHAZADO	\N	2020-08-15 00:00:00
-Hu	15191	f	Smith	f	m.smith@randatmail.com	Miley	15191	0	APROBADO	\N	2021-08-07 00:00:00
-Hu	15192	t	Armstrong	t	d.armstrong@randatmail.com	Daryl	15192	0	APROBADO	\N	2020-08-15 00:00:00
-Hu	15193	t	Andrews	f	a.andrews@randatmail.com	Andrew	15193	0	APROBADO	\N	2022-04-02 00:00:00
-Hu	15194	t	Kelly	f	a.kelly@randatmail.com	Arianna	15194	0	APROBADO	\N	2022-02-10 00:00:00
-Hu	15195	t	Kelley	f	c.kelley@randatmail.com	Carlos	15195	0	APROBADO	\N	2021-10-31 00:00:00
-Hu	15196	t	Barrett	f	e.barrett@randatmail.com	Edward	15196	0	APROBADO	\N	2022-04-02 00:00:00
-Hu	15197	t	Ferguson	f	e.ferguson@randatmail.com	Ellia	15197	0	APROBADO	\N	2020-05-05 00:00:00
-Hu	15198	t	Craig	f	m.craig@randatmail.com	Mary	15198	0	PENDIENTE	\N	2020-12-12 00:00:00
-Hu	15199	t	Stewart	f	v.stewart@randatmail.com	Vivian	15199	0	APROBADO	\N	2021-12-21 00:00:00
-Hu	15200	t	Foster	f	g.foster@randatmail.com	Garry	15200	0	APROBADO	\N	2022-06-09 00:00:00
-\.
+INSERT INTO public.usuarios VALUES ('Ad', 1001, true, 'apeAd 1001', false, 'emailAd 1001', 'nomAd 1001', 'adPass 1001', 1000, NULL, NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10073, false, 'apeHu 10073', false, 'emailHu 10073', 'nomHu 10073', 'huPass 10073', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Ad', 1002, true, 'apeAd 1002', false, 'emailAd 1002', 'nomAd 1002', 'adPass 1002', 1000, NULL, NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Ad', 1003, true, 'apeAd 1003', false, 'emailAd 1003', 'nomAd 1003', 'adPass 1003', 1000, NULL, NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Ad', 1004, true, 'apeAd 1004', false, 'emailAd 1004', 'nomAd 1004', 'adPass 1004', 1000, NULL, NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Ad', 1005, false, 'apeAd 1005', false, 'emailAd 1005', 'nomAd 1005', 'adPass 1005', 1000, NULL, NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Ad', 1006, true, 'apeAd 1006', false, 'emailAd 1006', 'nomAd 1006', 'adPass 1006', 1000, NULL, NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Ad', 1007, true, 'apeAd 1007', true, 'emailAd 1007', 'nomAd 1007', 'adPass 1007', 1000, NULL, NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Ad', 1008, true, 'apeAd 1008', false, 'emailAd 1008', 'nomAd 1008', 'adPass 1008', 1000, NULL, NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Ad', 1009, true, 'apeAd 1009', false, 'emailAd 1009', 'nomAd 1009', 'adPass 1009', 1000, NULL, NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Ad', 10010, true, 'apeAd 10010', false, 'emailAd 10010', 'nomAd 10010', 'adPass 10010', 1000, NULL, NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Ad', 10011, true, 'apeAd 10011', false, 'emailAd 10011', 'nomAd 10011', 'adPass 10011', 1000, NULL, NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Ad', 10012, true, 'apeAd 10012', false, 'emailAd 10012', 'nomAd 10012', 'adPass 10012', 1000, NULL, NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Ad', 10013, false, 'apeAd 10013', false, 'emailAd 10013', 'nomAd 10013', 'adPass 10013', 1000, NULL, NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Ad', 10014, true, 'apeAd 10014', false, 'emailAd 10014', 'nomAd 10014', 'adPass 10014', 1000, NULL, NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Ad', 10015, true, 'apeAd 10015', false, 'emailAd 10015', 'nomAd 10015', 'adPass 10015', 1000, NULL, NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Ad', 10016, true, 'apeAd 10016', false, 'emailAd 10016', 'nomAd 10016', 'adPass 10016', 1000, NULL, NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Ad', 10017, true, 'apeAd 10017', false, 'emailAd 10017', 'nomAd 10017', 'adPass 10017', 1000, NULL, NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Ad', 10018, true, 'apeAd 10018', false, 'emailAd 10018', 'nomAd 10018', 'adPass 10018', 1000, NULL, NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Ad', 10019, true, 'apeAd 10019', false, 'emailAd 10019', 'nomAd 10019', 'adPass 10019', 1000, NULL, NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Ad', 10020, true, 'apeAd 10020', false, 'emailAd 10020', 'nomAd 10020', 'adPass 10020', 1000, NULL, NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 10021, true, 'apeAn 10021', false, 'emailAn 10021', 'nomAn 10021', 'anPass 10021', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 10022, true, 'apeAn 10022', false, 'emailAn 10022', 'nomAn 10022', 'anPass 10022', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 10023, false, 'apeAn 10023', false, 'emailAn 10023', 'nomAn 10023', 'anPass 10023', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 10024, true, 'apeAn 10024', false, 'emailAn 10024', 'nomAn 10024', 'anPass 10024', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 10025, true, 'apeAn 10025', false, 'emailAn 10025', 'nomAn 10025', 'anPass 10025', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 10026, true, 'apeAn 10026', false, 'emailAn 10026', 'nomAn 10026', 'anPass 10026', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 10027, true, 'apeAn 10027', false, 'emailAn 10027', 'nomAn 10027', 'anPass 10027', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 10028, true, 'apeAn 10028', false, 'emailAn 10028', 'nomAn 10028', 'anPass 10028', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 10029, true, 'apeAn 10029', false, 'emailAn 10029', 'nomAn 10029', 'anPass 10029', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 10030, true, 'apeAn 10030', false, 'emailAn 10030', 'nomAn 10030', 'anPass 10030', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 10032, true, 'apeAn 10032', false, 'emailAn 10032', 'nomAn 10032', 'anPass 10032', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 10033, false, 'apeAn 10033', false, 'emailAn 10033', 'nomAn 10033', 'anPass 10033', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 10034, true, 'apeAn 10034', false, 'emailAn 10034', 'nomAn 10034', 'anPass 10034', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 10035, true, 'apeAn 10035', true, 'emailAn 10035', 'nomAn 10035', 'anPass 10035', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 10036, true, 'apeAn 10036', false, 'emailAn 10036', 'nomAn 10036', 'anPass 10036', 1000, 'RECHAZADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 10037, true, 'apeAn 10037', false, 'emailAn 10037', 'nomAn 10037', 'anPass 10037', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 10038, true, 'apeAn 10038', true, 'emailAn 10038', 'nomAn 10038', 'anPass 10038', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 10039, true, 'apeAn 10039', false, 'emailAn 10039', 'nomAn 10039', 'anPass 10039', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 10040, true, 'apeAn 10040', false, 'emailAn 10040', 'nomAn 10040', 'anPass 10040', 1000, 'PENDIENTE', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 10041, true, 'apeAn 10041', false, 'emailAn 10041', 'nomAn 10041', 'anPass 10041', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 10042, true, 'apeAn 10042', false, 'emailAn 10042', 'nomAn 10042', 'anPass 10042', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 10043, false, 'apeAn 10043', false, 'emailAn 10043', 'nomAn 10043', 'anPass 10043', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 10044, true, 'apeAn 10044', false, 'emailAn 10044', 'nomAn 10044', 'anPass 10044', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 10045, true, 'apeAn 10045', false, 'emailAn 10045', 'nomAn 10045', 'anPass 10045', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 10046, true, 'apeAn 10046', false, 'emailAn 10046', 'nomAn 10046', 'anPass 10046', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 10047, true, 'apeAn 10047', false, 'emailAn 10047', 'nomAn 10047', 'anPass 10047', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 10048, true, 'apeAn 10048', false, 'emailAn 10048', 'nomAn 10048', 'anPass 10048', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 10049, true, 'apeAn 10049', false, 'emailAn 10049', 'nomAn 10049', 'anPass 10049', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 10050, true, 'apeAn 10050', false, 'emailAn 10050', 'nomAn 10050', 'anPass 10050', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10051, true, 'apeHu 10051', false, 'emailHu 10051', 'nomHu 10051', 'huPass 10051', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10052, true, 'apeHu 10052', false, 'emailHu 10052', 'nomHu 10052', 'huPass 10052', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10053, true, 'apeHu 10053', false, 'emailHu 10053', 'nomHu 10053', 'huPass 10053', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10054, true, 'apeHu 10054', false, 'emailHu 10054', 'nomHu 10054', 'huPass 10054', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100140, true, 'apeHu 100140', false, 'emailHu 100140', 'nomHu 100140', 'huPass 100140', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 1, true, 'string', false, 'string', 'string', 'string', 0, NULL, NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10055, true, 'apeHu 10055', false, 'emailHu 10055', 'nomHu 10055', 'huPass 10055', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10056, true, 'apeHu 10056', false, 'emailHu 10056', 'nomHu 10056', 'huPass 10056', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10057, true, 'apeHu 10057', false, 'emailHu 10057', 'nomHu 10057', 'huPass 10057', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10058, true, 'apeHu 10058', false, 'emailHu 10058', 'nomHu 10058', 'huPass 10058', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10059, true, 'apeHu 10059', false, 'emailHu 10059', 'nomHu 10059', 'huPass 10059', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10060, true, 'apeHu 10060', true, 'emailHu 10060', 'nomHu 10060', 'huPass 10060', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10061, true, 'apeHu 10061', false, 'emailHu 10061', 'nomHu 10061', 'huPass 10061', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10062, true, 'apeHu 10062', false, 'emailHu 10062', 'nomHu 10062', 'huPass 10062', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10063, true, 'apeHu 10063', false, 'emailHu 10063', 'nomHu 10063', 'huPass 10063', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10064, true, 'apeHu 10064', false, 'emailHu 10064', 'nomHu 10064', 'huPass 10064', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10065, true, 'apeHu 10065', false, 'emailHu 10065', 'nomHu 10065', 'huPass 10065', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10066, true, 'apeHu 10066', false, 'emailHu 10066', 'nomHu 10066', 'huPass 10066', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10067, false, 'apeHu 10067', false, 'emailHu 10067', 'nomHu 10067', 'huPass 10067', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10068, true, 'apeHu 10068', false, 'emailHu 10068', 'nomHu 10068', 'huPass 10068', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10069, true, 'apeHu 10069', false, 'emailHu 10069', 'nomHu 10069', 'huPass 10069', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10070, true, 'apeHu 10070', false, 'emailHu 10070', 'nomHu 10070', 'huPass 10070', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10071, true, 'apeHu 10071', false, 'emailHu 10071', 'nomHu 10071', 'huPass 10071', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10072, true, 'apeHu 10072', false, 'emailHu 10072', 'nomHu 10072', 'huPass 10072', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10074, true, 'apeHu 10074', false, 'emailHu 10074', 'nomHu 10074', 'huPass 10074', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10075, true, 'apeHu 10075', false, 'emailHu 10075', 'nomHu 10075', 'huPass 10075', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10076, true, 'apeHu 10076', false, 'emailHu 10076', 'nomHu 10076', 'huPass 10076', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10077, true, 'apeHu 10077', false, 'emailHu 10077', 'nomHu 10077', 'huPass 10077', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10078, true, 'apeHu 10078', false, 'emailHu 10078', 'nomHu 10078', 'huPass 10078', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10079, true, 'apeHu 10079', false, 'emailHu 10079', 'nomHu 10079', 'huPass 10079', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10080, true, 'apeHu 10080', false, 'emailHu 10080', 'nomHu 10080', 'huPass 10080', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10081, true, 'apeHu 10081', false, 'emailHu 10081', 'nomHu 10081', 'huPass 10081', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10082, true, 'apeHu 10082', false, 'emailHu 10082', 'nomHu 10082', 'huPass 10082', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10083, true, 'apeHu 10083', false, 'emailHu 10083', 'nomHu 10083', 'huPass 10083', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10084, true, 'apeHu 10084', true, 'emailHu 10084', 'nomHu 10084', 'huPass 10084', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10085, true, 'apeHu 10085', false, 'emailHu 10085', 'nomHu 10085', 'huPass 10085', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10086, true, 'apeHu 10086', false, 'emailHu 10086', 'nomHu 10086', 'huPass 10086', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10087, true, 'apeHu 10087', false, 'emailHu 10087', 'nomHu 10087', 'huPass 10087', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10088, true, 'apeHu 10088', false, 'emailHu 10088', 'nomHu 10088', 'huPass 10088', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10089, true, 'apeHu 10089', false, 'emailHu 10089', 'nomHu 10089', 'huPass 10089', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10090, true, 'apeHu 10090', false, 'emailHu 10090', 'nomHu 10090', 'huPass 10090', 1000, 'RECHAZADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10091, true, 'apeHu 10091', false, 'emailHu 10091', 'nomHu 10091', 'huPass 10091', 1000, 'RECHAZADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10092, false, 'apeHu 10092', false, 'emailHu 10092', 'nomHu 10092', 'huPass 10092', 1000, 'RECHAZADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10093, true, 'apeHu 10093', false, 'emailHu 10093', 'nomHu 10093', 'huPass 10093', 1000, 'RECHAZADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10094, true, 'apeHu 10094', false, 'emailHu 10094', 'nomHu 10094', 'huPass 10094', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10095, true, 'apeHu 10095', false, 'emailHu 10095', 'nomHu 10095', 'huPass 10095', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10096, true, 'apeHu 10096', false, 'emailHu 10096', 'nomHu 10096', 'huPass 10096', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10097, true, 'apeHu 10097', true, 'emailHu 10097', 'nomHu 10097', 'huPass 10097', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10098, true, 'apeHu 10098', false, 'emailHu 10098', 'nomHu 10098', 'huPass 10098', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10099, true, 'apeHu 10099', false, 'emailHu 10099', 'nomHu 10099', 'huPass 10099', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100100, true, 'apeHu 100100', false, 'emailHu 100100', 'nomHu 100100', 'huPass 100100', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100101, true, 'apeHu 100101', false, 'emailHu 100101', 'nomHu 100101', 'huPass 100101', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100102, true, 'apeHu 100102', false, 'emailHu 100102', 'nomHu 100102', 'huPass 100102', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100103, true, 'apeHu 100103', false, 'emailHu 100103', 'nomHu 100103', 'huPass 100103', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100104, true, 'apeHu 100104', false, 'emailHu 100104', 'nomHu 100104', 'huPass 100104', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100105, true, 'apeHu 100105', false, 'emailHu 100105', 'nomHu 100105', 'huPass 100105', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100106, true, 'apeHu 100106', false, 'emailHu 100106', 'nomHu 100106', 'huPass 100106', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100107, true, 'apeHu 100107', false, 'emailHu 100107', 'nomHu 100107', 'huPass 100107', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100108, true, 'apeHu 100108', false, 'emailHu 100108', 'nomHu 100108', 'huPass 100108', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100109, true, 'apeHu 100109', false, 'emailHu 100109', 'nomHu 100109', 'huPass 100109', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100111, true, 'apeHu 100111', false, 'emailHu 100111', 'nomHu 100111', 'huPass 100111', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100112, true, 'apeHu 100112', false, 'emailHu 100112', 'nomHu 100112', 'huPass 100112', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100113, true, 'apeHu 100113', false, 'emailHu 100113', 'nomHu 100113', 'huPass 100113', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100114, true, 'apeHu 100114', false, 'emailHu 100114', 'nomHu 100114', 'huPass 100114', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100116, true, 'apeHu 100116', false, 'emailHu 100116', 'nomHu 100116', 'huPass 100116', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100117, true, 'apeHu 100117', false, 'emailHu 100117', 'nomHu 100117', 'huPass 100117', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100118, true, 'apeHu 100118', false, 'emailHu 100118', 'nomHu 100118', 'huPass 100118', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100119, true, 'apeHu 100119', false, 'emailHu 100119', 'nomHu 100119', 'huPass 100119', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100120, true, 'apeHu 100120', false, 'emailHu 100120', 'nomHu 100120', 'huPass 100120', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100121, true, 'apeHu 100121', false, 'emailHu 100121', 'nomHu 100121', 'huPass 100121', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100122, true, 'apeHu 100122', false, 'emailHu 100122', 'nomHu 100122', 'huPass 100122', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100123, true, 'apeHu 100123', false, 'emailHu 100123', 'nomHu 100123', 'huPass 100123', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100124, true, 'apeHu 100124', true, 'emailHu 100124', 'nomHu 100124', 'huPass 100124', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100125, true, 'apeHu 100125', false, 'emailHu 100125', 'nomHu 100125', 'huPass 100125', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100126, true, 'apeHu 100126', false, 'emailHu 100126', 'nomHu 100126', 'huPass 100126', 1000, 'PENDIENTE', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100127, true, 'apeHu 100127', false, 'emailHu 100127', 'nomHu 100127', 'huPass 100127', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100128, true, 'apeHu 100128', false, 'emailHu 100128', 'nomHu 100128', 'huPass 100128', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100129, true, 'apeHu 100129', false, 'emailHu 100129', 'nomHu 100129', 'huPass 100129', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100130, true, 'apeHu 100130', false, 'emailHu 100130', 'nomHu 100130', 'huPass 100130', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100131, true, 'apeHu 100131', false, 'emailHu 100131', 'nomHu 100131', 'huPass 100131', 1000, 'PENDIENTE', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100132, true, 'apeHu 100132', false, 'emailHu 100132', 'nomHu 100132', 'huPass 100132', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100133, true, 'apeHu 100133', false, 'emailHu 100133', 'nomHu 100133', 'huPass 100133', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100134, true, 'apeHu 100134', false, 'emailHu 100134', 'nomHu 100134', 'huPass 100134', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100135, true, 'apeHu 100135', false, 'emailHu 100135', 'nomHu 100135', 'huPass 100135', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100136, true, 'apeHu 100136', false, 'emailHu 100136', 'nomHu 100136', 'huPass 100136', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100137, true, 'apeHu 100137', false, 'emailHu 100137', 'nomHu 100137', 'huPass 100137', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100138, true, 'apeHu 100138', false, 'emailHu 100138', 'nomHu 100138', 'huPass 100138', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100139, true, 'apeHu 100139', false, 'emailHu 100139', 'nomHu 100139', 'huPass 100139', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100115, true, 'apeHu 100115', true, 'emailHu 100115', 'nomHu 100115', 'huPass 100115', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100141, true, 'apeHu 100141', false, 'emailHu 100141', 'nomHu 100141', 'huPass 100141', 1000, 'PENDIENTE', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100142, true, 'apeHu 100142', false, 'emailHu 100142', 'nomHu 100142', 'huPass 100142', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100143, true, 'apeHu 100143', false, 'emailHu 100143', 'nomHu 100143', 'huPass 100143', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100144, true, 'apeHu 100144', false, 'emailHu 100144', 'nomHu 100144', 'huPass 100144', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100145, true, 'apeHu 100145', false, 'emailHu 100145', 'nomHu 100145', 'huPass 100145', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100146, true, 'apeHu 100146', false, 'emailHu 100146', 'nomHu 100146', 'huPass 100146', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100147, true, 'apeHu 100147', false, 'emailHu 100147', 'nomHu 100147', 'huPass 100147', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100148, true, 'apeHu 100148', false, 'emailHu 100148', 'nomHu 100148', 'huPass 100148', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100149, true, 'apeHu 100149', false, 'emailHu 100149', 'nomHu 100149', 'huPass 100149', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100150, true, 'apeHu 100150', false, 'emailHu 100150', 'nomHu 100150', 'huPass 100150', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 100110, true, 'apeHu 100110', false, 'emailHu 100110', 'nomHu 100110', 'huPass 100110', 1000, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 10031, true, 'apeAn 10031', false, 'emailAn 10031', 'nomAn 10031', 'anPass 10031', 1000, 'RECHAZADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Ad', 15001, true, 'Thompson', false, 'e.thompson@randatmail.com', 'Eddy', '15001', 0, NULL, NULL, '2021-10-14 00:00:00');
+INSERT INTO public.usuarios VALUES ('Ad', 15002, true, 'Lloyd', false, 'm.lloyd@randatmail.com', 'Melanie', '15002', 0, NULL, NULL, '2021-02-18 00:00:00');
+INSERT INTO public.usuarios VALUES ('Ad', 15003, true, 'Johnston', false, 'j.johnston@randatmail.com', 'Jared', '15003', 0, NULL, NULL, '2020-09-01 00:00:00');
+INSERT INTO public.usuarios VALUES ('Ad', 15004, false, 'Clark', false, 'k.clark@randatmail.com', 'Kimberly', '15004', 0, NULL, NULL, '2021-06-17 00:00:00');
+INSERT INTO public.usuarios VALUES ('Ad', 15005, true, 'Perkins', false, 'a.perkins@randatmail.com', 'Adam', '15005', 0, NULL, NULL, '2021-12-21 00:00:00');
+INSERT INTO public.usuarios VALUES ('Ad', 15006, true, 'Morrison', false, 'a.morrison@randatmail.com', 'Abraham', '15006', 0, NULL, NULL, '2020-03-15 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 15007, true, 'Parker', false, 'm.parker@randatmail.com', 'Mike', '15007', 0, 'APROBADO', NULL, '2021-07-04 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 15008, true, 'Stevens', false, 'm.stevens@randatmail.com', 'Max', '15008', 0, 'RECHAZADO', NULL, '2020-11-25 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 15009, true, 'Martin', false, 'e.martin@randatmail.com', 'Elise', '15009', 0, 'APROBADO', NULL, '2021-03-24 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 15010, true, 'Miller', false, 'd.miller@randatmail.com', 'Deanna', '15010', 0, 'APROBADO', NULL, '2021-03-07 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 15011, true, 'Holmes', false, 'a.holmes@randatmail.com', 'Ada', '15011', 0, 'APROBADO', NULL, '2020-09-18 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 15012, true, 'Armstrong', true, 'c.armstrong@randatmail.com', 'Charlotte', '15012', 0, 'APROBADO', NULL, '2020-04-18 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 15013, true, 'Kelly', false, 'k.kelly@randatmail.com', 'Kate', '15013', 0, 'APROBADO', NULL, '2021-12-04 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 15014, true, 'Ferguson', false, 'a.ferguson@randatmail.com', 'Aldus', '15014', 0, 'APROBADO', NULL, '2020-05-05 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 15015, false, 'Allen', false, 'c.allen@randatmail.com', 'Cherry', '15015', 0, 'APROBADO', NULL, '2020-06-08 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 15016, true, 'Evans', false, 'e.evans@randatmail.com', 'Edwin', '15016', 0, 'APROBADO', NULL, '2022-02-27 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 15017, true, 'Moore', false, 'p.moore@randatmail.com', 'Penelope', '15017', 0, 'APROBADO', NULL, '2020-06-25 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 15018, true, 'Douglas', false, 'a.douglas@randatmail.com', 'Aiden', '15018', 0, 'PENDIENTE', NULL, '2021-03-24 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 15019, true, 'Crawford', false, 'c.crawford@randatmail.com', 'Chester', '15019', 0, 'APROBADO', NULL, '2020-09-18 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 15020, true, 'Bailey', false, 'a.bailey@randatmail.com', 'Aida', '15020', 0, 'APROBADO', NULL, '2021-08-07 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 15021, true, 'Warren', false, 'd.warren@randatmail.com', 'Dominik', '15021', 0, 'RECHAZADO', NULL, '2020-08-15 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 15022, true, 'Sullivan', false, 't.sullivan@randatmail.com', 'Tiana', '15022', 0, 'APROBADO', NULL, '2021-01-15 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 15023, true, 'Parker', false, 'k.parker@randatmail.com', 'Kelvin', '15023', 0, 'APROBADO', NULL, '2022-02-27 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 15024, true, 'Kelly', true, 'a.kelly@randatmail.com', 'Alford', '15024', 0, 'APROBADO', NULL, '2021-06-17 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 15025, true, 'Barnes', false, 'l.barnes@randatmail.com', 'Lucia', '15025', 0, 'APROBADO', NULL, '2021-03-07 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 15026, false, 'Brown', false, 'j.brown@randatmail.com', 'Julia', '15026', 0, 'APROBADO', NULL, '2020-05-05 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 15027, true, 'Barnes', false, 'v.barnes@randatmail.com', 'Vivian', '15027', 0, 'APROBADO', NULL, '2021-09-27 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 15028, true, 'Russell', false, 's.russell@randatmail.com', 'Sienna', '15028', 0, 'APROBADO', NULL, '2020-07-29 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 15029, true, 'Kelley', false, 'l.kelley@randatmail.com', 'Lucas', '15029', 0, 'APROBADO', NULL, '2020-08-15 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 15030, true, 'Baker', false, 'j.baker@randatmail.com', 'Jack', '15030', 0, 'PENDIENTE', NULL, '2022-04-19 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 15031, true, 'Williams', false, 'n.williams@randatmail.com', 'Nicholas', '15031', 0, 'APROBADO', NULL, '2022-06-09 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 15032, true, 'Anderson', false, 'd.anderson@randatmail.com', 'David', '15032', 0, 'APROBADO', NULL, '2020-06-25 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 15033, true, 'Mitchell', false, 'b.mitchell@randatmail.com', 'Belinda', '15033', 0, 'APROBADO', NULL, '2021-10-31 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 15034, true, 'Miller', false, 'a.miller@randatmail.com', 'Alan', '15034', 0, 'RECHAZADO', NULL, '2020-10-22 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 15035, true, 'Elliott', false, 'e.elliott@randatmail.com', 'Ellia', '15035', 0, 'APROBADO', NULL, '2021-04-10 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 15036, true, 'Evans', true, 't.evans@randatmail.com', 'Tony', '15036', 0, 'APROBADO', NULL, '2021-12-04 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 15037, false, 'Wilson', false, 's.wilson@randatmail.com', 'Sarah', '15037', 0, 'APROBADO', NULL, '2022-02-10 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 15038, true, 'Hill', false, 'm.hill@randatmail.com', 'Mary', '15038', 0, 'APROBADO', NULL, '2022-01-24 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 15039, true, 'Murray', false, 'a.murray@randatmail.com', 'Abraham', '15039', 0, 'APROBADO', NULL, '2021-09-27 00:00:00');
+INSERT INTO public.usuarios VALUES ('An', 15040, true, 'Wright', false, 'a.wright@randatmail.com', 'Alisa', '15040', 0, 'APROBADO', NULL, '2021-05-31 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15041, true, 'Payne', false, 'c.payne@randatmail.com', 'Chelsea', '15041', 0, 'APROBADO', NULL, '2020-05-22 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15042, true, 'Brown', false, 'm.brown@randatmail.com', 'Maria', '15042', 0, 'PENDIENTE', NULL, '2020-10-05 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15043, true, 'Barrett', false, 'c.barrett@randatmail.com', 'Chloe', '15043', 0, 'APROBADO', NULL, '2022-03-16 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15044, true, 'Owens', false, 'd.owens@randatmail.com', 'Dale', '15044', 0, 'APROBADO', NULL, '2021-05-31 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15045, true, 'Baker', false, 'v.baker@randatmail.com', 'Vanessa', '15045', 0, 'APROBADO', NULL, '2020-03-15 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15046, true, 'Sullivan', false, 'a.sullivan@randatmail.com', 'Alen', '15046', 0, 'APROBADO', NULL, '2021-10-14 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15047, true, 'Adams', false, 'e.adams@randatmail.com', 'Emma', '15047', 0, 'RECHAZADO', NULL, '2021-06-17 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15048, false, 'Craig', true, 'l.craig@randatmail.com', 'Lydia', '15048', 0, 'APROBADO', NULL, '2021-05-31 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15049, true, 'Hill', false, 'a.hill@randatmail.com', 'Antony', '15049', 0, 'APROBADO', NULL, '2020-08-15 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15050, true, 'Parker', false, 'j.parker@randatmail.com', 'Jared', '15050', 0, 'APROBADO', NULL, '2020-07-29 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15051, true, 'Henderson', false, 'a.henderson@randatmail.com', 'Amelia', '15051', 0, 'APROBADO', NULL, '2020-05-05 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15052, true, 'Scott', false, 'c.scott@randatmail.com', 'Carlos', '15052', 0, 'APROBADO', NULL, '2022-02-27 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15053, true, 'Scott', false, 'h.scott@randatmail.com', 'Heather', '15053', 0, 'APROBADO', NULL, '2020-12-29 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15054, true, 'Owens', false, 'o.owens@randatmail.com', 'Olivia', '15054', 0, 'PENDIENTE', NULL, '2020-06-08 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15055, true, 'Brooks', false, 'a.brooks@randatmail.com', 'Abigail', '15055', 0, 'APROBADO', NULL, '2022-02-27 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15056, true, 'Campbell', false, 'm.campbell@randatmail.com', 'Michelle', '15056', 0, 'APROBADO', NULL, '2020-12-12 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15057, true, 'Andrews', false, 'c.andrews@randatmail.com', 'Charlie', '15057', 0, 'APROBADO', NULL, '2022-04-19 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15058, true, 'Howard', false, 'm.howard@randatmail.com', 'Marcus', '15058', 0, 'APROBADO', NULL, '2020-08-15 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15059, false, 'Campbell', false, 'v.campbell@randatmail.com', 'Victor', '15059', 0, 'APROBADO', NULL, '2020-10-22 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15060, true, 'Fowler', true, 'd.fowler@randatmail.com', 'Daisy', '15060', 0, 'RECHAZADO', NULL, '2021-02-18 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15061, true, 'Edwards', false, 'r.edwards@randatmail.com', 'Rosie', '15061', 0, 'APROBADO', NULL, '2022-04-19 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15062, true, 'Fowler', false, 'j.fowler@randatmail.com', 'Jacob', '15062', 0, 'APROBADO', NULL, '2020-08-15 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15063, true, 'Payne', false, 'f.payne@randatmail.com', 'Fenton', '15063', 0, 'APROBADO', NULL, '2021-04-10 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15064, true, 'Spencer', false, 'j.spencer@randatmail.com', 'John', '15064', 0, 'APROBADO', NULL, '2021-05-14 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15065, true, 'Watson', false, 'e.watson@randatmail.com', 'Edgar', '15065', 0, 'APROBADO', NULL, '2022-02-10 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15066, true, 'Baker', false, 'm.baker@randatmail.com', 'Melanie', '15066', 0, 'PENDIENTE', NULL, '2021-10-31 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15067, true, 'Andrews', false, 'e.andrews@randatmail.com', 'Ellia', '15067', 0, 'APROBADO', NULL, '2022-03-16 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15068, true, 'Morgan', false, 'j.morgan@randatmail.com', 'Jared', '15068', 0, 'APROBADO', NULL, '2021-08-07 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15069, true, 'Nelson', false, 'a.nelson@randatmail.com', 'Adelaide', '15069', 0, 'APROBADO', NULL, '2021-08-07 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15070, false, 'Farrell', false, 's.farrell@randatmail.com', 'Sabrina', '15070', 0, 'APROBADO', NULL, '2020-11-25 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15071, true, 'Williams', false, 's.williams@randatmail.com', 'Sofia', '15071', 0, 'APROBADO', NULL, '2021-02-01 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15072, true, 'Jones', true, 'a.jones@randatmail.com', 'Aston', '15072', 0, 'APROBADO', NULL, '2021-05-14 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15073, true, 'Wright', false, 'v.wright@randatmail.com', 'Victoria', '15073', 0, 'RECHAZADO', NULL, '2020-11-08 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15074, true, 'Moore', false, 'j.moore@randatmail.com', 'Jack', '15074', 0, 'APROBADO', NULL, '2021-04-27 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15075, true, 'Morgan', false, 'a.morgan@randatmail.com', 'Amy', '15075', 0, 'APROBADO', NULL, '2022-06-09 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15076, true, 'West', false, 't.west@randatmail.com', 'Ted', '15076', 0, 'APROBADO', NULL, '2020-11-08 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15077, true, 'Stevens', false, 'e.stevens@randatmail.com', 'Ellia', '15077', 0, 'APROBADO', NULL, '2020-04-01 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15078, true, 'Lloyd', false, 'j.lloyd@randatmail.com', 'Jessica', '15078', 0, 'PENDIENTE', NULL, '2020-09-18 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15079, true, 'West', false, 'l.west@randatmail.com', 'Lucas', '15079', 0, 'APROBADO', NULL, '2021-09-27 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15080, true, 'Robinson', false, 'b.robinson@randatmail.com', 'Belinda', '15080', 0, 'APROBADO', NULL, '2021-05-14 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15081, false, 'Harris', false, 'n.harris@randatmail.com', 'Naomi', '15081', 0, 'APROBADO', NULL, '2020-07-12 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15082, true, 'Kelly', false, 'a.kelly@randatmail.com', 'Agata', '15082', 0, 'APROBADO', NULL, '2020-03-15 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15083, true, 'Ellis', false, 'r.ellis@randatmail.com', 'Rafael', '15083', 0, 'APROBADO', NULL, '2020-09-18 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15084, true, 'Moore', true, 'm.moore@randatmail.com', 'Melissa', '15084', 0, 'APROBADO', NULL, '2022-06-09 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15085, true, 'Chapman', false, 'e.chapman@randatmail.com', 'Edith', '15085', 0, 'APROBADO', NULL, '2021-06-17 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15086, true, 'Gray', false, 'a.gray@randatmail.com', 'Abraham', '15086', 0, 'RECHAZADO', NULL, '2021-06-17 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15087, true, 'Stevens', false, 'v.stevens@randatmail.com', 'Valeria', '15087', 0, 'APROBADO', NULL, '2021-09-10 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15088, true, 'Wright', false, 'v.wright@randatmail.com', 'Violet', '15088', 0, 'APROBADO', NULL, '2020-11-08 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15089, true, 'Payne', false, 'b.payne@randatmail.com', 'Briony', '15089', 0, 'APROBADO', NULL, '2020-11-25 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15090, true, 'Baker', false, 'o.baker@randatmail.com', 'Oliver', '15090', 0, 'PENDIENTE', NULL, '2020-12-29 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15091, true, 'Smith', false, 'l.smith@randatmail.com', 'Lenny', '15091', 0, 'APROBADO', NULL, '2020-05-22 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15092, false, 'Craig', false, 'b.craig@randatmail.com', 'Brianna', '15092', 0, 'APROBADO', NULL, '2022-02-10 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15093, true, 'Warren', false, 'a.warren@randatmail.com', 'Aston', '15093', 0, 'APROBADO', NULL, '2022-04-19 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15094, true, 'Wells', false, 'k.wells@randatmail.com', 'Kellan', '15094', 0, 'APROBADO', NULL, '2020-07-12 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15095, true, 'Russell', false, 'l.russell@randatmail.com', 'Leonardo', '15095', 0, 'APROBADO', NULL, '2020-07-12 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15096, true, 'Morgan', true, 's.morgan@randatmail.com', 'Sophia', '15096', 0, 'APROBADO', NULL, '2020-10-05 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15097, true, 'Montgomery', false, 'n.montgomery@randatmail.com', 'Naomi', '15097', 0, 'APROBADO', NULL, '2021-03-24 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15098, true, 'Martin', false, 'e.martin@randatmail.com', 'Emily', '15098', 0, 'APROBADO', NULL, '2020-12-29 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15099, true, 'Baker', false, 'a.baker@randatmail.com', 'Ada', '15099', 0, 'RECHAZADO', NULL, '2021-08-24 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15100, true, 'Russell', false, 'm.russell@randatmail.com', 'Madaline', '15100', 0, 'APROBADO', NULL, '2021-08-24 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15101, true, 'Cunningham', false, 'b.cunningham@randatmail.com', 'Brooke', '15101', 0, 'APROBADO', NULL, '2022-01-07 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15102, true, 'Morris', false, 'r.morris@randatmail.com', 'Rebecca', '15102', 0, 'PENDIENTE', NULL, '2022-01-07 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15103, false, 'Hamilton', false, 'a.hamilton@randatmail.com', 'Arianna', '15103', 0, 'APROBADO', NULL, '2022-05-06 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15104, true, 'Farrell', false, 'a.farrell@randatmail.com', 'Alberta', '15104', 0, 'APROBADO', NULL, '2020-04-01 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15105, true, 'Thomas', false, 'p.thomas@randatmail.com', 'Preston', '15105', 0, 'APROBADO', NULL, '2021-03-24 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15106, true, 'Barnes', false, 'c.barnes@randatmail.com', 'Carlos', '15106', 0, 'APROBADO', NULL, '2020-10-05 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15107, true, 'Walker', false, 'd.walker@randatmail.com', 'Derek', '15107', 0, 'APROBADO', NULL, '2021-10-14 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15108, true, 'Lloyd', true, 'c.lloyd@randatmail.com', 'Carina', '15108', 0, 'APROBADO', NULL, '2021-08-24 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15109, true, 'Brown', false, 't.brown@randatmail.com', 'Ted', '15109', 0, 'APROBADO', NULL, '2020-12-12 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15110, true, 'Brooks', false, 'm.brooks@randatmail.com', 'Miller', '15110', 0, 'APROBADO', NULL, '2021-02-18 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15111, true, 'Wilson', false, 'a.wilson@randatmail.com', 'Adelaide', '15111', 0, 'APROBADO', NULL, '2022-05-06 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15112, true, 'Farrell', false, 'a.farrell@randatmail.com', 'Ashton', '15112', 0, 'RECHAZADO', NULL, '2020-10-05 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15113, true, 'Alexander', false, 'i.alexander@randatmail.com', 'Isabella', '15113', 0, 'APROBADO', NULL, '2021-06-17 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15114, false, 'Lloyd', false, 'm.lloyd@randatmail.com', 'Max', '15114', 0, 'PENDIENTE', NULL, '2021-09-10 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15115, true, 'Clark', false, 'b.clark@randatmail.com', 'Brad', '15115', 0, 'APROBADO', NULL, '2022-04-02 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15116, true, 'Phillips', false, 'v.phillips@randatmail.com', 'Victoria', '15116', 0, 'APROBADO', NULL, '2021-08-07 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15117, true, 'Andrews', false, 'p.andrews@randatmail.com', 'Paige', '15117', 0, 'APROBADO', NULL, '2021-09-10 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15118, true, 'Nelson', false, 'r.nelson@randatmail.com', 'Reid', '15118', 0, 'APROBADO', NULL, '2020-05-05 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15119, true, 'Cameron', false, 'g.cameron@randatmail.com', 'Gianna', '15119', 0, 'APROBADO', NULL, '2022-02-10 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15120, true, 'Harris', true, 'j.harris@randatmail.com', 'Jack', '15120', 0, 'APROBADO', NULL, '2020-05-05 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15121, true, 'Mitchell', false, 'k.mitchell@randatmail.com', 'Kelvin', '15121', 0, 'APROBADO', NULL, '2021-06-17 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15122, true, 'Craig', false, 'm.craig@randatmail.com', 'Maximilian', '15122', 0, 'APROBADO', NULL, '2020-04-18 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15123, true, 'Johnson', false, 's.johnson@randatmail.com', 'Sofia', '15123', 0, 'APROBADO', NULL, '2021-05-14 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15124, true, 'Russell', false, 'v.russell@randatmail.com', 'Vivian', '15124', 0, 'APROBADO', NULL, '2021-07-04 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15125, false, 'Johnson', false, 'd.johnson@randatmail.com', 'Dominik', '15125', 0, 'RECHAZADO', NULL, '2021-11-17 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15126, true, 'Hunt', false, 't.hunt@randatmail.com', 'Tara', '15126', 0, 'PENDIENTE', NULL, '2021-04-27 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15127, true, 'Ellis', false, 'e.ellis@randatmail.com', 'Emily', '15127', 0, 'APROBADO', NULL, '2020-11-08 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15128, true, 'Riley', false, 'k.riley@randatmail.com', 'Kellan', '15128', 0, 'APROBADO', NULL, '2020-05-05 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15129, true, 'Howard', false, 'l.howard@randatmail.com', 'Leonardo', '15129', 0, 'APROBADO', NULL, '2020-12-12 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15130, true, 'Tucker', false, 'v.tucker@randatmail.com', 'Vivian', '15130', 0, 'APROBADO', NULL, '2022-04-02 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15131, true, 'Jones', false, 'h.jones@randatmail.com', 'Henry', '15131', 0, 'APROBADO', NULL, '2020-08-15 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15132, true, 'Holmes', true, 't.holmes@randatmail.com', 'Ted', '15132', 0, 'APROBADO', NULL, '2020-10-22 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15133, true, 'Ferguson', false, 'b.ferguson@randatmail.com', 'Blake', '15133', 0, 'APROBADO', NULL, '2021-04-27 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15134, true, 'Barnes', false, 't.barnes@randatmail.com', 'Tiana', '15134', 0, 'APROBADO', NULL, '2020-07-29 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15135, true, 'Chapman', false, 'a.chapman@randatmail.com', 'Abigail', '15135', 0, 'APROBADO', NULL, '2020-09-01 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15136, false, 'Clark', false, 'r.clark@randatmail.com', 'Rebecca', '15136', 0, 'APROBADO', NULL, '2020-12-12 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15137, true, 'Perry', false, 'j.perry@randatmail.com', 'James', '15137', 0, 'APROBADO', NULL, '2021-08-24 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15138, true, 'Dixon', false, 'l.dixon@randatmail.com', 'Lily', '15138', 0, 'RECHAZADO', NULL, '2020-09-18 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15139, true, 'Richards', false, 'e.richards@randatmail.com', 'Elise', '15139', 0, 'APROBADO', NULL, '2020-09-18 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15140, true, 'Hunt', false, 'e.hunt@randatmail.com', 'Ellia', '15140', 0, 'APROBADO', NULL, '2021-09-27 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15141, true, 'Wilson', false, 'v.wilson@randatmail.com', 'Valeria', '15141', 0, 'APROBADO', NULL, '2021-07-04 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15142, true, 'Harper', false, 'j.harper@randatmail.com', 'James', '15142', 0, 'APROBADO', NULL, '2021-06-17 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15143, true, 'Owens', false, 's.owens@randatmail.com', 'Sophia', '15143', 0, 'APROBADO', NULL, '2020-09-01 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15144, true, 'Myers', true, 'b.myers@randatmail.com', 'Blake', '15144', 0, 'APROBADO', NULL, '2021-01-15 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15145, true, 'Harper', false, 'l.harper@randatmail.com', 'Lucia', '15145', 0, 'APROBADO', NULL, '2020-03-15 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15146, true, 'Henderson', false, 'o.henderson@randatmail.com', 'Olivia', '15146', 0, 'APROBADO', NULL, '2021-08-24 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15147, false, 'Hamilton', false, 'f.hamilton@randatmail.com', 'Frederick', '15147', 0, 'APROBADO', NULL, '2020-06-08 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15148, true, 'Perry', false, 'a.perry@randatmail.com', 'Amelia', '15148', 0, 'APROBADO', NULL, '2022-06-09 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15149, true, 'Murphy', false, 'l.murphy@randatmail.com', 'Lyndon', '15149', 0, 'APROBADO', NULL, '2021-02-01 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15150, true, 'Foster', false, 'h.foster@randatmail.com', 'Henry', '15150', 0, 'PENDIENTE', NULL, '2021-01-15 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15151, true, 'Mason', false, 'm.mason@randatmail.com', 'Marcus', '15151', 0, 'RECHAZADO', NULL, '2021-04-27 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15152, true, 'Allen', false, 'j.allen@randatmail.com', 'Jasmine', '15152', 0, 'APROBADO', NULL, '2020-05-22 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15153, true, 'Baker', false, 'a.baker@randatmail.com', 'Aldus', '15153', 0, 'APROBADO', NULL, '2022-02-27 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15154, true, 'Adams', false, 'a.adams@randatmail.com', 'Arianna', '15154', 0, 'APROBADO', NULL, '2020-09-01 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15155, true, 'Hill', false, 'a.hill@randatmail.com', 'Adelaide', '15155', 0, 'APROBADO', NULL, '2021-03-24 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15156, true, 'Spencer', true, 't.spencer@randatmail.com', 'Tyler', '15156', 0, 'APROBADO', NULL, '2021-07-04 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15157, true, 'Perry', false, 'l.perry@randatmail.com', 'Lenny', '15157', 0, 'APROBADO', NULL, '2021-01-15 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15158, false, 'Armstrong', false, 'c.armstrong@randatmail.com', 'Chelsea', '15158', 0, 'APROBADO', NULL, '2022-06-09 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15159, true, 'Hamilton', false, 'l.hamilton@randatmail.com', 'Lucas', '15159', 0, 'APROBADO', NULL, '2021-09-27 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15160, true, 'Foster', false, 'a.foster@randatmail.com', 'Alford', '15160', 0, 'APROBADO', NULL, '2022-05-06 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15161, true, 'Nelson', false, 't.nelson@randatmail.com', 'Tiana', '15161', 0, 'APROBADO', NULL, '2021-10-31 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15162, true, 'Holmes', false, 'r.holmes@randatmail.com', 'Roland', '15162', 0, 'PENDIENTE', NULL, '2022-03-16 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15163, true, 'Henderson', false, 'a.henderson@randatmail.com', 'Arianna', '15163', 0, 'APROBADO', NULL, '2022-03-16 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15164, true, 'Martin', false, 'k.martin@randatmail.com', 'Kelsey', '15164', 0, 'RECHAZADO', NULL, '2020-04-01 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15165, true, 'Hill', false, 't.hill@randatmail.com', 'Tony', '15165', 0, 'APROBADO', NULL, '2020-10-22 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15166, true, 'Carter', false, 'a.carter@randatmail.com', 'Alexia', '15166', 0, 'APROBADO', NULL, '2022-01-24 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15167, true, 'Richardson', false, 'a.richardson@randatmail.com', 'Agata', '15167', 0, 'APROBADO', NULL, '2021-04-27 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15168, true, 'Edwards', true, 'e.edwards@randatmail.com', 'Emma', '15168', 0, 'APROBADO', NULL, '2022-05-23 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15169, false, 'Cooper', false, 'm.cooper@randatmail.com', 'Melanie', '15169', 0, 'APROBADO', NULL, '2020-10-05 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15170, true, 'Cooper', false, 'a.cooper@randatmail.com', 'Adrianna', '15170', 0, 'APROBADO', NULL, '2022-02-10 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15171, true, 'Taylor', false, 'e.taylor@randatmail.com', 'Edith', '15171', 0, 'APROBADO', NULL, '2021-05-31 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15172, true, 'Cooper', false, 'a.cooper@randatmail.com', 'Alexander', '15172', 0, 'APROBADO', NULL, '2022-04-19 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15173, true, 'Alexander', false, 'a.alexander@randatmail.com', 'Alissa', '15173', 0, 'APROBADO', NULL, '2020-04-18 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15174, true, 'Ryan', false, 'a.ryan@randatmail.com', 'Aston', '15174', 0, 'PENDIENTE', NULL, '2020-04-01 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15175, true, 'Richardson', false, 'b.richardson@randatmail.com', 'Brianna', '15175', 0, 'APROBADO', NULL, '2020-10-05 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15176, true, 'Murphy', false, 'a.murphy@randatmail.com', 'Andrew', '15176', 0, 'APROBADO', NULL, '2020-07-12 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15177, true, 'Kelly', false, 'r.kelly@randatmail.com', 'Rebecca', '15177', 0, 'RECHAZADO', NULL, '2020-04-01 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15178, true, 'Carter', false, 't.carter@randatmail.com', 'Tara', '15178', 0, 'APROBADO', NULL, '2022-01-07 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15179, true, 'Craig', false, 'c.craig@randatmail.com', 'Chelsea', '15179', 0, 'APROBADO', NULL, '2021-11-17 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15180, false, 'Warren', true, 't.warren@randatmail.com', 'Ted', '15180', 0, 'APROBADO', NULL, '2021-05-31 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15181, true, 'Campbell', false, 'a.campbell@randatmail.com', 'Andrew', '15181', 0, 'APROBADO', NULL, '2022-02-10 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15182, true, 'Martin', false, 'm.martin@randatmail.com', 'Maya', '15182', 0, 'APROBADO', NULL, '2022-01-07 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15183, true, 'Thomas', false, 'v.thomas@randatmail.com', 'Victor', '15183', 0, 'APROBADO', NULL, '2021-04-27 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15184, true, 'Higgins', false, 't.higgins@randatmail.com', 'Thomas', '15184', 0, 'APROBADO', NULL, '2020-09-18 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15185, true, 'Davis', false, 'a.davis@randatmail.com', 'Alina', '15185', 0, 'APROBADO', NULL, '2021-07-04 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15186, true, 'Richardson', false, 's.richardson@randatmail.com', 'Stella', '15186', 0, 'PENDIENTE', NULL, '2022-03-16 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15187, true, 'Grant', false, 'j.grant@randatmail.com', 'Julian', '15187', 0, 'APROBADO', NULL, '2021-03-24 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15188, true, 'Mason', false, 'a.mason@randatmail.com', 'Amanda', '15188', 0, 'APROBADO', NULL, '2020-06-25 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15189, true, 'Stewart', false, 'm.stewart@randatmail.com', 'Melissa', '15189', 0, 'APROBADO', NULL, '2021-07-04 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15190, true, 'Scott', false, 'a.scott@randatmail.com', 'Alexander', '15190', 0, 'RECHAZADO', NULL, '2020-08-15 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15191, false, 'Smith', false, 'm.smith@randatmail.com', 'Miley', '15191', 0, 'APROBADO', NULL, '2021-08-07 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15192, true, 'Armstrong', true, 'd.armstrong@randatmail.com', 'Daryl', '15192', 0, 'APROBADO', NULL, '2020-08-15 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15193, true, 'Andrews', false, 'a.andrews@randatmail.com', 'Andrew', '15193', 0, 'APROBADO', NULL, '2022-04-02 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15194, true, 'Kelly', false, 'a.kelly@randatmail.com', 'Arianna', '15194', 0, 'APROBADO', NULL, '2022-02-10 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15195, true, 'Kelley', false, 'c.kelley@randatmail.com', 'Carlos', '15195', 0, 'APROBADO', NULL, '2021-10-31 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15196, true, 'Barrett', false, 'e.barrett@randatmail.com', 'Edward', '15196', 0, 'APROBADO', NULL, '2022-04-02 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15197, true, 'Ferguson', false, 'e.ferguson@randatmail.com', 'Ellia', '15197', 0, 'APROBADO', NULL, '2020-05-05 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15198, true, 'Craig', false, 'm.craig@randatmail.com', 'Mary', '15198', 0, 'PENDIENTE', NULL, '2020-12-12 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15199, true, 'Stewart', false, 'v.stewart@randatmail.com', 'Vivian', '15199', 0, 'APROBADO', NULL, '2021-12-21 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 15200, true, 'Foster', false, 'g.foster@randatmail.com', 'Garry', '15200', 0, 'APROBADO', NULL, '2022-06-09 00:00:00');
 
 
 --
