@@ -12,7 +12,7 @@ import com.amq.model.Calificacion;
 
 public interface RepositoryCalificacion extends JpaRepository<Calificacion, Integer> {
 	
-	@Query("SELECT new com.amq.datatypes.DtResena( cal.id, cal.resena, cal.calificacionHuesped, cal.calificacionAnfitrion, cal.fechaResena ) "
+	@Query("SELECT DISTINCT new com.amq.datatypes.DtResena( cal.id, cal.resena, cal.calificacionHuesped, cal.calificacionAnfitrion, cal.fechaResena ) "
 			+ "from Alojamiento a "
 			+ "join a.habitaciones habs "
 			+ "join habs.reservas r "
