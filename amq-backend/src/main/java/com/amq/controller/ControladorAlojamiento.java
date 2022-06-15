@@ -177,12 +177,40 @@ public class ControladorAlojamiento {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	public void buscarAlojamiento(int id) {
+	
+	@RequestMapping(value = "/buscarAlojamiento/{id}", method = { RequestMethod.GET })
+	public ResponseEntity<DtAlojamiento> buscarAlojamiento(@PathVariable("id") int id) {
 		
 		try {
-
+			Optional<Alojamiento> optAloj = repoA.findById(id);
+			if( optAloj.isEmpty() ) {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+			
+			Alojamiento a = (Alojamiento)optAloj.get();
+			DtAlojamiento dtAloj = new DtAlojamiento(
+							a.getId(),
+							a.getActivo(), 
+							a.getDescripcion(), 
+							a.getDireccion(), 
+							a.getNombre(),
+							null
+						);
+			List<DtHabitacion> dtHabs = new ArrayList<DtHabitacion>();
+			DtHabitacion dtHab;
+			for(Habitacion hab : a.getHabitaciones()) {
+				dtHab = new DtHabitacion(
+						hab.getDescripcion(), 
+						hab.getPrecioNoche(), 
+						hab.getCamas(), 
+						hab.getServicios()
+					);
+				dtHabs.add(dtHab);
+			}
+			dtAloj.setHabs(dtHabs);
+			return new ResponseEntity<>(dtAloj, HttpStatus.OK);
 		} catch (Exception e) {
-			// TODO: handle exception
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}	
 		//return dtAlojamiento
 	}
@@ -294,7 +322,7 @@ public class ControladorAlojamiento {
 		return retorno;
 	}
 	@RequestMapping(value = "/reservasAlojamiento/{id}", method = { RequestMethod.GET })
-	public ResponseEntity<List<DtReserva>> obtenerReservasAlojamiento(int id ) {
+	public ResponseEntity<List<DtReserva>> obtenerReservasAlojamiento(@PathVariable("id") int id ) {
 		try {
 			Optional<Alojamiento> opA = repoA.findById(id);
 			if (opA.isPresent()) {
@@ -322,15 +350,15 @@ public class ControladorAlojamiento {
 
 	}
 	@RequestMapping(value = "/getPaises", method = { RequestMethod.GET })
-	public ResponseEntity< List<?> > getPaises( ){
-		List<?> data =  repoPais.getNombresPaises();
+	public ResponseEntity< List<DtIdValor> > getPaises( ){
+		List<DtIdValor> data =  repoPais.getNombresPaises();
 		
 		return new ResponseEntity<>(data, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/getPaisesEnAlojamiento", method = { RequestMethod.GET })
-	public ResponseEntity< List<?> > getPaisesEnAlojamiento( ){
-		List<?> data =  repoPais.getPaisesEnAlojamiento();
+	public ResponseEntity< List<DtIdValor> > getPaisesEnAlojamiento( ){
+		List<DtIdValor> data =  repoPais.getPaisesEnAlojamiento();
 		
 		return new ResponseEntity<>(data, HttpStatus.OK);
 	}

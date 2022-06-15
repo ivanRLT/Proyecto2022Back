@@ -7,14 +7,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.amq.datatypes.DtCalificacion;
-import com.amq.datatypes.DtFecha;
 import com.amq.datatypes.DtResena;
 import com.amq.model.Calificacion;
 
 public interface RepositoryCalificacion extends JpaRepository<Calificacion, Integer> {
 	
-	@Query("SELECT new com.amq.datatypes.DtResena( cal.id, cal.resena, cal.calificacionHuesped,cal.calificacionAnfitrion, cal.fechaResena ) "
+	@Query("SELECT new com.amq.datatypes.DtResena( cal.id, cal.resena, cal.calificacionHuesped, cal.calificacionAnfitrion, cal.fechaResena ) "
 			+ "from Alojamiento a "
 			+ "join a.habitaciones habs "
 			+ "join habs.reservas r "
@@ -30,4 +28,4 @@ public interface RepositoryCalificacion extends JpaRepository<Calificacion, Inte
 			@Param("calDesde") int calDesde,
 			@Param("calHasta") int calHasta
 		); 
-}//int id, String resena, Integer calHuesp, Integer calAnf, Date fechaResena 
+}
