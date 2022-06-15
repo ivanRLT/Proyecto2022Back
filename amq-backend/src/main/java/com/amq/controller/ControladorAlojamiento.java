@@ -1,7 +1,9 @@
 package com.amq.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,9 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.amq.datatypes.DtAlojamiento;
 import com.amq.datatypes.DtDireccion;
+import com.amq.datatypes.DtFecha;
+import com.amq.datatypes.DtFiltroResenas;
 import com.amq.datatypes.DtFiltrosAlojamiento;
 import com.amq.datatypes.DtHabitacion;
 import com.amq.datatypes.DtIdValor;
+import com.amq.datatypes.DtResena;
 import com.amq.datatypes.DtReserva;
 import com.amq.datatypes.DtServicios;
 import com.amq.datatypes.DtUsuario;
@@ -329,10 +334,34 @@ public class ControladorAlojamiento {
 		
 		return new ResponseEntity<>(data, HttpStatus.OK);
 	}
-	@RequestMapping( value = "/resenasDeAlojamiento/{id}", method = { RequestMethod.GET })
-	public ResponseEntity< List<String> > resenasDeAlojamiento(@PathVariable("id") int id){
+	@RequestMapping( value = "/resenasDeAlojamiento", method = { RequestMethod.POST })
+	
+	public ResponseEntity< List<DtResena> > resenasDeAlojamiento(@RequestBody DtFiltroResenas filtros){
+		
+		if(filtros.getCalAnfDesde()==null ) {
+			filtros.setCalAnfDesde(0);
+		}
+		if(filtros.getCalAnfHasta()==null ) {
+			filtros.setCalHasta( 5 );
+		}
+		if(filtros.getFFin()==null ) {
+			filtros.setFFin( new DtFecha(01, 01, 2200) );
+		}
+		
+		if(filtros.getFInicio()==null ) {
+			filtros.setFInicio( new DtFecha(01, 01, 2000) );
+		}
+		
 		try {
-			List<String> resenas =  repoC.getResenasEnAlojamiento(id);
+			Date fechaIni = dtFecha2Date(filtros.getFInicio());
+			
+			Date fechaFin = dtFecha2Date(filtros.getFFin());
+			
+			List<DtResena> resenas =  repoC.getResenasEnAlojamiento( 
+					filtros.getIdAloj(), 
+					fechaIni, fechaFin,
+					filtros.getCalAnfDesde(), filtros.getCalAnfHasta()
+				);
 			if( resenas!=null && resenas.size()==0 ) {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
@@ -497,9 +526,36 @@ public class ControladorAlojamiento {
 	}
 	
 	private boolean usrSeQuedoEnAlojamiento( int idAloj, int idUsr) {
+
 		
 		List<DtIdValor> dtIdVal = repoRes.usrSeQuedoEnAlojamiento( idAloj, idUsr);
 		
 		return dtIdVal.size()>0;
+	}
+	
+	private Date dtFecha2Date(DtFecha dtF){
+		try {
+			String sFecha =  
+					((Integer)dtF.getDia()).toString()+"/"+
+					((Integer)dtF.getMes()).toString()+"/"+
+					((Integer)dtF.getAnio()).toString();
+			return new SimpleDateFormat("dd/MM/yyyy").parse(sFecha);  
+		}
+		catch(Exception d ) {
+			return null;
+		}
+		
+	}
+	private String dtFecha2DbString( DtFecha f) {
+		String mes = String.valueOf( f.getMes() );
+		mes = mes.length()==1 ? "0"+mes : mes;
+		
+		String dia = String.valueOf( f.getDia() );
+		dia = dia.length()==1 ? "0"+dia : dia;
+		
+		String strFecha = 
+				String.valueOf( f.getAnio() ) +"-"+
+				mes+"-"+ dia ;
+		return  strFecha;
 	}
 }
