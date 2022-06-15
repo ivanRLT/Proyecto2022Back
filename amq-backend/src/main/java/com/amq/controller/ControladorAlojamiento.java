@@ -362,45 +362,7 @@ public class ControladorAlojamiento {
 		
 		return new ResponseEntity<>(data, HttpStatus.OK);
 	}
-	@RequestMapping( value = "/resenasDeAlojamiento", method = { RequestMethod.POST })
-	
-	public ResponseEntity< List<DtResena> > resenasDeAlojamiento(@RequestBody DtFiltroResenas filtros){
-		
-		if(filtros.getCalAnfDesde()==null ) {
-			filtros.setCalAnfDesde(0);
-		}
-		if(filtros.getCalAnfHasta()==null ) {
-			filtros.setCalHasta( 5 );
-		}
-		if(filtros.getFFin()==null ) {
-			filtros.setFFin( new DtFecha(01, 01, 2200) );
-		}
-		
-		if(filtros.getFInicio()==null ) {
-			filtros.setFInicio( new DtFecha(01, 01, 2000) );
-		}
-		
-		try {
-			Date fechaIni = dtFecha2Date(filtros.getFInicio());
-			
-			Date fechaFin = dtFecha2Date(filtros.getFFin());
-			
-			List<DtResena> resenas =  repoC.getResenasEnAlojamiento( 
-					filtros.getIdAloj(), 
-					fechaIni, fechaFin,
-					filtros.getCalAnfDesde(), filtros.getCalAnfHasta()
-				);
-			if( resenas!=null && resenas.size()==0 ) {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			}
-			else {
-				return new ResponseEntity<>(resenas, HttpStatus.OK);
-			}
-		}
-		catch(Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
+
 	// #######################Funciones de prueba#######################
 	
 	//De prueba, se puede borrar

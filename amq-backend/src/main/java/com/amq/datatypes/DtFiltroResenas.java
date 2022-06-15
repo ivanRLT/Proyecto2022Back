@@ -4,16 +4,16 @@ public class DtFiltroResenas {
 	private int idAloj;
 	private DtFecha fInicio;
 	private DtFecha fFin;
-	private Integer calAnfDesde;
-	private Integer calAnfHasta;
+	private Integer calAnfitrion;
+	private Integer calHuesped;
 	
-	public DtFiltroResenas(int idAloj, DtFecha fInicio, DtFecha fFin, Integer calAnfDesde, Integer calAnfHasta) {
+	public DtFiltroResenas(int idAloj, DtFecha fInicio, DtFecha fFin, Integer calAnfitrion, Integer calHuesped) {
 		super();
 		this.idAloj = idAloj;
 		this.fInicio = fInicio;
 		this.fFin = fFin;
-		this.calAnfDesde = calAnfDesde;
-		this.calAnfHasta = calAnfHasta;
+		this.calAnfitrion = calAnfitrion;
+		this.calHuesped = calHuesped;
 	}
 
 	public int getIdAloj() {
@@ -40,21 +40,20 @@ public class DtFiltroResenas {
 		this.fFin = fFin;
 	}
 
-	public Integer getCalAnfDesde() {
-		return calAnfDesde;
+	public Integer getCalAnfitrion() {
+		return calAnfitrion;
 	}
 
-	public void setCalAnfDesde(Integer calAnfDesde) {
-		this.calAnfDesde = calAnfDesde;
+	public void setCalAnfitrion(Integer calAnfitrion) {
+		this.calAnfitrion = calAnfitrion;
 	}
 
-	public Integer getCalAnfHasta() {
-		return calAnfHasta;
+	public Integer getCalHuesped() {
+		return calHuesped;
 	}
 
-	public void setCalHasta(Integer calHasta) {
-		this.calAnfHasta = calHasta;
+	public void setCalHuesped(Integer calHuesped) {
+		this.calHuesped = calHuesped;
 	}
-	
 	
 }

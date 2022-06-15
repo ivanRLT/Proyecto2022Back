@@ -30,8 +30,10 @@ import com.amq.datatypes.DtDireccion;
 import com.amq.datatypes.DtEnviarCalificacion;
 import com.amq.datatypes.DtFactura;
 import com.amq.datatypes.DtFecha;
+import com.amq.datatypes.DtFiltroResenas;
 import com.amq.datatypes.DtFiltrosEstadisticas;
 import com.amq.datatypes.DtResHuespEstado;
+import com.amq.datatypes.DtResena;
 import com.amq.datatypes.DtReserva;
 import com.amq.datatypes.DtReservaAlojHab;
 import com.amq.datatypes.DtReservaAlojamiento;
@@ -469,6 +471,47 @@ public class ControladorReserva {
 			return new ResponseEntity<>( dtReservas, HttpStatus.OK);
 		}
 		catch(Exception e ) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@RequestMapping( value = "/listarResenas", method = { RequestMethod.POST })
+	public ResponseEntity< List<DtResena> > listarResenas(@RequestBody DtFiltroResenas filtros){
+		
+		if(filtros.getCalAnfitrion()==null ) {
+			filtros.setCalAnfitrion( 0 );
+		}
+		
+		if(filtros.getCalHuesped()==null ) {
+			filtros.setCalHuesped(0);
+		}
+		
+		if(filtros.getFFin()==null ) {
+			filtros.setFFin( new DtFecha(01, 01, 2200) );
+		}
+		
+		if(filtros.getFInicio()==null ) {
+			filtros.setFInicio( new DtFecha(01, 01, 2000) );
+		}
+		
+		try {
+			Date fechaIni = dtFecha2Date(filtros.getFInicio());
+			
+			Date fechaFin = dtFecha2Date(filtros.getFFin());
+			
+			List<DtResena> resenas =  repoC.getResenasEnAlojamiento( 
+					filtros.getIdAloj(), 
+					fechaIni, fechaFin,
+					filtros.getCalAnfitrion(), filtros.getCalHuesped()
+				);
+			if( resenas!=null && resenas.size()==0 ) {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+			else {
+				return new ResponseEntity<>(resenas, HttpStatus.OK);
+			}
+		}
+		catch(Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

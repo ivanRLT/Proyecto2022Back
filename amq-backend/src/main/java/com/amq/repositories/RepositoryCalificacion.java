@@ -20,12 +20,13 @@ public interface RepositoryCalificacion extends JpaRepository<Calificacion, Inte
 			+ "where "
 				+ "a.id= :#{#idAloj} and "
 				+ "cal.fechaResena BETWEEN :fechaIni AND :fechaFin and "
-				+ "cal.calificacionAnfitrion BETWEEN :calDesde AND :calHasta ")
+				+ "(:calAnfitrion=0 OR cal.calificacionAnfitrion = :calAnfitrion ) AND "
+				+ "( :calHuesped=0 OR cal.calificacionHuesped = :calHuesped ) ")
 	public List<DtResena> getResenasEnAlojamiento(
 			@Param("idAloj") int idAloj, 
 			@Param("fechaIni") Date fechaIni,
 			@Param("fechaFin") Date fechaFin,
-			@Param("calDesde") int calDesde,
-			@Param("calHasta") int calHasta
+			@Param("calAnfitrion") int calAnfitrion,
+			@Param("calHuesped") int calHuesped
 		); 
 }
