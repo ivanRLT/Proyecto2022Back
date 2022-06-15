@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.amq.datatypes.DtAlojamiento;
+import com.amq.datatypes.DtAltaAlojHab;
 import com.amq.datatypes.DtDireccion;
 import com.amq.datatypes.DtFecha;
 import com.amq.datatypes.DtFiltroResenas;
@@ -73,6 +74,58 @@ public class ControladorAlojamiento {
 	RepositoryCalificacion repoC;
 	
 	// #######################Funciones de alojamiento#######################
+	
+	@RequestMapping(value = "/altaAlojHab", method = { RequestMethod.POST })
+	public ResponseEntity<Alojamiento> altaAlojamientoHabitacion(@RequestBody DtAltaAlojHab dtAlojHab) {
+		Alojamiento aloj;
+		Habitacion hab;
+		List<Habitacion> habs;
+		
+		try {
+			//Obtiene Anfitrion
+			Optional<Usuario>  optUsr= repoU.findById( dtAlojHab.getIdAnfitrion() );
+			if( optUsr.isEmpty() || !( optUsr.get() instanceof Anfitrion )  ) {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+			Anfitrion anf = (Anfitrion) optUsr.get();
+			repoSer.save(dtAlojHab.getHab_dtservicios());
+			repoDir.save(dtAlojHab.getAloj_direcion());
+			
+			if( repoPais.findById(dtAlojHab.getAloj_direcion().getPais().getId() ).isEmpty() )
+			{
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+			
+			hab = new Habitacion( 
+					0, //id
+					dtAlojHab.getHab_descripcion(),
+					dtAlojHab.getHab_precioNoche(),
+					dtAlojHab.getHab_camas(),
+					dtAlojHab.getHab_dtservicios(),
+					null //alojamiento
+				);
+			habs = new ArrayList<Habitacion>();
+			habs.add(hab);
+			
+			aloj = new Alojamiento(
+					0, //id
+					true, //activo
+					dtAlojHab.getAloj_descripcion(),
+					dtAlojHab.getAloj_nombre(),
+					dtAlojHab.getAloj_direcion(),
+					habs,
+					anf
+				);
+			hab.setAlojamiento(aloj);
+			
+			repoA.save(aloj);
+			
+			return new ResponseEntity<>(aloj, HttpStatus.OK);
+		}
+		catch(Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 	
 	@RequestMapping(value = "/alta/{id}", method = { RequestMethod.POST })
 	public ResponseEntity<Alojamiento> altaAlojamiento(@RequestBody DtAlojamiento alojDT, @PathVariable("id") int idAnf) {
