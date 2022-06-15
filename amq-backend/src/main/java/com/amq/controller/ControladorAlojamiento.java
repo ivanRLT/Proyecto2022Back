@@ -27,6 +27,7 @@ import com.amq.datatypes.DtFiltroResenas;
 import com.amq.datatypes.DtFiltrosAlojamiento;
 import com.amq.datatypes.DtHabitacion;
 import com.amq.datatypes.DtIdValor;
+import com.amq.datatypes.DtModificarAloj;
 import com.amq.datatypes.DtResena;
 import com.amq.datatypes.DtReserva;
 import com.amq.datatypes.DtServicios;

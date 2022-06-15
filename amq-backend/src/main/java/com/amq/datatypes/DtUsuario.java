@@ -10,12 +10,13 @@ public class DtUsuario {
 	private String pass;
 	private String tipo;
 	private String jwToken;
+	private Integer calificacion;
 	
 	public DtUsuario() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public DtUsuario(int id, String email, String nombre, String apellido, boolean activo, Boolean bloqueado, String tipo, String jwToken) {
+	public DtUsuario(int id, String email, String nombre, String apellido, boolean activo, Boolean bloqueado, String tipo, Integer calificacion,  String jwToken) {
 		super();
 		this.id = id;
 		this.email = email;
@@ -25,6 +26,7 @@ public class DtUsuario {
 		this.bloqueado = bloqueado;
 		this.tipo = tipo;
 		this.jwToken = jwToken;
+		this.calificacion = calificacion;
 	}
 	
 	public String getJwToken() {
@@ -98,5 +100,12 @@ public class DtUsuario {
 	
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+	public Integer getCalificacion() {
+		return calificacion;
+	}
+	
+	public void setCalificacion(Integer calificacion) {
+		this.calificacion = calificacion;
 	}
 }

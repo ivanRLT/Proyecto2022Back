@@ -1,6 +1,4 @@
-package com.amq.controller;
-
-import com.amq.datatypes.DtDireccion;
+package com.amq.datatypes;
 
 public class DtModificarAloj {
 	private int id;
