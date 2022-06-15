@@ -132,44 +132,32 @@ public class ControladorAlojamiento {
 		}
 	}
 	
-	@RequestMapping(value = "/modificarAljamiento/{id}", method = { RequestMethod.POST })
-	public ResponseEntity<Alojamiento> modificarAlojamiento(@PathVariable("id") int id, @RequestParam Boolean activo, @RequestParam String descripcion, @RequestParam String nombre, @RequestParam Boolean cambioDir, DtDireccion direccion) {
+	@RequestMapping(value = "/modificar", method = { RequestMethod.POST })
+	public ResponseEntity<Alojamiento> modificarAlojamiento(@RequestBody DtModificarAloj dtAloj) {
 		try {
-			Optional<Alojamiento> opA = repoA.findById(id);
+			Optional<Alojamiento> opA = repoA.findById(dtAloj.getId());
 			if (opA.isPresent()) {
 				Alojamiento alojamiento = opA.get();
-				alojamiento.setActivo(activo);
-				alojamiento.setDescripcion(descripcion);
-				alojamiento.setNombre(nombre);
-				Boolean existeDir = false;
-				int idDir = alojamiento.getDireccion().getId();
-				if (cambioDir) {
-					List<DtDireccion> direcciones = repoDir.findAll();
-					for (DtDireccion dir : direcciones) {
-						if (dir.getPais().getId() == direccion.getPais().getId() && dir.getCiudad() == direccion.getCiudad() && dir.getCalle() == direccion.getCalle() && dir.getNumero() == direccion.getNumero() ) {
-							existeDir = true;
-						}
-					}
-					if (!existeDir) {
-						Optional<DtDireccion> opDir = repoDir.findById(idDir);
-						if (opDir.isPresent()) {
-							DtDireccion direccionAnt = opDir.get();
-							direccionAnt.setCalle(direccion.getCalle());
-							direccionAnt.setCiudad(direccion.getCiudad());
-							direccionAnt.setNumero(direccion.getNumero());
-							direccionAnt.setPais(direccion.getPais());
-							repoDir.save(direccionAnt);
-							Alojamiento alojR = repoA.save(alojamiento);
-							return new ResponseEntity<>(alojR, HttpStatus.OK);
-						}else {
-							return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-						}
-					}
-					return new ResponseEntity<>(HttpStatus.CONFLICT);
-				}else {
-					Alojamiento alojR = repoA.save(alojamiento);
-					return new ResponseEntity<>(alojR, HttpStatus.OK);
-				}		
+				if(dtAloj.getDescripcion()!=null){
+					alojamiento.setDescripcion( dtAloj.getDescripcion() );
+				}
+				if(dtAloj.getNombre()!=null) {
+					alojamiento.setNombre(dtAloj.getNombre() );
+				}
+				if( dtAloj.getDireccion() != null && dtAloj.getDireccion().getCalle()!=null ) {
+					alojamiento.getDireccion().setCalle( dtAloj.getDireccion().getCalle() );
+				}
+				
+				if( dtAloj.getDireccion() != null && dtAloj.getDireccion().getNumero()!=null ) {
+					alojamiento.getDireccion().setNumero( dtAloj.getDireccion().getNumero() );
+				}
+				
+				if( dtAloj.getDireccion() != null && dtAloj.getDireccion().getCiudad()!=null ) {
+					alojamiento.getDireccion().setCiudad( dtAloj.getDireccion().getCiudad() );
+				}
+				
+				repoA.save(alojamiento);
+				return new ResponseEntity<>( HttpStatus.OK);
 			} else {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
