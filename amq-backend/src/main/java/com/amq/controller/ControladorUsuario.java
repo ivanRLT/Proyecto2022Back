@@ -587,6 +587,41 @@ public class ControladorUsuario {
 		}
 	}
 	
+	@RequestMapping(value = "/buscar/{id}", method = { RequestMethod.POST })
+	public ResponseEntity<DtUsuario> buscarUsuario( @PathVariable("id") int id ) {
+		Usuario user;
+		DtUsuario dtUser = null;
+		
+		try {
+			Optional<Usuario>  optUsr= repoU.findById(id);
+			
+			if(optUsr.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+			
+			user = optUsr.get();
+			
+			if (user instanceof Administrador) {
+				dtUser = new DtAdministrador( user.getId(), user.getEmail(), user.getNombre(),
+				 user.getApellido(), user.getActivo(), "Ad", user.getBloqueado(), null );
+			} else if (user instanceof Anfitrion) {
+				Anfitrion ua = (Anfitrion) user;
+				dtUser = new DtAnfitrion(user.getId(), user.getEmail(), user.getNombre(),
+						user.getApellido(), user.getActivo(),  ua.getCalificacionGlobal(),
+						ua.getEstado(), "An",null, null );
+			} else if (user instanceof Huesped) {
+				Huesped uH = (Huesped) user;
+				dtUser = new DtHuesped(user.getId(), user.getEmail(), user.getNombre(),
+						user.getApellido(), user.getActivo(), 
+						uH.getCalificacionGlobal(),uH.getPushTokens(), "Hu", null, null);
+			}
+			
+			return new ResponseEntity<>(dtUser, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 	// Save password
 //	@RequestMapping(value = "/savePassword", method = { RequestMethod.POST })
 ////	@PostMapping("/savePassword")
