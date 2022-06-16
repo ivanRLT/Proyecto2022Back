@@ -319,7 +319,7 @@ public class ControladorReserva {
 				return new ResponseEntity<>( HttpStatus.NOT_FOUND );
 			}
 			
-			List<DtCalificarDatosRequeridos> cDatos = repoA.listarDatosRequeridosCalificar(dtInput.getIdHu(), dtInput.getIdpais());
+			List<DtCalificarDatosRequeridos> cDatos = repoA.listarDatosRequeridosCalificar(dtInput.getIdHu(), dtInput.getIdPais(), dtInput.getAloj_activo() );;
 			
 			return new ResponseEntity<>(cDatos, HttpStatus.OK);
 		}
