@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.amq.datatypes.DtAltaReserva;
 import com.amq.datatypes.DtAnioMes;
 import com.amq.datatypes.DtCalificacion;
+import com.amq.datatypes.DtCalificarDatosRequeridos;
+import com.amq.datatypes.DtCalificarDatosRequeridosInput;
 import com.amq.datatypes.DtDireccion;
 import com.amq.datatypes.DtEnviarCalificacion;
 import com.amq.datatypes.DtFactura;
@@ -50,6 +52,7 @@ import com.amq.model.Huesped;
 import com.amq.model.Reserva;
 import com.amq.model.Usuario;
 import com.amq.passwordReset.IUsuarioService;
+import com.amq.repositories.RepositoryAlojamiento;
 import com.amq.repositories.RepositoryCalificacion;
 import com.amq.repositories.RepositoryFactura;
 import com.amq.repositories.RepositoryHabitacion;
@@ -72,6 +75,8 @@ public class ControladorReserva {
 	RepositoryFactura repoF;
 	@Autowired
 	RepositoryCalificacion repoC;
+	@Autowired
+	RepositoryAlojamiento repoA;
 	
 	@Autowired
     private JavaMailSender mailSender;
@@ -306,6 +311,22 @@ public class ControladorReserva {
     		return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
     	}
     }
+	
+	@RequestMapping(value = "/listarDatosRequeridosCalificar", method = { RequestMethod.POST })
+    public ResponseEntity<List<DtCalificarDatosRequeridos>> listarDatosRequeridosCalificar(@RequestBody DtCalificarDatosRequeridosInput dtInput) {
+		try {
+			if( repoU.findById(dtInput.getIdHu()).isEmpty() ) {
+				return new ResponseEntity<>( HttpStatus.NOT_FOUND );
+			}
+			
+			List<DtCalificarDatosRequeridos> cDatos = repoA.listarDatosRequeridosCalificar(dtInput.getIdHu(), dtInput.getIdpais());
+			
+			return new ResponseEntity<>(cDatos, HttpStatus.OK);
+		}
+		catch(Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 	
 	public ResponseEntity<Reserva> realizarReserva(@RequestBody DtAltaReserva dtAltaRes) {
 		
