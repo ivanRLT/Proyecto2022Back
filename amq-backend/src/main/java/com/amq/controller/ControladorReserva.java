@@ -328,6 +328,7 @@ public class ControladorReserva {
 		}
 	}
 	
+	@RequestMapping(value = "/realizarReserva", method = { RequestMethod.POST })
 	public ResponseEntity<Reserva> realizarReserva(@RequestBody DtAltaReserva dtAltaRes) {
 		
 		try {
