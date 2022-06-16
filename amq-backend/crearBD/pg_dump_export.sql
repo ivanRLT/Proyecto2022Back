@@ -574,12 +574,9 @@ ALTER TABLE ONLY public.usuarios ALTER COLUMN id SET DEFAULT nextval('public.usu
 
 INSERT INTO public.alojamientos VALUES (1, true, 'desc_ 10022_ 1000', 'nombreAloj_ 10022_ 1000', 10022, 1001);
 INSERT INTO public.alojamientos VALUES (2, true, 'desc_ 10023_ 1000', 'nombreAloj_ 10023_ 1000', 10023, 1002);
-INSERT INTO public.alojamientos VALUES (3, true, 'desc_ 10023_ 1001', 'nombreAloj_ 10023_ 1001', 10023, 1003);
 INSERT INTO public.alojamientos VALUES (4, true, 'desc_ 10025_ 1000', 'nombreAloj_ 10025_ 1000', 10025, 1004);
 INSERT INTO public.alojamientos VALUES (5, true, 'desc_ 10026_ 1000', 'nombreAloj_ 10026_ 1000', 10026, 1005);
 INSERT INTO public.alojamientos VALUES (6, true, 'desc_ 10026_ 1001', 'nombreAloj_ 10026_ 1001', 10026, 1006);
-INSERT INTO public.alojamientos VALUES (7, true, 'desc_ 10028_ 1000', 'nombreAloj_ 10028_ 1000', 10028, 1007);
-INSERT INTO public.alojamientos VALUES (8, true, 'desc_ 10029_ 1000', 'nombreAloj_ 10029_ 1000', 10029, 1008);
 INSERT INTO public.alojamientos VALUES (9, true, 'desc_ 10029_ 1001', 'nombreAloj_ 10029_ 1001', 10029, 1009);
 INSERT INTO public.alojamientos VALUES (11, true, 'desc_ 10032_ 1000', 'nombreAloj_ 10032_ 1000', 10032, 10011);
 INSERT INTO public.alojamientos VALUES (12, true, 'desc_ 10032_ 1001', 'nombreAloj_ 10032_ 1001', 10032, 10012);
@@ -587,13 +584,10 @@ INSERT INTO public.alojamientos VALUES (13, true, 'desc_ 10034_ 1000', 'nombreAl
 INSERT INTO public.alojamientos VALUES (14, true, 'desc_ 10035_ 1000', 'nombreAloj_ 10035_ 1000', 10035, 10014);
 INSERT INTO public.alojamientos VALUES (15, true, 'desc_ 10035_ 1001', 'nombreAloj_ 10035_ 1001', 10035, 10015);
 INSERT INTO public.alojamientos VALUES (16, true, 'desc_ 10037_ 1000', 'nombreAloj_ 10037_ 1000', 10037, 10016);
-INSERT INTO public.alojamientos VALUES (17, true, 'desc_ 10038_ 1000', 'nombreAloj_ 10038_ 1000', 10038, 10017);
 INSERT INTO public.alojamientos VALUES (18, true, 'desc_ 10038_ 1001', 'nombreAloj_ 10038_ 1001', 10038, 10018);
 INSERT INTO public.alojamientos VALUES (20, true, 'desc_ 10041_ 1000', 'nombreAloj_ 10041_ 1000', 10041, 10020);
 INSERT INTO public.alojamientos VALUES (21, true, 'desc_ 10041_ 1001', 'nombreAloj_ 10041_ 1001', 10041, 10021);
-INSERT INTO public.alojamientos VALUES (22, true, 'desc_ 10043_ 1000', 'nombreAloj_ 10043_ 1000', 10043, 10022);
 INSERT INTO public.alojamientos VALUES (23, true, 'desc_ 10044_ 1000', 'nombreAloj_ 10044_ 1000', 10044, 10023);
-INSERT INTO public.alojamientos VALUES (24, true, 'desc_ 10044_ 1001', 'nombreAloj_ 10044_ 1001', 10044, 10024);
 INSERT INTO public.alojamientos VALUES (25, true, 'desc_ 10046_ 1000', 'nombreAloj_ 10046_ 1000', 10046, 10025);
 INSERT INTO public.alojamientos VALUES (26, true, 'desc_ 10047_ 1000', 'nombreAloj_ 10047_ 1000', 10047, 10026);
 INSERT INTO public.alojamientos VALUES (27, true, 'desc_ 10047_ 1001', 'nombreAloj_ 10047_ 1001', 10047, 10027);
@@ -601,6 +595,12 @@ INSERT INTO public.alojamientos VALUES (28, true, 'desc_ 10049_ 1000', 'nombreAl
 INSERT INTO public.alojamientos VALUES (10, false, 'desc_ 10031_ 1000', 'nombreAloj_ 10031_ 1000', 10031, 10010);
 INSERT INTO public.alojamientos VALUES (19, true, 'desc aloji 19', 'nom alji 19', 10040, 10019);
 INSERT INTO public.alojamientos VALUES (201, true, 'desc aloj 15014', 'nombre aloj 15014', 15014, 2);
+INSERT INTO public.alojamientos VALUES (22, false, 'desc_ 10043_ 1000', 'nombreAloj_ 10043_ 1000', 10043, 10022);
+INSERT INTO public.alojamientos VALUES (3, false, 'desc_ 10023_ 1001', 'nombreAloj_ 10023_ 1001', 10023, 1003);
+INSERT INTO public.alojamientos VALUES (7, false, 'desc_ 10028_ 1000', 'nombreAloj_ 10028_ 1000', 10028, 1007);
+INSERT INTO public.alojamientos VALUES (17, false, 'desc_ 10038_ 1000', 'nombreAloj_ 10038_ 1000', 10038, 10017);
+INSERT INTO public.alojamientos VALUES (24, false, 'desc_ 10044_ 1001', 'nombreAloj_ 10044_ 1001', 10044, 10024);
+INSERT INTO public.alojamientos VALUES (8, true, 'desc_ 10029_ 1000', 'nombreAloj_ 10029_ 1000', 10029, 1008);
 
 
 --
@@ -608,22 +608,23 @@ INSERT INTO public.alojamientos VALUES (201, true, 'desc aloj 15014', 'nombre al
 --
 
 INSERT INTO public.calificaciones VALUES (351, 3, 4, '2022-05-03 00:00:00', 'RESEnA 351');
-INSERT INTO public.calificaciones VALUES (353, 4, 2, '2022-05-05 00:00:00', 'RESEÑA 353');
-INSERT INTO public.calificaciones VALUES (355, 2, 5, '2022-05-06 00:00:00', 'RESEÑA 355');
-INSERT INTO public.calificaciones VALUES (357, 5, 4, '2022-05-07 00:00:00', 'RESEÑA 357');
-INSERT INTO public.calificaciones VALUES (359, 4, 2, '2022-05-08 00:00:00', 'RESEÑA 359');
-INSERT INTO public.calificaciones VALUES (361, 5, 4, '2022-05-09 00:00:00', 'RESEÑA 361');
-INSERT INTO public.calificaciones VALUES (363, 2, 3, '2022-05-10 00:00:00', 'RESEÑA 363');
 INSERT INTO public.calificaciones VALUES (365, 5, 5, '2022-05-11 00:00:00', 'RESEÑA 365');
 INSERT INTO public.calificaciones VALUES (367, 2, 3, '2022-05-12 00:00:00', 'RESEÑA 367');
-INSERT INTO public.calificaciones VALUES (369, 4, 4, '2022-05-13 00:00:00', 'RESEÑA 369');
-INSERT INTO public.calificaciones VALUES (371, 1, 5, '2022-05-14 00:00:00', 'RESEÑA 371');
-INSERT INTO public.calificaciones VALUES (373, 4, 3, '2022-05-15 00:00:00', 'RESEÑA 373');
 INSERT INTO public.calificaciones VALUES (375, 4, 1, '2022-05-16 00:00:00', 'RESEÑA 375');
-INSERT INTO public.calificaciones VALUES (377, 5, 1, '2022-05-17 00:00:00', 'RESEÑA 377');
-INSERT INTO public.calificaciones VALUES (379, 1, 1, '2022-05-18 00:00:00', 'RESEÑA 379');
 INSERT INTO public.calificaciones VALUES (381, 3, 1, '2022-05-19 00:00:00', 'RESEÑA 381');
 INSERT INTO public.calificaciones VALUES (383, 4, 5, '2022-05-20 00:00:00', 'RESEÑA 383');
+INSERT INTO public.calificaciones VALUES (2, 0, 5, '0002-12-31 00:00:00.308 BC', '');
+INSERT INTO public.calificaciones VALUES (355, 0, 5, '2022-05-06 00:00:00', 'RESEÑA 355');
+INSERT INTO public.calificaciones VALUES (357, 5, 0, '2022-05-07 00:00:00', 'RESEÑA 357');
+INSERT INTO public.calificaciones VALUES (359, 0, 2, '2022-05-08 00:00:00', 'RESEÑA 359');
+INSERT INTO public.calificaciones VALUES (361, 5, 0, '2022-05-09 00:00:00', 'RESEÑA 361');
+INSERT INTO public.calificaciones VALUES (363, 0, 3, '2022-05-10 00:00:00', 'RESEÑA 363');
+INSERT INTO public.calificaciones VALUES (377, 5, 0, '2022-05-17 00:00:00', 'RESEÑA 377');
+INSERT INTO public.calificaciones VALUES (371, 0, 5, '2022-05-14 00:00:00', 'RESEÑA 371');
+INSERT INTO public.calificaciones VALUES (373, 4, 0, '2022-05-15 00:00:00', 'RESEÑA 373');
+INSERT INTO public.calificaciones VALUES (379, 1, 0, '2022-05-18 00:00:00', 'RESEÑA 379');
+INSERT INTO public.calificaciones VALUES (369, 4, 0, '2022-05-13 00:00:00', 'RESEÑA 369');
+INSERT INTO public.calificaciones VALUES (353, 0, 2, '2022-05-05 00:00:00', 'RESEÑA 353');
 
 
 --
@@ -640,7 +641,6 @@ INSERT INTO public.dt_direccion VALUES (1007, 'calle_dir$', 'ciudad 1001', ' 100
 INSERT INTO public.dt_direccion VALUES (1008, 'calle_dir$', 'ciudad 1002', ' 1001', 3);
 INSERT INTO public.dt_direccion VALUES (1009, 'calle_dir$', 'ciudad 1000', ' 1001', 1);
 INSERT INTO public.dt_direccion VALUES (10010, 'calle_dir$', 'ciudad 1001', ' 1001', 1);
-INSERT INTO public.dt_direccion VALUES (10011, 'calle_dir$', 'ciudad 1002', ' 1001', 1);
 INSERT INTO public.dt_direccion VALUES (10012, 'calle_dir$', 'ciudad 1000', ' 1001', 2);
 INSERT INTO public.dt_direccion VALUES (10013, 'calle_dir$', 'ciudad 1001', ' 1001', 1);
 INSERT INTO public.dt_direccion VALUES (10014, 'calle_dir$', 'ciudad 1002', ' 1001', 1);
@@ -649,7 +649,6 @@ INSERT INTO public.dt_direccion VALUES (10016, 'calle_dir$', 'ciudad 1001', ' 10
 INSERT INTO public.dt_direccion VALUES (10017, 'calle_dir$', 'ciudad 1002', ' 1001', 3);
 INSERT INTO public.dt_direccion VALUES (10018, 'calle_dir$', 'ciudad 1000', ' 1001', 1);
 INSERT INTO public.dt_direccion VALUES (10020, 'calle_dir$', 'ciudad 1002', ' 1001', 1);
-INSERT INTO public.dt_direccion VALUES (10021, 'calle_dir$', 'ciudad 1000', ' 1001', 1);
 INSERT INTO public.dt_direccion VALUES (10022, 'calle_dir$', 'ciudad 1001', ' 1001', 1);
 INSERT INTO public.dt_direccion VALUES (10023, 'calle_dir$', 'ciudad 1002', ' 1001', 1);
 INSERT INTO public.dt_direccion VALUES (10024, 'calle_dir$', 'ciudad 1000', ' 1001', 4);
@@ -680,6 +679,8 @@ INSERT INTO public.dt_direccion VALUES (10048, 'calle_dir$', 'ciudad 1000', ' 10
 INSERT INTO public.dt_direccion VALUES (10049, 'calle_dir$', 'ciudad 1001', ' 1001', 1);
 INSERT INTO public.dt_direccion VALUES (10019, 'calle aloj 19', 'ciaaaudad loj', '125534', 1);
 INSERT INTO public.dt_direccion VALUES (2, 'calle 15014', 'citutut', '1234 15014', 8);
+INSERT INTO public.dt_direccion VALUES (10021, 'calle_dir$', 'ciudad 1000', ' 1001', 3);
+INSERT INTO public.dt_direccion VALUES (10011, 'calle_dir$', 'ciudad 1002', ' 1001', 3);
 
 
 --
@@ -1009,26 +1010,26 @@ INSERT INTO public.reservas VALUES (368, 4, 'EJECUTADA', '2022-05-22 00:00:00', 
 INSERT INTO public.reservas VALUES (354, 5, 'EJECUTADA', '2022-03-22 00:00:00', '2022-03-18 00:00:00', NULL, 351, 122, 10053);
 INSERT INTO public.reservas VALUES (376, 12, 'EJECUTADA', '2022-07-17 00:00:00', '2022-07-06 00:00:00', NULL, 351, 125, 10094);
 INSERT INTO public.reservas VALUES (362, 13, 'EJECUTADA', '2022-05-17 00:00:00', '2022-05-05 00:00:00', NULL, 351, 128, 10051);
-INSERT INTO public.reservas VALUES (356, 7, 'APROBADO', '2022-04-05 00:00:00', '2022-03-30 00:00:00', NULL, 351, 108, 10085);
 INSERT INTO public.reservas VALUES (367, 3, 'EJECUTADA', '2022-05-15 00:00:00', '2022-05-13 00:00:00', NULL, 367, 120, 10095);
-INSERT INTO public.reservas VALUES (373, 9, 'EJECUTADA', '2022-06-26 00:00:00', '2022-06-18 00:00:00', NULL, 373, 124, 10091);
 INSERT INTO public.reservas VALUES (351, 2, 'APROBADO', '2022-03-01 00:00:00', '2022-02-28 00:00:00', NULL, 351, 128, 10072);
-INSERT INTO public.reservas VALUES (353, 4, 'APROBADO', '2022-03-15 00:00:00', '2022-03-12 00:00:00', NULL, 353, 126, 10080);
-INSERT INTO public.reservas VALUES (355, 6, 'APROBADO', '2022-03-29 00:00:00', '2022-03-24 00:00:00', NULL, 355, 103, 10053);
 INSERT INTO public.reservas VALUES (357, 8, 'APROBADO', '2022-04-12 00:00:00', '2022-04-05 00:00:00', NULL, 357, 104, 10064);
 INSERT INTO public.reservas VALUES (359, 10, 'APROBADO', '2022-04-26 00:00:00', '2022-04-17 00:00:00', NULL, 359, 126, 10088);
 INSERT INTO public.reservas VALUES (361, 12, 'APROBADO', '2022-05-10 00:00:00', '2022-04-29 00:00:00', NULL, 361, 103, 10055);
 INSERT INTO public.reservas VALUES (363, 14, 'APROBADO', '2022-05-24 00:00:00', '2022-05-11 00:00:00', NULL, 363, 121, 10070);
 INSERT INTO public.reservas VALUES (365, 1, 'APROBADO', '2022-05-01 00:00:00', '2022-05-01 00:00:00', NULL, 365, 122, 10079);
-INSERT INTO public.reservas VALUES (369, 5, 'APROBADO', '2022-05-29 00:00:00', '2022-05-25 00:00:00', NULL, 369, 111, 10089);
-INSERT INTO public.reservas VALUES (371, 7, 'APROBADO', '2022-06-12 00:00:00', '2022-06-06 00:00:00', NULL, 371, 107, 10051);
-INSERT INTO public.reservas VALUES (375, 11, 'APROBADO', '2022-07-10 00:00:00', '2022-06-30 00:00:00', NULL, 375, 117, 10054);
-INSERT INTO public.reservas VALUES (377, 13, 'APROBADO', '2022-07-24 00:00:00', '2022-07-12 00:00:00', NULL, 377, 106, 10063);
-INSERT INTO public.reservas VALUES (379, 3, 'APROBADO', '2022-07-03 00:00:00', '2022-07-01 00:00:00', NULL, 379, 124, 10097);
 INSERT INTO public.reservas VALUES (381, 3, 'APROBADO', '2022-07-13 00:00:00', '2022-07-11 00:00:00', NULL, 381, 109, 10079);
 INSERT INTO public.reservas VALUES (383, 3, 'APROBADO', '2022-07-23 00:00:00', '2022-07-21 00:00:00', NULL, 383, 113, 10074);
-INSERT INTO public.reservas VALUES (380, 3, 'EJECUTADA', '2022-07-08 00:00:00', '2022-07-06 00:00:00', NULL, 351, 121, 10053);
 INSERT INTO public.reservas VALUES (360, 11, 'EJECUTADA', '2022-05-03 00:00:00', '2022-04-23 00:00:00', NULL, 351, 108, 10053);
+INSERT INTO public.reservas VALUES (373, 9, 'EJECUTADA', '2022-06-26 00:00:00', '2022-06-18 00:00:00', NULL, 2, 124, 10091);
+INSERT INTO public.reservas VALUES (356, 7, 'EJECUTADA', '2022-04-05 00:00:00', '2022-03-30 00:00:00', NULL, 351, 108, 10053);
+INSERT INTO public.reservas VALUES (369, 5, 'EJECUTADA', '2022-05-29 00:00:00', '2022-05-25 00:00:00', NULL, 369, 111, 10053);
+INSERT INTO public.reservas VALUES (379, 3, 'EJECUTADA', '2022-07-03 00:00:00', '2022-07-01 00:00:00', NULL, 379, 124, 10053);
+INSERT INTO public.reservas VALUES (377, 13, 'EJECUTADA', '2022-07-24 00:00:00', '2022-07-12 00:00:00', NULL, 377, 106, 10053);
+INSERT INTO public.reservas VALUES (371, 7, 'EJECUTADA', '2022-06-12 00:00:00', '2022-06-06 00:00:00', NULL, 371, 107, 10053);
+INSERT INTO public.reservas VALUES (353, 4, 'EJECUTADA', '2022-03-15 00:00:00', '2022-03-12 00:00:00', NULL, 353, 126, 10053);
+INSERT INTO public.reservas VALUES (355, 6, 'EJECUTADA', '2022-03-29 00:00:00', '2022-03-24 00:00:00', NULL, 355, 103, 10053);
+INSERT INTO public.reservas VALUES (375, 11, 'EJECUTADA', '2022-07-10 00:00:00', '2022-06-30 00:00:00', NULL, 375, 117, 10053);
+INSERT INTO public.reservas VALUES (380, 3, 'APROBADO', '2022-07-08 00:00:00', '2022-07-06 00:00:00', NULL, 351, 121, 10053);
 
 
 --
@@ -1382,10 +1383,10 @@ INSERT INTO public.usuarios VALUES ('Hu', 10080, true, 'apeHu 10080', false, 'em
 INSERT INTO public.usuarios VALUES ('Hu', 10085, true, 'apeHu 10085', false, 'emailHu 10085', 'nomHu 10085', 'huPass 10085', 3, 'APROBADO', NULL, '2022-05-13 00:00:00');
 INSERT INTO public.usuarios VALUES ('Hu', 10088, true, 'apeHu 10088', false, 'emailHu 10088', 'nomHu 10088', 'huPass 10088', 3, 'APROBADO', NULL, '2022-05-13 00:00:00');
 INSERT INTO public.usuarios VALUES ('Hu', 10089, true, 'apeHu 10089', false, 'emailHu 10089', 'nomHu 10089', 'huPass 10089', 3, 'APROBADO', NULL, '2022-05-13 00:00:00');
-INSERT INTO public.usuarios VALUES ('Hu', 10091, true, 'apeHu 10091', false, 'emailHu 10091', 'nomHu 10091', 'huPass 10091', 3, 'RECHAZADO', NULL, '2022-05-13 00:00:00');
 INSERT INTO public.usuarios VALUES ('Hu', 10094, true, 'apeHu 10094', false, 'emailHu 10094', 'nomHu 10094', 'huPass 10094', 3, 'APROBADO', NULL, '2022-05-13 00:00:00');
 INSERT INTO public.usuarios VALUES ('Hu', 10095, true, 'apeHu 10095', false, 'emailHu 10095', 'nomHu 10095', 'huPass 10095', 3, 'APROBADO', NULL, '2022-05-13 00:00:00');
 INSERT INTO public.usuarios VALUES ('Hu', 10099, true, 'apeHu 10099', false, 'emailHu 10099', 'nomHu 10099', 'huPass 10099', 3, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 10091, true, 'apeHu 10091', false, 'emailHu 10091', 'nomHu 10091', 'huPass 10091', 5, 'RECHAZADO', NULL, '2022-05-13 00:00:00');
 
 
 --
@@ -1399,7 +1400,7 @@ SELECT pg_catalog.setval('public.alojamientos_id_seq', 201, true);
 -- Name: calificaciones_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.calificaciones_id_seq', 1, true);
+SELECT pg_catalog.setval('public.calificaciones_id_seq', 2, true);
 
 
 --
