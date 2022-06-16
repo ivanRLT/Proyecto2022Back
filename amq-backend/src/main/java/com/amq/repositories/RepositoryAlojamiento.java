@@ -27,12 +27,12 @@ public interface RepositoryAlojamiento extends JpaRepository<Alojamiento, Intege
 			+ "join dir.pais pais "
 			+ "where "
 				+ "hu.id= :idHu AND "
-				+ "(:idPais=0 OR  pais.id = :idPais) AND "
+				+ "(:idPais IS NULL OR :idPais=0 OR  pais.id = :idPais) AND "
 				+ "(:alojActivo IS NULL OR aloj.activo = :alojActivo) "
 		)
 	public List<DtCalificarDatosRequeridos> listarDatosRequeridosCalificar(
 			@Param("idHu") int idHu
-			, @Param("idPais") int idPais
+			, @Param("idPais") Integer idPais
 			, @Param("alojActivo") Boolean alojActivo
 		);
 
