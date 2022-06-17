@@ -328,10 +328,23 @@ public class ControladorReserva {
 		}
 	}
 	
-	@RequestMapping(value = "/realizarReserva", method = { RequestMethod.POST })
+	@RequestMapping(value = "/alta", method = { RequestMethod.POST })
 	public ResponseEntity<Reserva> realizarReserva(@RequestBody DtAltaReserva dtAltaRes) {
 		
 		try {
+			
+			DtFecha dtFInicio= new DtFecha( 
+					Integer.parseInt( dtAltaRes.getFInicio().substring(0, 4) ),
+					Integer.parseInt( dtAltaRes.getFInicio().substring(5, 7) ),
+					Integer.parseInt( dtAltaRes.getFInicio().substring(8, 10) )
+				);
+			DtFecha dtFFin = new DtFecha( 
+					Integer.parseInt( dtAltaRes.getFFin().substring(0, 4) ),
+					Integer.parseInt( dtAltaRes.getFFin().substring(5, 7) ),
+					Integer.parseInt( dtAltaRes.getFFin().substring(8, 10) )
+				);
+					
+			
 			Optional<Usuario> huOpt = repoU.findById(dtAltaRes.getIdHu());
 			if (!huOpt.isPresent()) {
 				return new ResponseEntity<>( HttpStatus.NOT_FOUND);
@@ -345,9 +358,9 @@ public class ControladorReserva {
 				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 			}
 			
-			Date fIniSolicitudRes = dtFecha2Date(dtAltaRes.getFInicio());
+			Date fIniSolicitudRes = dtFecha2Date(dtFInicio);
 
-			Date fFinSolicitudRes = dtFecha2Date(dtAltaRes.getFFin());
+			Date fFinSolicitudRes = dtFecha2Date(dtFFin);
 			
 			if( fIniSolicitudRes==null ) {
 				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);

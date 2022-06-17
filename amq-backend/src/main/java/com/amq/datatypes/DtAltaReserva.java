@@ -4,12 +4,12 @@ public class DtAltaReserva {
 	private int idHu;
 	private int idHab;
 	private int cantDias;
-	private DtFecha fInicio;
-	private DtFecha fFin;
+	private String fInicio;
+	private String fFin;
 	private Double descuento;
 	private String idPaypal;
 	
-	public DtAltaReserva(int idHu, int idHab, int cantDias, DtFecha fInicio, DtFecha fFin, Double descuento,
+	public DtAltaReserva(int idHu, int idHab, int cantDias, String fInicio, String fFin, Double descuento,
 			String idPaypal) {
 		super();
 		this.idHu = idHu;
@@ -45,19 +45,19 @@ public class DtAltaReserva {
 		this.cantDias = cantDias;
 	}
 
-	public DtFecha getFInicio() {
+	public String getFInicio() {
 		return fInicio;
 	}
 
-	public void setFInicio(DtFecha fInicio) {
+	public void setFInicio(String fInicio) {
 		this.fInicio = fInicio;
 	}
 
-	public DtFecha getFFin() {
+	public String getFFin() {
 		return fFin;
 	}
 
-	public void setFFin(DtFecha fFin) {
+	public void setFFin(String fFin) {
 		this.fFin = fFin;
 	}
 

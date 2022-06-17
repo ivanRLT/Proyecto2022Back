@@ -29,6 +29,7 @@ import com.amq.datatypes.DtFiltrosAlojamiento;
 import com.amq.datatypes.DtHabitacion;
 import com.amq.datatypes.DtIdValor;
 import com.amq.datatypes.DtModificarAloj;
+import com.amq.datatypes.DtProducto;
 import com.amq.datatypes.DtResena;
 import com.amq.datatypes.DtReserva;
 import com.amq.datatypes.DtServicios;
@@ -589,5 +590,33 @@ public class ControladorAlojamiento {
 				String.valueOf( f.getAnio() ) +"-"+
 				mes+"-"+ dia ;
 		return  strFecha;
+	}
+
+	@RequestMapping(value = "/find/{id}", method = { RequestMethod.GET })
+	public ResponseEntity<DtProducto> find(@PathVariable("id") String id){
+		DtProducto p =  new DtProducto(
+				"aa", "bb", "cc", "dd"
+			);
+		
+		System.out.println(id);
+		return new ResponseEntity<>(p,HttpStatus.OK);
+				
+	}
+	
+	@RequestMapping(value = "/findList/{id}", method = { RequestMethod.GET })
+	public ResponseEntity<List<DtProducto>> findList(@PathVariable("id") String id){
+		DtProducto p =  new DtProducto(
+				"aa", "bb", "cc", "dd"
+			);
+		List<DtProducto> ps = new ArrayList<DtProducto>();
+		ps.add(p);
+		p =  new DtProducto(
+				"aaaaa", "3bb", "4cc", "5dd"
+			);
+		ps.add(p);
+		
+		System.out.println(id);
+		return new ResponseEntity<>(ps,HttpStatus.OK);
+				
 	}
 }
