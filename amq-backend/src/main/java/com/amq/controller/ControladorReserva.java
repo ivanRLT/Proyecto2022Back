@@ -325,11 +325,11 @@ public class ControladorReserva {
 	@RequestMapping(value = "/listarDatosRequeridosCalificar", method = { RequestMethod.POST })
     public ResponseEntity<List<DtCalificarDatosRequeridos>> listarDatosRequeridosCalificar(@RequestBody DtCalificarDatosRequeridosInput dtInput) {
 		try {
-			if( repoU.findById(dtInput.getIdHu()).isEmpty() ) {
+			if( repoU.findById(dtInput.getIdUsuario()).isEmpty() ) {
 				return new ResponseEntity<>( HttpStatus.NOT_FOUND );
 			}
 			
-			List<DtCalificarDatosRequeridos> cDatos = repoA.listarDatosRequeridosCalificar(dtInput.getIdHu(), dtInput.getIdPais(), dtInput.getAloj_activo() );;
+			List<DtCalificarDatosRequeridos> cDatos = repoA.listarDatosRequeridosCalificar(dtInput.getIdUsuario(), dtInput.getIdPais(), dtInput.getAloj_activo() );;
 			
 			return new ResponseEntity<>(cDatos, HttpStatus.OK);
 		}

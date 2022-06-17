@@ -15,7 +15,7 @@ public interface RepositoryAlojamiento extends JpaRepository<Alojamiento, Intege
 	@Query("SELECT DISTINCT new com.amq.datatypes.DtCalificarDatosRequeridos( "
 				+ " aloj.id , aloj.activo, aloj.nombre, aloj.descripcion, dir.calle, "
 				+ "dir.numero, dir.ciudad, pais.id, pais.nombre, res.id , anf.id, "
-				+ "cal.calificacionAnfitrion, cal.calificacionHuesped "
+				+ "cal.calificacionAnfitrion, hu.id, cal.calificacionHuesped "
 			+ ") "
 			+ "from Huesped hu "
 			+ "join hu.reservas res "
@@ -26,13 +26,13 @@ public interface RepositoryAlojamiento extends JpaRepository<Alojamiento, Intege
 			+ "join aloj.direccion dir "
 			+ "join dir.pais pais "
 			+ "where "
-				+ "hu.id= :idHu AND "
+				+ "(hu.id = :idUsuario OR anf.id = :idUsuario  )AND "
 				+ "(:idPais IS NULL OR :idPais=0 OR  pais.id = :idPais) AND "
 				+ "(:alojActivo IS NULL OR aloj.activo = :alojActivo) AND "
 				+ "res.estado = 'EJECUTADA' "
 		)
 	public List<DtCalificarDatosRequeridos> listarDatosRequeridosCalificar(
-			@Param("idHu") int idHu
+			@Param("idUsuario") int idUsuario
 			, @Param("idPais") Integer idPais
 			, @Param("alojActivo") Boolean alojActivo
 		);

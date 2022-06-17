@@ -278,7 +278,7 @@ public class ControladorAlojamiento {
 
 	}
 	
-	//public ResponseEntity<List<DtUsuario>> listarUsuarios() {
+
 
 	@RequestMapping(value = "/listarAlojamientos", method = { RequestMethod.POST })
 	public ResponseEntity<List<DtAlojamiento>> listarAlojamientos(@RequestBody DtFiltrosAlojamiento filtros) {
@@ -348,14 +348,7 @@ public class ControladorAlojamiento {
 		}
 		return null;
 	}
-	public List<DtHabitacion> listarHabitaciones(int idAlojamiento) {
-		try {
-
-		} catch (Exception e) {
-
-		}
-		return null;
-	}
+	
 	public Boolean modificarHabitaciones(int idAlojamiento, List<DtHabitacion> dtHabitacion) {
 		Boolean retorno = false;
 		try {
