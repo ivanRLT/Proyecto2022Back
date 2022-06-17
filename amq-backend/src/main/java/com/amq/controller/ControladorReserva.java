@@ -347,15 +347,15 @@ public class ControladorReserva {
 			
 			Optional<Usuario> huOpt = repoU.findById(dtAltaRes.getIdHu());
 			if (!huOpt.isPresent()) {
-				return new ResponseEntity<>( HttpStatus.NOT_FOUND);
+				return new ResponseEntity<>(  getHeaderError( "No se encontró el huésped ingresado." ), HttpStatus.NOT_FOUND);
 			}
 
 			Optional<Habitacion> habOpt = repoH.findById(dtAltaRes.getIdHab());
 			if (!habOpt.isPresent()) {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				return new ResponseEntity<>(getHeaderError( "No se encontró la habitación ingresada." ), HttpStatus.NOT_FOUND);
 			}
 			if ( !(huOpt.get() instanceof Huesped) ) {
-				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+				return new ResponseEntity<>(getHeaderError( "El usuario ingresado no es un huésped." ), HttpStatus.NOT_ACCEPTABLE);
 			}
 			
 			Date fIniSolicitudRes = dtFecha2Date(dtFInicio);
@@ -363,14 +363,14 @@ public class ControladorReserva {
 			Date fFinSolicitudRes = dtFecha2Date(dtFFin);
 			
 			if( fIniSolicitudRes==null ) {
-				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+				return new ResponseEntity<>(getHeaderError( "La fecha de inicio ingresada("+dtAltaRes.getFInicio()+") es inválida." ), HttpStatus.NOT_ACCEPTABLE);
 			}
 			if( fFinSolicitudRes==null ) {
-				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+				return new ResponseEntity<>(getHeaderError("La fecha de fi ningresada("+dtAltaRes.getFFin()+") es inválida." ),HttpStatus.NOT_ACCEPTABLE);
 			}
 			//Fecha de fin menor a la fecha de inicio
 			if( fFinSolicitudRes.compareTo(fIniSolicitudRes)<0 ) {
-				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+				return new ResponseEntity<>(getHeaderError( "La fecha de fin no puede ser previa a la fecha de inicio." ),HttpStatus.NOT_ACCEPTABLE);
 			}
 			
 			Boolean solapamiento = false;
@@ -385,10 +385,10 @@ public class ControladorReserva {
 					
 					//Si es null la fecha es inváilda
 					if(fIniResConfirm == null || fFinResConfirm==null ) {
-						return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+						return new ResponseEntity<>(getHeaderError( "Se encontró una reserva en la base de datos información inconsistentes." ),HttpStatus.INTERNAL_SERVER_ERROR);
 					}
 					if( fechaMayorAFecha(fIniResConfirm, fFinResConfirm) ) {
-						return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+						return new ResponseEntity<>(getHeaderError( "Se encontró una reserva en la base de datos información inconsistentes 2." ),HttpStatus.INTERNAL_SERVER_ERROR);
 					}
 					
 					solapamiento=true;
@@ -401,7 +401,7 @@ public class ControladorReserva {
 					}
 					
 					if(solapamiento) {
-						return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
+						return new ResponseEntity<>( getHeaderError( "Ya existe una reserva confirmada en la fecha seleccionada." ),HttpStatus.BAD_REQUEST );
 					}
 				}
 			}
@@ -442,7 +442,7 @@ public class ControladorReserva {
 			return new ResponseEntity<>(reserva, HttpStatus.OK);
 					
 		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(getHeaderError( "Error desconocido." ), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	

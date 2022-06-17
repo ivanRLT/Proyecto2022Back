@@ -2,20 +2,29 @@ package com.amq.datatypes;
 
 public class DtHabitacion {
 	
+	private int id;
 	private String descripcion;
 	private Double precioNoche;
 	private int camas;
 	private DtServicios dtservicios;
 	
-	public DtHabitacion(String descripcion, Double precioNoche, int camas, 
+	public DtHabitacion(int id, String descripcion, Double precioNoche, int camas, 
 			DtServicios dtservicios) {
 		super();
+		this.id = id;
 		this.descripcion = descripcion;
 		this.precioNoche = precioNoche;
 		this.camas = camas;
 		this.dtservicios = dtservicios;
 	}
 	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getDescripcion() {
 		return descripcion;

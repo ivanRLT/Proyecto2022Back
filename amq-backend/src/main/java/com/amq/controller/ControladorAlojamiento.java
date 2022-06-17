@@ -243,6 +243,7 @@ public class ControladorAlojamiento {
 			DtHabitacion dtHab;
 			for(Habitacion hab : a.getHabitaciones()) {
 				dtHab = new DtHabitacion(
+						hab.getId(),
 						hab.getDescripcion(), 
 						hab.getPrecioNoche(), 
 						hab.getCamas(), 
@@ -306,6 +307,7 @@ public class ControladorAlojamiento {
 						//Si no desea aplicar filtro de habitaciones o desea aplicar filtros y estos se cumplen
 						if( !filtrarHabitaciones || habCumpleFiltro(hab, filtros) ) {
 							dtHab = new DtHabitacion(
+									hab.getId(),
 									hab.getDescripcion(), 
 									hab.getPrecioNoche(), 
 									hab.getCamas(), 
