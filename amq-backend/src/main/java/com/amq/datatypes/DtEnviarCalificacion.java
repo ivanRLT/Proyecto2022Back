@@ -3,24 +3,24 @@ package com.amq.datatypes;
 import com.amq.enums.ReservaEstado;
 
 public class DtEnviarCalificacion {
-	private int idUsrLogueado;
+	private int idUsuario;
 	private int idReserva;
 	private Integer calificacion;
 	private String resena;
 	
 	
-	public DtEnviarCalificacion(int idUsrLogueado, int idReserva, Integer calificacion, String resena) {
+	public DtEnviarCalificacion(int idUsuario, int idReserva, Integer calificacion, String resena) {
 		super();
-		this.idUsrLogueado = idUsrLogueado;
+		this.idUsuario = idUsuario;
 		this.idReserva = idReserva;
 		this.calificacion = calificacion;
 		this.resena = resena;
 	}
-	public int getIdUsrLogueado() {
-		return idUsrLogueado;
+	public int getIdUsuario() {
+		return idUsuario;
 	}
-	public void setIdUsrLogueado(int idUsrLogueado) {
-		this.idUsrLogueado = idUsrLogueado;
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 	public int getIdReserva() {
 		return idReserva;

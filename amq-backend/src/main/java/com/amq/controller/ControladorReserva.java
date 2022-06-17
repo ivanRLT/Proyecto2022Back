@@ -264,7 +264,7 @@ public class ControladorReserva {
 		
 		try {
 			Optional<Reserva> optRes = repoR.findById(dtEnvCal.getIdReserva());
-			Optional<Usuario> optUsrLog = repoU.findById(dtEnvCal.getIdUsrLogueado());
+			Optional<Usuario> optUsrLog = repoU.findById(dtEnvCal.getIdUsuario());
 			
 			if( dtEnvCal.getCalificacion()==null && dtEnvCal.getResena()==null) {			
 				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
@@ -313,7 +313,7 @@ public class ControladorReserva {
     		
     		repoC.save(cal);
     		repoU.save(optUsrLog.get());
-    		recalcularCalificacionGlobal(dtEnvCal.getIdUsrLogueado());
+    		recalcularCalificacionGlobal(dtEnvCal.getIdUsuario());
     		return new ResponseEntity<>(HttpStatus.OK);
     	}
     	catch(Exception e) {
