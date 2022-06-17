@@ -264,18 +264,30 @@ public class ControladorReserva {
 		
 		try {
 			Optional<Reserva> optRes = repoR.findById(dtEnvCal.getIdReserva());
+			Optional<Usuario> optUsrLog = repoU.findById(dtEnvCal.getIdUsrLogueado());
+			
+			if( dtEnvCal.getCalificacion()==null && dtEnvCal.getResena()==null) {			
+				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+			}
+			
+			if( dtEnvCal.getCalificacion()==null && ( dtEnvCal.getCalificacion()<0 || dtEnvCal.getCalificacion()>5 ) ) {			
+				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+			}
+			
+			if(optRes.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
 			
 			if (optRes.get().getEstado()==ReservaEstado.PENDIENTE || optRes.get().getEstado()== ReservaEstado.RECHAZADO){
 				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);				
 			}
 			
-			if( dtEnvCal.getCalificacion()==null && dtEnvCal.getResena()==null) {			
-				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-			}
-		
-    		Optional<Usuario> optUsr = repoU.findById(dtEnvCal.getIdUsuario());
-    		
-    		if( optRes.get().getCalificacion()==null) {
+			
+			if( !optUsrLog.isPresent() ) {
+    			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    		}
+			
+			if( optRes.get().getCalificacion()==null) {
     			cal = new Calificacion( 0 ,0, 0 , "", new DtFecha(0, 0, 0));
     			repoC.save(cal);
     			optRes.get().setCalificacion( cal );
@@ -283,9 +295,11 @@ public class ControladorReserva {
     		else {
     			cal = optRes.get().getCalificacion();
     		}
-    		
-    		//Setea la reseña
-    		if( !optUsr.isPresent() ) {
+	    		
+			if(optUsrLog.get() instanceof Huesped) {
+    			if(dtEnvCal.getCalificacion()!=null) {
+    				cal.setCalificacionAnfitrion(dtEnvCal.getCalificacion());
+    			}
     			if( dtEnvCal.getResena()!=null ) {
     				cal.setResena(dtEnvCal.getResena());
     				LocalDate hoy = LocalDate.now();
@@ -293,18 +307,13 @@ public class ControladorReserva {
     				cal.setFechaResena(dtFecha);
     			}
     		}
-    		else if(optUsr.get() instanceof Huesped) {
+    		else if(optUsrLog.get() instanceof Anfitrion) {
     			cal.setCalificacionHuesped(dtEnvCal.getCalificacion());
-    		}
-    		else if(optUsr.get() instanceof Anfitrion) {
-    			if(dtEnvCal.getCalificacion()!=null) {
-    				cal.setCalificacionAnfitrion(dtEnvCal.getCalificacion());
-    			}
     		}
     		
     		repoC.save(cal);
-    		repoU.save(optUsr.get());
-    		recalcularCalificacionGlobal(dtEnvCal.getIdUsuario());
+    		repoU.save(optUsrLog.get());
+    		recalcularCalificacionGlobal(dtEnvCal.getIdUsrLogueado());
     		return new ResponseEntity<>(HttpStatus.OK);
     	}
     	catch(Exception e) {
@@ -366,7 +375,7 @@ public class ControladorReserva {
 				return new ResponseEntity<>(getHeaderError( "La fecha de inicio ingresada("+dtAltaRes.getFInicio()+") es inválida." ), HttpStatus.NOT_ACCEPTABLE);
 			}
 			if( fFinSolicitudRes==null ) {
-				return new ResponseEntity<>(getHeaderError("La fecha de fi ningresada("+dtAltaRes.getFFin()+") es inválida." ),HttpStatus.NOT_ACCEPTABLE);
+				return new ResponseEntity<>(getHeaderError("La fecha de fin ingresada("+dtAltaRes.getFFin()+") es inválida." ),HttpStatus.NOT_ACCEPTABLE);
 			}
 			//Fecha de fin menor a la fecha de inicio
 			if( fFinSolicitudRes.compareTo(fIniSolicitudRes)<0 ) {
