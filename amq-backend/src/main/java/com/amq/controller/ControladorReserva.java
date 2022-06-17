@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.amq.datatypes.DtAMQError;
 import com.amq.datatypes.DtAltaReserva;
 import com.amq.datatypes.DtAnioMes;
 import com.amq.datatypes.DtCalificacion;
@@ -338,9 +339,11 @@ public class ControladorReserva {
 	}
 	
 	@RequestMapping(value = "/alta", method = { RequestMethod.POST })
-	public ResponseEntity<Reserva> realizarReserva(@RequestBody DtAltaReserva dtAltaRes) {
-		
+	public ResponseEntity<Object> realizarReserva(@RequestBody DtAltaReserva dtAltaRes) {
+		DtAMQError amqError = new DtAMQError(01,"error");
 		try {
+			
+			
 			
 			DtFecha dtFInicio= new DtFecha( 
 					Integer.parseInt( dtAltaRes.getFInicio().substring(0, 4) ),
@@ -352,19 +355,22 @@ public class ControladorReserva {
 					Integer.parseInt( dtAltaRes.getFFin().substring(5, 7) ),
 					Integer.parseInt( dtAltaRes.getFFin().substring(8, 10) )
 				);
-					
+			
 			
 			Optional<Usuario> huOpt = repoU.findById(dtAltaRes.getIdHu());
 			if (!huOpt.isPresent()) {
-				return new ResponseEntity<>(  getHeaderError( "No se encontró el huésped ingresado." ), HttpStatus.NOT_FOUND);
+				amqError.setMensaje( "No se encontró el huésped ingresado." );
+				return new ResponseEntity<>(  amqError, HttpStatus.NOT_FOUND);
 			}
 
 			Optional<Habitacion> habOpt = repoH.findById(dtAltaRes.getIdHab());
 			if (!habOpt.isPresent()) {
-				return new ResponseEntity<>(getHeaderError( "No se encontró la habitación ingresada." ), HttpStatus.NOT_FOUND);
+				amqError.setMensaje( "No se encontró la habitación ingresada."  );
+				return new ResponseEntity<>(amqError, HttpStatus.NOT_FOUND);
 			}
 			if ( !(huOpt.get() instanceof Huesped) ) {
-				return new ResponseEntity<>(getHeaderError( "El usuario ingresado no es un huésped." ), HttpStatus.NOT_ACCEPTABLE);
+				amqError.setMensaje( "El usuario ingresado no es un huésped." );
+				return new ResponseEntity<>(amqError, HttpStatus.NOT_ACCEPTABLE);
 			}
 			
 			Date fIniSolicitudRes = dtFecha2Date(dtFInicio);
@@ -372,14 +378,17 @@ public class ControladorReserva {
 			Date fFinSolicitudRes = dtFecha2Date(dtFFin);
 			
 			if( fIniSolicitudRes==null ) {
-				return new ResponseEntity<>(getHeaderError( "La fecha de inicio ingresada("+dtAltaRes.getFInicio()+") es inválida." ), HttpStatus.NOT_ACCEPTABLE);
+				amqError.setMensaje( "La fecha de inicio ingresada("+dtAltaRes.getFInicio()+") es inválida." );
+				return new ResponseEntity<>(amqError, HttpStatus.NOT_ACCEPTABLE);
 			}
 			if( fFinSolicitudRes==null ) {
-				return new ResponseEntity<>(getHeaderError("La fecha de fin ingresada("+dtAltaRes.getFFin()+") es inválida." ),HttpStatus.NOT_ACCEPTABLE);
+				amqError.setMensaje( "La fecha de fin ingresada("+dtAltaRes.getFFin()+") es inválida." );
+				return new ResponseEntity<>( amqError ,HttpStatus.NOT_ACCEPTABLE);
 			}
 			//Fecha de fin menor a la fecha de inicio
 			if( fFinSolicitudRes.compareTo(fIniSolicitudRes)<0 ) {
-				return new ResponseEntity<>(getHeaderError( "La fecha de fin no puede ser previa a la fecha de inicio." ),HttpStatus.NOT_ACCEPTABLE);
+				amqError.setMensaje( "La fecha de fin no puede ser previa a la fecha de inicio." );
+				return new ResponseEntity<>(amqError,HttpStatus.NOT_ACCEPTABLE);
 			}
 			
 			Boolean solapamiento = false;
@@ -394,10 +403,12 @@ public class ControladorReserva {
 					
 					//Si es null la fecha es inváilda
 					if(fIniResConfirm == null || fFinResConfirm==null ) {
-						return new ResponseEntity<>(getHeaderError( "Se encontró una reserva en la base de datos información inconsistentes." ),HttpStatus.INTERNAL_SERVER_ERROR);
+						amqError.setMensaje( "Se encontró una reserva en la base de datos información inconsistentes."  );
+						return new ResponseEntity<>(amqError,HttpStatus.INTERNAL_SERVER_ERROR);
 					}
 					if( fechaMayorAFecha(fIniResConfirm, fFinResConfirm) ) {
-						return new ResponseEntity<>(getHeaderError( "Se encontró una reserva en la base de datos información inconsistentes 2." ),HttpStatus.INTERNAL_SERVER_ERROR);
+						amqError.setMensaje( "Se encontró una reserva en la base de datos información inconsistentes 2." );
+						return new ResponseEntity<>(amqError,HttpStatus.INTERNAL_SERVER_ERROR);
 					}
 					
 					solapamiento=true;
@@ -410,7 +421,8 @@ public class ControladorReserva {
 					}
 					
 					if(solapamiento) {
-						return new ResponseEntity<>( getHeaderError( "Ya existe una reserva confirmada en la fecha seleccionada." ),HttpStatus.BAD_REQUEST );
+						amqError.setMensaje( "Ya existe una reserva confirmada en la fecha seleccionada." );
+						return new ResponseEntity<>( amqError ,HttpStatus.BAD_REQUEST );
 					}
 				}
 			}
@@ -451,7 +463,8 @@ public class ControladorReserva {
 			return new ResponseEntity<>(reserva, HttpStatus.OK);
 					
 		} catch (Exception e) {
-			return new ResponseEntity<>(getHeaderError( "Error desconocido." ), HttpStatus.INTERNAL_SERVER_ERROR);
+			amqError.setMensaje( "Error desconocido" );
+			return new ResponseEntity<>(amqError, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
