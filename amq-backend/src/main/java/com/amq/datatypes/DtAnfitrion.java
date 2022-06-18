@@ -7,7 +7,7 @@ import com.amq.enums.AprobacionEstado;
 
 public class DtAnfitrion extends DtUsuario {
 	
-	private int calificacionGlobal;
+	private Integer calificacionGlobal;
 	private Boolean bloqueado;
 	private AprobacionEstado estado;
 	
@@ -17,16 +17,16 @@ public class DtAnfitrion extends DtUsuario {
 		// TODO Auto-generated constructor stub
 	}
 
-	public DtAnfitrion(int id, String email, String nombre, String apellido, boolean activo, int calificacionGlobal, AprobacionEstado estado, String tipo, Boolean bloqueado, String jwToken) {
+	public DtAnfitrion(int id, String email, String nombre, String apellido, boolean activo, Integer calificacionGlobal, AprobacionEstado estado, String tipo, Boolean bloqueado, String jwToken) {
 		super(id, email, nombre, apellido, activo, bloqueado,tipo,calificacionGlobal, jwToken);
 		this.calificacionGlobal = calificacionGlobal;
 		this.estado = estado;
 		this.bloqueado = bloqueado;
 	}
-	public int getCalificacionGlobal() {
+	public Integer getCalificacionGlobal() {
 		return calificacionGlobal;
 	}
-	public void setCalificacionGlobal(int calificacionGlobal) {
+	public void setCalificacionGlobal(Integer calificacionGlobal) {
 		this.calificacionGlobal = calificacionGlobal;
 	}
 	public AprobacionEstado getEstado() {

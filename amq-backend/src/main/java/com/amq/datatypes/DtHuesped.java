@@ -5,7 +5,7 @@ import java.util.List;
 public class DtHuesped extends DtUsuario{
 	
 	
-	private int calificacionGlobal;
+	private Integer calificacionGlobal;
 	private Boolean bloqueado;
 	private List<String> pushToken;
 	
@@ -13,16 +13,16 @@ public class DtHuesped extends DtUsuario{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public DtHuesped(int id, String email, String nombre, String apellido, boolean activo, int calificacionGlobal, List<String> pushToken, String tipo, Boolean bloqueado, String jwToken) {
+	public DtHuesped(int id, String email, String nombre, String apellido, boolean activo, Integer calificacionGlobal, List<String> pushToken, String tipo, Boolean bloqueado, String jwToken) {
 		super(id, email, nombre, apellido, activo, bloqueado, tipo, calificacionGlobal, jwToken );
 		this.calificacionGlobal = calificacionGlobal;
 		this.pushToken = pushToken;
 		this.bloqueado = bloqueado;
 	}
-	public int getCalificacionGlobal() {
+	public Integer getCalificacionGlobal() {
 		return calificacionGlobal;
 	}
-	public void setCalificacionGlobal(int calificacionGlobal) {
+	public void setCalificacionGlobal(Integer calificacionGlobal) {
 		this.calificacionGlobal = calificacionGlobal;
 	}
 	public List<String> getPushToken() {
