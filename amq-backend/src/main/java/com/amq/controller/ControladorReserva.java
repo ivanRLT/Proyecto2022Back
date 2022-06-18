@@ -346,14 +346,14 @@ public class ControladorReserva {
 			
 			
 			DtFecha dtFInicio= new DtFecha( 
-					Integer.parseInt( dtAltaRes.getFInicio().substring(0, 4) ),
+					Integer.parseInt( dtAltaRes.getFInicio().substring(8, 10) ),
 					Integer.parseInt( dtAltaRes.getFInicio().substring(5, 7) ),
-					Integer.parseInt( dtAltaRes.getFInicio().substring(8, 10) )
+					Integer.parseInt( dtAltaRes.getFInicio().substring(0, 4) )
 				);
 			DtFecha dtFFin = new DtFecha( 
-					Integer.parseInt( dtAltaRes.getFFin().substring(0, 4) ),
-					Integer.parseInt( dtAltaRes.getFFin().substring(5, 7) ),
-					Integer.parseInt( dtAltaRes.getFFin().substring(8, 10) )
+					Integer.parseInt( dtAltaRes.getFFin().substring(8, 10) ),
+					Integer.parseInt( dtAltaRes.getFFin().substring(5, 7) ), 
+					Integer.parseInt( dtAltaRes.getFFin().substring(0, 4) )
 				);
 			
 			
@@ -450,7 +450,7 @@ public class ControladorReserva {
 			factura.setEstado(PagoEstado.PENDIENTE);
 			factura.setReserva(reserva);
 			LocalDate fecha = LocalDate.now();
-			DtFecha fechadt = new DtFecha(fecha.getYear(), fecha.getMonthValue(), fecha.getDayOfMonth());
+			DtFecha fechadt = new DtFecha( fecha.getDayOfMonth(), fecha.getMonthValue(), fecha.getYear());
 			factura.setFecha(fechadt);
 			factura.setIdPaypal(dtAltaRes.getIdPaypal());
 			repoF.save(factura);
