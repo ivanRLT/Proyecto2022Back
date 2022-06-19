@@ -109,16 +109,17 @@ public interface RepositoryReserva extends JpaRepository<Reserva, Integer> {
 	)
 	public Integer estadisticaResXMes( @Param("anio") int anio , @Param("mes") int mes );
 	
+	
 	@Query("SELECT new com.amq.datatypes.DtReservaAlojamiento( res, aloj, hab) "
-			+ "FROM Huesped hu "
-			+ "JOIN hu.reservas res "
-			+ "JOIN res.habitacion hab "
-			+ "JOIN res.calificacion cal "
-			+ "JOIN hab.alojamiento aloj "
-			+ "WHERE "
-				+ "res.estado in (:estados) AND "
-				+ "hu.id = :idHu "
-			)
+			+ "from Huesped hu "
+			+ "join hu.reservas res "
+			+ "join res.habitacion hab "
+			+ "join hab.alojamiento aloj "
+			+ "where "
+				+ "hu.id= :#{#idHu} and "
+				+ "res.estado in (:estados) "
+		)
+
 	public List<DtReservaAlojamiento> findReservasXHuespConEstado( @Param("idHu") int idHu , @Param("estados")List<ReservaEstado> estados);
 	
 	@Query("SELECT res "
