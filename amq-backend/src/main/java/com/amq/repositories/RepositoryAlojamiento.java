@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.amq.datatypes.DtAlojHab;
 import com.amq.datatypes.DtCalificarDatosRequeridos;
 import com.amq.datatypes.DtIdValor;
 import com.amq.model.Alojamiento;
@@ -38,8 +39,12 @@ public interface RepositoryAlojamiento extends JpaRepository<Alojamiento, Intege
 		);
 
 	
-//int aloj_id, Boolean aloj_activo, String aloj_nombre, String aloj_descripcion,
-//String aloj_dir_calle, String aloj_dir_numero, String aloj_dir_ciudad, String aloj_dir_idPais, int res_id,
-//int anf_id
+	@Query("SELECT new com.amq.datatypes.DtAlojHab(aloj, habs) "
+		+ "from Alojamiento aloj "
+		+ "join aloj.habitaciones habs "
+		+ "where "
+			+ "habs.id = :idHab "
+	)
+	public DtAlojHab buscarAlojHab( @Param("idHab") int idHab	);
 	
 }

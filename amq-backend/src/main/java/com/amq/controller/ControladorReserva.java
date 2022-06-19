@@ -223,7 +223,7 @@ public class ControladorReserva {
 						facturadt.getMonto()!=null ? facturadt.getMonto() : 0, 
 						facturadt.getMontoDescuento()!=null ? true : false, 
 						facturadt.getMontoDescuento()!=null ? facturadt.getMontoDescuento() : 0, 
-						facturadt.getPagoEstado(), 
+						facturadt.getPagoEstado(),
 						facturadt.getFecha(),
 						reservaC
 					);

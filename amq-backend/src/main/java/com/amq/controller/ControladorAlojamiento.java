@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.amq.datatypes.DtAlojHab;
 import com.amq.datatypes.DtAlojamiento;
 import com.amq.datatypes.DtAltaAlojHab;
 import com.amq.datatypes.DtDireccion;
@@ -259,6 +260,22 @@ public class ControladorAlojamiento {
 		//return dtAlojamiento
 	}
 	
+	@RequestMapping(value = "/buscarAlojamientoHab/{id}", method = { RequestMethod.GET })
+	public ResponseEntity<DtAlojHab> buscarAlojamientoHab(@PathVariable("id") int idHab) {
+		
+		try {
+			DtAlojHab dtAlojHab = repoA.buscarAlojHab(idHab);
+			if( dtAlojHab == null ) {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+			
+			return new ResponseEntity<>(dtAlojHab, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}	
+		//return dtAlojamiento
+	}
+	
 	@RequestMapping(value = "/desactivarAlojamiento/{id}", method = { RequestMethod.POST })
 	public ResponseEntity<Boolean> desactivarAlojamiento(@PathVariable("id") int idAlo ) {
 
@@ -341,14 +358,7 @@ public class ControladorAlojamiento {
 		}
 		return retorno;
 	}
-	public DtHabitacion consultaHabitacion(int idAlojamiento, int idHabitacion) {
-		try {	
-			
-		} catch (Exception e) {
-		}
-		return null;
-	}
-	
+
 	public Boolean modificarHabitaciones(int idAlojamiento, List<DtHabitacion> dtHabitacion) {
 		Boolean retorno = false;
 		try {
@@ -588,31 +598,4 @@ public class ControladorAlojamiento {
 		return  strFecha;
 	}
 
-	@RequestMapping(value = "/find/{id}", method = { RequestMethod.GET })
-	public ResponseEntity<DtProducto> find(@PathVariable("id") String id){
-		DtProducto p =  new DtProducto(
-				"aa", "bb", "cc", "dd"
-			);
-		
-		System.out.println(id);
-		return new ResponseEntity<>(p,HttpStatus.OK);
-				
-	}
-	
-	@RequestMapping(value = "/findList/{id}", method = { RequestMethod.GET })
-	public ResponseEntity<List<DtProducto>> findList(@PathVariable("id") String id){
-		DtProducto p =  new DtProducto(
-				"aa", "bb", "cc", "dd"
-			);
-		List<DtProducto> ps = new ArrayList<DtProducto>();
-		ps.add(p);
-		p =  new DtProducto(
-				"aaaaa", "3bb", "4cc", "5dd"
-			);
-		ps.add(p);
-		
-		System.out.println(id);
-		return new ResponseEntity<>(ps,HttpStatus.OK);
-				
-	}
 }
