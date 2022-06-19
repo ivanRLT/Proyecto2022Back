@@ -532,6 +532,35 @@ public class ControladorReserva {
 		}
 	}
 	
+	@RequestMapping(value = "/listarReservasPendientesYAprobadas/{idAnf}", method = { RequestMethod.GET })
+	public ResponseEntity< List<DtReserva> > listarReservasPendientesYAprobadas(@PathVariable int idAnf) {
+		try {
+			List<Reserva> reservas =  repoR.reservasPendientesYAprobadas(idAnf);
+			
+			Optional usrOpt = repoU.findById(idAnf);
+			
+			if( !usrOpt.isPresent() || !(usrOpt.get() instanceof Anfitrion ) ) {
+				return new ResponseEntity<>( 
+						getHeaderError("No existe un usuario anfitrión con el id ingresado."), 
+						HttpStatus.NOT_FOUND 
+					);
+			}
+			
+			if(reservas==null || reservas.size()==0) {
+				
+				return new ResponseEntity<>( 
+						getHeaderError("No se encontraron reservas ejecutadas."), 
+						HttpStatus.NO_CONTENT 
+					);
+			}
+			List<DtReserva> dtReservas = obtenerDtReservas(reservas);
+			return new ResponseEntity<>( dtReservas, HttpStatus.OK);
+		}
+		catch(Exception e ) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 	@RequestMapping( value = "/listarResenas", method = { RequestMethod.POST })
 	public ResponseEntity< List<DtResena> > listarResenas(@RequestBody DtFiltroResenas filtros){
 		
@@ -762,9 +791,10 @@ public class ControladorReserva {
 		return f1.compareTo(f2) > 0;
 	}
 	
-	private void recalcularCalificacionGlobal(int id) throws Exception{
-    	int calificacionGlobal=0;
-    	Optional<Usuario> optUsr = repoU.findById(id);
+	private void recalcularCalificacionGlobal(int idUsr) throws Exception{
+    	int sumaCalif=0;
+    	int cantCalif=0;
+    	Optional<Usuario> optUsr = repoU.findById(idUsr);
     	Usuario usr = optUsr.get();
     	if(usr instanceof Anfitrion ) {
     		Anfitrion anf = (Anfitrion) usr;
@@ -774,25 +804,28 @@ public class ControladorReserva {
     			for(Habitacion hab : habs) {
     				List<Reserva> ress = hab.getReservas();
     				for(Reserva res : ress) {
-    					if( res.getCalificacion()!=null ) {
-    						calificacionGlobal += res.getCalificacion().getCalificacionAnfitrion();
+    					if( res.getCalificacion()!=null && res.getCalificacion().getCalificacionAnfitrion()!=0 ) {
+    						sumaCalif += res.getCalificacion().getCalificacionAnfitrion();
+    						cantCalif++;
     					}
     				}
     			}
     		}
-    		anf.setCalificacionGlobal(calificacionGlobal);
+    		anf.setCalificacionGlobal(sumaCalif/cantCalif);
+    		repoU.save(anf);
     	}
     	if(usr instanceof Huesped) {
     		Huesped hu = (Huesped) usr;
 			List<Reserva> ress = hu.getReservas();
 			for(Reserva res : ress) {
-				if( res.getCalificacion()!=null ) {
-					calificacionGlobal += res.getCalificacion().getCalificacionHuesped();
+				if( res.getCalificacion()!=null && res.getCalificacion().getCalificacionHuesped()!=0 ) {
+					sumaCalif += res.getCalificacion().getCalificacionHuesped();
+					cantCalif++;
 				}
 			}
-			hu.setCalificacionGlobal(calificacionGlobal);
+			hu.setCalificacionGlobal(sumaCalif/cantCalif);
+			repoU.save(hu);
     	}
-    	repoU.save(usr);
     }
 	
 	private HttpHeaders getHeaderError( String error ) {

@@ -474,10 +474,11 @@ public class ControladorAlojamiento {
 	}
 	private Boolean filtroAfectaHab(DtFiltrosAlojamiento filtro) {
 		if( 
-				( filtro.getHab_camas()!=null && filtro.getHab_camas()!=0 )  
-				|| ( filtro.getHab_camas_mas_de()!=null && filtro.getHab_camas_mas_de() != 0 ) 
-				|| ( filtro.getHab_desc()!=null && filtro.getHab_desc().trim()!= "")
-				|| ( filtro.getHab_precio()!=null && filtro.getHab_precio()!=0 )
+				( filtro.getHab_camas()!=null && !filtro.getHab_camas().equals(0) )  
+				|| ( filtro.getHab_camas_mas_de()!=null && !filtro.getHab_camas_mas_de().equals(0)) 
+				|| ( filtro.getHab_desc()!=null && !filtro.getHab_desc().trim().equals( "") )
+				|| ( filtro.getHab_precio()!=null )
+				|| ( filtro.getHab_precio_hasta()!=null && !filtro.getHab_precio_hasta().equals(0.0) )
 				|| ( filtro.isHab_serv_aire()!=null )
 				|| ( filtro.isHab_serv_desayuno()!=null )
 				|| ( filtro.isHab_serv_jacuzzi()!=null )
@@ -509,11 +510,11 @@ public class ControladorAlojamiento {
 			return false;
 		}
 		if( filtros.getHab_precio()!=null && filtros.getHab_precio()!=0
-				&& hab.getPrecioNoche() != filtros.getHab_precio() ) {
+				&& hab.getPrecioNoche().compareTo( filtros.getHab_precio() ) < 0  ) {
 			return false;
 		}
 		if( filtros.getHab_precio_hasta()!=null && filtros.getHab_precio_hasta()!=0
-				&& filtros.getHab_precio_hasta()<hab.getPrecioNoche() ) {
+				&& filtros.getHab_precio_hasta().compareTo( hab.getPrecioNoche() ) < 0 ) {
 			return false;
 		}
 		

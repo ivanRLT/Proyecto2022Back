@@ -121,4 +121,15 @@ public interface RepositoryReserva extends JpaRepository<Reserva, Integer> {
 			)
 	public List<DtReservaAlojamiento> findReservasXHuespConEstado( @Param("idHu") int idHu , @Param("estados")List<ReservaEstado> estados);
 	
+	@Query("SELECT res "
+			+ "from Anfitrion anf "
+			+ "join anf.alojamientos alojs "
+			+ "join alojs.habitaciones habs "
+			+ "join habs.reservas res "
+			+ "where "
+				+ "res.estado in ('APROBADO', 'PENDIENTE' )  "
+				+ "and anf.id = :idAnf "
+			)
+	public List<Reserva> reservasPendientesYAprobadas(@Param("idAnf") int idAnf);
+	
 }
