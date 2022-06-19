@@ -109,20 +109,18 @@ public interface RepositoryReserva extends JpaRepository<Reserva, Integer> {
 	)
 	public Integer estadisticaResXMes( @Param("anio") int anio , @Param("mes") int mes );
 	
-	
 	@Query("SELECT new com.amq.datatypes.DtReservaAlojamiento( res, aloj, hab) "
 			+ "from Huesped hu "
 			+ "join hu.reservas res "
 			+ "join res.habitacion hab "
 			+ "join hab.alojamiento aloj "
 			+ "where "
-				+ "hu.id= :#{#idHu} and "
+				+ "hu.id= :idHu and "
 				+ "res.estado in (:estados) "
 		)
-
 	public List<DtReservaAlojamiento> findReservasXHuespConEstado( @Param("idHu") int idHu , @Param("estados")List<ReservaEstado> estados);
 	
-	@Query("SELECT res "
+	@Query("SELECT new com.amq.datatypes.DtReservaAlojamiento( res, alojs, habs) "
 			+ "from Anfitrion anf "
 			+ "join anf.alojamientos alojs "
 			+ "join alojs.habitaciones habs "
@@ -131,6 +129,6 @@ public interface RepositoryReserva extends JpaRepository<Reserva, Integer> {
 				+ "res.estado in ('APROBADO', 'PENDIENTE' )  "
 				+ "and anf.id = :idAnf "
 			)
-	public List<Reserva> reservasPendientesYAprobadas(@Param("idAnf") int idAnf);
+	public List<DtReservaAlojamiento> reservasPendientesYAprobadasAnf(@Param("idAnf") int idAnf);
 	
 }

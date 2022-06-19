@@ -533,32 +533,53 @@ public class ControladorReserva {
 	}
 	
 	@RequestMapping(value = "/listarReservasPendientesYAprobadas/{idAnf}", method = { RequestMethod.GET })
-	public ResponseEntity< List<DtReserva> > listarReservasPendientesYAprobadas(@PathVariable int idAnf) {
+	public ResponseEntity< List<DtReservaAlojHab> > reservasPendientesYAprobadas( @PathVariable int idAnf ){
 		try {
-			List<Reserva> reservas =  repoR.reservasPendientesYAprobadas(idAnf);
-			
-			Optional usrOpt = repoU.findById(idAnf);
-			
-			if( !usrOpt.isPresent() || !(usrOpt.get() instanceof Anfitrion ) ) {
-				return new ResponseEntity<>( 
-						getHeaderError("No existe un usuario anfitrión con el id ingresado."), 
-						HttpStatus.NOT_FOUND 
-					);
+			Optional usrOpt = repoU.findById( idAnf );
+			if(!usrOpt.isPresent() || !( usrOpt.get() instanceof Anfitrion ) ) {
+				return new ResponseEntity<>( HttpStatus.NOT_FOUND );
 			}
+ 
 			
-			if(reservas==null || reservas.size()==0) {
+			//pasaje de datos a dt
+			DtReservaAlojHab resAlojHab;
+			List<DtReservaAlojHab> resAlojHabs = new ArrayList<DtReservaAlojHab>();
+			List<DtReservaAlojamiento> resAlojs = new ArrayList<DtReservaAlojamiento>();
+			
+			resAlojs = repoR.reservasPendientesYAprobadasAnf( idAnf );
+			
+			for(DtReservaAlojamiento resA : resAlojs ) {
+				resAlojHab = new DtReservaAlojHab();
 				
-				return new ResponseEntity<>( 
-						getHeaderError("No se encontraron reservas ejecutadas."), 
-						HttpStatus.NO_CONTENT 
-					);
+				resAlojHab.setRes_id(resA.getReserva().getId());
+				resAlojHab.setRes_estado( resA.getReserva().getEstado());
+				resAlojHab.setRes_fechaInicio( resA.getReserva().getFechaInicio() );
+				resAlojHab.setRes_fechaFin( resA.getReserva().getFechaFin() );
+				resAlojHab.setRes_cantDias( resA.getReserva().getCantDias() );;
+				resAlojHab.setRes_calificacion( resA.getReserva().getCalificacion() );;
+				
+				resAlojHab.setAloj_id( resA.getAlojamiento().getId() );
+				resAlojHab.setAloj_activo( resA.getAlojamiento().getActivo() ) ;
+				resAlojHab.setAloj_descripcion( resA.getAlojamiento().getDescripcion() );
+				resAlojHab.setAloj_idAnfitrion( resA.getAlojamiento().getAnfitrion().getId() );
+				resAlojHab.setAloj_direccion( resA.getAlojamiento().getDireccion() );
+				resAlojHab.setAloj_nombre( resA.getAlojamiento().getNombre() );
+				
+				resAlojHab.setHab_id( resA.getHabitacion().getId() );
+				resAlojHab.setHab_descripcion( resA.getHabitacion().getDescripcion() );
+				resAlojHab.setHab_precioNoche( resA.getHabitacion().getPrecioNoche());
+				resAlojHab.setHab_camas( resA.getHabitacion().getCamas() );
+				resAlojHab.setHab_servicios( resA.getHabitacion().getServicios() );
+				
+				resAlojHabs.add(resAlojHab);
 			}
-			List<DtReserva> dtReservas = obtenerDtReservas(reservas);
-			return new ResponseEntity<>( dtReservas, HttpStatus.OK);
+			
+			return new ResponseEntity<>( resAlojHabs , HttpStatus.OK );
 		}
-		catch(Exception e ) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		catch(Exception e) {
+			return new ResponseEntity<>( HttpStatus.INTERNAL_SERVER_ERROR );
 		}
+		
 	}
 	
 	@RequestMapping( value = "/listarResenas", method = { RequestMethod.POST })
