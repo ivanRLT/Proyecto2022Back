@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.amq.datatypes.DtAMQError;
 import com.amq.datatypes.DtAltaReserva;
 import com.amq.datatypes.DtAnioMes;
 import com.amq.datatypes.DtCalificacion;
@@ -339,11 +338,22 @@ public class ControladorReserva {
 	}
 	
 	@RequestMapping(value = "/alta", method = { RequestMethod.POST })
-	public ResponseEntity<Object> realizarReserva(@RequestBody DtAltaReserva dtAltaRes) {
-		DtAMQError amqError = new DtAMQError(01,"error");
+	public ResponseEntity<Reserva> realizarReserva(@RequestBody DtAltaReserva dtAltaRes) {
 		try {
 			
+			if(dtAltaRes.getFInicio().length()!=10) {
+				return new ResponseEntity<>( 
+						null,
+						getHeaderError( "La fecha de inicio tiene un formato inválido" ),
+						HttpStatus.OK);
+			}
 			
+			if(dtAltaRes.getFFin().length()!=10) {
+				return new ResponseEntity<>( 
+						null,
+						getHeaderError( "La fecha de fin tiene un formato inválido" ),
+						HttpStatus.OK);
+			}
 			
 			DtFecha dtFInicio= new DtFecha( 
 					Integer.parseInt( dtAltaRes.getFInicio().substring(8, 10) ),
@@ -356,21 +366,27 @@ public class ControladorReserva {
 					Integer.parseInt( dtAltaRes.getFFin().substring(0, 4) )
 				);
 			
-			
 			Optional<Usuario> huOpt = repoU.findById(dtAltaRes.getIdHu());
 			if (!huOpt.isPresent()) {
-				amqError.setMensaje( "No se encontró el huésped ingresado." );
-				return new ResponseEntity<>(  amqError, HttpStatus.NOT_FOUND);
+				
+				return new ResponseEntity<>(
+						null,
+						getHeaderError( "No se encontró el huésped ingresado." ), 
+						HttpStatus.OK);
 			}
 
 			Optional<Habitacion> habOpt = repoH.findById(dtAltaRes.getIdHab());
 			if (!habOpt.isPresent()) {
-				amqError.setMensaje( "No se encontró la habitación ingresada."  );
-				return new ResponseEntity<>(amqError, HttpStatus.NOT_FOUND);
+				return new ResponseEntity<>(
+						null,
+						getHeaderError( "No se encontró la habitación ingresada." ), 
+						HttpStatus.OK);
 			}
 			if ( !(huOpt.get() instanceof Huesped) ) {
-				amqError.setMensaje( "El usuario ingresado no es un huésped." );
-				return new ResponseEntity<>(amqError, HttpStatus.NOT_ACCEPTABLE);
+				return new ResponseEntity<>(
+						null,
+						getHeaderError( "El usuario ingresado no es un huésped." ), 
+						HttpStatus.OK);
 			}
 			
 			Date fIniSolicitudRes = dtFecha2Date(dtFInicio);
@@ -378,17 +394,24 @@ public class ControladorReserva {
 			Date fFinSolicitudRes = dtFecha2Date(dtFFin);
 			
 			if( fIniSolicitudRes==null ) {
-				amqError.setMensaje( "La fecha de inicio ingresada("+dtAltaRes.getFInicio()+") es inválida." );
-				return new ResponseEntity<>(amqError, HttpStatus.NOT_ACCEPTABLE);
+				return new ResponseEntity<>(
+						null,
+						getHeaderError( "La fecha de inicio ingresada("+dtAltaRes.getFInicio()+") es inválida." ), 
+						HttpStatus.OK);
 			}
 			if( fFinSolicitudRes==null ) {
-				amqError.setMensaje( "La fecha de fin ingresada("+dtAltaRes.getFFin()+") es inválida." );
-				return new ResponseEntity<>( amqError ,HttpStatus.NOT_ACCEPTABLE);
+				return new ResponseEntity<>(
+						null,
+						getHeaderError( "La fecha de fin ingresada("+dtAltaRes.getFFin()+") es inválida." ), 
+						HttpStatus.OK);
+
 			}
 			//Fecha de fin menor a la fecha de inicio
 			if( fFinSolicitudRes.compareTo(fIniSolicitudRes)<0 ) {
-				amqError.setMensaje( "La fecha de fin no puede ser previa a la fecha de inicio." );
-				return new ResponseEntity<>(amqError,HttpStatus.NOT_ACCEPTABLE);
+				return new ResponseEntity<>(
+						null, 
+						getHeaderError( "La fecha de fin no puede ser previa a la fecha de inicio." ), 
+						HttpStatus.OK);
 			}
 			
 			Boolean solapamiento = false;
@@ -403,12 +426,17 @@ public class ControladorReserva {
 					
 					//Si es null la fecha es inváilda
 					if(fIniResConfirm == null || fFinResConfirm==null ) {
-						amqError.setMensaje( "Se encontró una reserva en la base de datos información inconsistentes."  );
-						return new ResponseEntity<>(amqError,HttpStatus.INTERNAL_SERVER_ERROR);
+						return new ResponseEntity<>(
+								null, 
+								getHeaderError( "Se encontró una reserva en la base de datos información inconsistentes." ), 
+								HttpStatus.OK);
+
 					}
 					if( fechaMayorAFecha(fIniResConfirm, fFinResConfirm) ) {
-						amqError.setMensaje( "Se encontró una reserva en la base de datos información inconsistentes 2." );
-						return new ResponseEntity<>(amqError,HttpStatus.INTERNAL_SERVER_ERROR);
+						return new ResponseEntity<>(
+								null,
+								getHeaderError( "Se encontró una reserva en la base de datos información inconsistentes 2." ), 
+								HttpStatus.OK);
 					}
 					
 					solapamiento=true;
@@ -421,8 +449,10 @@ public class ControladorReserva {
 					}
 					
 					if(solapamiento) {
-						amqError.setMensaje( "Ya existe una reserva confirmada en la fecha seleccionada." );
-						return new ResponseEntity<>( amqError ,HttpStatus.BAD_REQUEST );
+						return new ResponseEntity<>(
+								null,
+								getHeaderError( "Ya existe una reserva confirmada en la fecha seleccionada."  ), 
+								HttpStatus.OK);
 					}
 				}
 			}
@@ -463,8 +493,10 @@ public class ControladorReserva {
 			return new ResponseEntity<>(reserva, HttpStatus.OK);
 					
 		} catch (Exception e) {
-			amqError.setMensaje( "Error desconocido" );
-			return new ResponseEntity<>(amqError, HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(
+					null,
+					getHeaderError( "Error desconocido" ), 
+					HttpStatus.OK);
 		}
 	}
 	
@@ -856,6 +888,7 @@ public class ControladorReserva {
 	}
 	
 	private List<DtAnioMes> getRangoMeses(Date fIni, Date fFin){
+
 		List<DtAnioMes> retorno = new ArrayList<DtAnioMes>();
 		
 		Integer anioFIni = Integer.parseInt( (new SimpleDateFormat("yyyy")).format(fIni) );  
@@ -879,5 +912,12 @@ public class ControladorReserva {
 			}
 		}
 		return retorno;
+	}
+	
+	private ResponseEntity<Object> getErrorResponse( String mensajeError ){
+		return new ResponseEntity<>( 
+				getHeaderError( mensajeError ), 
+				null, 
+				HttpStatus.OK);
 	}
 }

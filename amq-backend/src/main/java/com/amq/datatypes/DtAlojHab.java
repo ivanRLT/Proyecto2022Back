@@ -64,7 +64,5 @@ public class DtAlojHab {
 	public DtHabitacion getHabitacion() {
 		return habitacion;
 	}
-
-	
 	
 }
