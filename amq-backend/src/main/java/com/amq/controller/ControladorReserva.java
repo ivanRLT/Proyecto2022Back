@@ -914,10 +914,4 @@ public class ControladorReserva {
 		return retorno;
 	}
 	
-	private ResponseEntity<Object> getErrorResponse( String mensajeError ){
-		return new ResponseEntity<>( 
-				getHeaderError( mensajeError ), 
-				null, 
-				HttpStatus.OK);
-	}
 }

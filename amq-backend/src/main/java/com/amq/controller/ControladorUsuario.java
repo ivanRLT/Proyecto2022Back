@@ -14,6 +14,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
@@ -69,6 +70,8 @@ import com.amq.repositories.RepositoryServicios;
 @RestController
 @RequestMapping("/usuario")
 public class ControladorUsuario {
+	
+	private static String HEADER_ERROR="AMQ_ERROR";
 	
 	@Autowired
 	RepositoryUsuario repoU;
@@ -421,7 +424,7 @@ public class ControladorUsuario {
 		@RequestMapping(value = "/login", method = { RequestMethod.POST })
 		public ResponseEntity<DtUsuario> iniciarSesion(@RequestBody DtUsuario dtMailPass) {
 			Usuario user;
-			DtUsuario dtUser = null;
+			DtUsuario dtUser = new DtUsuario();
 			String email = dtMailPass.getEmail();
 			String pass = dtMailPass.getPass();
 			
@@ -429,7 +432,7 @@ public class ControladorUsuario {
 				user = repoU.findByEmail(email);
 				
 				if(user == null || !user.getPass().equals(pass) ) {
-					return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+					return new ResponseEntity<>(dtUser, getHeaderError("Mail y/o contraseñas incorrectos."), HttpStatus.OK);
 				}
 				
 				String jwToken = JWTGenerador.getJWTToken(user);
@@ -451,7 +454,7 @@ public class ControladorUsuario {
 				
 				return new ResponseEntity<>(dtUser, HttpStatus.OK);
 			} catch (Exception e) {
-				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+				return new ResponseEntity<>(null, getHeaderError("Error interno del servidor."), HttpStatus.OK);
 			}
 
 
@@ -718,5 +721,11 @@ public class ControladorUsuario {
     	
     	return true;
     }
+    
+    private HttpHeaders getHeaderError( String error ) {
+		HttpHeaders responseHeaders = new HttpHeaders();
+	   responseHeaders.set(HEADER_ERROR, error);
+	   return responseHeaders;
+	}
 }
 
