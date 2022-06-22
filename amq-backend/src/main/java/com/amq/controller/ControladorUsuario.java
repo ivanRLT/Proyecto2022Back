@@ -116,7 +116,7 @@ public class ControladorUsuario {
 			
 			if(uOpt!=null) {
 				msjError = "Ya existe un usuario con el mail ingresado";
-				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.OK);
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.FOUND);
 			}
 			
 			// Creo usuario para persistir 
@@ -132,7 +132,7 @@ public class ControladorUsuario {
 			return new ResponseEntity<>(aminR, HttpStatus.OK);
 		} catch (Exception e) {
 			msjError = "Error desconocido en el servidor";
-			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.OK);
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.INTERNAL_SERVER_ERROR);
 		}	
 	}
 	
@@ -147,7 +147,7 @@ public class ControladorUsuario {
 			
 			if(uOpt!=null) {
 				msjError = "Ya existe un usuario con el mail ingresado";
-				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.OK);
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.FOUND);
 			}
 
 			Anfitrion anf = new Anfitrion();
@@ -193,7 +193,7 @@ public class ControladorUsuario {
 			return new ResponseEntity<>(anfR, HttpStatus.OK);
 		} catch (Exception e) {
 			msjError = "Error desconocido en el servidor";
-			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.OK);
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}		
 	}
 	
@@ -205,7 +205,7 @@ public class ControladorUsuario {
 			
 			if(uOpt!=null) {
 				msjError = "Ya existe un usuario con el mail ingresado";
-				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.OK);
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.FOUND);
 			}
 			
 			// Creo usuario para persistir 
@@ -225,7 +225,7 @@ public class ControladorUsuario {
 			return new ResponseEntity<>(hueR, HttpStatus.OK);
 		} catch (Exception e) {
 			msjError = "Error desconocido en el servidor";
-			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.OK);
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}	
 	}
 	
@@ -247,15 +247,15 @@ public class ControladorUsuario {
 					return new ResponseEntity<>(repoU.save(hue), HttpStatus.OK);
 				} else {
 					msjError = "El usuario ingresado debe ser de tipo Anfitrión o Huésped.";
-					return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.OK);
+					return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.FOUND);
 				}
 			} else {
 				msjError = "No existe un usuario con los datos ingresados.";
-				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.OK);
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.FOUND);
 			}
 		} catch (Exception e) {
 			msjError = "Error desconocido en el servidor.";
-			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.OK);
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
@@ -285,15 +285,15 @@ public class ControladorUsuario {
 					return new ResponseEntity<>(repoU.save(hue), HttpStatus.OK);
 				} else {
 					msjError = "El usuario ingresado debe ser de tipo Anfitrión o Huésped.";
-					return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.OK);
+					return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.FOUND);
 				}
 			} else {
 				msjError = "No existe un usuario con los datos ingresados.";
-				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.OK);
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.FOUND);
 			}
 		} catch (Exception e) {
 			msjError = "Error desconocido en el servidor";
-			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.OK);
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
@@ -321,15 +321,15 @@ public class ControladorUsuario {
 					return new ResponseEntity<>(repoU.save(hue), HttpStatus.OK);
 				} else {
 					msjError = "El usuario ingresado debe ser de tipo Anfitrión o Huésped.";
-					return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.OK);
+					return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.FOUND);
 				}
 			} else {
 				msjError = "No existe un usuario con los datos ingresados.";
-				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.OK);
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.FOUND);
 			}
 		} catch (Exception e) {
 			msjError = "Error desconocido en el servidor";
-			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.OK);
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
@@ -362,13 +362,13 @@ public class ControladorUsuario {
 			}
 			if (retorno.isEmpty()) {
 				msjError = "No se encontraron usuarios.";
-				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.OK);
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.NOT_FOUND);
 			} else {
 				return new ResponseEntity<>(retorno, HttpStatus.OK);
 			}
 		} catch (Exception e) {
 			msjError = "Error desconocido en el servidor";
-			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.OK);
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
@@ -380,7 +380,7 @@ public class ControladorUsuario {
 			if (usr.isPresent()) {
 				if (!(usr.get() instanceof Anfitrion) ) {
 					msjError = "El usuario ingresado debe ser de tipo Anfitrión.";
-					return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.OK);
+					return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.BAD_REQUEST);
 				}
 				anf = (Anfitrion) usr.get();
 				for(Alojamiento aloj : anf.getAlojamientos()) {
@@ -391,12 +391,12 @@ public class ControladorUsuario {
 				return new ResponseEntity<>(anf, HttpStatus.OK);
 			} else {
 				msjError = "El usuario ingresado debe ser de tipo Anfitrión.";
-				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.OK);
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.BAD_REQUEST);
 			}
 
 		} catch (Exception e) {
 			msjError = "Error desconocido en el servidor";
-			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.OK);
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
@@ -407,7 +407,7 @@ public class ControladorUsuario {
 			Anfitrion anf = null;
 			if (usr.isPresent()) {
 				if (!(usr.get() instanceof Anfitrion) ) {
-					return new ResponseEntity<>( HttpStatus.OK);
+					return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
 				}
 				
 				anf = (Anfitrion) usr.get();
@@ -419,12 +419,12 @@ public class ControladorUsuario {
 				return new ResponseEntity<>(anf, HttpStatus.OK);
 			} else {
 				msjError = "No existe un usuario con los datos ingresados.";
-				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.OK);
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_ACCEPTABLE);
 			}
 
 		} catch (Exception e) {
 			msjError = "Error desconocido en el servidor";
-			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.OK);
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
@@ -442,7 +442,7 @@ public class ControladorUsuario {
 			
 			if(user == null || !user.getPass().equals(pass) ) {
 				msjError = "Mail y/o contraseñas incorrectos.";
-				return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.OK);
+				return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 			}
 			
 			String jwToken = JWTGenerador.getJWTToken(user);
@@ -487,10 +487,10 @@ public class ControladorUsuario {
 				return new ResponseEntity<>(HttpStatus.OK);
 			}
 			msjError = "Mail  incorrecto.";
-			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.OK);
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 		} catch (Exception e) {
 			msjError = "Error desconocido en el servidor";
-			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.OK);
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
@@ -505,7 +505,7 @@ public class ControladorUsuario {
 
 			if (result != null) {
 				msjError = "Token inválido.";
-				return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.OK);
+				return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 			}
 
 			user = userService.getUserByPassResetToken(dtPassword.getToken());
@@ -515,10 +515,10 @@ public class ControladorUsuario {
 				return new ResponseEntity<>(HttpStatus.OK);
 			}
 			msjError = "Mail incorrecto.";
-			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.OK);
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 		} catch (Exception e) {
 			msjError = "Error desconocido en el servidor";
-			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.OK);
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
@@ -532,7 +532,7 @@ public class ControladorUsuario {
 			
 			if(optUsr.isEmpty()) {
 				msjError = "No existe un usuario con los datos ingresados.";
-				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.OK);
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.FOUND);
 			}
 			
 			user = optUsr.get();
@@ -555,7 +555,7 @@ public class ControladorUsuario {
 			return new ResponseEntity<>(dtUser, HttpStatus.OK);
 		} catch (Exception e) {
 			msjError = "Error desconocido en el servidor";
-			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.OK);
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
