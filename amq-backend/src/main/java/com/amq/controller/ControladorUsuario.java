@@ -110,7 +110,7 @@ public class ControladorUsuario {
 //	 private Environment env;
 	
 	@RequestMapping(value = "/altaAdmin", method = { RequestMethod.POST })
-	public ResponseEntity<?> altaAdministrador(@RequestBody DtAdministrador adminDt) {
+	public ResponseEntity<?> altaAdministrador(@RequestBody DtAdministrador adminDt) { 
 		try {
 			Usuario uOpt = repoU.findByEmail(adminDt.getEmail());
 			
