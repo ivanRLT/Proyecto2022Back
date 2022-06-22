@@ -884,6 +884,7 @@ public class ControladorReserva {
 	private HttpHeaders getHeaderError( String error ) {
 		HttpHeaders responseHeaders = new HttpHeaders();
 	   responseHeaders.set(HEADER_ERROR, error);
+	   responseHeaders.set("Access-Control-Expose-Headers", "*");
 	   return responseHeaders;
 	}
 	
