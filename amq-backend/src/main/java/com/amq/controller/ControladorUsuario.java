@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.threeten.bp.LocalDate;
 
+import com.amq.datatypes.DtAMQError;
 import com.amq.datatypes.DtAdministrador;
 import com.amq.datatypes.DtAlojamiento;
 import com.amq.datatypes.DtAltaAnfitrion;
@@ -72,6 +73,7 @@ import com.amq.repositories.RepositoryServicios;
 public class ControladorUsuario {
 	
 	private static String HEADER_ERROR="AMQ_ERROR";
+	private String msjError=null;
 	
 	@Autowired
 	RepositoryUsuario repoU;
@@ -108,12 +110,13 @@ public class ControladorUsuario {
 //	 private Environment env;
 	
 	@RequestMapping(value = "/altaAdmin", method = { RequestMethod.POST })
-	public ResponseEntity<Administrador> altaAdministrador(@RequestBody DtAdministrador adminDt) {
+	public ResponseEntity<?> altaAdministrador(@RequestBody DtAdministrador adminDt) {
 		try {
 			Usuario uOpt = repoU.findByEmail(adminDt.getEmail());
 			
 			if(uOpt!=null) {
-				return new ResponseEntity<>(HttpStatus.FOUND);
+				msjError = "Ya existe un usuario con el mail ingresado";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.FOUND);
 			}
 			
 			// Creo usuario para persistir 
@@ -126,14 +129,15 @@ public class ControladorUsuario {
 			// El "save" devuleve el usuario agregado si funciono y lo guardo en aux para devolverlo
 			Administrador aminR = repoU.save(admin);
 			
-			return new ResponseEntity<>(aminR, HttpStatus.CREATED);
+			return new ResponseEntity<>(aminR, HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+			msjError = "Error desconocido en el servidor";
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.INTERNAL_SERVER_ERROR);
 		}	
 	}
 	
 	@RequestMapping(value = "/altaAnfitiron", method = { RequestMethod.POST })
-	public ResponseEntity<Anfitrion> altaAnfitrion(@RequestBody DtAltaAnfitrion altaDT) {
+	public ResponseEntity<?> altaAnfitrion(@RequestBody DtAltaAnfitrion altaDT) {
 		try {
 			DtAnfitrion anfDT = altaDT.getAnfitrion();
 			DtAlojamiento alojamientodt = altaDT.getAlojamiento();
@@ -142,7 +146,8 @@ public class ControladorUsuario {
 			Usuario uOpt = repoU.findByEmail(anfDT.getEmail());
 			
 			if(uOpt!=null) {
-				return new ResponseEntity<>(HttpStatus.FOUND);
+				msjError = "Ya existe un usuario con el mail ingresado";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.FOUND);
 			}
 
 			Anfitrion anf = new Anfitrion();
@@ -185,20 +190,22 @@ public class ControladorUsuario {
 			Habitacion habR = repoH.save(hab);
 			repoA.save(alojamiento);
 
-			return new ResponseEntity<>(anfR, HttpStatus.CREATED);
+			return new ResponseEntity<>(anfR, HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+			msjError = "Error desconocido en el servidor";
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}		
 	}
 	
 	@RequestMapping(value = "/altaHuesped", method = { RequestMethod.POST })
-	public ResponseEntity<Huesped> altaHuesped(@RequestBody DtHuesped huesDT) {
+	public ResponseEntity<?> altaHuesped(@RequestBody DtHuesped huesDT) {
 		try {
 			
 			Usuario uOpt = repoU.findByEmail(huesDT.getEmail());
 			
 			if(uOpt!=null) {
-				return new ResponseEntity<>(HttpStatus.FOUND);
+				msjError = "Ya existe un usuario con el mail ingresado";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.FOUND);
 			}
 			
 			// Creo usuario para persistir 
@@ -217,22 +224,13 @@ public class ControladorUsuario {
 			
 			return new ResponseEntity<>(hueR, HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+			msjError = "Error desconocido en el servidor";
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}	
 	}
 	
-	public void buscarUsuario(int id, String email) {
-		try {
-
-			//posibilidad de buscar por id o por correo independientemente
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		//return dt
-	}
-	
 	@RequestMapping(value = "/desactivar/{id}", method = { RequestMethod.POST })
-	public ResponseEntity<Usuario> desactivarUsuario(@PathVariable("id") int idUsr) {
+	public ResponseEntity<?> desactivarUsuario(@PathVariable("id") int idUsr) {
 		try {
 			Optional<Usuario> usr = repoU.findById(idUsr);
 			Anfitrion anf = null;
@@ -248,21 +246,23 @@ public class ControladorUsuario {
 					hue.setActivo(false);
 					return new ResponseEntity<>(repoU.save(hue), HttpStatus.OK);
 				} else {
-					return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+					msjError = "El usuario ingresado debe ser de tipo Anfitrión o Huésped.";
+					return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.FOUND);
 				}
 			} else {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				msjError = "No existe un usuario con los datos ingresados.";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.FOUND);
 			}
 		} catch (Exception e) {
-			System.out.println(e.toString());
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			msjError = "Error desconocido en el servidor.";
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	
 	
 	@RequestMapping(value = "/bloquear/{id}", method = { RequestMethod.POST })
-	public ResponseEntity<Usuario> bloquearUsuario(@PathVariable("id") int idUsr) {
+	public ResponseEntity<?> bloquearUsuario(@PathVariable("id") int idUsr) {
 		try {
 			Optional<Usuario> usr = repoU.findById(idUsr);
 			Anfitrion anf = null;
@@ -284,255 +284,196 @@ public class ControladorUsuario {
 					hue.setBloqueado(true);
 					return new ResponseEntity<>(repoU.save(hue), HttpStatus.OK);
 				} else {
-					return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+					msjError = "El usuario ingresado debe ser de tipo Anfitrión o Huésped.";
+					return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.FOUND);
 				}
 			} else {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				msjError = "No existe un usuario con los datos ingresados.";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.FOUND);
 			}
 		} catch (Exception e) {
-			System.out.println(e.toString());
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			msjError = "Error desconocido en el servidor";
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
-		@RequestMapping(value = "/desbloquear/{id}", method = { RequestMethod.POST })
-		public ResponseEntity<Usuario> desbloquearUsuario(@PathVariable("id") int idUsr) {
-			try {
-				Optional<Usuario> usr = repoU.findById(idUsr);
-				Anfitrion anf = null;
-				Huesped hue = null;
-				if (usr.isPresent()) {
-					if (usr.get() instanceof Anfitrion) {
-						anf = (Anfitrion) usr.get();
-						anf.setBloqueado(false);
-						//Para cada alojamiento del anfitrion se activan.
-						List<Alojamiento> alojamientosAnfitrion = anf.getAlojamientos();
-						for (Alojamiento alanf : alojamientosAnfitrion) {
-							alanf.setActivo(true);
-						}
+	@RequestMapping(value = "/desbloquear/{id}", method = { RequestMethod.POST })
+	public ResponseEntity<?> desbloquearUsuario(@PathVariable("id") int idUsr) {
+		try {
+			Optional<Usuario> usr = repoU.findById(idUsr);
+			Anfitrion anf = null;
+			Huesped hue = null;
+			if (usr.isPresent()) {
+				if (usr.get() instanceof Anfitrion) {
+					anf = (Anfitrion) usr.get();
+					anf.setBloqueado(false);
+					//Para cada alojamiento del anfitrion se activan.
+					List<Alojamiento> alojamientosAnfitrion = anf.getAlojamientos();
+					for (Alojamiento alanf : alojamientosAnfitrion) {
+						alanf.setActivo(true);
+					}
+					
+					return new ResponseEntity<>(repoU.save(anf), HttpStatus.OK);
+				}
+				if (usr.get() instanceof Huesped) {
+					hue = (Huesped) usr.get();
+					hue.setBloqueado(false);
+					return new ResponseEntity<>(repoU.save(hue), HttpStatus.OK);
+				} else {
+					msjError = "El usuario ingresado debe ser de tipo Anfitrión o Huésped.";
+					return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.FOUND);
+				}
+			} else {
+				msjError = "No existe un usuario con los datos ingresados.";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.FOUND);
+			}
+		} catch (Exception e) {
+			msjError = "Error desconocido en el servidor";
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@RequestMapping(value = "/listar", method = { RequestMethod.POST })
+	//@PreAuthorize("hasRole('ROLE_AD')")
+	public ResponseEntity<?> listarUsuarios(@RequestBody DtFiltrosUsuario filtros) {
+		List<Usuario> usuarios = new ArrayList<Usuario>();
+		List<DtUsuario> retorno = new ArrayList<DtUsuario>();
+		try {
+			repoU.findAll().forEach(usuarios::add);
+			for (Usuario u : usuarios) {
+				if( usuarioCumpleFiltros(u, filtros) ) {
+					if (u instanceof Administrador) {
+						DtAdministrador dtadmin = new DtAdministrador(u.getId(), u.getEmail(), u.getNombre(),
+								u.getApellido(), u.getActivo(), "Ad", u.getBloqueado(), null);
 						
-						return new ResponseEntity<>(repoU.save(anf), HttpStatus.OK);
+						retorno.add(dtadmin);
+					} else if (u instanceof Anfitrion) {
+						Anfitrion ua = (Anfitrion) u;
+						DtAnfitrion dtanfitrion = new DtAnfitrion(u.getId(), ua.getEmail(), ua.getNombre(),
+								ua.getApellido(), ua.getActivo(), ua.getCalificacionGlobal(), ua.getEstado(),  "An", ua.getBloqueado(), null);
+						retorno.add(dtanfitrion);
+					} else if (u instanceof Huesped) {
+						Huesped uh = (Huesped) u;
+						DtHuesped dthuesped = new DtHuesped( u.getId(), uh.getEmail(), uh.getNombre(), uh.getApellido(),
+								uh.getActivo(), uh.getCalificacionGlobal(), uh.getPushTokens(), "Hu", uh.getBloqueado(), null);
+						retorno.add(dthuesped);
 					}
-					if (usr.get() instanceof Huesped) {
-						hue = (Huesped) usr.get();
-						hue.setBloqueado(false);
-						return new ResponseEntity<>(repoU.save(hue), HttpStatus.OK);
-					} else {
-						return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-					}
-				} else {
-					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 				}
-			} catch (Exception e) {
-				System.out.println(e.toString());
-				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 			}
-		}
-		
-		@RequestMapping(value = "/listar", method = { RequestMethod.POST })
-		//@PreAuthorize("hasRole('ROLE_AD')")
-		public ResponseEntity<List<DtUsuario>> listarUsuarios(@RequestBody DtFiltrosUsuario filtros) {
-			List<Usuario> usuarios = new ArrayList<Usuario>();
-			List<DtUsuario> retorno = new ArrayList<DtUsuario>();
-			try {
-				repoU.findAll().forEach(usuarios::add);
-				for (Usuario u : usuarios) {
-					if( usuarioCumpleFiltros(u, filtros) ) {
-						if (u instanceof Administrador) {
-							DtAdministrador dtadmin = new DtAdministrador(u.getId(), u.getEmail(), u.getNombre(),
-									u.getApellido(), u.getActivo(), "Ad", u.getBloqueado(), null);
-	//						DtAdministrador dtadmin = new DtAdministrador(u.getId(), u.getEmail(), u.getNombre(), 
-	//								u.getApellido(), u.getActivo(), u.get, null, null)
-							
-							retorno.add(dtadmin);
-						} else if (u instanceof Anfitrion) {
-							Anfitrion ua = (Anfitrion) u;
-							DtAnfitrion dtanfitrion = new DtAnfitrion(u.getId(), ua.getEmail(), ua.getNombre(),
-									ua.getApellido(), ua.getActivo(), ua.getCalificacionGlobal(), ua.getEstado(),  "An", ua.getBloqueado(), null);
-							retorno.add(dtanfitrion);
-						} else if (u instanceof Huesped) {
-							Huesped uh = (Huesped) u;
-							DtHuesped dthuesped = new DtHuesped( u.getId(), uh.getEmail(), uh.getNombre(), uh.getApellido(),
-									uh.getActivo(), uh.getCalificacionGlobal(), uh.getPushTokens(), "Hu", uh.getBloqueado(), null);
-							retorno.add(dthuesped);
-						}
-					}
-				}
-				if (retorno.isEmpty()) {
-					return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-				} else {
-					return new ResponseEntity<>(retorno, HttpStatus.OK);
-				}
-			} catch (Exception e) {
-				return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+			if (retorno.isEmpty()) {
+				msjError = "No se encontraron usuarios.";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.NO_CONTENT);
+			} else {
+				return new ResponseEntity<>(retorno, HttpStatus.OK);
 			}
+		} catch (Exception e) {
+			msjError = "Error desconocido en el servidor";
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
-		@RequestMapping(value = "/aprobarAnfitrion/{id}", method = { RequestMethod.GET })
-		public ResponseEntity<Usuario> aprobarAnfitrion(@PathVariable("id") int idUsr) {
-			try {
-				Optional<Usuario> usr = repoU.findById(idUsr);
-				Anfitrion anf = null;
-				if (usr.isPresent()) {
-					if (!(usr.get() instanceof Anfitrion) ) {
-						return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
-					}
-					
-					anf = (Anfitrion) usr.get();
-					for(Alojamiento aloj : anf.getAlojamientos()) {
-						aloj.setActivo(true);
-					}
-					anf.setEstado(AprobacionEstado.APROBADO);
-					repoU.save(anf);
-					return new ResponseEntity<>(anf, HttpStatus.OK);
-				} else {
-					return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+	}
+	
+	@RequestMapping(value = "/aprobarAnfitrion/{id}", method = { RequestMethod.GET })
+	public ResponseEntity<?> aprobarAnfitrion(@PathVariable("id") int idUsr) {
+		try {
+			Optional<Usuario> usr = repoU.findById(idUsr);
+			Anfitrion anf = null;
+			if (usr.isPresent()) {
+				if (!(usr.get() instanceof Anfitrion) ) {
+					msjError = "El usuario ingresado debe ser de tipo Anfitrión.";
+					return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.BAD_REQUEST);
 				}
+				anf = (Anfitrion) usr.get();
+				for(Alojamiento aloj : anf.getAlojamientos()) {
+					aloj.setActivo(true);
+				}
+				anf.setEstado(AprobacionEstado.APROBADO);
+				repoU.save(anf);
+				return new ResponseEntity<>(anf, HttpStatus.OK);
+			} else {
+				msjError = "El usuario ingresado debe ser de tipo Anfitrión.";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.BAD_REQUEST);
+			}
 
-			} catch (Exception e) {
-				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-			}
+		} catch (Exception e) {
+			msjError = "Error desconocido en el servidor";
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
-		@RequestMapping(value = "/rechazarAnfitrion/{id}", method = { RequestMethod.GET })
-		public ResponseEntity<Usuario> rechazarAnfitrion(@PathVariable("id") int idUsr) {
-			try {
-				Optional<Usuario> usr = repoU.findById(idUsr);
-				Anfitrion anf = null;
-				if (usr.isPresent()) {
-					if (!(usr.get() instanceof Anfitrion) ) {
-						return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
-					}
-					
-					anf = (Anfitrion) usr.get();
-					for(Alojamiento aloj : anf.getAlojamientos()) {
-						aloj.setActivo(false);
-					}
-					anf.setEstado(AprobacionEstado.RECHAZADO);
-					repoU.save(anf);
-					return new ResponseEntity<>(anf, HttpStatus.OK);
-				} else {
-					return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-				}
-
-			} catch (Exception e) {
-				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-			}
-		}
-		
-		@CrossOrigin(origins = "*")
-		@RequestMapping(value = "/login", method = { RequestMethod.POST })
-		public ResponseEntity<DtUsuario> iniciarSesion(@RequestBody DtUsuario dtMailPass) {
-			Usuario user;
-			DtUsuario dtUser = new DtUsuario();
-			String email = dtMailPass.getEmail();
-			String pass = dtMailPass.getPass();
-			
-			try {
-				user = repoU.findByEmail(email);
-				
-				if(user == null || !user.getPass().equals(pass) ) {
-					return new ResponseEntity<>(dtUser, getHeaderError("Mail y/o contraseñas incorrectos."), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/rechazarAnfitrion/{id}", method = { RequestMethod.GET })
+	public ResponseEntity<?> rechazarAnfitrion(@PathVariable("id") int idUsr) {
+		try {
+			Optional<Usuario> usr = repoU.findById(idUsr);
+			Anfitrion anf = null;
+			if (usr.isPresent()) {
+				if (!(usr.get() instanceof Anfitrion) ) {
+					return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
 				}
 				
-				String jwToken = JWTGenerador.getJWTToken(user);
-				
-				if (user instanceof Administrador) {
-					dtUser = new DtAdministrador( user.getId(), user.getEmail(), user.getNombre(),
-					 user.getApellido(), user.getActivo(), "Ad", user.getBloqueado(), jwToken);
-				} else if (user instanceof Anfitrion) {
-					Anfitrion ua = (Anfitrion) user;
-					dtUser = new DtAnfitrion(user.getId(), user.getEmail(), user.getNombre(),
-							user.getApellido(), user.getActivo(),  ua.getCalificacionGlobal(),
-							ua.getEstado(), "An",null, jwToken);
-				} else if (user instanceof Huesped) {
-					Huesped uH = (Huesped) user;
-					dtUser = new DtHuesped(user.getId(), user.getEmail(), user.getNombre(),
-							user.getApellido(), user.getActivo(), 
-							uH.getCalificacionGlobal(),uH.getPushTokens(), "Hu", null, jwToken);
+				anf = (Anfitrion) usr.get();
+				for(Alojamiento aloj : anf.getAlojamientos()) {
+					aloj.setActivo(false);
 				}
-				
-				return new ResponseEntity<>(dtUser, HttpStatus.OK);
-			} catch (Exception e) {
-				return new ResponseEntity<>(null, getHeaderError("Error interno del servidor."), HttpStatus.OK);
+				anf.setEstado(AprobacionEstado.RECHAZADO);
+				repoU.save(anf);
+				return new ResponseEntity<>(anf, HttpStatus.OK);
+			} else {
+				msjError = "No existe un usuario con los datos ingresados.";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_ACCEPTABLE);
 			}
 
-
+		} catch (Exception e) {
+			msjError = "Error desconocido en el servidor";
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-	
-	// #######################Funciones de Anfitrion#######################
-	
-	public boolean agregarAlojamientoAnfitrion() {
-		Boolean retorno = false;
-		try {
-			
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}	
-		return retorno;
 	}
 	
-	public List<DtAlojamiento> listarAlojamientosAnfitrion(){
-		try {
-
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		return null;
-	}
-	
-	public boolean cambiarEstadoAnfitrion() {
-		Boolean retorno = false;
-		try {
-
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}	
-		return retorno;
-	}
-	
-	// #######################Funciones de Huesped#######################
-	
-	public List<DtReserva> listarReservasHuesped() {
-		try {
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value = "/login", method = { RequestMethod.POST })
+	public ResponseEntity<?> iniciarSesion(@RequestBody DtUsuario dtMailPass) {
+		Usuario user;
+		DtUsuario dtUser = new DtUsuario();
+		String email = dtMailPass.getEmail();
+		String pass = dtMailPass.getPass();
+		String msjError="";
 		
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		return null;
-	}
-	
-	public boolean modificarReservaHuesped(int idReserva) {
-		Boolean retorno = false;
 		try {
+			user = repoU.findByEmail(email);
 			
+			if(user == null || !user.getPass().equals(pass) ) {
+				msjError = "Mail y/o contraseñas incorrectos.";
+				return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
+			}
+			
+			String jwToken = JWTGenerador.getJWTToken(user);
+			
+			if (user instanceof Administrador) {
+				dtUser = new DtAdministrador( user.getId(), user.getEmail(), user.getNombre(),
+				 user.getApellido(), user.getActivo(), "Ad", user.getBloqueado(), jwToken);
+			} else if (user instanceof Anfitrion) {
+				Anfitrion ua = (Anfitrion) user;
+				dtUser = new DtAnfitrion(user.getId(), user.getEmail(), user.getNombre(),
+						user.getApellido(), user.getActivo(),  ua.getCalificacionGlobal(),
+						ua.getEstado(), "An",null, jwToken);
+			} else if (user instanceof Huesped) {
+				Huesped uH = (Huesped) user;
+				dtUser = new DtHuesped(user.getId(), user.getEmail(), user.getNombre(),
+						user.getApellido(), user.getActivo(), 
+						uH.getCalificacionGlobal(),uH.getPushTokens(), "Hu", null, jwToken);
+			}
+			
+			return new ResponseEntity<>(dtUser, HttpStatus.OK);
 		} catch (Exception e) {
-			// TODO: handle exception
-		}	
-		return retorno;
+			msjError = "Error interno del servidor.";
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.OK);
+		}
+
+
 	}
 	
-	
-//	@RequestMapping(value = "/resetPassword", method = { RequestMethod.POST })
-////	@PostMapping("/resetPassword")
-//	public GenericResponse resetPassword( HttpServletRequest request, 
-//			@RequestParam("email") String userEmail) {
-//	    Usuario user = userService.findUserByEmail(userEmail);
-//	    if (user != null) {
-//	    	String token = UUID.randomUUID().toString();
-//	    	userService.createPasswordResetTokenForUser(user, token);
-//	    	mailSender.send(constructResetTokenEmail(getAppUrl(request),request.getLocale(), token, user));
-//	    	return new GenericResponse(messages.getMessage("message.resetPasswordEmail", null, request.getLocale()));
-//	    }
-//	    return new GenericResponse(messages.getMessage("Email.user.email", null, request.getLocale()));
-//	    
-//	}
-//	public ResponseEntity<Huesped> altaHuesped(@RequestBody DtHuesped huesDT) borrar
 	
 	@RequestMapping(value = "/resetPassword", method = { RequestMethod.POST })
-	public ResponseEntity<DtUsuario> resetPassword(@RequestBody DtResetEmail dtemail) {
+	public ResponseEntity<?> resetPassword(@RequestBody DtResetEmail dtemail) {
 
 		Usuario user;
 		String email = dtemail.getEmail();
@@ -545,28 +486,16 @@ public class ControladorUsuario {
 				mailSender.send(constructResetTokenEmail(token, user));
 				return new ResponseEntity<>(HttpStatus.OK);
 			}
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			msjError = "Mail  incorrecto.";
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			msjError = "Error desconocido en el servidor";
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
-//	@RequestMapping(value = "/resetPassword", method = { RequestMethod.POST })
-////	@PostMapping("/resetPassword")
-//	public GenericResponse resetPassword(@RequestParam("email") String userEmail) {
-//	    Usuario user = userService.findUserByEmail(userEmail);
-//	    if (user != null) {
-//	    	String token = UUID.randomUUID().toString();
-//	    	userService.createPasswordResetTokenForUser(user, token);
-//	    	mailSender.send(constructResetTokenEmail(token, user));
-//	    	return new GenericResponse(messages.getMessage("message.resetPasswordEmail", null, null));
-//	    }
-//	    return new GenericResponse(messages.getMessage("Email.user.email", null,null));
-//	    
-//	}
-	
+
 	@RequestMapping(value = "/savePassword", method = { RequestMethod.POST })
-	public ResponseEntity<DtUsuario> savePassword(@RequestBody DtPassword dtPassword) {
+	public ResponseEntity<?> savePassword(@RequestBody DtPassword dtPassword) {
 
 		Usuario user;
 
@@ -575,7 +504,8 @@ public class ControladorUsuario {
 			String result = userService.validatePasswordResetToken(dtPassword.getToken());
 
 			if (result != null) {
-				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+				msjError = "Token inválido.";
+				return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 			}
 
 			user = userService.getUserByPassResetToken(dtPassword.getToken());
@@ -584,14 +514,16 @@ public class ControladorUsuario {
 				userService.changeUserPassword(user, dtPassword.getNewPassword());
 				return new ResponseEntity<>(HttpStatus.OK);
 			}
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			msjError = "Mail incorrecto.";
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			msjError = "Error desconocido en el servidor";
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@RequestMapping(value = "/buscar/{id}", method = { RequestMethod.POST })
-	public ResponseEntity<DtUsuario> buscarUsuario( @PathVariable("id") int id ) {
+	public ResponseEntity<?> buscarUsuario( @PathVariable("id") int id ) {
 		Usuario user;
 		DtUsuario dtUser = null;
 		
@@ -599,7 +531,8 @@ public class ControladorUsuario {
 			Optional<Usuario>  optUsr= repoU.findById(id);
 			
 			if(optUsr.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				msjError = "No existe un usuario con los datos ingresados.";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.FOUND);
 			}
 			
 			user = optUsr.get();
@@ -621,32 +554,13 @@ public class ControladorUsuario {
 			
 			return new ResponseEntity<>(dtUser, HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			msjError = "Error desconocido en el servidor";
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
-	// Save password
-//	@RequestMapping(value = "/savePassword", method = { RequestMethod.POST })
-////	@PostMapping("/savePassword")
-//	public GenericResponse savePassword(final Locale locale, DtPassword passwordDto) {
-//		String result = userService.validatePasswordResetToken(passwordDto.getToken());
-//
-//		if (result != null) {
-//			return new GenericResponse(messages.getMessage("auth.message." + result, null, locale));
-//		}
-//		
-//		Optional<Usuario> user = userService.getUserByPasswordResetToken(passwordDto.getToken());
-//		if (user.isPresent()) {
-//			userService.changeUserPassword(user.get(), passwordDto.getNewPassword());
-//			return new GenericResponse(messages.getMessage("message.resetPasswordSuc", null, locale));
-//		} else {
-//			return new GenericResponse(messages.getMessage("auth.message.invalid", null, locale));
-//		}
-//		
-//	}
 
 	private SimpleMailMessage constructResetTokenEmail( String token, Usuario user) {
-//		 String url = contextPath + "/usuario/changePassword?token=" + token;
 		 String url = token;
          String message = messages.getMessage("message.resetPassword", null, null);
         return constructEmail("Reset Password  - Aquí me Quedo", message + " \r\n" + url, user);
@@ -657,14 +571,10 @@ public class ControladorUsuario {
         email.setSubject(subject);
         email.setText(body);
         email.setTo(user.getEmail());
-//        email.setFrom(env.getProperty("support.email"));
         email.setFrom(user.getEmail());
         return email;
     }
 
-//    private String getAppUrl(HttpServletRequest request) {
-//        return "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
-//    }
     
     private Boolean usuarioCumpleFiltros(Usuario usr, DtFiltrosUsuario filtros) {
     	if(usr==null) {
