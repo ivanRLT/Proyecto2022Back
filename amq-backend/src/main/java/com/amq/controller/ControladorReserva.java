@@ -302,7 +302,6 @@ public class ControladorReserva {
 				Factura factura = facturaOP.get();
 				factura.setEstado(PagoEstado.REALIZADO);
 				
-				msjError = "No existe una reserva con los datos ingresados.";
 				
 				Integer idAnf = repoF.findIdAnfitrionFactura(factura.getId());
 				Integer idHu = repoF.findIdHuespedFactura(factura.getId());
@@ -316,7 +315,7 @@ public class ControladorReserva {
 				enviarNotificación(idAnf, "Reserva cancelada", mensaje );
 				enviarNotificación(idHu, "Reserva cancelada", mensaje );
 				
-				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_ACCEPTABLE);
+				return new ResponseEntity<>( factura, HttpStatus.OK);
 			}else {
 				
 				msjError = "No existe una factura con los datos ingresados.";
