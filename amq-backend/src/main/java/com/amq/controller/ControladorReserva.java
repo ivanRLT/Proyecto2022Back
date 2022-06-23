@@ -720,6 +720,8 @@ public class ControladorReserva {
 			DtReservaAlojHab resAlojHab;
 			List<DtReservaAlojHab> resAlojHabs = new ArrayList<DtReservaAlojHab>();
 			List<DtReservaAlojamiento> resAlojs = new ArrayList<DtReservaAlojamiento>();
+			List<DtFactura> dtFacturas;
+			DtFactura dtFactura;
 			
 			resAlojs = repoR.findReservasXHuespConEstado(filtro.getIdHu(), filtro.getResEstado() );
 			
@@ -745,6 +747,19 @@ public class ControladorReserva {
 				resAlojHab.setHab_precioNoche( resA.getHabitacion().getPrecioNoche());
 				resAlojHab.setHab_camas( resA.getHabitacion().getCamas() );
 				resAlojHab.setHab_servicios( resA.getHabitacion().getServicios() );
+				
+				dtFacturas = new ArrayList<>();
+				for(Factura f: resA.getReserva().getFacturas()) {
+					dtFactura = new DtFactura(
+							f.getEstado(), 
+							f.getMonto(), 
+							f.getFecha(), 
+							f.getDescuento(), 
+							f.getMontoDescuento()
+						);
+					dtFacturas.add(dtFactura);
+				}
+				resAlojHab.setFacturas(dtFacturas);
 				
 				resAlojHabs.add(resAlojHab);
 			}

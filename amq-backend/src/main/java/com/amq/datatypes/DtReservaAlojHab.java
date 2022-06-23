@@ -1,6 +1,7 @@
 package com.amq.datatypes;
 
 import java.util.Date;
+import java.util.List;
 
 import com.amq.enums.ReservaEstado;
 import com.amq.model.Anfitrion;
@@ -27,12 +28,14 @@ public class DtReservaAlojHab {
 	private int hab_camas;
 	private DtServicios hab_servicios;
 	
+	private List<DtFactura> facturas;
+	
 	public DtReservaAlojHab() {	}
-
+	
 	public DtReservaAlojHab(int res_id, ReservaEstado res_estado, Date res_fechaInicio, Date res_fechaFin,
 			int res_cantDias, Calificacion res_calificacion, int aloj_id, Boolean aloj_activo, String aloj_descripcion,
 			int aloj_idAnfitrion, DtDireccion aloj_direccion, String aloj_nombre, int hab_id, String hab_descripcion,
-			Double hab_precioNoche, int hab_camas, DtServicios hab_servicios) {
+			Double hab_precioNoche, int hab_camas, DtServicios hab_servicios, List<DtFactura> facturas) {
 		super();
 		this.res_id = res_id;
 		this.res_estado = res_estado;
@@ -51,7 +54,9 @@ public class DtReservaAlojHab {
 		this.hab_precioNoche = hab_precioNoche;
 		this.hab_camas = hab_camas;
 		this.hab_servicios = hab_servicios;
+		this.facturas = facturas;
 	}
+
 
 	public int getRes_id() {
 		return res_id;
@@ -187,6 +192,14 @@ public class DtReservaAlojHab {
 
 	public void setHab_servicios(DtServicios hab_servicios) {
 		this.hab_servicios = hab_servicios;
+	}
+
+	public List<DtFactura> getFacturas() {
+		return facturas;
+	}
+
+	public void setFacturas(List<DtFactura> facturas) {
+		this.facturas = facturas;
 	}
 
 			
