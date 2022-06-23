@@ -6,17 +6,19 @@ public class DtAltaReserva {
 	private int cantDias;
 	private String fInicio;
 	private String fFin;
+	private Boolean tieneDescuento;
 	private Double descuento;
 	private String idPaypal;
-	
-	public DtAltaReserva(int idHu, int idHab, int cantDias, String fInicio, String fFin, Double descuento,
-			String idPaypal) {
+
+	public DtAltaReserva(int idHu, int idHab, int cantDias, String fInicio, String fFin, Boolean tieneDescuento,
+			Double descuento, String idPaypal) {
 		super();
 		this.idHu = idHu;
 		this.idHab = idHab;
 		this.cantDias = cantDias;
 		this.fInicio = fInicio;
 		this.fFin = fFin;
+		this.tieneDescuento = tieneDescuento;
 		this.descuento = descuento;
 		this.idPaypal = idPaypal;
 	}
@@ -54,11 +56,18 @@ public class DtAltaReserva {
 	}
 
 	public String getFFin() {
-		return fFin;
-	}
+		return fFin;	}
 
 	public void setFFin(String fFin) {
 		this.fFin = fFin;
+	}
+
+	public Boolean getTieneDescuento() {
+		return tieneDescuento;
+	}
+
+	public void setTieneDescuento(Boolean tieneDescuento) {
+		this.tieneDescuento = tieneDescuento;
 	}
 
 	public Double getDescuento() {
@@ -76,7 +85,6 @@ public class DtAltaReserva {
 	public void setIdPaypal(String idPaypal) {
 		this.idPaypal = idPaypal;
 	}
-
 	
 	
 }

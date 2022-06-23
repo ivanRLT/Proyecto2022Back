@@ -131,4 +131,23 @@ public interface RepositoryReserva extends JpaRepository<Reserva, Integer> {
 			)
 	public List<DtReservaAlojamiento> reservasPendientesYAprobadasAnf(@Param("idAnf") int idAnf);
 	
+	
+	@Query("SELECT anf.id "
+			+ "from Anfitrion anf "
+			+ "join anf.alojamientos alojs "
+			+ "join alojs.habitaciones habs "
+			+ "join habs.reservas res "
+			+ "where "
+				+ "res.id = :idRes "
+			)
+	public Integer findIdAnfitrionReserva(@Param("idRes") int idRes);
+	
+	@Query("SELECT hu.id "
+			+ "from Huesped hu "
+			+ "join hu.reservas res "
+			+ "where "
+				+ "res.id = :idRes "
+			)
+	public Integer findIdHuespedReserva(@Param("idRes") int idRes);
+	
 }

@@ -62,6 +62,8 @@ import com.amq.repositories.RepositoryFactura;
 import com.amq.repositories.RepositoryHabitacion;
 import com.amq.repositories.RepositoryReserva;
 import com.amq.repositories.RepositoryUsuario;
+import com.google.firebase.messaging.Notification;
+import com.google.firebase.messaging.Notification.Builder;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -92,9 +94,9 @@ public class ControladorReserva {
 	private MessageSource messages;
 	
 	@RequestMapping(value = "/cancelarReservaAprobada/{idreserva}", method = { RequestMethod.POST })	
-	public ResponseEntity<?> cancelarReservaAprobada(@PathVariable("idreserva") int idreserva, @RequestBody DtFactura facturadt){
+	public ResponseEntity<?> cancelarReservaAprobada(@PathVariable("idreserva") int idReserva, @RequestBody DtFactura facturadt){
 		try {
-				Optional<Reserva> resOP = repoR.findById(idreserva);
+				Optional<Reserva> resOP = repoR.findById(idReserva);
 				if (resOP.isPresent()) {
 					Reserva resAprob = resOP.get();
 					
@@ -136,6 +138,23 @@ public class ControladorReserva {
 					
 					
 					resAprob.getFacturas().add(factura);
+					
+					Integer idAnf = repoR.findIdAnfitrionReserva(idReserva);
+					Integer idHu = repoR.findIdHuespedReserva(idReserva);
+					
+					String mensaje = "Hola, \n"
+							+ "Le informamos que la reserva identificada con el código "+String.valueOf(idReserva)
+							+ " fué cancelada. \n\n "
+							+ "Atte. \n"
+							+ "AMQ.";
+					
+/*					enviarNotificación(
+							idAnf, 
+							"Reserva cancelada",
+							
+							
+						);
+*/
 					
 					repoR.save(resAprob);
 					return new ResponseEntity<>(factura, HttpStatus.OK);
@@ -979,8 +998,21 @@ public class ControladorReserva {
 				System.out.println( "Se produjo el siguiente error al enviar un mail: " +e.getMessage() );
 			}
 			
-			if( optU.get() instanceof Huesped ){
-//				fireAdmin
+			if( 	optU.get() instanceof Huesped && 
+					((Huesped)optU.get()).getPushTokens()!=null && 
+					((Huesped)optU.get()).getPushTokens().size()>0
+				){
+				pushTokens = ((Huesped)optU.get()).getPushTokens();
+				Notification not  = Notification.builder()
+						.setTitle("titulo notif")
+						.setBody("body notif")
+						.build();
+				try {
+					fireAdmin.sendNotification(not, pushTokens);
+				}
+				catch(Exception e) {
+					System.out.println("Push tokens error: "+e.getMessage() );
+				}
 			}
 		}
 	}
