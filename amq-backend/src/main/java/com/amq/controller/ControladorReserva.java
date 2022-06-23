@@ -791,6 +791,7 @@ public class ControladorReserva {
 		}
 		catch(Exception e) {
 			msjError = "Error desconocido.";
+			msjError += e.getMessage();
 			return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
