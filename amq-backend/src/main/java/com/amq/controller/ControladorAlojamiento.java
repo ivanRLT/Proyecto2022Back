@@ -10,6 +10,7 @@ import java.util.Optional;
 import javax.validation.ReportAsSingleViolation;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.amq.datatypes.DtAMQError;
 import com.amq.datatypes.DtAlojHab;
 import com.amq.datatypes.DtAlojamiento;
 import com.amq.datatypes.DtAltaAlojHab;
@@ -55,7 +57,8 @@ import com.google.firebase.messaging.Notification;
 @RestController
 @RequestMapping("/alojamiento")
 public class ControladorAlojamiento {
-	
+	private static String HEADER_ERROR="AMQ_ERROR";
+	String msjError=null;
 	@Autowired
 	RepositoryUsuario repoU;
 	@Autowired
@@ -78,7 +81,7 @@ public class ControladorAlojamiento {
 	// #######################Funciones de alojamiento#######################
 	
 	@RequestMapping(value = "/altaAlojHab", method = { RequestMethod.POST })
-	public ResponseEntity<Alojamiento> altaAlojamientoHabitacion(@RequestBody DtAltaAlojHab dtAlojHab) {
+	public ResponseEntity<?> altaAlojamientoHabitacion(@RequestBody DtAltaAlojHab dtAlojHab) {
 		Alojamiento aloj;
 		Habitacion hab;
 		List<Habitacion> habs;
@@ -87,7 +90,8 @@ public class ControladorAlojamiento {
 			//Obtiene Anfitrion
 			Optional<Usuario>  optUsr= repoU.findById( dtAlojHab.getIdAnfitrion() );
 			if( optUsr.isEmpty() || !( optUsr.get() instanceof Anfitrion )  ) {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				msjError = "No se encontraron usuarios con los datos ingresados.";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 			}
 			Anfitrion anf = (Anfitrion) optUsr.get();
 			repoSer.save(dtAlojHab.getHab_dtservicios());
@@ -95,7 +99,8 @@ public class ControladorAlojamiento {
 			
 			if( repoPais.findById(dtAlojHab.getAloj_direcion().getPais().getId() ).isEmpty() )
 			{
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				msjError = "No existe un pais con los datos ingresados..";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 			}
 			
 			hab = new Habitacion( 
@@ -125,12 +130,13 @@ public class ControladorAlojamiento {
 			return new ResponseEntity<>(aloj, HttpStatus.OK);
 		}
 		catch(Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			msjError = "Error desconocido en el servidor";
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@RequestMapping(value = "/alta/{id}", method = { RequestMethod.POST })
-	public ResponseEntity<Alojamiento> altaAlojamiento(@RequestBody DtAlojamiento alojDT, @PathVariable("id") int idAnf) {
+	public ResponseEntity<?> altaAlojamiento(@RequestBody DtAlojamiento alojDT, @PathVariable("id") int idAnf) {
 		try {
 			Optional<Usuario> opU = repoU.findById(idAnf);
 			Anfitrion anf = null;
@@ -149,19 +155,21 @@ public class ControladorAlojamiento {
 					Alojamiento alojR = repoA.save(alojamiento);
 					return new ResponseEntity<>(alojR, HttpStatus.CREATED);
 				}else {
-					return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+					msjError = "El usuario ingresado no es de tipo Anfitrión.";
+					return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_ACCEPTABLE);
 				}
 			} else {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				msjError = "No existe un Anfitrión con los datos ingresados.";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 			}
 		} catch (Exception e) {
-			System.out.println(e.toString());
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			msjError = "Error desconocido en el servidor";
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@RequestMapping(value = "/agregarHabitaciones/{id}", method = { RequestMethod.POST })
-	public ResponseEntity<Habitacion> agregarHabitacionesAlojamiento(@PathVariable("id") int idAlo, @RequestBody DtHabitacion habitacion) {
+	public ResponseEntity<?> agregarHabitacionesAlojamiento(@PathVariable("id") int idAlo, @RequestBody DtHabitacion habitacion) {
 		try {
 			Optional<Alojamiento> opA = repoA.findById(idAlo);
 			if (opA.isPresent()) {
@@ -179,17 +187,19 @@ public class ControladorAlojamiento {
 				Habitacion habR = repoHab.save(hab);
 				repoA.save(alojamiento);
 				
-				return new ResponseEntity<>(habR, HttpStatus.CREATED);
+				return new ResponseEntity<>(habR, HttpStatus.OK);
 			} else {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				msjError = "No existe un alojamiento con los datos ingresados.";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 			}
 		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			msjError = "Error desconocido en el servidor";
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@RequestMapping(value = "/modificar", method = { RequestMethod.POST })
-	public ResponseEntity<Alojamiento> modificarAlojamiento(@RequestBody DtModificarAloj dtAloj) {
+	public ResponseEntity<?> modificarAlojamiento(@RequestBody DtModificarAloj dtAloj) {
 		try {
 			Optional<Alojamiento> opA = repoA.findById(dtAloj.getId());
 			if (opA.isPresent()) {
@@ -215,20 +225,23 @@ public class ControladorAlojamiento {
 				repoA.save(alojamiento);
 				return new ResponseEntity<>( HttpStatus.OK);
 			} else {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				msjError = "No existe un alojamiento con los datos ingresados.";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 			}
 		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			msjError = "Error desconocido en el servidor";
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@RequestMapping(value = "/buscarAlojamiento/{id}", method = { RequestMethod.GET })
-	public ResponseEntity<DtAlojamiento> buscarAlojamiento(@PathVariable("id") int id) {
+	public ResponseEntity<?> buscarAlojamiento(@PathVariable("id") int id) {
 		
 		try {
 			Optional<Alojamiento> optAloj = repoA.findById(id);
 			if( optAloj.isEmpty() ) {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				msjError = "No existe un alojamiento con los datos ingresados.";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 			}
 			
 			Alojamiento a = (Alojamiento)optAloj.get();
@@ -255,42 +268,46 @@ public class ControladorAlojamiento {
 			dtAloj.setHabs(dtHabs);
 			return new ResponseEntity<>(dtAloj, HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			msjError = "Error desconocido en el servidor";
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.INTERNAL_SERVER_ERROR);
 		}	
 		//return dtAlojamiento
 	}
 	
 	@RequestMapping(value = "/buscarAlojamientoHab/{id}", method = { RequestMethod.GET })
-	public ResponseEntity<DtAlojHab> buscarAlojamientoHab(@PathVariable("id") int idHab) {
+	public ResponseEntity<?> buscarAlojamientoHab(@PathVariable("id") int idHab) {
 		
 		try {
 			DtAlojHab dtAlojHab = repoA.buscarAlojHab(idHab);
 			if( dtAlojHab == null ) {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				msjError = "No existe un alojamiento con los datos ingresados.";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 			}
 			
 			return new ResponseEntity<>(dtAlojHab, HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			msjError = "Error desconocido en el servidor";
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.INTERNAL_SERVER_ERROR);
 		}	
-		//return dtAlojamiento
 	}
 	
 	@RequestMapping(value = "/desactivarAlojamiento/{id}", method = { RequestMethod.POST })
-	public ResponseEntity<Boolean> desactivarAlojamiento(@PathVariable("id") int idAlo ) {
+	public ResponseEntity<?> desactivarAlojamiento(@PathVariable("id") int idAlo ) {
 
 		Alojamiento a;
 		try {
 			Optional<Alojamiento> optA = repoA.findById(idAlo);
 			if(!optA.isPresent()) {
-				return new ResponseEntity<>( HttpStatus.NOT_FOUND);
+				msjError = "No existe un alojamiento con los datos ingresados.";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 			}
 			a = optA.get();
 			a.setActivo(false);
 			repoA.save(a);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			msjError = "Error desconocido en el servidor";
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.INTERNAL_SERVER_ERROR);
 		}	
 
 	}
@@ -298,7 +315,7 @@ public class ControladorAlojamiento {
 
 
 	@RequestMapping(value = "/listarAlojamientos", method = { RequestMethod.POST })
-	public ResponseEntity<List<DtAlojamiento>> listarAlojamientos(@RequestBody DtFiltrosAlojamiento filtros) {
+	public ResponseEntity< ? > listarAlojamientos(@RequestBody DtFiltrosAlojamiento filtros) {
 
 		List<Alojamiento> alojs = new ArrayList<Alojamiento>();
 		List<DtAlojamiento> dtAlojs = new ArrayList<DtAlojamiento>();
@@ -339,14 +356,67 @@ public class ControladorAlojamiento {
 				}
 			}
 			if (dtAlojs.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+				msjError = "No se encontraron alojamientos.";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 			} else {
 				return new ResponseEntity<>(dtAlojs, HttpStatus.OK);
 			}
 		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+			msjError = "Error desconocido en el servidor";
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
+	
+	
+
+
+	
+	@RequestMapping(value = "/reservasAlojamiento/{id}", method = { RequestMethod.GET })
+	public ResponseEntity<?> obtenerReservasAlojamiento(@PathVariable("id") int id ) {
+		try {
+			Optional<Alojamiento> opA = repoA.findById(id);
+			if (opA.isPresent()) {
+				Alojamiento alojamiento = opA.get();
+				List<Habitacion> habitaciones = alojamiento.getHabitaciones();
+				List<DtReserva> reservasDT = new ArrayList<DtReserva>();
+				for (Habitacion h : habitaciones) {
+					List<Reserva> reservasH = h.getReservas();
+					for (Reserva r : reservasH) {
+						DtReserva rdt = new DtReserva(r.getEstado(), r.getDtFechaInicio(), r.getDtFechaFin(), r.getIdChat(), r.getCantDias(), null, null);
+						reservasDT.add(rdt);
+					}
+				}
+				if (reservasDT.isEmpty()) {
+					msjError = "No se encontraron reservas.";
+					return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
+				}else {
+					return new ResponseEntity<>(reservasDT, HttpStatus.OK);
+				}
+			}else {
+				msjError = "No se encontraró un alojamiento con los datos ingresados.";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+	}
+	@RequestMapping(value = "/getPaises", method = { RequestMethod.GET })
+	public ResponseEntity< List<DtIdValor> > getPaises( ){
+		List<DtIdValor> data =  repoPais.getNombresPaises();
+		
+		return new ResponseEntity<>(data, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/getPaisesEnAlojamiento", method = { RequestMethod.GET })
+	public ResponseEntity< List<DtIdValor> > getPaisesEnAlojamiento( ){
+		List<DtIdValor> data =  repoPais.getPaisesEnAlojamiento();
+		
+		return new ResponseEntity<>(data, HttpStatus.OK);
+	}
+	
+	
 	// #######################Funciones de habitacion#######################
 	public Boolean agregarHabitaciones(int idAlojamiento, List<DtHabitacion> dtHabitacion) {
 		Boolean retorno = false;
@@ -369,78 +439,7 @@ public class ControladorAlojamiento {
 		}
 		return retorno;
 	}
-	@RequestMapping(value = "/reservasAlojamiento/{id}", method = { RequestMethod.GET })
-	public ResponseEntity<List<DtReserva>> obtenerReservasAlojamiento(@PathVariable("id") int id ) {
-		try {
-			Optional<Alojamiento> opA = repoA.findById(id);
-			if (opA.isPresent()) {
-				Alojamiento alojamiento = opA.get();
-				List<Habitacion> habitaciones = alojamiento.getHabitaciones();
-				List<DtReserva> reservasDT = new ArrayList<DtReserva>();
-				for (Habitacion h : habitaciones) {
-					List<Reserva> reservasH = h.getReservas();
-					for (Reserva r : reservasH) {
-						DtReserva rdt = new DtReserva(r.getEstado(), r.getDtFechaInicio(), r.getDtFechaFin(), r.getIdChat(), r.getCantDias(), null, null);
-						reservasDT.add(rdt);
-					}
-				}
-				if (reservasDT.isEmpty()) {
-					return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-				}else {
-					return new ResponseEntity<>(reservasDT, HttpStatus.OK);
-				}
-			}else {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			}
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-
-	}
-	@RequestMapping(value = "/getPaises", method = { RequestMethod.GET })
-	public ResponseEntity< List<DtIdValor> > getPaises( ){
-		List<DtIdValor> data =  repoPais.getNombresPaises();
-		
-		return new ResponseEntity<>(data, HttpStatus.OK);
-	}
 	
-	@RequestMapping(value = "/getPaisesEnAlojamiento", method = { RequestMethod.GET })
-	public ResponseEntity< List<DtIdValor> > getPaisesEnAlojamiento( ){
-		List<DtIdValor> data =  repoPais.getPaisesEnAlojamiento();
-		
-		return new ResponseEntity<>(data, HttpStatus.OK);
-	}
-
-	// #######################Funciones de prueba#######################
-	
-	//De prueba, se puede borrar
-	@RequestMapping(value = "/mail/enviar", method = { RequestMethod.POST })
-	public void enviarMail(@RequestBody com.amq.mail.Mensaje msj) {
-		try {
-			com.amq.mail.MailSender mailSender = new com.amq.mail.MailSender();
-			mailSender.enviarMail(msj);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-	}
-	
-	//De prueba, se puede borrar
-	@RequestMapping(value = "/notif", method = { RequestMethod.POST })
-	public void enviarNotificacion() {
-		try {
-			com.amq.notification.FirebaseNotificationAdmin notAdmin = new FirebaseNotificationAdmin();
-			com.google.firebase.messaging.Notification not  = Notification.builder()
-					.setTitle("titulo notif")
-					.setBody("body notif")
-					.build();
-			List<String> tokens = new ArrayList<String>();
-			tokens.add("c-n-W0NzjpoKM0bk8rDhlO:APA91bGHtu3XCYy19Xb126XUODA4vMUT-3IftN0LfdU_V-SJ5PFt86wJ1HJJo6Bzp3rj_FZ60_nwHmib5iZi4t67qyb2Moam1Bikxb0n6nsi5OHEWgxDietHmi2dDXagKV-Ch2s-_PHd");
-			tokens.add("c-n-W0NzjpoKM0bk8rDhlO:APA91bGHtu3XCYy19Xb126XUODA4vMUT-3IftN0LfdU_V-SJ5PFt86wJ1HJJo6Bzp3rj_FZ60_nwHmib5iZi4t67qyb2Moam1Bikxb0n6nsi5OHEWgxDietHmi2dDXagKV-Ch2s-_P3d");
-			notAdmin.sendNotification(not, tokens);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-	}
 	private Boolean alojCumpleFiltro(Alojamiento a, DtFiltrosAlojamiento dtF) {
 		if( dtF == null ) {
 			return true;
@@ -596,6 +595,37 @@ public class ControladorAlojamiento {
 				String.valueOf( f.getAnio() ) +"-"+
 				mes+"-"+ dia ;
 		return  strFecha;
+	}
+	
+    private HttpHeaders getHeaderError( String error ) {
+		HttpHeaders responseHeaders = new HttpHeaders();
+	   responseHeaders.set(HEADER_ERROR, error);
+	   return responseHeaders;
+	}
+    
+	public void enviarMail(@RequestBody com.amq.mail.Mensaje msj) {
+		try {
+			com.amq.mail.MailSender mailSender = new com.amq.mail.MailSender();
+			mailSender.enviarMail(msj);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	
+	public void enviarNotificacion() {
+		try {
+			com.amq.notification.FirebaseNotificationAdmin notAdmin = new FirebaseNotificationAdmin();
+			com.google.firebase.messaging.Notification not  = Notification.builder()
+					.setTitle("titulo notif")
+					.setBody("body notif")
+					.build();
+			List<String> tokens = new ArrayList<String>();
+			tokens.add("c-n-W0NzjpoKM0bk8rDhlO:APA91bGHtu3XCYy19Xb126XUODA4vMUT-3IftN0LfdU_V-SJ5PFt86wJ1HJJo6Bzp3rj_FZ60_nwHmib5iZi4t67qyb2Moam1Bikxb0n6nsi5OHEWgxDietHmi2dDXagKV-Ch2s-_PHd");
+			tokens.add("c-n-W0NzjpoKM0bk8rDhlO:APA91bGHtu3XCYy19Xb126XUODA4vMUT-3IftN0LfdU_V-SJ5PFt86wJ1HJJo6Bzp3rj_FZ60_nwHmib5iZi4t67qyb2Moam1Bikxb0n6nsi5OHEWgxDietHmi2dDXagKV-Ch2s-_P3d");
+			notAdmin.sendNotification(not, tokens);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
 }

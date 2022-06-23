@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.amq.datatypes.DtAMQError;
 import com.amq.datatypes.DtAltaReserva;
 import com.amq.datatypes.DtAnioMes;
 import com.amq.datatypes.DtCalificacion;
@@ -63,7 +64,8 @@ import com.amq.repositories.RepositoryUsuario;
 @RestController
 @RequestMapping("/reserva")
 public class ControladorReserva {
-	private static String HEADER_ERROR="AMQ_ERROR"; 
+	private static String HEADER_ERROR="AMQ_ERROR";
+	private String msjError= null;
 	
 	@Autowired
 	RepositoryUsuario repoU;
@@ -87,14 +89,15 @@ public class ControladorReserva {
 	private MessageSource messages;
 	
 	@RequestMapping(value = "/cancelarReservaAprobada/{idreserva}", method = { RequestMethod.POST })	
-	public ResponseEntity<Factura> cancelarReservaAprobada(@PathVariable("idreserva") int idreserva, @RequestBody DtFactura facturadt){
+	public ResponseEntity<?> cancelarReservaAprobada(@PathVariable("idreserva") int idreserva, @RequestBody DtFactura facturadt){
 		try {
 				Optional<Reserva> resOP = repoR.findById(idreserva);
 				if (resOP.isPresent()) {
 					Reserva resAprob = resOP.get();
 					
 					if( resAprob.getEstado()!=ReservaEstado.APROBADO ) {
-						return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
+						msjError = "La reserva seleccionada no se encuentra en estado APROBADA";
+						return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_ACCEPTABLE);
 					}
 					
 					Habitacion habitacion = resAprob.getHabitacion();
@@ -107,10 +110,12 @@ public class ControladorReserva {
 					//?? aplicar descuento si corresponde
 					
 					if( fIniResPend==null ) {
-						return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+						msjError = "La fecha de inicio ingresada es inválida.";
+						return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_ACCEPTABLE);
 					}
 					if( fFinResPend==null ) {
-						return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+						msjError = "La fecha de fin ingresada es inválida.";
+						return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_ACCEPTABLE);
 					}
 					
 
@@ -132,21 +137,24 @@ public class ControladorReserva {
 					repoR.save(resAprob);
 					return new ResponseEntity<>(factura, HttpStatus.OK);
 				} else {
-					return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+					msjError = "No existe una reserva con los datos ingresados.";
+					return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_ACCEPTABLE);
 				}	
 			} catch (Exception e) {
-				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+				msjError = "Error desconocido.";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		}
 	@RequestMapping(value = "/cancelarReservaPendiente/{idreserva}", method = { RequestMethod.GET })	
-	public ResponseEntity<String> cancelarReservaPendiente(@PathVariable("idreserva") int idreserva){
+	public ResponseEntity<?> cancelarReservaPendiente(@PathVariable("idreserva") int idreserva){
 	try {
 			Optional<Reserva> resOP = repoR.findById(idreserva);
 			if (resOP.isPresent()) {
 				Reserva resAprob = resOP.get();
 				
 				if( resAprob.getEstado()!=ReservaEstado.PENDIENTE ) {
-					return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+					msjError = "La reserva seleccionada no se encuentra en estado PENDIENTE";
+					return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_ACCEPTABLE);
 				}
 				
 				resAprob.setEstado(ReservaEstado.RECHAZADO);
@@ -154,22 +162,25 @@ public class ControladorReserva {
 				repoR.save(resAprob);
 				return new ResponseEntity<>( HttpStatus.OK);
 			} else {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				msjError = "No existe una reserva con los datos ingresados.";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_ACCEPTABLE);
 			}	
 		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			msjError = "Error desconocido.";
+			return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@RequestMapping(value = "/confirmar/{idreserva}", method = { RequestMethod.POST })	
-	public ResponseEntity<Factura> confirmarReserva(@PathVariable("idreserva") int idreserva, @RequestBody DtFactura facturadt){
+	public ResponseEntity<?> confirmarReserva(@PathVariable("idreserva") int idreserva, @RequestBody DtFactura facturadt){
 		try {
 			Optional<Reserva> resOP = repoR.findById(idreserva);
 			if (resOP.isPresent()) {
 				Reserva reservaC = resOP.get();
 				
 				if( reservaC.getEstado()!=ReservaEstado.PENDIENTE ) {
-					return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
+					msjError = "La reserva seleccionada no se encuentra en estado PENDIENTE";
+					return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_ACCEPTABLE);
 				}
 				
 				Habitacion habitacion = reservaC.getHabitacion();
@@ -194,11 +205,19 @@ public class ControladorReserva {
 						Date fFinResConfirm =  r.getFechaFin();
 						
 						//Si es null la fecha es inváilda
-						if(fIniResConfirm == null || fFinResConfirm==null ) {
-							return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+						if( fIniResConfirm == null  ) {
+							msjError = "La fecha de inicio ingresada es inválida.";
+							return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_ACCEPTABLE);
 						}
+						if( fFinResConfirm==null ) {
+							msjError = "La fecha de fin ingresada es inválida.";
+							return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_ACCEPTABLE);
+						}
+						
+						
 						if( fechaMayorAFecha(fIniResConfirm, fFinResConfirm) ) {
-							return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+							msjError = "La fecha de fin no puede ser previa a la fecha de inicio.";
+							return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_ACCEPTABLE);
 						}
 						
 						solapamiento=true;
@@ -211,7 +230,8 @@ public class ControladorReserva {
 						}
 						
 						if(solapamiento) {
-							return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
+							msjError = "Ya existe una reserva en la fecha seleccionada.";
+							return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_ACCEPTABLE);
 						}
 					}
 				}
@@ -233,32 +253,38 @@ public class ControladorReserva {
 				repoR.save(reservaC);
 				return new ResponseEntity<>(factura, HttpStatus.OK);
 			} else {
-				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+				msjError = "No existe una reserva con los datos ingresados.";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_ACCEPTABLE);
 			}	
 		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+			msjError = "Error desconocido.";
+			return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@RequestMapping(value = "/confirmarPagoRealizado/{idfactura}", method = { RequestMethod.POST })	
-	public ResponseEntity<Factura> confirmarPagoRealizado(@PathVariable("idfactura") int idfactura){
+	public ResponseEntity<?> confirmarPagoRealizado(@PathVariable("idfactura") int idfactura){
 		try {
 			Optional<Factura> facturaOP = repoF.findById(idfactura);
 			if (facturaOP.isPresent()) {
 				Factura factura = facturaOP.get();
 				factura.setEstado(PagoEstado.REALIZADO);
 				
-				return new ResponseEntity<>(factura, HttpStatus.OK);
+				msjError = "No existe una reserva con los datos ingresados.";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_ACCEPTABLE);
 			}else {
-				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+				
+				msjError = "No existe una factura con los datos ingresados.";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 			}
 		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+			msjError = "Error desconocido.";
+			return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@RequestMapping(value = "/calificar", method = { RequestMethod.POST })
-    public ResponseEntity<String> calificar(@RequestBody DtEnviarCalificacion dtEnvCal) {
+    public ResponseEntity<?> calificar(@RequestBody DtEnviarCalificacion dtEnvCal) {
 		
 		Calificacion cal;
 		
@@ -314,18 +340,21 @@ public class ControladorReserva {
     		repoC.save(cal);
     		repoU.save(optUsrLog.get());
     		recalcularCalificacionGlobal(dtEnvCal.getIdUsuario());
+    		
     		return new ResponseEntity<>(HttpStatus.OK);
     	}
     	catch(Exception e) {
-    		return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+    		msjError = "Error desconocido.";
+			return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
     	}
     }
 	
 	@RequestMapping(value = "/listarDatosRequeridosCalificar", method = { RequestMethod.POST })
-    public ResponseEntity<List<DtCalificarDatosRequeridos>> listarDatosRequeridosCalificar(@RequestBody DtCalificarDatosRequeridosInput dtInput) {
+    public ResponseEntity<?> listarDatosRequeridosCalificar(@RequestBody DtCalificarDatosRequeridosInput dtInput) {
 		try {
 			if( repoU.findById(dtInput.getIdUsuario()).isEmpty() ) {
-				return new ResponseEntity<>( HttpStatus.NOT_FOUND );
+				msjError = "No existe un usuario con los datos ingresados.";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 			}
 			
 			List<DtCalificarDatosRequeridos> cDatos = repoA.listarDatosRequeridosCalificar(dtInput.getIdUsuario(), dtInput.getIdPais(), dtInput.getAloj_activo() );;
@@ -333,26 +362,23 @@ public class ControladorReserva {
 			return new ResponseEntity<>(cDatos, HttpStatus.OK);
 		}
 		catch(Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			msjError = "Error desconocido.";
+			return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@RequestMapping(value = "/alta", method = { RequestMethod.POST })
-	public ResponseEntity<Reserva> realizarReserva(@RequestBody DtAltaReserva dtAltaRes) {
+	public ResponseEntity<?> realizarReserva(@RequestBody DtAltaReserva dtAltaRes) {
 		try {
 			
 			if(dtAltaRes.getFInicio().length()!=10) {
-				return new ResponseEntity<>( 
-						null,
-						getHeaderError( "La fecha de inicio tiene un formato inválido" ),
-						HttpStatus.OK);
+				msjError = "La fecha de inicio tiene un formato inválido";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.BAD_REQUEST);
 			}
 			
 			if(dtAltaRes.getFFin().length()!=10) {
-				return new ResponseEntity<>( 
-						null,
-						getHeaderError( "La fecha de fin tiene un formato inválido" ),
-						HttpStatus.OK);
+				msjError = "La fecha de fin tiene un formato inválido";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.BAD_REQUEST);
 			}
 			
 			DtFecha dtFInicio= new DtFecha( 
@@ -368,25 +394,18 @@ public class ControladorReserva {
 			
 			Optional<Usuario> huOpt = repoU.findById(dtAltaRes.getIdHu());
 			if (!huOpt.isPresent()) {
-				
-				return new ResponseEntity<>(
-						null,
-						getHeaderError( "No se encontró el huésped ingresado." ), 
-						HttpStatus.OK);
+				msjError = "No se encontró el huésped ingresado.";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 			}
 
 			Optional<Habitacion> habOpt = repoH.findById(dtAltaRes.getIdHab());
 			if (!habOpt.isPresent()) {
-				return new ResponseEntity<>(
-						null,
-						getHeaderError( "No se encontró la habitación ingresada." ), 
-						HttpStatus.OK);
+				msjError = "No se encontró la habitación ingresada.";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.BAD_REQUEST);
 			}
 			if ( !(huOpt.get() instanceof Huesped) ) {
-				return new ResponseEntity<>(
-						null,
-						getHeaderError( "El usuario ingresado no es un huésped." ), 
-						HttpStatus.OK);
+				msjError = "El usuario ingresado no es un huésped.";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.BAD_REQUEST);
 			}
 			
 			Date fIniSolicitudRes = dtFecha2Date(dtFInicio);
@@ -394,24 +413,18 @@ public class ControladorReserva {
 			Date fFinSolicitudRes = dtFecha2Date(dtFFin);
 			
 			if( fIniSolicitudRes==null ) {
-				return new ResponseEntity<>(
-						null,
-						getHeaderError( "La fecha de inicio ingresada("+dtAltaRes.getFInicio()+") es inválida." ), 
-						HttpStatus.OK);
+				msjError = "La fecha de inicio ingresada("+dtAltaRes.getFInicio()+") es inválida." ;
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.BAD_REQUEST);
 			}
 			if( fFinSolicitudRes==null ) {
-				return new ResponseEntity<>(
-						null,
-						getHeaderError( "La fecha de fin ingresada("+dtAltaRes.getFFin()+") es inválida." ), 
-						HttpStatus.OK);
+				msjError = "La fecha de fin ingresada("+dtAltaRes.getFFin()+") es inválida.";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.BAD_REQUEST);
 
 			}
 			//Fecha de fin menor a la fecha de inicio
 			if( fFinSolicitudRes.compareTo(fIniSolicitudRes)<0 ) {
-				return new ResponseEntity<>(
-						null, 
-						getHeaderError( "La fecha de fin no puede ser previa a la fecha de inicio." ), 
-						HttpStatus.OK);
+				msjError = "La fecha de fin no puede ser previa a la fecha de inicio.";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.BAD_REQUEST);
 			}
 			
 			Boolean solapamiento = false;
@@ -426,17 +439,13 @@ public class ControladorReserva {
 					
 					//Si es null la fecha es inváilda
 					if(fIniResConfirm == null || fFinResConfirm==null ) {
-						return new ResponseEntity<>(
-								null, 
-								getHeaderError( "Se encontró una reserva en la base de datos información inconsistentes." ), 
-								HttpStatus.OK);
-
+						msjError = "Se encontró una reserva en la base de datos información inconsistentes.";
+						return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.BAD_REQUEST);
 					}
 					if( fechaMayorAFecha(fIniResConfirm, fFinResConfirm) ) {
-						return new ResponseEntity<>(
-								null,
-								getHeaderError( "Se encontró una reserva en la base de datos información inconsistentes 2." ), 
-								HttpStatus.OK);
+						msjError = "Se encontró una reserva en la base de datos información inconsistentes.";
+						return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.BAD_REQUEST);
+
 					}
 					
 					solapamiento=true;
@@ -449,10 +458,9 @@ public class ControladorReserva {
 					}
 					
 					if(solapamiento) {
-						return new ResponseEntity<>(
-								null,
-								getHeaderError( "Ya existe una reserva confirmada en la fecha seleccionada."  ), 
-								HttpStatus.OK);
+						msjError = "Ya existe una reserva confirmada en la fecha seleccionada." ;
+						return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.BAD_REQUEST);
+
 					}
 				}
 			}
@@ -493,30 +501,11 @@ public class ControladorReserva {
 			return new ResponseEntity<>(reserva, HttpStatus.OK);
 					
 		} catch (Exception e) {
-			return new ResponseEntity<>(
-					null,
-					getHeaderError( "Error desconocido" ), 
-					HttpStatus.OK);
+			msjError = "Error desconocido.";
+			return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
-	public boolean modificarReserva() {
-		Boolean retorno = false;
-		try {
-
-		} catch (Exception e) {
-			// TODO: handle exception
-		}	
-		return retorno;
-	}
-	public void buscarReserva(int id) {
-		try {
-
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		//retono Dt
-	}
 	
 	private List<DtReserva> obtenerDtReservas(List<Reserva> rs) {
 		List<DtReserva> retorno = new ArrayList<DtReserva>();
@@ -536,40 +525,42 @@ public class ControladorReserva {
 	}
 
 	@RequestMapping(value = "/listarReservasEjecutadasAnf/{idAnf}", method = { RequestMethod.GET })
-	public ResponseEntity< List<DtReserva> > listarReservasEjecutadasAnf(@PathVariable int idAnf) {
+	public ResponseEntity< ? > listarReservasEjecutadasAnf(@PathVariable int idAnf) {
 		try {
 			List<Reserva> reservas =  repoR.reservasEjecutadasAnf(idAnf);
 			
 			Optional usrOpt = repoU.findById(idAnf);
 			
 			if( !usrOpt.isPresent() || !(usrOpt.get() instanceof Anfitrion ) ) {
-				return new ResponseEntity<>( 
-						getHeaderError("No existe un usuario anfitrión con el id ingresado."), 
-						HttpStatus.NOT_FOUND 
-					);
+				msjError = "No existe un usuario anfitrión con el id ingresado.";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 			}
 			
 			if(reservas==null || reservas.size()==0) {
-				
-				return new ResponseEntity<>( 
-						getHeaderError("No se encontraron reservas ejecutadas."), 
-						HttpStatus.NO_CONTENT 
-					);
+				msjError = "No se encontraron reservas ejecutadas.";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 			}
 			List<DtReserva> dtReservas = obtenerDtReservas(reservas);
 			return new ResponseEntity<>( dtReservas, HttpStatus.OK);
 		}
 		catch(Exception e ) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			msjError = "Error desconocido.";
+			return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@RequestMapping(value = "/listarReservasPendientesYAprobadas/{idAnf}", method = { RequestMethod.GET })
-	public ResponseEntity< List<DtReservaAlojHab> > reservasPendientesYAprobadas( @PathVariable int idAnf ){
+	public ResponseEntity< ? > reservasPendientesYAprobadas( @PathVariable int idAnf ){
 		try {
 			Optional usrOpt = repoU.findById( idAnf );
-			if(!usrOpt.isPresent() || !( usrOpt.get() instanceof Anfitrion ) ) {
-				return new ResponseEntity<>( HttpStatus.NOT_FOUND );
+			if( !usrOpt.isPresent() ) {
+				msjError = "No existe un usuario con los datos ingresados.";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
+			}
+			
+			if( !( usrOpt.get() instanceof Anfitrion ) ) {
+				msjError = "El usuario ingresado no es de tipo Anfitrión.";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.BAD_REQUEST);
 			}
  
 			
@@ -609,13 +600,14 @@ public class ControladorReserva {
 			return new ResponseEntity<>( resAlojHabs , HttpStatus.OK );
 		}
 		catch(Exception e) {
-			return new ResponseEntity<>( HttpStatus.INTERNAL_SERVER_ERROR );
+			msjError = "Error desconocido.";
+			return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
 	}
 	
 	@RequestMapping( value = "/listarResenas", method = { RequestMethod.POST })
-	public ResponseEntity< List<DtResena> > listarResenas(@RequestBody DtFiltroResenas filtros){
+	public ResponseEntity< ? > listarResenas(@RequestBody DtFiltroResenas filtros){
 		
 		if(filtros.getCalAnfitrion()==null ) {
 			filtros.setCalAnfitrion( 0 );
@@ -644,68 +636,77 @@ public class ControladorReserva {
 					filtros.getCalAnfitrion(), filtros.getCalHuesped()
 				);
 			if( resenas!=null && resenas.size()==0 ) {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				msjError = "No se encontraron reseñas.";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 			}
 			else {
 				return new ResponseEntity<>(resenas, HttpStatus.OK);
 			}
 		}
 		catch(Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			msjError = "Error desconocido.";
+			return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@RequestMapping(value = "/listarReservasAprobadasHuesp/{idAnf}", method = { RequestMethod.GET })
-	public ResponseEntity< List<DtReserva> > listarReservasAprobadasHuesp(@PathVariable int idHu) {
+	public ResponseEntity< ? > listarReservasAprobadasHuesp(@PathVariable int idHu) {
 		try {
 			List<Reserva> reservas =  repoR.reservasAprobadasHuesp(idHu);
 			if(reservas==null || reservas.size()==0) {
-				return new ResponseEntity<>( HttpStatus.NO_CONTENT);
+				msjError = "No se encontraron reservas.";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 			}
 			List<DtReserva> dtReservas = obtenerDtReservas(reservas);
 			return new ResponseEntity<>( dtReservas, HttpStatus.OK);
 		}
 		catch(Exception e ) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			msjError = "Error desconocido.";
+			return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@RequestMapping(value = "/reservasHabitacion/{idHab}", method = { RequestMethod.GET })
-	public ResponseEntity< List<DtReserva> > reservasEnHabitacion(@PathVariable int idHab) {
+	public ResponseEntity< ? > reservasEnHabitacion(@PathVariable int idHab) {
 		try {
 			List<Reserva> reservas =  repoR.reservasHabitacion(idHab);
 			if(reservas==null || reservas.size()==0) {
-				return new ResponseEntity<>( HttpStatus.NO_CONTENT);
+				msjError = "No se encontraron reservas.";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 			}
 			List<DtReserva> dtReservas = obtenerDtReservas(reservas);
 			return new ResponseEntity<>( dtReservas, HttpStatus.OK);
 		}
 		catch(Exception e ) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			msjError = "Error desconocido.";
+			return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@RequestMapping(value = "/reservasAlojamiento/{idHab}", method = { RequestMethod.GET })
-	public ResponseEntity< List<DtReserva> > reservasAlojamiento(@PathVariable int idHab) {
+	public ResponseEntity< ? > reservasAlojamiento(@PathVariable int idHab) {
 		try {
 			List<Reserva> reservas =  repoR.reservasAlojamiento(idHab);
 			if(reservas==null || reservas.size()==0) {
-				return new ResponseEntity<>( HttpStatus.NO_CONTENT);
+				msjError = "No se encontraron reservas.";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 			}
 			List<DtReserva> dtReservas = obtenerDtReservas(reservas);
 			return new ResponseEntity<>( dtReservas, HttpStatus.OK);
 		}
 		catch(Exception e ) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			msjError = "Error desconocido.";
+			return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@RequestMapping(value = "/reservasXHuespXEstado", method = { RequestMethod.POST })
-	public ResponseEntity< List<DtReservaAlojHab> > reservasXHuespConEstado( @RequestBody DtResHuespEstado filtro ){
+	public ResponseEntity< ? > reservasXHuespConEstado( @RequestBody DtResHuespEstado filtro ){
 		try {
 			Optional usrOpt = repoU.findById(filtro.getIdHu() );
 			if(!usrOpt.isPresent() || !( usrOpt.get() instanceof Huesped ) ) {
-				return new ResponseEntity<>( HttpStatus.NOT_FOUND );
+				msjError = "No se encontraron reservas.";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 			}
 			if(filtro.getResEstado()== null || filtro.getResEstado().isEmpty()) {
 				filtro.setResEstado( new ArrayList<ReservaEstado>() );
@@ -751,7 +752,8 @@ public class ControladorReserva {
 			return new ResponseEntity<>( resAlojHabs , HttpStatus.OK );
 		}
 		catch(Exception e) {
-			return new ResponseEntity<>( HttpStatus.INTERNAL_SERVER_ERROR );
+			msjError = "Error desconocido.";
+			return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
 	}
