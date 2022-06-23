@@ -1,13 +1,10 @@
 package com.amq.controller;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +26,6 @@ import com.amq.datatypes.DtAnioMes;
 import com.amq.datatypes.DtCalificacion;
 import com.amq.datatypes.DtCalificarDatosRequeridos;
 import com.amq.datatypes.DtCalificarDatosRequeridosInput;
-import com.amq.datatypes.DtDireccion;
 import com.amq.datatypes.DtEnviarCalificacion;
 import com.amq.datatypes.DtFactura;
 import com.amq.datatypes.DtFecha;
@@ -40,7 +36,6 @@ import com.amq.datatypes.DtResena;
 import com.amq.datatypes.DtReserva;
 import com.amq.datatypes.DtReservaAlojHab;
 import com.amq.datatypes.DtReservaAlojamiento;
-import com.amq.datatypes.DtServicios;
 import com.amq.datatypes.DtXY;
 import com.amq.enums.PagoEstado;
 import com.amq.enums.ReservaEstado;
@@ -63,7 +58,6 @@ import com.amq.repositories.RepositoryHabitacion;
 import com.amq.repositories.RepositoryReserva;
 import com.amq.repositories.RepositoryUsuario;
 import com.google.firebase.messaging.Notification;
-import com.google.firebase.messaging.Notification.Builder;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -84,14 +78,7 @@ public class ControladorReserva {
 	RepositoryCalificacion repoC;
 	@Autowired
 	RepositoryAlojamiento repoA;
-	
-	@Autowired
-    private JavaMailSender mailSender;
-	@Autowired
-	private IUsuarioService userService;
-	
-	@Autowired
-	private MessageSource messages;
+
 	
 	@RequestMapping(value = "/cancelarReservaAprobada/{idreserva}", method = { RequestMethod.POST })	
 	public ResponseEntity<?> cancelarReservaAprobada(@PathVariable("idreserva") int idReserva, @RequestBody DtFactura facturadt){
@@ -152,7 +139,6 @@ public class ControladorReserva {
 					enviarNotificación(idAnf, "Reserva cancelada", mensaje );
 					enviarNotificación(idHu, "Reserva cancelada", mensaje );
 
-					
 					repoR.save(resAprob);
 					return new ResponseEntity<>(factura, HttpStatus.OK);
 				} else {
@@ -204,9 +190,9 @@ public class ControladorReserva {
 	}
 
 	@RequestMapping(value = "/confirmar/{idreserva}", method = { RequestMethod.POST })	
-	public ResponseEntity<?> confirmarReserva(@PathVariable("idreserva") int idreserva, @RequestBody DtFactura facturadt){
+	public ResponseEntity<?> confirmarReserva(@PathVariable("idreserva") int idReserva, @RequestBody DtFactura facturadt){
 		try {
-			Optional<Reserva> resOP = repoR.findById(idreserva);
+			Optional<Reserva> resOP = repoR.findById(idReserva);
 			if (resOP.isPresent()) {
 				Reserva reservaC = resOP.get();
 				
@@ -280,10 +266,22 @@ public class ControladorReserva {
 						facturadt.getIdPaypal()
 					);
 				
-				
 				reservaC.getFacturas().add(factura);
 				
 				repoR.save(reservaC);
+				
+				Integer idAnf = repoF.findIdAnfitrionFactura(factura.getId());
+				Integer idHu = repoF.findIdHuespedFactura(factura.getId());
+				
+				String mensaje = "Hola, \n"
+						+ "Le informamos que la reserva identificada con el código "+String.valueOf(idReserva)
+						+ " fué confirmada. \n\n "
+						+ "Atte. \n"
+						+ "AMQ.";
+				
+				enviarNotificación(idAnf, "Reserva cancelada", mensaje );
+				enviarNotificación(idHu, "Reserva cancelada", mensaje );
+				
 				return new ResponseEntity<>(factura, HttpStatus.OK);
 			} else {
 				msjError = "No existe una reserva con los datos ingresados.";
@@ -304,6 +302,19 @@ public class ControladorReserva {
 				factura.setEstado(PagoEstado.REALIZADO);
 				
 				msjError = "No existe una reserva con los datos ingresados.";
+				
+				Integer idAnf = repoF.findIdAnfitrionFactura(factura.getId());
+				Integer idHu = repoF.findIdHuespedFactura(factura.getId());
+				
+				String mensaje = "Hola, \n"
+						+ "Le informamos que el pago identificado con el código "+String.valueOf(factura.getId())
+						+ " fué confirmado. \n\n "
+						+ "Atte. \n"
+						+ "AMQ.";
+				
+				enviarNotificación(idAnf, "Reserva cancelada", mensaje );
+				enviarNotificación(idHu, "Reserva cancelada", mensaje );
+				
 				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_ACCEPTABLE);
 			}else {
 				
@@ -533,6 +544,7 @@ public class ControladorReserva {
 			Reserva rRet = repoR.save(reserva);
 			repoU.save(huesped);
 			repoH.save(hab);
+			
 			
 
 			return new ResponseEntity<>(reserva, HttpStatus.OK);
@@ -845,41 +857,7 @@ public class ControladorReserva {
 	}
 	
 	// ####################### Funciones de Facturas #######################
-	public boolean altaFactura() {
-		Boolean retorno = false;
-		try {
 
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		return retorno;
-	}
-	public boolean modificarFactura(int idReserva, int idFactura) {
-		Boolean retorno = false;
-		try {
-
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		return retorno;
-	}
-	public DtFactura buscarFactura(int idReserva, int idFactura) {
-		try {
-
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		return null;
-	}
-	public List<DtFactura> listarFacturas(int idReserva) {
-		try {
-
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		return null;
-	}
-	
 	
 	
 	// ####################### Funciones Auxiliares #######################
