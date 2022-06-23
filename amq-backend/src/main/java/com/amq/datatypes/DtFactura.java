@@ -14,13 +14,18 @@ public class DtFactura {
 	private Double montoDescuento;
 	private String idPaypal;
 
-	public DtFactura(PagoEstado pagoEstado, Double monto, DtFecha fecha, boolean descuento, Double montoDescuento) {
+	
+
+	public DtFactura(int idFactura, PagoEstado pagoEstado, Double monto, DtFecha fecha, boolean descuento,
+			Double montoDescuento, String idPaypal) {
 		super();
+		this.idFactura = idFactura;
 		this.pagoEstado = pagoEstado;
 		this.monto = monto;
 		this.fecha = fecha;
 		this.descuento = descuento;
 		this.montoDescuento = montoDescuento;
+		this.idPaypal = idPaypal;
 	}
 
 	public PagoEstado getPagoEstado() {

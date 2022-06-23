@@ -133,7 +133,8 @@ public class ControladorReserva {
 							facturadt.getMontoDescuento()!=null ? facturadt.getMontoDescuento() : 0, 
 							facturadt.getPagoEstado(), 
 							facturadt.getFecha(),
-							resAprob
+							resAprob,
+							facturadt.getIdPaypal()
 						);
 					
 					
@@ -148,13 +149,9 @@ public class ControladorReserva {
 							+ "Atte. \n"
 							+ "AMQ.";
 					
-/*					enviarNotificación(
-							idAnf, 
-							"Reserva cancelada",
-							
-							
-						);
-*/
+					enviarNotificación(idAnf, "Reserva cancelada", mensaje );
+					enviarNotificación(idHu, "Reserva cancelada", mensaje );
+
 					
 					repoR.save(resAprob);
 					return new ResponseEntity<>(factura, HttpStatus.OK);
@@ -168,9 +165,9 @@ public class ControladorReserva {
 			}
 		}
 	@RequestMapping(value = "/cancelarReservaPendiente/{idreserva}", method = { RequestMethod.GET })	
-	public ResponseEntity<?> cancelarReservaPendiente(@PathVariable("idreserva") int idreserva){
+	public ResponseEntity<?> cancelarReservaPendiente(@PathVariable("idreserva") int idReserva){
 	try {
-			Optional<Reserva> resOP = repoR.findById(idreserva);
+			Optional<Reserva> resOP = repoR.findById(idReserva);
 			if (resOP.isPresent()) {
 				Reserva resAprob = resOP.get();
 				
@@ -182,6 +179,19 @@ public class ControladorReserva {
 				resAprob.setEstado(ReservaEstado.RECHAZADO);
 
 				repoR.save(resAprob);
+				
+				Integer idAnf = repoR.findIdAnfitrionReserva(idReserva);
+				Integer idHu = repoR.findIdHuespedReserva(idReserva);
+				
+				String mensaje = "Hola, \n"
+						+ "Le informamos que la reserva identificada con el código "+String.valueOf(idReserva)
+						+ " fué cancelada. \n\n "
+						+ "Atte. \n"
+						+ "AMQ.";
+				
+				enviarNotificación(idAnf, "Reserva cancelada", mensaje );
+				enviarNotificación(idHu, "Reserva cancelada", mensaje );
+				
 				return new ResponseEntity<>( HttpStatus.OK);
 			} else {
 				msjError = "No existe una reserva con los datos ingresados.";
@@ -266,7 +276,8 @@ public class ControladorReserva {
 						facturadt.getMontoDescuento()!=null ? facturadt.getMontoDescuento() : 0, 
 						facturadt.getPagoEstado(),
 						facturadt.getFecha(),
-						reservaC
+						reservaC,
+						facturadt.getIdPaypal()
 					);
 				
 				
@@ -535,11 +546,20 @@ public class ControladorReserva {
 	
 	private List<DtReserva> obtenerDtReservas(List<Reserva> rs) {
 		List<DtReserva> retorno = new ArrayList<DtReserva>();
-		for(Reserva r:rs) {
+		for(Reserva r : rs) {
 			List<DtFactura> facturasdt = new ArrayList<DtFactura>();
 			List<Factura> facturas = r.getFacturas();
 			for(Factura f:facturas) {
-				DtFactura fac = new DtFactura(f.getEstado(), f.getMonto(), f.getFecha(), f.getDescuento(), f.getMontoDescuento());
+				DtFactura fac = new DtFactura(
+						f.getId(),
+						f.getEstado(), 
+						f.getMonto(), 
+						f.getFecha(), 
+						f.getDescuento(), 
+						f.getMontoDescuento(),
+						f.getIdPaypal()
+					);
+
 				facturasdt.add(fac);
 			}
 			Calificacion calif = r.getCalificacion();
@@ -625,11 +645,13 @@ public class ControladorReserva {
 				dtFacturas = new ArrayList<>();
 				for(Factura f: resA.getReserva().getFacturas()) {
 					dtFactura = new DtFactura(
+							f.getId(),
 							f.getEstado(), 
 							f.getMonto(), 
 							f.getFecha(), 
 							f.getDescuento(), 
-							f.getMontoDescuento()
+							f.getMontoDescuento(),
+							f.getIdPaypal()
 						);
 					dtFacturas.add(dtFactura);
 				}
@@ -792,11 +814,13 @@ public class ControladorReserva {
 				dtFacturas = new ArrayList<>();
 				for(Factura f: resA.getReserva().getFacturas()) {
 					dtFactura = new DtFactura(
+							f.getId(),
 							f.getEstado(), 
 							f.getMonto(), 
 							f.getFecha(), 
 							f.getDescuento(), 
-							f.getMontoDescuento()
+							f.getMontoDescuento(),
+							f.getIdPaypal()
 						);
 					dtFacturas.add(dtFactura);
 				}
