@@ -189,8 +189,8 @@ public class ControladorReserva {
 		}
 	}
 
-	@RequestMapping(value = "/confirmar/{idreserva}", method = { RequestMethod.POST })	
-	public ResponseEntity<?> confirmarReserva(@PathVariable("idreserva") int idReserva, @RequestBody DtFactura facturadt){
+	@RequestMapping(value = "/confirmar/{idreserva}", method = { RequestMethod.GET })	
+	public ResponseEntity<?> confirmarReserva(@PathVariable("idreserva") int idReserva/*, @RequestBody DtFactura facturadt*/){
 		try {
 			Optional<Reserva> resOP = repoR.findById(idReserva);
 			if (resOP.isPresent()) {
@@ -254,7 +254,7 @@ public class ControladorReserva {
 					}
 				}
 				reservaC.setEstado(ReservaEstado.APROBADO);
-				List<Factura> facturas = reservaC.getFacturas();
+/*				List<Factura> facturas = reservaC.getFacturas();
 				Factura factura = new Factura(
 						-1, 
 						facturadt.getMonto()!=null ? facturadt.getMonto() : 0, 
@@ -267,22 +267,23 @@ public class ControladorReserva {
 					);
 				
 				reservaC.getFacturas().add(factura);
-				
+*/				
 				repoR.save(reservaC);
 				
-				Integer idAnf = repoF.findIdAnfitrionFactura(factura.getId());
-				Integer idHu = repoF.findIdHuespedFactura(factura.getId());
+				Integer idAnf = repoR.findIdAnfitrionReserva(idReserva);
+				Integer idHu = repoR.findIdHuespedReserva(idReserva);
 				
 				String mensaje = "Hola, \n"
 						+ "Le informamos que la reserva identificada con el código "+String.valueOf(idReserva)
 						+ " fué confirmada. \n\n "
+						+ " <a href='https://whatsapp.com'>Whatsapp</a> \\n "
 						+ "Atte. \n"
 						+ "AMQ.";
 				
-				enviarNotificación(idAnf, "Reserva cancelada", mensaje );
-				enviarNotificación(idHu, "Reserva cancelada", mensaje );
+				enviarNotificación(idAnf, "Reserva confirmada", mensaje );
+				enviarNotificación(idHu, "Reserva confirmada", mensaje );
 				
-				return new ResponseEntity<>(factura, HttpStatus.OK);
+				return new ResponseEntity<>( HttpStatus.OK);
 			} else {
 				msjError = "No existe una reserva con los datos ingresados.";
 				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_ACCEPTABLE);
@@ -312,8 +313,8 @@ public class ControladorReserva {
 						+ "Atte. \n"
 						+ "AMQ.";
 				
-				enviarNotificación(idAnf, "Reserva cancelada", mensaje );
-				enviarNotificación(idHu, "Reserva cancelada", mensaje );
+				enviarNotificación(idAnf, "Pago confirmado", mensaje );
+				enviarNotificación(idHu, "Pago confirmado", mensaje );
 				
 				return new ResponseEntity<>( factura, HttpStatus.OK);
 			}else {
