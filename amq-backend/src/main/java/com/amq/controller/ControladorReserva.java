@@ -499,14 +499,18 @@ public class ControladorReserva {
 			hab.agregarReserva(reserva);
 			huesped.addReserva(reserva);
 			Factura factura = new Factura();
-			double monto = hab.getPrecioNoche() * reserva.getCantDias();					
-			if (dtAltaRes.getDescuento() != 0) {
+			double monto = hab.getPrecioNoche() * reserva.getCantDias();
+			factura.setDescuento( dtAltaRes.getTieneDescuento() );
+			
+			if (dtAltaRes.getTieneDescuento() == true ) {
 				factura.setDescuento(true);
 				factura.setMontoDescuento(dtAltaRes.getDescuento());
 				factura.setMonto(monto - dtAltaRes.getDescuento());
 			}else {
+				factura.setDescuento(false);
 				factura.setMonto(monto);
 			}
+			
 			factura.setEstado(PagoEstado.PENDIENTE);
 			factura.setReserva(reserva);
 			LocalDate fecha = LocalDate.now();
