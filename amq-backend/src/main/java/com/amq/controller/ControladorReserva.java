@@ -293,6 +293,7 @@ public class ControladorReserva {
 		}
 	}
 	
+	@CrossOrigin(origins = "*")
 	@RequestMapping(value = "/confirmarPagoRealizado/{idfactura}", method = { RequestMethod.POST })	
 	public ResponseEntity<?> confirmarPagoRealizado(@PathVariable("idfactura") int idfactura){
 		try {
