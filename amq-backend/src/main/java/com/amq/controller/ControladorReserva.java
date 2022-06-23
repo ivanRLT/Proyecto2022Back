@@ -44,6 +44,8 @@ import com.amq.datatypes.DtServicios;
 import com.amq.datatypes.DtXY;
 import com.amq.enums.PagoEstado;
 import com.amq.enums.ReservaEstado;
+import com.amq.mail.MailSender;
+import com.amq.mail.Mensaje;
 import com.amq.model.Alojamiento;
 import com.amq.model.Anfitrion;
 import com.amq.model.Calificacion;
@@ -52,6 +54,7 @@ import com.amq.model.Habitacion;
 import com.amq.model.Huesped;
 import com.amq.model.Reserva;
 import com.amq.model.Usuario;
+import com.amq.notification.FirebaseNotificationAdmin;
 import com.amq.passwordReset.IUsuarioService;
 import com.amq.repositories.RepositoryAlojamiento;
 import com.amq.repositories.RepositoryCalificacion;
@@ -568,6 +571,8 @@ public class ControladorReserva {
 			DtReservaAlojHab resAlojHab;
 			List<DtReservaAlojHab> resAlojHabs = new ArrayList<DtReservaAlojHab>();
 			List<DtReservaAlojamiento> resAlojs = new ArrayList<DtReservaAlojamiento>();
+			List<DtFactura> dtFacturas;
+			DtFactura dtFactura;
 			
 			resAlojs = repoR.reservasPendientesYAprobadasAnf( idAnf );
 			
@@ -593,6 +598,19 @@ public class ControladorReserva {
 				resAlojHab.setHab_precioNoche( resA.getHabitacion().getPrecioNoche());
 				resAlojHab.setHab_camas( resA.getHabitacion().getCamas() );
 				resAlojHab.setHab_servicios( resA.getHabitacion().getServicios() );
+				
+				dtFacturas = new ArrayList<>();
+				for(Factura f: resA.getReserva().getFacturas()) {
+					dtFactura = new DtFactura(
+							f.getEstado(), 
+							f.getMonto(), 
+							f.getFecha(), 
+							f.getDescuento(), 
+							f.getMontoDescuento()
+						);
+					dtFacturas.add(dtFactura);
+				}
+				resAlojHab.setFacturas(dtFacturas);
 				
 				resAlojHabs.add(resAlojHab);
 			}
@@ -705,7 +723,7 @@ public class ControladorReserva {
 		try {
 			Optional usrOpt = repoU.findById(filtro.getIdHu() );
 			if(!usrOpt.isPresent() || !( usrOpt.get() instanceof Huesped ) ) {
-				msjError = "No se encontraron reservas.";
+				msjError = "No existe un usuario con los datos ingresados.";
 				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 			}
 			if(filtro.getResEstado()== null || filtro.getResEstado().isEmpty()) {
@@ -762,6 +780,11 @@ public class ControladorReserva {
 				resAlojHab.setFacturas(dtFacturas);
 				
 				resAlojHabs.add(resAlojHab);
+			}
+			
+			if(resAlojHabs == null || resAlojHabs.size()==0) {
+				msjError = "No se encontraron reservas.";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 			}
 			
 			return new ResponseEntity<>( resAlojHabs , HttpStatus.OK );
@@ -930,6 +953,35 @@ public class ControladorReserva {
 			}
 		}
 		return retorno;
+	}
+	
+	private void enviarNotificación( int idUsuario, String titulo, String mensaje) {
+		FirebaseNotificationAdmin fireAdmin = new FirebaseNotificationAdmin();
+		MailSender mailSender = new MailSender();
+		
+		Optional<Usuario> optU = repoU.findById(idUsuario);
+		List<String> pushTokens = null;
+		
+
+
+		if( optU.isPresent() ) {
+			Mensaje msj = new Mensaje(
+					"AMQ",
+					optU.get().getEmail(),
+					titulo,
+					mensaje
+				);
+			try {
+				mailSender.enviarMail(msj);
+			}
+			catch(Exception e) {
+				System.out.println( "Se produjo el siguiente error al enviar un mail: " +e.getMessage() );
+			}
+			
+			if( optU.get() instanceof Huesped ){
+//				fireAdmin
+			}
+		}
 	}
 	
 }
