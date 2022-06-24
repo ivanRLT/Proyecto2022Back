@@ -276,7 +276,7 @@ public class ControladorReserva {
 				String mensaje = "Hola, \n"
 						+ "Le informamos que la reserva identificada con el código "+String.valueOf(idReserva)
 						+ " fué confirmada. \n\n "
-						+ " <a href='https://whatsapp.com'>Whatsapp</a> \\n "
+						+ " <a href='https://whatsapp.com'>Whatsapp</a> \n "
 						+ "Atte. \n"
 						+ "AMQ.";
 				
@@ -296,12 +296,14 @@ public class ControladorReserva {
 	
 	@CrossOrigin(origins = "*")
 	@RequestMapping(value = "/confirmarPagoRealizado/{idfactura}", method = { RequestMethod.POST })	
-	public ResponseEntity<?> confirmarPagoRealizado(@PathVariable("idfactura") int idfactura){
+	public ResponseEntity<?> confirmarPagoRealizado(@PathVariable("idfactura") int idfactura, @RequestBody DtFactura dtFactura){
 		try {
 			Optional<Factura> facturaOP = repoF.findById(idfactura);
 			if (facturaOP.isPresent()) {
 				Factura factura = facturaOP.get();
 				factura.setEstado(PagoEstado.REALIZADO);
+				factura.setIdPaypal(dtFactura.getIdPaypal());
+				repoF.save(factura);
 				
 				
 				Integer idAnf = repoF.findIdAnfitrionFactura(factura.getId());
