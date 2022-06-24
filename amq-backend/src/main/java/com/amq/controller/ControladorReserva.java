@@ -295,10 +295,10 @@ public class ControladorReserva {
 	}
 	
 	@CrossOrigin(origins = "*")
-	@RequestMapping(value = "/confirmarPagoRealizado/{idfactura}", method = { RequestMethod.POST })	
-	public ResponseEntity<?> confirmarPagoRealizado(@PathVariable("idfactura") int idfactura, @RequestBody DtFactura dtFactura){
+	@RequestMapping(value = "/confirmarPagoRealizado", method = { RequestMethod.POST })	
+	public ResponseEntity<?> confirmarPagoRealizado( @RequestBody DtFactura dtFactura){
 		try {
-			Optional<Factura> facturaOP = repoF.findById(idfactura);
+			Optional<Factura> facturaOP = repoF.findById(dtFactura.getIdFactura());
 			if (facturaOP.isPresent()) {
 				Factura factura = facturaOP.get();
 				factura.setEstado(PagoEstado.REALIZADO);
