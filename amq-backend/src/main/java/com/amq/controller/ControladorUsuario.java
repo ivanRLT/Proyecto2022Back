@@ -461,10 +461,8 @@ public class ControladorUsuario {
 				Huesped uH = (Huesped) user;
 				dtUser = new DtHuesped(user.getId(), user.getEmail(), user.getNombre(),
 						user.getApellido(), user.getActivo(), 
-<<<<<<< HEAD
+
 						uH.getCalificacionGlobal(),uH.getPushTokens(), "Hu", null, jwToken, uH.getTelefono() );
-=======
-						uH.getCalificacionGlobal(),uH.getPushTokens(), "Hu", null, jwToken);
 
 				
 				List<String> pushToks = uH.getPushTokens();
@@ -479,7 +477,7 @@ public class ControladorUsuario {
 					repoU.save( uH );
 				};
 				
->>>>>>> branch 'main' of https://github.com/ivanRLT/Proyecto2022Back.git
+
 			}
 			
 			return new ResponseEntity<>(dtUser, HttpStatus.OK);
