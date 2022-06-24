@@ -189,8 +189,8 @@ public class ControladorReserva {
 		}
 	}
 
-	@RequestMapping(value = "/confirmar/{idreserva}", method = { RequestMethod.POST })	
-	public ResponseEntity<?> confirmarReserva(@PathVariable("idreserva") int idReserva, @RequestBody DtFactura facturadt){
+	@RequestMapping(value = "/confirmar/{idreserva}", method = { RequestMethod.GET })	
+	public ResponseEntity<?> confirmarReserva(@PathVariable("idreserva") int idReserva/*, @RequestBody DtFactura facturadt*/){
 		try {
 			Optional<Reserva> resOP = repoR.findById(idReserva);
 			if (resOP.isPresent()) {
@@ -254,7 +254,7 @@ public class ControladorReserva {
 					}
 				}
 				reservaC.setEstado(ReservaEstado.APROBADO);
-				List<Factura> facturas = reservaC.getFacturas();
+/*				List<Factura> facturas = reservaC.getFacturas();
 				Factura factura = new Factura(
 						-1, 
 						facturadt.getMonto()!=null ? facturadt.getMonto() : 0, 
@@ -267,22 +267,23 @@ public class ControladorReserva {
 					);
 				
 				reservaC.getFacturas().add(factura);
-				
+*/				
 				repoR.save(reservaC);
 				
-				Integer idAnf = repoF.findIdAnfitrionFactura(factura.getId());
-				Integer idHu = repoF.findIdHuespedFactura(factura.getId());
+				Integer idAnf = repoR.findIdAnfitrionReserva(idReserva);
+				Integer idHu = repoR.findIdHuespedReserva(idReserva);
 				
 				String mensaje = "Hola, \n"
 						+ "Le informamos que la reserva identificada con el código "+String.valueOf(idReserva)
 						+ " fué confirmada. \n\n "
+						+ " <a href='https://whatsapp.com'>Whatsapp</a> \n "
 						+ "Atte. \n"
 						+ "AMQ.";
 				
-				enviarNotificación(idAnf, "Reserva cancelada", mensaje );
-				enviarNotificación(idHu, "Reserva cancelada", mensaje );
+				enviarNotificación(idAnf, "Reserva confirmada", mensaje );
+				enviarNotificación(idHu, "Reserva confirmada", mensaje );
 				
-				return new ResponseEntity<>(factura, HttpStatus.OK);
+				return new ResponseEntity<>( HttpStatus.OK);
 			} else {
 				msjError = "No existe una reserva con los datos ingresados.";
 				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_ACCEPTABLE);
@@ -293,15 +294,17 @@ public class ControladorReserva {
 		}
 	}
 	
-	@RequestMapping(value = "/confirmarPagoRealizado/{idfactura}", method = { RequestMethod.POST })	
-	public ResponseEntity<?> confirmarPagoRealizado(@PathVariable("idfactura") int idfactura){
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value = "/confirmarPagoRealizado", method = { RequestMethod.POST })	
+	public ResponseEntity<?> confirmarPagoRealizado( @RequestBody DtFactura dtFactura){
 		try {
-			Optional<Factura> facturaOP = repoF.findById(idfactura);
+			Optional<Factura> facturaOP = repoF.findById(dtFactura.getIdFactura());
 			if (facturaOP.isPresent()) {
 				Factura factura = facturaOP.get();
 				factura.setEstado(PagoEstado.REALIZADO);
+				factura.setIdPaypal(dtFactura.getIdPaypal());
+				repoF.save(factura);
 				
-				msjError = "No existe una reserva con los datos ingresados.";
 				
 				Integer idAnf = repoF.findIdAnfitrionFactura(factura.getId());
 				Integer idHu = repoF.findIdHuespedFactura(factura.getId());
@@ -312,10 +315,10 @@ public class ControladorReserva {
 						+ "Atte. \n"
 						+ "AMQ.";
 				
-				enviarNotificación(idAnf, "Reserva cancelada", mensaje );
-				enviarNotificación(idHu, "Reserva cancelada", mensaje );
+				enviarNotificación(idAnf, "Pago confirmado", mensaje );
+				enviarNotificación(idHu, "Pago confirmado", mensaje );
 				
-				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_ACCEPTABLE);
+				return new ResponseEntity<>( factura, HttpStatus.OK);
 			}else {
 				
 				msjError = "No existe una factura con los datos ingresados.";
@@ -524,7 +527,7 @@ public class ControladorReserva {
 			double monto = hab.getPrecioNoche() * reserva.getCantDias();
 			factura.setDescuento( dtAltaRes.getTieneDescuento() );
 			
-			if (dtAltaRes.getTieneDescuento() == true ) {
+			if (dtAltaRes.getTieneDescuento() != null && dtAltaRes.getTieneDescuento() ) {
 				factura.setDescuento(true);
 				factura.setMontoDescuento(dtAltaRes.getDescuento());
 				factura.setMonto(monto - dtAltaRes.getDescuento());
@@ -545,6 +548,17 @@ public class ControladorReserva {
 			repoU.save(huesped);
 			repoH.save(hab);
 			
+			Integer idAnf = repoR.findIdAnfitrionReserva(reserva.getId());
+			Integer idHu = repoR.findIdHuespedReserva(reserva.getId());
+			
+			String mensaje = "Hola, \n"
+					+ "Le informamos que ha creado una solicitud de reserva con número "+String.valueOf(reserva.getId())
+					+ ". \n\n "
+					+ "Atte. \n"
+					+ "AMQ.";
+			
+			enviarNotificación(idAnf, "Solicitud de reserva", mensaje );
+			enviarNotificación(idHu, "Solicitud de reserva", mensaje );
 			
 
 			return new ResponseEntity<>(reserva, HttpStatus.OK);
@@ -982,7 +996,7 @@ public class ControladorReserva {
 	}
 	
 	private void enviarNotificación( int idUsuario, String titulo, String mensaje) {
-		FirebaseNotificationAdmin fireAdmin = new FirebaseNotificationAdmin();
+		FirebaseNotificationAdmin fireAdmin = FirebaseNotificationAdmin.getInstancia();
 		MailSender mailSender = new MailSender();
 		
 		Optional<Usuario> optU = repoU.findById(idUsuario);
@@ -994,8 +1008,8 @@ public class ControladorReserva {
 			Mensaje msj = new Mensaje(
 					"AMQ",
 					optU.get().getEmail(),
-					titulo,
-					mensaje
+					mensaje,
+					titulo
 				);
 			try {
 				mailSender.enviarMail(msj);
@@ -1010,8 +1024,8 @@ public class ControladorReserva {
 				){
 				pushTokens = ((Huesped)optU.get()).getPushTokens();
 				Notification not  = Notification.builder()
-						.setTitle("titulo notif")
-						.setBody("body notif")
+						.setTitle(titulo)
+						.setBody(mensaje)
 						.build();
 				try {
 					fireAdmin.sendNotification(not, pushTokens);

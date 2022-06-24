@@ -16,16 +16,33 @@ import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
 
 public class FirebaseNotificationAdmin {
+	private static FirebaseNotificationAdmin  _instancia =null;
+	
+	private FirebaseOptions options=null;
+	private FirebaseApp firebaseApp=null;
+	private FirebaseMessaging firebaseMessaging=null;
+	
+	public static FirebaseNotificationAdmin getInstancia() {
+		if(_instancia==null) {
+			_instancia = new FirebaseNotificationAdmin();
+		}
+		return _instancia;
+	}
+	
+	private FirebaseNotificationAdmin() {}
 	
 	public void sendNotification(Notification notification,List<String> tokens) throws Exception {
 		try {
-			FirebaseOptions options = FirebaseOptions.builder()
+			if(options==null) {
+				options = FirebaseOptions.builder()
 				    .setCredentials(
 				    	GoogleCredentials.fromStream( new FileInputStream("src/main/resources/static/otas-256c6-firebase-adminsdk-98avn-261a1ed50a.json") )
 				    ).build();
+				firebaseApp= FirebaseApp.initializeApp(options);
+				firebaseMessaging =  FirebaseMessaging.getInstance(firebaseApp);
+			}
 	
-			FirebaseApp firebaseApp= FirebaseApp.initializeApp(options);
-			FirebaseMessaging firebaseMessaging =  FirebaseMessaging.getInstance(firebaseApp);
+			
 			
 			Map<String, String> map = new HashMap<String, String>();
 			
