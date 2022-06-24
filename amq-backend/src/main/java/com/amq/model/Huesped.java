@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -24,6 +25,7 @@ public class Huesped extends Usuario implements Serializable {
 	
 	private Boolean bloqueado;
 	
+
 	@ElementCollection
 	private List<String> pushTokens = new ArrayList<String>();
 	

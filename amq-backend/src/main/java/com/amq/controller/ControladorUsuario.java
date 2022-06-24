@@ -14,6 +14,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +42,7 @@ import com.amq.datatypes.DtFecha;
 import com.amq.datatypes.DtFiltrosUsuario;
 import com.amq.datatypes.DtHabitacion;
 import com.amq.datatypes.DtHuesped;
+import com.amq.datatypes.DtLogin;
 import com.amq.datatypes.DtPassword;
 import com.amq.datatypes.DtReserva;
 import com.amq.datatypes.DtResetEmail;
@@ -430,11 +432,11 @@ public class ControladorUsuario {
 	
 	@CrossOrigin(origins = "*")
 	@RequestMapping(value = "/login", method = { RequestMethod.POST })
-	public ResponseEntity<?> iniciarSesion(@RequestBody DtUsuario dtMailPass) {
+	public ResponseEntity<?> iniciarSesion(@RequestBody DtLogin dtLogin) {
 		Usuario user;
 		DtUsuario dtUser = new DtUsuario();
-		String email = dtMailPass.getEmail();
-		String pass = dtMailPass.getPass();
+		String email = dtLogin.getEmail();
+		String pass = dtLogin.getPass();
 		String msjError="";
 		
 		try {
@@ -460,6 +462,20 @@ public class ControladorUsuario {
 				dtUser = new DtHuesped(user.getId(), user.getEmail(), user.getNombre(),
 						user.getApellido(), user.getActivo(), 
 						uH.getCalificacionGlobal(),uH.getPushTokens(), "Hu", null, jwToken);
+
+				
+				List<String> pushToks = uH.getPushTokens();
+				Boolean existeToken = false;
+				for(String push : pushToks) {
+					if( push.equals(dtLogin.getPushToken()) ) {
+						existeToken = true;
+					}
+				}
+				if( !existeToken ) {
+					uH.getPushTokens().add(dtLogin.getPushToken());
+					repoU.save( uH );
+				};
+				
 			}
 			
 			return new ResponseEntity<>(dtUser, HttpStatus.OK);

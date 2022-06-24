@@ -527,7 +527,7 @@ public class ControladorReserva {
 			double monto = hab.getPrecioNoche() * reserva.getCantDias();
 			factura.setDescuento( dtAltaRes.getTieneDescuento() );
 			
-			if (dtAltaRes.getTieneDescuento() == true ) {
+			if (dtAltaRes.getTieneDescuento() != null && dtAltaRes.getTieneDescuento() ) {
 				factura.setDescuento(true);
 				factura.setMontoDescuento(dtAltaRes.getDescuento());
 				factura.setMonto(monto - dtAltaRes.getDescuento());
@@ -548,6 +548,17 @@ public class ControladorReserva {
 			repoU.save(huesped);
 			repoH.save(hab);
 			
+			Integer idAnf = repoR.findIdAnfitrionReserva(reserva.getId());
+			Integer idHu = repoR.findIdHuespedReserva(reserva.getId());
+			
+			String mensaje = "Hola, \n"
+					+ "Le informamos que ha creado una solicitud de reserva con número "+String.valueOf(reserva.getId())
+					+ ". \n\n "
+					+ "Atte. \n"
+					+ "AMQ.";
+			
+			enviarNotificación(idAnf, "Solicitud de reserva", mensaje );
+			enviarNotificación(idHu, "Solicitud de reserva", mensaje );
 			
 
 			return new ResponseEntity<>(reserva, HttpStatus.OK);
@@ -985,7 +996,7 @@ public class ControladorReserva {
 	}
 	
 	private void enviarNotificación( int idUsuario, String titulo, String mensaje) {
-		FirebaseNotificationAdmin fireAdmin = new FirebaseNotificationAdmin();
+		FirebaseNotificationAdmin fireAdmin = FirebaseNotificationAdmin.getInstancia();
 		MailSender mailSender = new MailSender();
 		
 		Optional<Usuario> optU = repoU.findById(idUsuario);
@@ -997,8 +1008,8 @@ public class ControladorReserva {
 			Mensaje msj = new Mensaje(
 					"AMQ",
 					optU.get().getEmail(),
-					titulo,
-					mensaje
+					mensaje,
+					titulo
 				);
 			try {
 				mailSender.enviarMail(msj);
@@ -1013,8 +1024,8 @@ public class ControladorReserva {
 				){
 				pushTokens = ((Huesped)optU.get()).getPushTokens();
 				Notification not  = Notification.builder()
-						.setTitle("titulo notif")
-						.setBody("body notif")
+						.setTitle(titulo)
+						.setBody(mensaje)
 						.build();
 				try {
 					fireAdmin.sendNotification(not, pushTokens);

@@ -612,16 +612,16 @@ public class ControladorAlojamiento {
 		}
 	}
 	
-	public void enviarNotificacion() {
+	@RequestMapping(value = "/sendPush/{token}", method = { RequestMethod.GET })
+	public void enviarNotificacion( @PathVariable("token") String token ) {
 		try {
-			com.amq.notification.FirebaseNotificationAdmin notAdmin = new FirebaseNotificationAdmin();
+			com.amq.notification.FirebaseNotificationAdmin notAdmin = FirebaseNotificationAdmin.getInstancia();
 			com.google.firebase.messaging.Notification not  = Notification.builder()
 					.setTitle("titulo notif")
 					.setBody("body notif")
 					.build();
 			List<String> tokens = new ArrayList<String>();
-			tokens.add("c-n-W0NzjpoKM0bk8rDhlO:APA91bGHtu3XCYy19Xb126XUODA4vMUT-3IftN0LfdU_V-SJ5PFt86wJ1HJJo6Bzp3rj_FZ60_nwHmib5iZi4t67qyb2Moam1Bikxb0n6nsi5OHEWgxDietHmi2dDXagKV-Ch2s-_PHd");
-			tokens.add("c-n-W0NzjpoKM0bk8rDhlO:APA91bGHtu3XCYy19Xb126XUODA4vMUT-3IftN0LfdU_V-SJ5PFt86wJ1HJJo6Bzp3rj_FZ60_nwHmib5iZi4t67qyb2Moam1Bikxb0n6nsi5OHEWgxDietHmi2dDXagKV-Ch2s-_P3d");
+			tokens.add(token);
 			notAdmin.sendNotification(not, tokens);
 		} catch (Exception e) {
 			// TODO: handle exception
