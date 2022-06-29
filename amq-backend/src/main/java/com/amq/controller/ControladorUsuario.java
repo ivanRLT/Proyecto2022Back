@@ -357,7 +357,7 @@ public class ControladorUsuario {
 					} else if (u instanceof Huesped) {
 						Huesped uh = (Huesped) u;
 						DtHuesped dthuesped = new DtHuesped( u.getId(), uh.getEmail(), uh.getNombre(), uh.getApellido(),
-								uh.getActivo(), uh.getCalificacionGlobal(), uh.getPushTokens(), "Hu", uh.getBloqueado(), null);
+								uh.getActivo(), uh.getCalificacionGlobal(), uh.getPushTokens(), "Hu", uh.getBloqueado(), null, uh.getTelefono());
 						retorno.add(dthuesped);
 					}
 				}
@@ -461,7 +461,8 @@ public class ControladorUsuario {
 				Huesped uH = (Huesped) user;
 				dtUser = new DtHuesped(user.getId(), user.getEmail(), user.getNombre(),
 						user.getApellido(), user.getActivo(), 
-						uH.getCalificacionGlobal(),uH.getPushTokens(), "Hu", null, jwToken);
+
+						uH.getCalificacionGlobal(),uH.getPushTokens(), "Hu", null, jwToken, uH.getTelefono() );
 
 				
 				List<String> pushToks = uH.getPushTokens();
@@ -476,6 +477,7 @@ public class ControladorUsuario {
 					repoU.save( uH );
 				};
 				
+
 			}
 			
 			return new ResponseEntity<>(dtUser, HttpStatus.OK);
@@ -565,7 +567,7 @@ public class ControladorUsuario {
 				Huesped uH = (Huesped) user;
 				dtUser = new DtHuesped(user.getId(), user.getEmail(), user.getNombre(),
 						user.getApellido(), user.getActivo(), 
-						uH.getCalificacionGlobal(),uH.getPushTokens(), "Hu", null, null);
+						uH.getCalificacionGlobal(),uH.getPushTokens(), "Hu", null, null, uH.getTelefono() );
 			}
 			
 			return new ResponseEntity<>(dtUser, HttpStatus.OK);

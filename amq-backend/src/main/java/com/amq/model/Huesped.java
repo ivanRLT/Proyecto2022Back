@@ -32,14 +32,17 @@ public class Huesped extends Usuario implements Serializable {
 	@OneToMany(mappedBy = "huesped",cascade = CascadeType.ALL,orphanRemoval=true)
 	private List<Reserva> reservas = new ArrayList<Reserva>();
 	
+	private Integer telefono;
+	
 	public Huesped() {
 		super();
 	}
-	public Huesped(String email, Boolean activo, String apellido, String nombre, Integer calificacion, List<String> tokens, String pass, Boolean bloqueado) {
+	public Huesped(String email, Boolean activo, String apellido, String nombre, Integer calificacion, List<String> tokens, String pass, Boolean bloqueado, Integer telefono) {
 		super(email, activo, bloqueado, apellido, nombre, pass);
 		this.calificacionGlobal = calificacion;
 		this.pushTokens = tokens;
 		this.bloqueado = bloqueado;
+		this.telefono = telefono;
 	}
 	public Integer getCalificacionGlobal() {
 		return calificacionGlobal;
@@ -71,6 +74,13 @@ public class Huesped extends Usuario implements Serializable {
 	public void setBloqueado(Boolean bloqueado) {
 		this.bloqueado = bloqueado;
 	}
+	public Integer getTelefono() {
+		return telefono;
+	}
+	public void setTelefono(Integer telefono) {
+		this.telefono = telefono;
+	}
+	
 	
 	
 }
