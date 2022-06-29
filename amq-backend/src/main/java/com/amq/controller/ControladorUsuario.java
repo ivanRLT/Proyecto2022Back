@@ -336,7 +336,7 @@ public class ControladorUsuario {
 	}
 	
 	@RequestMapping(value = "/listar", method = { RequestMethod.POST })
-	//@PreAuthorize("hasRole('ROLE_AD')")
+	@PreAuthorize("hasRole('ROLE_AD')")
 	public ResponseEntity<?> listarUsuarios(@RequestBody DtFiltrosUsuario filtros) {
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 		List<DtUsuario> retorno = new ArrayList<DtUsuario>();
@@ -461,10 +461,7 @@ public class ControladorUsuario {
 				Huesped uH = (Huesped) user;
 				dtUser = new DtHuesped(user.getId(), user.getEmail(), user.getNombre(),
 						user.getApellido(), user.getActivo(), 
-<<<<<<< HEAD
 						uH.getCalificacionGlobal(),uH.getPushTokens(), "Hu", null, jwToken, uH.getTelefono() );
-=======
-						uH.getCalificacionGlobal(),uH.getPushTokens(), "Hu", null, jwToken);
 
 				
 				List<String> pushToks = uH.getPushTokens();
@@ -479,7 +476,6 @@ public class ControladorUsuario {
 					repoU.save( uH );
 				};
 				
->>>>>>> branch 'main' of https://github.com/ivanRLT/Proyecto2022Back.git
 			}
 			
 			return new ResponseEntity<>(dtUser, HttpStatus.OK);
@@ -542,6 +538,7 @@ public class ControladorUsuario {
 		}
 	}
 	
+	@PreAuthorize("hasRole('ROLE_HU')")
 	@RequestMapping(value = "/buscar/{id}", method = { RequestMethod.POST })
 	public ResponseEntity<?> buscarUsuario( @PathVariable("id") int id ) {
 		Usuario user;
