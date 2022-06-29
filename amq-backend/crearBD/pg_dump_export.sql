@@ -39,6 +39,8 @@ ALTER TABLE ONLY public.dt_pais DROP CONSTRAINT dt_pais_pkey;
 ALTER TABLE ONLY public.dt_direccion DROP CONSTRAINT dt_direccion_pkey;
 ALTER TABLE ONLY public.calificaciones DROP CONSTRAINT calificaciones_pkey;
 ALTER TABLE ONLY public.alojamientos DROP CONSTRAINT alojamientos_pkey;
+SELECT pg_catalog.lo_unlink('59407');
+SELECT pg_catalog.lo_unlink('59406');
 ALTER TABLE public.usuarios ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE public.reservas ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE public.recuperaciones ALTER COLUMN id DROP DEFAULT;
@@ -83,7 +85,7 @@ SET default_with_oids = false;
 CREATE TABLE public.alojamientos (
     id integer NOT NULL,
     activo boolean,
-    descripcion character varying(255),
+    descripcion text,
     nombre character varying(255),
     anfitrion_id integer,
     alojamiento_dir integer
@@ -569,6 +571,24 @@ ALTER TABLE ONLY public.usuarios ALTER COLUMN id SET DEFAULT nextval('public.usu
 
 
 --
+-- Name: 59406; Type: BLOB; Schema: -; Owner: postgres
+--
+
+SELECT pg_catalog.lo_create('59406');
+
+
+ALTER LARGE OBJECT 59406 OWNER TO postgres;
+
+--
+-- Name: 59407; Type: BLOB; Schema: -; Owner: postgres
+--
+
+SELECT pg_catalog.lo_create('59407');
+
+
+ALTER LARGE OBJECT 59407 OWNER TO postgres;
+
+--
 -- Data for Name: alojamientos; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -601,6 +621,21 @@ INSERT INTO public.alojamientos VALUES (24, false, 'desc_ 10044_ 1001', 'nombreA
 INSERT INTO public.alojamientos VALUES (26, true, 'desc_ 10047_ 1000', 'nombreAloj_ 10047_ 1000', 10028, 10026);
 INSERT INTO public.alojamientos VALUES (28, true, 'desc_ 10049_ 1000', 'nombreAloj_ 10049_ 1000', 10028, 10028);
 INSERT INTO public.alojamientos VALUES (19, true, 'desc aloji 19', 'nom alji 19', 10028, 10019);
+INSERT INTO public.alojamientos VALUES (801, true, 'Este hotel de San Francisco está situado en la plaza Union Square, a 5 minutos a pie de la línea de tranvía Powell Street. Tiene piscina al aire libre y ofrece habitaciones con conexión para MP3.', 'Handlery Union Square Hotel', 15015, 801);
+INSERT INTO public.alojamientos VALUES (802, true, 'Este alojamiento está a 1 minuto a pie de la playa. Este establecimiento se encuentra frente a la playa, en el corazón de Fort Myers Beach, y ofrece alojamientos tipo apartamento de 1 dormitorio con zona de cocina. En el resort hay WiFi gratuita y aparcamiento gratuito.', 'The Neptune Resort', 15015, 802);
+INSERT INTO public.alojamientos VALUES (803, true, 'Este hotel de suites se encuentra a 3 minutos en coche del Walt Disney World Resort. Ofrece una piscina exterior climatizada y desayuno gratuito. Se ofrece un servicio de traslado a Walt Disney World en un horario programado.', 'Buena Vista Suites Orlando', 15015, 803);
+INSERT INTO public.alojamientos VALUES (804, true, 'El Riu Plaza Manhattan Times Square se encuentra en Nueva York, a 300 metros de Times Square, y ofrece registros de entrada y salida exprés, habitaciones para no fumadores, restaurante, WiFi gratuita en todas las instalaciones y bar. Este hotel de 4 estrellas ofrece servicio de conserjería y consigna de equipaje. Además, hay recepción 24 horas, centro de negocios y servicio de organización de excursiones.', 'Riu Plaza Manhattan Times Square', 15015, 804);
+INSERT INTO public.alojamientos VALUES (805, true, 'Este hotel está ubicado en Manhattan, junto a la estación Grand Central Terminal, y alberga un sitio para comer y un centro de fitness StayFit (abierto todos los días, las 24 horas). Las habitaciones incluyen TV de pantalla plana y soporte para iPod.', 'Hyatt Grand Central New York', 15015, 805);
+INSERT INTO public.alojamientos VALUES (806, true, 'El Au Manoir d''Anniviers está rodeado de montañas y viñedos y se encuentra en la histórica localidad de Vissoie, a 17 km de Sierre. Las habitaciones disponen de conexión Wi-Fi gratuita y balcón con vistas a los Alpes del Valais.', 'Au Manoir d''Anniviers', 15020, 806);
+INSERT INTO public.alojamientos VALUES (807, true, 'El Hotel de l''Ours Preles se encuentra en Prêles y ofrece restaurante, bar, salón compartido y jardín. Ofrece habitaciones familiares y terraza. Hay servicio de habitaciones, cajero automático y servicio de organización de excursiones.', 'Hotel de l’Ours Preles', 15020, 807);
+INSERT INTO public.alojamientos VALUES (808, true, 'El Hotel Royal Zurich está situado a solo 2 paradas de tranvía y a 5 minutos a pie de la estación principal de trenes de Zúrich y de la zona comercial Bahnhofstrasse, y ofrece aparcamiento en garaje privado por un suplemento y conexión WiFi de alta velocidad gratuita.', 'Royal Hotel Zurich', 15020, 808);
+INSERT INTO public.alojamientos VALUES (809, true, 'El Hotel Harder Minerva está situado en el centro de Interlaken, en una calle lateral tranquila y a solo 50 metros de la calle principal. Ofrece habitaciones modernas con aire acondicionado, instalaciones de primera categoría y un apartamento con balcón, chimenea y conexión Wi-Fi gratuita.', 'Hotel Harder Minerva', 15020, 809);
+INSERT INTO public.alojamientos VALUES (810, true, 'Este alojamiento está a 11 minutos a pie de la playa. Situado a 100 metros de la estación de tren de Lucerna y a 200 metros del muelle, del famoso Kapellbrücke (Puente de la Capilla) y del lago, el Waldstätterhof Hotel goza de una céntrica ubicación.', 'Waldstätterhof Swiss Quality Hotel', 15020, 810);
+INSERT INTO public.alojamientos VALUES (811, true, 'La Bastide Du Bois Breant se encuentra en Maubec y cuenta con restaurante, piscina al aire libre de temporada, bar y salón compartido. El hotel de 3 estrellas cuenta con jardín y habitaciones con aire acondicionado, WiFi gratuita y baño privado. El hotel ofrece aparcamiento privado gratuito y servicio de alquiler de coches.', 'La Bastide Du Bois Breant', 15021, 811);
+INSERT INTO public.alojamientos VALUES (812, true, 'El Flat CHamps Élysées está situado en París, a 700 metros del Arco del Triunfo y a 1,6 km del Museo de la Orangerie y de la Torre Eiffel. El establecimiento se encuentra a 2 km del Museo de Orsay y de la ópera Garnier.', 'Flat CHamps Élysées', 15022, 812);
+INSERT INTO public.alojamientos VALUES (813, true, 'El Hôtel Axotel Lyon está situado en el barrio de la Presqu’île de Lyon, a 6 minutos a pie de la estación de tren y metro de Perrache. El establecimiento alberga un restaurante tradicional, un jardín y terraza con sombra. Ofrece WiFi gratuita en todas sus instalaciones.', 'Hôtel Axotel Lyon', 15023, 813);
+INSERT INTO public.alojamientos VALUES (814, true, 'El Ibis Marseille Centre está situado en el distrito 6 de Marsella y ofrece WiFi gratis y recepción 24 horas. El puerto viejo está a 12 minutos a pie y el estadio Vélodrome, a 3 km.', 'Ibis Marseille Centre', 15024, 814);
+INSERT INTO public.alojamientos VALUES (815, true, 'El Pullman Montpellier Centre, situado en el centro histórico de Montpellier, a 500 metros de la Place de la Comédie y al lado del centro comercial Polygone, cuenta con piscina exterior en la azota, abierta todo el año y climatizada de abril a octubre. Tiene WiFi gratuita en todas las zonas. El hotel está a menos de 20 km de las playas de Palavas-les-Flots y La Grande Motte.', 'Pullman Montpellier Centre', 15025, 815);
 
 
 --
@@ -681,6 +716,21 @@ INSERT INTO public.dt_direccion VALUES (10019, 'calle aloj 19', 'ciaaaudad loj',
 INSERT INTO public.dt_direccion VALUES (2, 'calle 15014', 'citutut', '1234 15014', 8);
 INSERT INTO public.dt_direccion VALUES (10021, 'calle_dir$', 'ciudad 1000', ' 1001', 3);
 INSERT INTO public.dt_direccion VALUES (10011, 'calle_dir$', 'ciudad 1002', ' 1001', 3);
+INSERT INTO public.dt_direccion VALUES (801, ' Geary Street', 'San Francisco', '351', 58);
+INSERT INTO public.dt_direccion VALUES (802, 'Estero Boulevard', 'Miami', '2310', 58);
+INSERT INTO public.dt_direccion VALUES (803, 'World Center Drive, Lago Buena Vista', 'Orlando', '2310', 58);
+INSERT INTO public.dt_direccion VALUES (804, 'West 47th Street', 'New York', '145', 58);
+INSERT INTO public.dt_direccion VALUES (805, 'East 42nd Street', 'New York', '109', 58);
+INSERT INTO public.dt_direccion VALUES (806, 'Route de Sierre 20', 'Berna', '3961', 176);
+INSERT INTO public.dt_direccion VALUES (807, '6 La Chaîne, 2515 Prêles', 'Interlaken', '215', 176);
+INSERT INTO public.dt_direccion VALUES (808, 'Leonhardstrasse 6, 1.', 'Zurich', '143', 176);
+INSERT INTO public.dt_direccion VALUES (809, 'Harderstr. 15, 3800', 'Interlaken', '1400', 176);
+INSERT INTO public.dt_direccion VALUES (810, 'Zentralstrasse 4', 'Lucerna', '6003', 176);
+INSERT INTO public.dt_direccion VALUES (811, '501 chemin du puits du grandaou', 'Niza', '84660', 66);
+INSERT INTO public.dt_direccion VALUES (812, '78 Avenue des Champs-Élysées, Campos Elíseos', 'Paris', '75008', 66);
+INSERT INTO public.dt_direccion VALUES (813, '12 rue Marc Antoine Petit', 'Lyon', '69002', 66);
+INSERT INTO public.dt_direccion VALUES (814, '13 Rue Lafon, Castellane et Préfecture', 'Marsella', '13006', 66);
+INSERT INTO public.dt_direccion VALUES (815, '1, rue des Pertuisanes', 'Montpellier', '34000', 66);
 
 
 --
@@ -921,6 +971,28 @@ INSERT INTO public.dt_servicios VALUES (128, false, true, false, false, true, fa
 INSERT INTO public.dt_servicios VALUES (1, true, true, true, true, true, true);
 INSERT INTO public.dt_servicios VALUES (2, true, true, true, true, true, true);
 INSERT INTO public.dt_servicios VALUES (3, true, true, true, true, true, true);
+INSERT INTO public.dt_servicios VALUES (901, false, true, true, false, true, true);
+INSERT INTO public.dt_servicios VALUES (902, true, true, false, false, false, true);
+INSERT INTO public.dt_servicios VALUES (903, false, true, false, false, true, true);
+INSERT INTO public.dt_servicios VALUES (904, true, false, false, true, true, false);
+INSERT INTO public.dt_servicios VALUES (905, true, false, true, false, true, true);
+INSERT INTO public.dt_servicios VALUES (906, false, true, true, true, false, false);
+INSERT INTO public.dt_servicios VALUES (907, true, true, true, false, false, true);
+INSERT INTO public.dt_servicios VALUES (908, false, false, false, false, false, false);
+INSERT INTO public.dt_servicios VALUES (909, true, false, false, false, true, true);
+INSERT INTO public.dt_servicios VALUES (910, true, true, true, true, true, false);
+INSERT INTO public.dt_servicios VALUES (911, true, false, false, false, true, false);
+INSERT INTO public.dt_servicios VALUES (912, true, true, false, true, false, true);
+INSERT INTO public.dt_servicios VALUES (913, true, false, true, true, true, false);
+INSERT INTO public.dt_servicios VALUES (914, false, true, true, false, true, false);
+INSERT INTO public.dt_servicios VALUES (915, false, false, false, false, true, true);
+INSERT INTO public.dt_servicios VALUES (916, true, false, true, false, true, false);
+INSERT INTO public.dt_servicios VALUES (917, true, false, true, true, true, false);
+INSERT INTO public.dt_servicios VALUES (918, false, true, false, false, true, false);
+INSERT INTO public.dt_servicios VALUES (919, false, false, false, true, true, true);
+INSERT INTO public.dt_servicios VALUES (920, false, false, true, true, true, true);
+INSERT INTO public.dt_servicios VALUES (921, true, false, true, true, true, false);
+INSERT INTO public.dt_servicios VALUES (922, false, true, true, true, false, true);
 
 
 --
@@ -937,8 +1009,37 @@ INSERT INTO public.facturas VALUES (8, true, 'REALIZADO', '2021-10-31 00:00:00.7
 INSERT INTO public.facturas VALUES (9, true, 'PENDIENTE', '0022-12-13 00:00:00.04', 'sss  tring', 4150, 50, 2);
 INSERT INTO public.facturas VALUES (10, true, 'PENDIENTE', '0022-12-13 00:00:00.485', 'sdd asd ppal tring', 5740, 10, 3);
 INSERT INTO public.facturas VALUES (11, true, 'PENDIENTE', '0022-12-13 00:00:00.387', 'sdd asd ppal tring', 5740, 10, 4);
-INSERT INTO public.facturas VALUES (12, true, 'PENDIENTE', '0022-12-13 00:00:00.416', 'sdd asd ppal tring', 5490, 10, 5);
+INSERT INTO public.facturas VALUES (17, false, 'PENDIENTE', '2022-06-22 00:00:00.059', '6BX62214246359808', 0, 0, 10);
 INSERT INTO public.facturas VALUES (13, true, 'PENDIENTE', '2022-06-17 00:00:00.185', 'sdd asd ppal tring', 5490, 10, 6);
+INSERT INTO public.facturas VALUES (18, false, 'PENDIENTE', '2022-06-22 00:00:00.103', '5UK37213DL1173429', 0, 0, 11);
+INSERT INTO public.facturas VALUES (19, false, 'PENDIENTE', '2022-06-22 00:00:00.987', '5XD02769W06097509', 1500, 0, 12);
+INSERT INTO public.facturas VALUES (20, false, 'PENDIENTE', '2022-06-22 00:00:00.241', '4BU71164BT341122B', 1150, 0, 13);
+INSERT INTO public.facturas VALUES (12, true, 'REALIZADO', '0022-12-13 00:00:00.416', 'straaaaaaasdfing', 5490, 10, 5);
+INSERT INTO public.facturas VALUES (27, false, 'PENDIENTE', '2022-06-24 00:00:00.981', '64M9548338950244S', 0, 0, 20);
+INSERT INTO public.facturas VALUES (28, false, 'PENDIENTE', '2022-06-24 00:00:00.845', '8DK68489YN6027710', 0, 0, 21);
+INSERT INTO public.facturas VALUES (29, false, 'PENDIENTE', '2022-06-24 00:00:00.622', '61J18735N39248831', 0, 0, 22);
+INSERT INTO public.facturas VALUES (30, false, 'PENDIENTE', '2022-06-24 00:00:00.077', '7R645330AA4223136', 0, 0, 23);
+INSERT INTO public.facturas VALUES (31, false, 'PENDIENTE', '2022-06-24 00:00:00.421', '7D5278193X7220455', 0, 0, 24);
+INSERT INTO public.facturas VALUES (32, false, 'PENDIENTE', '2022-06-24 00:00:00.047', '59B2023552322314J', 0, 0, 25);
+INSERT INTO public.facturas VALUES (33, false, 'PENDIENTE', '2022-06-24 00:00:00.877', '41169351JL926505P', 0, 0, 26);
+INSERT INTO public.facturas VALUES (34, false, 'PENDIENTE', '2022-06-24 00:00:00.983', '61B02224KD5567831', 0, 0, 27);
+INSERT INTO public.facturas VALUES (35, false, 'PENDIENTE', '2022-06-24 00:00:00.192', '3L285317KK459003E', 0, 0, 28);
+INSERT INTO public.facturas VALUES (36, false, 'PENDIENTE', '2022-06-24 00:00:00.981', '41F09623LX736830U', 0, 0, 29);
+INSERT INTO public.facturas VALUES (37, false, 'PENDIENTE', '2022-06-24 00:00:00.501', '9AF28026GF003924B', 0, 0, 30);
+INSERT INTO public.facturas VALUES (38, false, 'PENDIENTE', '2022-06-24 00:00:00.461', '91U64631G7379232S', 0, 0, 31);
+INSERT INTO public.facturas VALUES (39, false, 'PENDIENTE', '2022-06-24 00:00:00.326', '65V37249LA5790509', 0, 0, 32);
+INSERT INTO public.facturas VALUES (40, false, 'PENDIENTE', '2022-06-26 00:00:00.657', '95927103D2794951A', 0, 0, 33);
+INSERT INTO public.facturas VALUES (41, false, 'PENDIENTE', '2022-06-26 00:00:00.327', '72H694755U747604G', 0, 0, 34);
+INSERT INTO public.facturas VALUES (42, false, 'PENDIENTE', '2022-06-26 00:00:00.355', '3TP48146U2509801D', 1500, 0, 35);
+INSERT INTO public.facturas VALUES (14, false, 'PENDIENTE', '2022-06-22 00:00:00.814', '6VW82844UT2218401', 0, 0, 7);
+INSERT INTO public.facturas VALUES (15, false, 'PENDIENTE', '2022-06-22 00:00:00.463', '0WX57557D62537329', 0, 0, 8);
+INSERT INTO public.facturas VALUES (16, false, 'PENDIENTE', '2022-06-22 00:00:00.797', '3GP62371A81858011', 0, 0, 9);
+INSERT INTO public.facturas VALUES (21, false, 'PENDIENTE', '2022-06-22 00:00:00.846', '60434087LV036723K', 0, 0, 14);
+INSERT INTO public.facturas VALUES (22, false, 'PENDIENTE', '2022-06-22 00:00:00.509', '1Y4634160P4953447', 0, 0, 15);
+INSERT INTO public.facturas VALUES (23, false, 'PENDIENTE', '2022-06-22 00:00:00.475', '2F3293950K384534G', 0, 0, 16);
+INSERT INTO public.facturas VALUES (24, false, 'PENDIENTE', '2022-06-22 00:00:00.389', '6DK84758YR329941D', 0, 0, 17);
+INSERT INTO public.facturas VALUES (25, false, 'PENDIENTE', '2022-06-22 00:00:00.693', '846718198X928630L', 0, 0, 18);
+INSERT INTO public.facturas VALUES (26, false, 'PENDIENTE', '2022-06-22 00:00:00.052', '1JB68049TV944862U', 0, 0, 19);
 
 
 --
@@ -974,12 +1075,39 @@ INSERT INTO public.habitaciones VALUES (127, 2, 'Desc hab 127', 1150, 27, 127);
 INSERT INTO public.habitaciones VALUES (128, 3, 'Desc hab 128', 1150, 28, 128);
 INSERT INTO public.habitaciones VALUES (4, 1, 'desc hab 15014', 330, 201, 3);
 INSERT INTO public.habitaciones VALUES (103, 1, 'Desc hab 103', 1200, 4, 103);
+INSERT INTO public.habitaciones VALUES (901, 2, 'Doble Petite', 340, 802, 901);
+INSERT INTO public.habitaciones VALUES (902, 4, 'Doble ', 190, 804, 902);
+INSERT INTO public.habitaciones VALUES (903, 3, 'Estudio', 140, 803, 903);
+INSERT INTO public.habitaciones VALUES (904, 1, 'Suite', 100, 801, 904);
+INSERT INTO public.habitaciones VALUES (905, 3, 'Suite Doble Deluxe', 470, 803, 905);
+INSERT INTO public.habitaciones VALUES (906, 1, 'Suite Junior', 40, 801, 906);
+INSERT INTO public.habitaciones VALUES (907, 4, 'Doble ', 410, 804, 907);
+INSERT INTO public.habitaciones VALUES (908, 3, 'Suite', 450, 803, 908);
+INSERT INTO public.habitaciones VALUES (909, 3, 'Single', 40, 803, 909);
+INSERT INTO public.habitaciones VALUES (910, 2, 'Doble', 170, 802, 910);
+INSERT INTO public.habitaciones VALUES (911, 3, 'Suite Junior', 460, 803, 911);
+INSERT INTO public.habitaciones VALUES (912, 4, 'Doble', 380, 804, 912);
+INSERT INTO public.habitaciones VALUES (913, 1, 'Triple Clásica', 440, 801, 913);
+INSERT INTO public.habitaciones VALUES (914, 1, 'Single', 370, 801, 914);
+INSERT INTO public.habitaciones VALUES (915, 1, 'Doble', 180, 801, 915);
+INSERT INTO public.habitaciones VALUES (916, 4, 'Triple', 390, 804, 916);
+INSERT INTO public.habitaciones VALUES (917, 1, 'Doble', 20, 801, 917);
+INSERT INTO public.habitaciones VALUES (918, 2, 'Apartamento ', 220, 802, 918);
+INSERT INTO public.habitaciones VALUES (919, 4, 'Doble', 40, 804, 919);
+INSERT INTO public.habitaciones VALUES (920, 1, 'Suite', 80, 801, 920);
+INSERT INTO public.habitaciones VALUES (921, 3, 'Apartamento ', 470, 803, 921);
+INSERT INTO public.habitaciones VALUES (922, 1, 'Loft', 350, 801, 922);
 
 
 --
 -- Data for Name: huesped_push_tokens; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.huesped_push_tokens VALUES (10083, '59406');
+INSERT INTO public.huesped_push_tokens VALUES (10083, '59407');
+INSERT INTO public.huesped_push_tokens VALUES (10083, 'eaeUrSFLSsWLwbDUMqKWxM:APA91bGiB8BzkK3MenPh_LkRJHtmrABqFWcRhKg_-AYioA26Bn8lg7eJpn1LgLsdJ5t9hqVQxpzcUHheW4xKa5KothHDQLGGN5BxvqfkqY3FE0Tr-MAzcp7Bd9k9ssPOSHdj4nxn6Aom');
+INSERT INTO public.huesped_push_tokens VALUES (10083, 'fXi1ntRRSauurOShbFSWT5:APA91bFibXySwlsBNRmrQKl60VQChNpnaJPah67D4k-_EDvX5zjCUTK_9-5dr2QR6Bgj0gwDDrxxdlH8n2XEe8GOV_C4c_BgykSW2CFWRIdvVCKxnMNeHyhBmp8bDgaXiM_-8eCEm6WF');
+INSERT INTO public.huesped_push_tokens VALUES (5, 'eaeUrSFLSsWLwbDUMqKWxM:APA91bGiB8BzkK3MenPh_LkRJHtmrABqFWcRhKg_-AYioA26Bn8lg7eJpn1LgLsdJ5t9hqVQxpzcUHheW4xKa5KothHDQLGGN5BxvqfkqY3FE0Tr-MAzcp7Bd9k9ssPOSHdj4nxn6Aom');
 
 
 --
@@ -1024,8 +1152,13 @@ INSERT INTO public.reservas VALUES (363, 14, 'APROBADO', '2022-05-24 00:00:00', 
 INSERT INTO public.reservas VALUES (365, 1, 'APROBADO', '2022-05-01 00:00:00', '2022-05-01 00:00:00', NULL, 365, 122, 10079);
 INSERT INTO public.reservas VALUES (381, 3, 'APROBADO', '2022-07-13 00:00:00', '2022-07-11 00:00:00', NULL, 381, 109, 10079);
 INSERT INTO public.reservas VALUES (383, 3, 'APROBADO', '2022-07-23 00:00:00', '2022-07-21 00:00:00', NULL, 383, 113, 10074);
+INSERT INTO public.reservas VALUES (31, 0, 'PENDIENTE', '2022-06-28 00:00:00', '2022-06-26 00:00:00', NULL, NULL, 101, 10083);
 INSERT INTO public.reservas VALUES (360, 11, 'EJECUTADA', '2022-05-03 00:00:00', '2022-04-23 00:00:00', NULL, 351, 108, 10053);
+INSERT INTO public.reservas VALUES (32, 0, 'PENDIENTE', '2022-06-30 00:00:00', '2022-06-26 00:00:00', NULL, NULL, 101, 10083);
 INSERT INTO public.reservas VALUES (373, 9, 'EJECUTADA', '2022-06-26 00:00:00', '2022-06-18 00:00:00', NULL, 2, 124, 10091);
+INSERT INTO public.reservas VALUES (33, 0, 'PENDIENTE', '2022-06-30 00:00:00', '2022-06-28 00:00:00', NULL, NULL, 102, 10083);
+INSERT INTO public.reservas VALUES (34, 0, 'PENDIENTE', '2022-06-29 00:00:00', '2022-06-27 00:00:00', NULL, NULL, 113, 10083);
+INSERT INTO public.reservas VALUES (35, 1, 'PENDIENTE', '2022-06-29 00:00:00', '2022-06-28 00:00:00', NULL, NULL, 116, 10083);
 INSERT INTO public.reservas VALUES (356, 7, 'EJECUTADA', '2022-04-05 00:00:00', '2022-03-30 00:00:00', NULL, 351, 108, 10053);
 INSERT INTO public.reservas VALUES (369, 5, 'EJECUTADA', '2022-05-29 00:00:00', '2022-05-25 00:00:00', NULL, 369, 111, 10053);
 INSERT INTO public.reservas VALUES (379, 3, 'EJECUTADA', '2022-07-03 00:00:00', '2022-07-01 00:00:00', NULL, 379, 124, 10053);
@@ -1040,6 +1173,30 @@ INSERT INTO public.reservas VALUES (3, 5, 'PENDIENTE', '0011-04-14 00:00:00', '0
 INSERT INTO public.reservas VALUES (4, 5, 'PENDIENTE', '2022-10-05 00:00:00', '2022-10-01 00:00:00', NULL, NULL, 110, 10053);
 INSERT INTO public.reservas VALUES (5, 5, 'PENDIENTE', '2022-10-05 00:00:00', '2022-10-01 00:00:00', NULL, NULL, 111, 10053);
 INSERT INTO public.reservas VALUES (6, 5, 'PENDIENTE', '2022-10-05 00:00:00', '2022-10-01 00:00:00', NULL, NULL, 111, 10053);
+INSERT INTO public.reservas VALUES (7, 0, 'PENDIENTE', '2022-06-21 00:00:00', '2022-06-20 00:00:00', NULL, NULL, 113, 10083);
+INSERT INTO public.reservas VALUES (8, 0, 'PENDIENTE', '2022-06-24 00:00:00', '2022-06-19 00:00:00', NULL, NULL, 101, 10083);
+INSERT INTO public.reservas VALUES (9, 0, 'PENDIENTE', '2022-06-23 00:00:00', '2022-06-20 00:00:00', NULL, NULL, 101, 10083);
+INSERT INTO public.reservas VALUES (10, 0, 'PENDIENTE', '2022-06-23 00:00:00', '2022-06-20 00:00:00', NULL, NULL, 104, 10083);
+INSERT INTO public.reservas VALUES (11, 0, 'PENDIENTE', '2022-06-23 00:00:00', '2022-06-20 00:00:00', NULL, NULL, 101, 10083);
+INSERT INTO public.reservas VALUES (12, 3, 'PENDIENTE', '2022-06-23 00:00:00', '2022-06-20 00:00:00', NULL, NULL, 101, 10083);
+INSERT INTO public.reservas VALUES (13, 1, 'PENDIENTE', '2022-06-24 00:00:00', '2022-06-23 00:00:00', NULL, NULL, 118, 10083);
+INSERT INTO public.reservas VALUES (14, 0, 'PENDIENTE', '2022-06-23 00:00:00', '2022-06-13 00:00:00', NULL, NULL, 101, 10083);
+INSERT INTO public.reservas VALUES (15, 0, 'PENDIENTE', '2022-06-25 00:00:00', '2022-06-23 00:00:00', NULL, NULL, 101, 10083);
+INSERT INTO public.reservas VALUES (16, 0, 'PENDIENTE', '2022-06-25 00:00:00', '2022-06-23 00:00:00', NULL, NULL, 113, 10083);
+INSERT INTO public.reservas VALUES (17, 0, 'PENDIENTE', '2022-06-28 00:00:00', '2022-06-23 00:00:00', NULL, NULL, 113, 10083);
+INSERT INTO public.reservas VALUES (18, 0, 'PENDIENTE', '2022-06-29 00:00:00', '2022-06-23 00:00:00', NULL, NULL, 113, 10083);
+INSERT INTO public.reservas VALUES (19, 0, 'PENDIENTE', '2022-06-27 00:00:00', '2022-06-24 00:00:00', NULL, NULL, 104, 10083);
+INSERT INTO public.reservas VALUES (20, 0, 'PENDIENTE', '2022-06-30 00:00:00', '2022-06-28 00:00:00', NULL, NULL, 101, 10083);
+INSERT INTO public.reservas VALUES (21, 0, 'PENDIENTE', '2022-06-29 00:00:00', '2022-06-27 00:00:00', NULL, NULL, 101, 10083);
+INSERT INTO public.reservas VALUES (22, 0, 'PENDIENTE', '2022-06-28 00:00:00', '2022-06-26 00:00:00', NULL, NULL, 101, 10083);
+INSERT INTO public.reservas VALUES (23, 0, 'PENDIENTE', '2022-06-30 00:00:00', '2022-06-27 00:00:00', NULL, NULL, 101, 10083);
+INSERT INTO public.reservas VALUES (24, 0, 'PENDIENTE', '2022-07-07 00:00:00', '2022-06-30 00:00:00', NULL, NULL, 101, 10083);
+INSERT INTO public.reservas VALUES (25, 0, 'PENDIENTE', '2022-06-29 00:00:00', '2022-06-27 00:00:00', NULL, NULL, 101, 10083);
+INSERT INTO public.reservas VALUES (26, 0, 'PENDIENTE', '2022-06-29 00:00:00', '2022-06-27 00:00:00', NULL, NULL, 101, 10083);
+INSERT INTO public.reservas VALUES (27, 0, 'PENDIENTE', '2022-06-30 00:00:00', '2022-06-26 00:00:00', NULL, NULL, 101, 10083);
+INSERT INTO public.reservas VALUES (28, 0, 'PENDIENTE', '2022-06-30 00:00:00', '2022-06-27 00:00:00', NULL, NULL, 101, 10083);
+INSERT INTO public.reservas VALUES (29, 0, 'PENDIENTE', '2022-06-28 00:00:00', '2022-06-26 00:00:00', NULL, NULL, 101, 10083);
+INSERT INTO public.reservas VALUES (30, 0, 'PENDIENTE', '2022-06-29 00:00:00', '2022-06-27 00:00:00', NULL, NULL, 101, 10083);
 
 
 --
@@ -1071,6 +1228,9 @@ INSERT INTO public.usuarios VALUES ('Ad', 1005, false, 'apeAd 1005', false, 'ema
 INSERT INTO public.usuarios VALUES ('Ad', 1006, true, 'apeAd 1006', false, 'emailAd 1006', 'nomAd 1006', 'adPass 1006', NULL, NULL, NULL, '2022-05-13 00:00:00');
 INSERT INTO public.usuarios VALUES ('Ad', 1007, true, 'apeAd 1007', true, 'emailAd 1007', 'nomAd 1007', 'adPass 1007', NULL, NULL, NULL, '2022-05-13 00:00:00');
 INSERT INTO public.usuarios VALUES ('Ad', 1008, true, 'apeAd 1008', false, 'emailAd 1008', 'nomAd 1008', 'adPass 1008', NULL, NULL, NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 2, false, 'a', false, 'a', 'a', 'a', 0, NULL, NULL, '2022-06-26 17:40:15.518403');
+INSERT INTO public.usuarios VALUES ('Hu', 5, false, 'asdf', false, 'asdfasdf', 'asdf', 'YXNkZg==
+', 0, NULL, NULL, '2022-06-28 23:09:12.715401');
 INSERT INTO public.usuarios VALUES ('Hu', 10054, true, 'apeHu 10054', false, 'emailHu 10054', 'nomHu 10054', 'huPass 10054', 3, 'APROBADO', NULL, '2022-05-13 00:00:00');
 INSERT INTO public.usuarios VALUES ('Hu', 10055, true, 'apeHu 10055', false, 'emailHu 10055', 'nomHu 10055', 'huPass 10055', 3, 'APROBADO', NULL, '2022-05-13 00:00:00');
 INSERT INTO public.usuarios VALUES ('Hu', 10057, true, 'apeHu 10057', false, 'emailHu 10057', 'nomHu 10057', 'huPass 10057', 3, 'APROBADO', NULL, '2022-05-13 00:00:00');
@@ -1084,6 +1244,8 @@ INSERT INTO public.usuarios VALUES ('Hu', 10071, true, 'apeHu 10071', false, 'em
 INSERT INTO public.usuarios VALUES ('An', 10026, true, 'apeAn 10026', false, 'emailAn 10026', 'nomAn 10026', 'anPass 10026', 0, 'APROBADO', NULL, '2022-05-13 00:00:00');
 INSERT INTO public.usuarios VALUES ('An', 10028, true, 'apeAn 10028', false, 'emailAn 10028', 'nomAn 10028', 'anPass 10028', 5, 'APROBADO', NULL, '2022-05-13 00:00:00');
 INSERT INTO public.usuarios VALUES ('Hu', 10073, false, 'apeHu 10073', false, 'emailHu 10073', 'nomHu 10073', 'huPass 10073', 0, 'APROBADO', NULL, '2022-05-13 00:00:00');
+INSERT INTO public.usuarios VALUES ('Hu', 3, false, 'apellido', false, 'mail', 'Nombre', '123', 0, NULL, NULL, '2022-06-26 18:21:27.62422');
+INSERT INTO public.usuarios VALUES ('Hu', 4, false, 'ja', false, 'ma', 'js', 'ja', 0, NULL, NULL, '2022-06-26 18:27:13.013321');
 INSERT INTO public.usuarios VALUES ('Ad', 10015, true, 'apeAd 10015', false, 'freddyamr@gmail.com', 'nomAd 10015', '1234567aa', NULL, NULL, NULL, '2022-05-13 00:00:00');
 INSERT INTO public.usuarios VALUES ('Hu', 10051, true, 'apeHu 10051', false, 'emailHu 10051', 'nomHu 10051', 'huPass 10051', 3, 'APROBADO', NULL, '2022-05-13 00:00:00');
 INSERT INTO public.usuarios VALUES ('Ad', 1009, true, 'apeAd 1009', false, 'emailAd 1009', 'nomAd 1009', 'adPass 1009', NULL, NULL, NULL, '2022-05-13 00:00:00');
@@ -1439,7 +1601,7 @@ SELECT pg_catalog.setval('public.dt_servicios_id_seq', 3, true);
 -- Name: facturas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.facturas_id_seq', 13, true);
+SELECT pg_catalog.setval('public.facturas_id_seq', 42, true);
 
 
 --
@@ -1467,15 +1629,31 @@ SELECT pg_catalog.setval('public.recuperaciones_id_seq', 1, false);
 -- Name: reservas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.reservas_id_seq', 6, true);
+SELECT pg_catalog.setval('public.reservas_id_seq', 35, true);
 
 
 --
 -- Name: usuarios_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.usuarios_id_seq', 1, true);
+SELECT pg_catalog.setval('public.usuarios_id_seq', 5, true);
 
+
+--
+-- Data for Name: BLOBS; Type: BLOBS; Schema: -; Owner: 
+--
+
+BEGIN;
+
+SELECT pg_catalog.lo_open('59406', 131072);
+SELECT pg_catalog.lowrite(0, '\x656165557253464c5373574c776244554d714b57784d3a41504139316247694238427a6b4b334d656e50685f4c6b524a48746d7241427146576352684b675f2d4159696f413236426e386c6737654a706e314c674c73644a3574396871565178707a63554868655734784b61354b6f74684844514c47474e3542787671666b71593346453054722d4d417a6370374264396b397373504f5348646a346e786e36416f6d');
+SELECT pg_catalog.lo_close(0);
+
+SELECT pg_catalog.lo_open('59407', 131072);
+SELECT pg_catalog.lowrite(0, '\x656165557253464c5373574c776244554d714b57784d3a41504139316247694238427a6b4b334d656e50685f4c6b524a48746d7241427146576352684b675f2d4159696f413236426e386c6737654a706e314c674c73644a3574396871565178707a63554868655734784b61354b6f74684844514c47474e3542787671666b71593346453054722d4d417a6370374264396b397373504f5348646a346e786e36416f6d');
+SELECT pg_catalog.lo_close(0);
+
+COMMIT;
 
 --
 -- Name: alojamientos alojamientos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres

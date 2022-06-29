@@ -1,0 +1,23 @@
+servicios_id,alojamiento_id,id,descripcion,precio_noche,camas
+901,802,901,Doble Petite,340,2
+902,804,902,Doble ,190,4
+903,803,903,Estudio,140,3
+904,801,904,Suite,100,1
+905,803,905,Suite Doble Deluxe,470,3
+906,801,906,Suite Junior,40,1
+907,804,907,Doble ,410,4
+908,803,908,Suite,450,3
+909,803,909,Single,40,3
+910,802,910,Doble,170,2
+911,803,911,Suite Junior,460,3
+912,804,912,Doble,380,4
+913,801,913,Triple Clásica,440,1
+914,801,914,Single,370,1
+915,801,915,Doble,180,1
+916,804,916,Triple,390,4
+917,801,917,Doble,20,1
+918,802,918,Apartamento ,220,2
+919,804,919,Doble,40,4
+920,801,920,Suite,80,1
+921,803,921,Apartamento ,470,3
+922,801,922,Loft,350,1
