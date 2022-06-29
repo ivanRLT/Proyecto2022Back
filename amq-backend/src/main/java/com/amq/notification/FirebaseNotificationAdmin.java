@@ -41,8 +41,6 @@ public class FirebaseNotificationAdmin {
 				firebaseApp= FirebaseApp.initializeApp(options);
 				firebaseMessaging =  FirebaseMessaging.getInstance(firebaseApp);
 			}
-	
-			
 			
 			Map<String, String> map = new HashMap<String, String>();
 			
