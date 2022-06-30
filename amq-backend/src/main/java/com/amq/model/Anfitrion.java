@@ -11,6 +11,10 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import com.amq.enums.AprobacionEstado;
 
 @Entity
@@ -24,11 +28,15 @@ public class Anfitrion extends Usuario implements Serializable {
 	private Integer calificacionGlobal;
 	
 	@Enumerated(EnumType.STRING)
+	@Fetch(FetchMode.SELECT)
+	@BatchSize(size=10)
 	private AprobacionEstado estado;
 	
 	private Boolean bloqueado;
 	
 	@OneToMany(mappedBy = "anfitrion",cascade = CascadeType.ALL,orphanRemoval=true)
+	@Fetch(FetchMode.SELECT)
+	@BatchSize(size=10)
 	private List<Alojamiento> alojamientos = new ArrayList<Alojamiento>();
 	
 	public Anfitrion() {

@@ -19,6 +19,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import com.amq.datatypes.DtFecha;
 import com.amq.enums.ReservaEstado;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -53,13 +57,19 @@ public class Reserva implements Serializable {
 	
 	@JsonIgnore
 	@ManyToOne
+	@Fetch(FetchMode.SELECT)
+	@BatchSize(size=100)
 	private Habitacion habitacion;
 	
 	@JsonIgnore
 	@ManyToOne
+	@Fetch(FetchMode.SELECT)
+	@BatchSize(size=100)
 	private Calificacion calificacion;
 	
 	@OneToMany(mappedBy = "reserva",cascade = CascadeType.ALL,orphanRemoval=true)
+	@Fetch(FetchMode.SELECT)
+	@BatchSize(size=100)
 	private List<Factura> facturas = new ArrayList<Factura>();
 	
 	public Reserva() {

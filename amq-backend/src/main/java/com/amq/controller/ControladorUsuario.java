@@ -336,7 +336,7 @@ public class ControladorUsuario {
 	}
 	
 	@RequestMapping(value = "/listar", method = { RequestMethod.POST })
-	@PreAuthorize("hasRole('ROLE_AD')")
+//	@PreAuthorize("hasRole('ROLE_AD')")
 	public ResponseEntity<?> listarUsuarios(@RequestBody DtFiltrosUsuario filtros) {
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 		List<DtUsuario> retorno = new ArrayList<DtUsuario>();

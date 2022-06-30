@@ -13,6 +13,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import com.amq.datatypes.DtServicios;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -36,13 +40,19 @@ public class Habitacion implements Serializable {
 	
 	@JsonIgnore
 	@ManyToOne
+	@Fetch(FetchMode.SELECT)
+	@BatchSize(size=100)
 	private DtServicios servicios;
 	
 	@JsonIgnore
 	@ManyToOne
+	@Fetch(FetchMode.SELECT)
+	@BatchSize(size=100)
 	private Alojamiento alojamiento;
 	
 	@OneToMany(mappedBy = "habitacion",cascade = CascadeType.ALL,orphanRemoval=true)
+	@Fetch(FetchMode.SELECT)
+	@BatchSize(size=100)
 	private List<Reserva> reservas = new ArrayList<Reserva>();
 	
 	public Habitacion() {

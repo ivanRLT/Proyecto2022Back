@@ -7,6 +7,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 @Entity
 public class DtDireccion {
 	@Id
@@ -17,6 +21,8 @@ public class DtDireccion {
 	private String ciudad;
 	@OneToOne   
 	@JoinColumn(name = "pais", referencedColumnName = "id")
+	@Fetch(FetchMode.SELECT)
+	@BatchSize(size=100)
 	private DtPais pais;
 	
 	public DtDireccion() {}

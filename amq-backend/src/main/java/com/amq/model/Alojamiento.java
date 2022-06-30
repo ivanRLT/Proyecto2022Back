@@ -17,6 +17,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import com.amq.datatypes.DtDireccion;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -38,15 +42,21 @@ public class Alojamiento implements Serializable {
 	
 	@JsonIgnore
 	@ManyToOne
+	@Fetch(FetchMode.SELECT)
+	@BatchSize(size=100)
 	private Anfitrion anfitrion;
 	
 	@OneToOne   
 	@JoinColumn(name = "alojamiento_dir")
+	@Fetch(FetchMode.SELECT)
+	@BatchSize(size=100)
 	private DtDireccion direccion;
 	
 	private String nombre;
 	
 	@OneToMany(mappedBy = "alojamiento",cascade = CascadeType.ALL,orphanRemoval=true)
+	@Fetch(FetchMode.SELECT)
+	@BatchSize(size=100)
 	private List<Habitacion> habitaciones = new ArrayList<Habitacion>();
 	
 	public Alojamiento() {
