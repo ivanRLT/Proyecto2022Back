@@ -447,6 +447,16 @@ public class ControladorUsuario {
 				return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 			}
 			
+			if(user.getActivo().equals(true) ) {
+				msjError = "El usuario ingresado fué dado de baja.";
+				return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
+			}
+			
+			if(user.getBloqueado().equals(true) ) {
+				msjError = "El usuario ingresado se encuentra bloqueado.";
+				return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
+			}
+			
 			String jwToken = JWTGenerador.getJWTToken(user);
 			
 			if (user instanceof Administrador) {
