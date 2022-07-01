@@ -32,6 +32,7 @@ ALTER TABLE ONLY public.usuarios DROP CONSTRAINT usuarios_pkey;
 ALTER TABLE ONLY public.reservas DROP CONSTRAINT reservas_pkey;
 ALTER TABLE ONLY public.recuperaciones DROP CONSTRAINT recuperaciones_pkey;
 ALTER TABLE ONLY public.password_reset_token DROP CONSTRAINT password_reset_token_pkey;
+ALTER TABLE ONLY public.huesped_push_tokens DROP CONSTRAINT huesped_push_tokens_pk;
 ALTER TABLE ONLY public.habitaciones DROP CONSTRAINT habitaciones_pkey;
 ALTER TABLE ONLY public.facturas DROP CONSTRAINT facturas_pkey;
 ALTER TABLE ONLY public.dt_servicios DROP CONSTRAINT dt_servicios_pkey;
@@ -361,7 +362,7 @@ ALTER TABLE public.hibernate_sequence OWNER TO postgres;
 
 CREATE TABLE public.huesped_push_tokens (
     huesped_id integer NOT NULL,
-    push_tokens character varying(255)
+    push_tokens character varying(255) NOT NULL
 );
 
 
@@ -1104,11 +1105,6 @@ INSERT INTO public.habitaciones VALUES (922, 1, 'Loft', 350, 801, 922);
 -- Data for Name: huesped_push_tokens; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.huesped_push_tokens VALUES (10083, '59406');
-INSERT INTO public.huesped_push_tokens VALUES (10083, '59407');
-INSERT INTO public.huesped_push_tokens VALUES (10083, 'eaeUrSFLSsWLwbDUMqKWxM:APA91bGiB8BzkK3MenPh_LkRJHtmrABqFWcRhKg_-AYioA26Bn8lg7eJpn1LgLsdJ5t9hqVQxpzcUHheW4xKa5KothHDQLGGN5BxvqfkqY3FE0Tr-MAzcp7Bd9k9ssPOSHdj4nxn6Aom');
-INSERT INTO public.huesped_push_tokens VALUES (10083, 'fXi1ntRRSauurOShbFSWT5:APA91bFibXySwlsBNRmrQKl60VQChNpnaJPah67D4k-_EDvX5zjCUTK_9-5dr2QR6Bgj0gwDDrxxdlH8n2XEe8GOV_C4c_BgykSW2CFWRIdvVCKxnMNeHyhBmp8bDgaXiM_-8eCEm6WF');
-INSERT INTO public.huesped_push_tokens VALUES (5, 'eaeUrSFLSsWLwbDUMqKWxM:APA91bGiB8BzkK3MenPh_LkRJHtmrABqFWcRhKg_-AYioA26Bn8lg7eJpn1LgLsdJ5t9hqVQxpzcUHheW4xKa5KothHDQLGGN5BxvqfkqY3FE0Tr-MAzcp7Bd9k9ssPOSHdj4nxn6Aom');
 
 
 --
@@ -1710,6 +1706,14 @@ ALTER TABLE ONLY public.facturas
 
 ALTER TABLE ONLY public.habitaciones
     ADD CONSTRAINT habitaciones_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: huesped_push_tokens huesped_push_tokens_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.huesped_push_tokens
+    ADD CONSTRAINT huesped_push_tokens_pk PRIMARY KEY (huesped_id, push_tokens);
 
 
 --
