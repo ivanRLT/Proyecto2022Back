@@ -452,7 +452,7 @@ public class ControladorUsuario {
 				return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 			}
 			
-			if(user.getActivo().equals(true) ) {
+			if(user.getActivo().equals(false) ) {
 				msjError = "El usuario ingresado fué dado de baja.";
 				return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 			}
