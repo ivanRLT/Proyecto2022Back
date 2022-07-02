@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -81,6 +82,7 @@ public class ControladorAlojamiento {
 	// #######################Funciones de alojamiento#######################
 	
 	@RequestMapping(value = "/altaAlojHab", method = { RequestMethod.POST })
+	@PreAuthorize("hasRole('ROLE_AN')")
 	public ResponseEntity<?> altaAlojamientoHabitacion(@RequestBody DtAltaAlojHab dtAlojHab) {
 		Alojamiento aloj;
 		Habitacion hab;
@@ -169,6 +171,7 @@ public class ControladorAlojamiento {
 	}
 	
 	@RequestMapping(value = "/agregarHabitaciones/{id}", method = { RequestMethod.POST })
+	@PreAuthorize("hasRole('ROLE_AN')")
 	public ResponseEntity<?> agregarHabitacionesAlojamiento(@PathVariable("id") int idAlo, @RequestBody DtHabitacion habitacion) {
 		try {
 			Optional<Alojamiento> opA = repoA.findById(idAlo);
@@ -199,6 +202,7 @@ public class ControladorAlojamiento {
 	}
 	
 	@RequestMapping(value = "/modificar", method = { RequestMethod.POST })
+	@PreAuthorize("hasRole('ROLE_AN')")
 	public ResponseEntity<?> modificarAlojamiento(@RequestBody DtModificarAloj dtAloj) {
 		try {
 			Optional<Alojamiento> opA = repoA.findById(dtAloj.getId());
@@ -235,6 +239,7 @@ public class ControladorAlojamiento {
 	}
 	
 	@RequestMapping(value = "/buscarAlojamiento/{id}", method = { RequestMethod.GET })
+	@PreAuthorize("hasRole('ROLE_AN')")
 	public ResponseEntity<?> buscarAlojamiento(@PathVariable("id") int id) {
 		
 		try {
@@ -292,6 +297,7 @@ public class ControladorAlojamiento {
 	}
 	
 	@RequestMapping(value = "/desactivarAlojamiento/{id}", method = { RequestMethod.POST })
+	@PreAuthorize("hasRole('ROLE_AN')")
 	public ResponseEntity<?> desactivarAlojamiento(@PathVariable("id") int idAlo ) {
 
 		Alojamiento a;
@@ -373,6 +379,7 @@ public class ControladorAlojamiento {
 
 	
 	@RequestMapping(value = "/reservasAlojamiento/{id}", method = { RequestMethod.GET })
+	@PreAuthorize("hasRole('ROLE_AN')")
 	public ResponseEntity<?> obtenerReservasAlojamiento(@PathVariable("id") int id ) {
 		try {
 			Optional<Alojamiento> opA = repoA.findById(id);
@@ -417,29 +424,10 @@ public class ControladorAlojamiento {
 	}
 	
 	
-	// #######################Funciones de habitacion#######################
-	public Boolean agregarHabitaciones(int idAlojamiento, List<DtHabitacion> dtHabitacion) {
-		Boolean retorno = false;
-		try {
+	//##########################################################################//
+	//########################## FUNCIONES AUXILIARES ##########################//
+	//##########################################################################//
 
-			retorno = true;
-		} catch (Exception e) {
-			retorno = false;
-		}
-		return retorno;
-	}
-
-	public Boolean modificarHabitaciones(int idAlojamiento, List<DtHabitacion> dtHabitacion) {
-		Boolean retorno = false;
-		try {
-			
-			retorno = true;
-		} catch (Exception e) {
-			retorno = false;
-		}
-		return retorno;
-	}
-	
 	private Boolean alojCumpleFiltro(Alojamiento a, DtFiltrosAlojamiento dtF) {
 		if( dtF == null ) {
 			return true;

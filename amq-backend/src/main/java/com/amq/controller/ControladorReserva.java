@@ -13,6 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -80,7 +81,8 @@ public class ControladorReserva {
 	RepositoryAlojamiento repoA;
 
 	
-	@RequestMapping(value = "/cancelarReservaAprobada/{idreserva}", method = { RequestMethod.POST })	
+	@RequestMapping(value = "/cancelarReservaAprobada/{idreserva}", method = { RequestMethod.POST })
+	@PreAuthorize("hasRole('ROLE_AN','ROLE_HU')")
 	public ResponseEntity<?> cancelarReservaAprobada(@PathVariable("idreserva") int idReserva, @RequestBody DtFactura facturadt){
 		try {
 				Optional<Reserva> resOP = repoR.findById(idReserva);
@@ -150,7 +152,8 @@ public class ControladorReserva {
 				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		}
-	@RequestMapping(value = "/cancelarReservaPendiente/{idreserva}", method = { RequestMethod.GET })	
+	@RequestMapping(value = "/cancelarReservaPendiente/{idreserva}", method = { RequestMethod.GET })
+	@PreAuthorize("hasRole('ROLE_AN')")
 	public ResponseEntity<?> cancelarReservaPendiente(@PathVariable("idreserva") int idReserva){
 	try {
 			Optional<Reserva> resOP = repoR.findById(idReserva);
@@ -189,7 +192,8 @@ public class ControladorReserva {
 		}
 	}
 
-	@RequestMapping(value = "/confirmar/{idreserva}", method = { RequestMethod.GET })	
+	@RequestMapping(value = "/confirmar/{idreserva}", method = { RequestMethod.GET })
+	@PreAuthorize("hasRole('ROLE_AN')")
 	public ResponseEntity<?> confirmarReserva(@PathVariable("idreserva") int idReserva/*, @RequestBody DtFactura facturadt*/){
 		try {
 			Optional<Reserva> resOP = repoR.findById(idReserva);
@@ -294,8 +298,8 @@ public class ControladorReserva {
 		}
 	}
 	
-	@CrossOrigin(origins = "*")
-	@RequestMapping(value = "/confirmarPagoRealizado", method = { RequestMethod.POST })	
+	@RequestMapping(value = "/confirmarPagoRealizado", method = { RequestMethod.POST })
+	@PreAuthorize("hasRole('ROLE_AN')")
 	public ResponseEntity<?> confirmarPagoRealizado( @RequestBody DtFactura dtFactura){
 		try {
 			Optional<Factura> facturaOP = repoF.findById(dtFactura.getIdFactura());
@@ -331,6 +335,7 @@ public class ControladorReserva {
 	}
 	
 	@RequestMapping(value = "/calificar", method = { RequestMethod.POST })
+	@PreAuthorize("hasRole('ROLE_AN','ROLE_HU')")
     public ResponseEntity<?> calificar(@RequestBody DtEnviarCalificacion dtEnvCal) {
 		
 		Calificacion cal;
@@ -397,6 +402,7 @@ public class ControladorReserva {
     }
 	
 	@RequestMapping(value = "/listarDatosRequeridosCalificar", method = { RequestMethod.POST })
+	@PreAuthorize("hasRole('ROLE_AN','ROLE_HU')")
     public ResponseEntity<?> listarDatosRequeridosCalificar(@RequestBody DtCalificarDatosRequeridosInput dtInput) {
 		try {
 			if( repoU.findById(dtInput.getIdUsuario()).isEmpty() ) {
@@ -415,6 +421,7 @@ public class ControladorReserva {
 	}
 	
 	@RequestMapping(value = "/alta", method = { RequestMethod.POST })
+	@PreAuthorize("hasRole('ROLE_HU')")
 	public ResponseEntity<?> realizarReserva(@RequestBody DtAltaReserva dtAltaRes) {
 		try {
 			
@@ -570,32 +577,6 @@ public class ControladorReserva {
 	}
 	
 	
-	private List<DtReserva> obtenerDtReservas(List<Reserva> rs) {
-		List<DtReserva> retorno = new ArrayList<DtReserva>();
-		for(Reserva r : rs) {
-			List<DtFactura> facturasdt = new ArrayList<DtFactura>();
-			List<Factura> facturas = r.getFacturas();
-			for(Factura f:facturas) {
-				DtFactura fac = new DtFactura(
-						f.getId(),
-						f.getEstado(), 
-						f.getMonto(), 
-						f.getFecha(), 
-						f.getDescuento(), 
-						f.getMontoDescuento(),
-						f.getIdPaypal()
-					);
-
-				facturasdt.add(fac);
-			}
-			Calificacion calif = r.getCalificacion();
-			DtCalificacion califdt = new DtCalificacion(calif.getCalificacionAnfitrion(), calif.getCalificacionHuesped(), calif.getResena(), calif.getFechaResena());
-			DtReserva reservadt = new DtReserva(r.getEstado(),r.getDtFechaInicio(),r.getDtFechaFin(),r.getIdChat(),r.getCantDias(), facturasdt, califdt);
-			retorno.add(reservadt);
-		}
-		return retorno;
-	}
-
 	@RequestMapping(value = "/listarReservasEjecutadasAnf/{idAnf}", method = { RequestMethod.GET })
 	public ResponseEntity< ? > listarReservasEjecutadasAnf(@PathVariable int idAnf) {
 		try {
@@ -622,6 +603,7 @@ public class ControladorReserva {
 	}
 	
 	@RequestMapping(value = "/listarReservasPendientesYAprobadas/{idAnf}", method = { RequestMethod.GET })
+	@PreAuthorize("hasRole('ROLE_AN')")
 	public ResponseEntity< ? > reservasPendientesYAprobadas( @PathVariable int idAnf ){
 		try {
 			Optional usrOpt = repoU.findById( idAnf );
@@ -696,6 +678,7 @@ public class ControladorReserva {
 	}
 	
 	@RequestMapping( value = "/listarResenas", method = { RequestMethod.POST })
+	@PreAuthorize("hasRole('ROLE_AN','ROLE_HU')")
 	public ResponseEntity< ? > listarResenas(@RequestBody DtFiltroResenas filtros){
 		
 		if(filtros.getCalAnfitrion()==null ) {
@@ -790,6 +773,7 @@ public class ControladorReserva {
 	}
 
 	@RequestMapping(value = "/reservasXHuespXEstado", method = { RequestMethod.POST })
+	@PreAuthorize("hasRole('ROLE_HU')")
 	public ResponseEntity< ? > reservasXHuespConEstado( @RequestBody DtResHuespEstado filtro ){
 		try {
 			Optional usrOpt = repoU.findById(filtro.getIdHu() );
@@ -870,11 +854,35 @@ public class ControladorReserva {
 		
 	}
 	
-	// ####################### Funciones de Facturas #######################
 
+	/*###################### FUNCIONES AUXILIARES ######################*/ 
 	
+	private List<DtReserva> obtenerDtReservas(List<Reserva> rs) {
+		List<DtReserva> retorno = new ArrayList<DtReserva>();
+		for(Reserva r : rs) {
+			List<DtFactura> facturasdt = new ArrayList<DtFactura>();
+			List<Factura> facturas = r.getFacturas();
+			for(Factura f:facturas) {
+				DtFactura fac = new DtFactura(
+						f.getId(),
+						f.getEstado(), 
+						f.getMonto(), 
+						f.getFecha(), 
+						f.getDescuento(), 
+						f.getMontoDescuento(),
+						f.getIdPaypal()
+					);
+
+				facturasdt.add(fac);
+			}
+			Calificacion calif = r.getCalificacion();
+			DtCalificacion califdt = new DtCalificacion(calif.getCalificacionAnfitrion(), calif.getCalificacionHuesped(), calif.getResena(), calif.getFechaResena());
+			DtReserva reservadt = new DtReserva(r.getEstado(),r.getDtFechaInicio(),r.getDtFechaFin(),r.getIdChat(),r.getCantDias(), facturasdt, califdt);
+			retorno.add(reservadt);
+		}
+		return retorno;
+	}
 	
-	// ####################### Funciones Auxiliares #######################
 	@RequestMapping(value = "/estadisticas", method = { RequestMethod.POST })
 	public List<List<DtXY>> getEstadisticas( @RequestBody DtFiltrosEstadisticas dtFiltros ){
 		List<List<DtXY>> retorno = new ArrayList<>();

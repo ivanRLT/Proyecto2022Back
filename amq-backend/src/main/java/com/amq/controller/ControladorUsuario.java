@@ -112,6 +112,7 @@ public class ControladorUsuario {
 //	 private Environment env;
 	
 	@RequestMapping(value = "/altaAdmin", method = { RequestMethod.POST })
+	@PreAuthorize("hasRole('ROLE_AD')")
 	public ResponseEntity<?> altaAdministrador(@RequestBody DtAdministrador adminDt) { 
 		try {
 			Usuario uOpt = repoU.findByEmail(adminDt.getEmail());
@@ -232,6 +233,7 @@ public class ControladorUsuario {
 	}
 	
 	@RequestMapping(value = "/desactivar/{id}", method = { RequestMethod.POST })
+	@PreAuthorize("hasRole('ROLE_AD')")
 	public ResponseEntity<?> desactivarUsuario(@PathVariable("id") int idUsr) {
 		try {
 			Optional<Usuario> usr = repoU.findById(idUsr);
@@ -264,6 +266,7 @@ public class ControladorUsuario {
 	
 	
 	@RequestMapping(value = "/bloquear/{id}", method = { RequestMethod.POST })
+	@PreAuthorize("hasRole('ROLE_AD')")
 	public ResponseEntity<?> bloquearUsuario(@PathVariable("id") int idUsr) {
 		try {
 			Optional<Usuario> usr = repoU.findById(idUsr);
@@ -300,6 +303,7 @@ public class ControladorUsuario {
 	}
 	
 	@RequestMapping(value = "/desbloquear/{id}", method = { RequestMethod.POST })
+	@PreAuthorize("hasRole('ROLE_AD')")
 	public ResponseEntity<?> desbloquearUsuario(@PathVariable("id") int idUsr) {
 		try {
 			Optional<Usuario> usr = repoU.findById(idUsr);
@@ -336,7 +340,7 @@ public class ControladorUsuario {
 	}
 	
 	@RequestMapping(value = "/listar", method = { RequestMethod.POST })
-//	@PreAuthorize("hasRole('ROLE_AD')")
+	@PreAuthorize("hasRole('ROLE_AD')")
 	public ResponseEntity<?> listarUsuarios(@RequestBody DtFiltrosUsuario filtros) {
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 		List<DtUsuario> retorno = new ArrayList<DtUsuario>();
@@ -375,6 +379,7 @@ public class ControladorUsuario {
 	}
 	
 	@RequestMapping(value = "/aprobarAnfitrion/{id}", method = { RequestMethod.GET })
+	@PreAuthorize("hasRole('ROLE_AD')")
 	public ResponseEntity<?> aprobarAnfitrion(@PathVariable("id") int idUsr) {
 		try {
 			Optional<Usuario> usr = repoU.findById(idUsr);
@@ -403,6 +408,7 @@ public class ControladorUsuario {
 	}
 	
 	@RequestMapping(value = "/rechazarAnfitrion/{id}", method = { RequestMethod.GET })
+	@PreAuthorize("hasRole('ROLE_AD')")
 	public ResponseEntity<?> rechazarAnfitrion(@PathVariable("id") int idUsr) {
 		try {
 			Optional<Usuario> usr = repoU.findById(idUsr);
@@ -430,7 +436,6 @@ public class ControladorUsuario {
 		}
 	}
 	
-	@CrossOrigin(origins = "*")
 	@RequestMapping(value = "/login", method = { RequestMethod.POST })
 	public ResponseEntity<?> iniciarSesion(@RequestBody DtLogin dtLogin) {
 		Usuario user;
@@ -538,8 +543,9 @@ public class ControladorUsuario {
 		}
 	}
 	
-	@PreAuthorize("hasRole('ROLE_HU')")
+	
 	@RequestMapping(value = "/buscar/{id}", method = { RequestMethod.POST })
+	@PreAuthorize("hasRole('ROLE_HU')")
 	public ResponseEntity<?> buscarUsuario( @PathVariable("id") int id ) {
 		Usuario user;
 		DtUsuario dtUser = null;
@@ -576,6 +582,8 @@ public class ControladorUsuario {
 		}
 	}
 	
+	
+	/*########################### FUNCIONES AUXILIARES ###########################*/ 
 
 	private SimpleMailMessage constructResetTokenEmail( String token, Usuario user) {
 		 String url = token;
