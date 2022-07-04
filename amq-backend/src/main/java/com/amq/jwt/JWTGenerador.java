@@ -53,7 +53,7 @@ public class JWTGenerador {
 								.map(GrantedAuthority::getAuthority)
 								.collect(Collectors.toList()))
 				.setIssuedAt(new Date(System.currentTimeMillis()))
-				.setExpiration(new Date(System.currentTimeMillis() + 600000))
+				.setExpiration(new Date(System.currentTimeMillis() + 1200000)) //120 mins.
 				.signWith(SignatureAlgorithm.HS512,
 						secretKey.getBytes()).compact();
 

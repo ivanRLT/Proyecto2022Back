@@ -9,12 +9,8 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,13 +19,10 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.threeten.bp.LocalDate;
 
 import com.amq.datatypes.DtAMQError;
 import com.amq.datatypes.DtAdministrador;
@@ -37,25 +30,19 @@ import com.amq.datatypes.DtAlojamiento;
 import com.amq.datatypes.DtAltaAnfitrion;
 import com.amq.datatypes.DtAnfitrion;
 import com.amq.datatypes.DtDireccion;
-import com.amq.datatypes.DtEnviarCalificacion;
-import com.amq.datatypes.DtFecha;
 import com.amq.datatypes.DtFiltrosUsuario;
 import com.amq.datatypes.DtHabitacion;
 import com.amq.datatypes.DtHuesped;
 import com.amq.datatypes.DtLogin;
 import com.amq.datatypes.DtPassword;
-import com.amq.datatypes.DtReserva;
 import com.amq.datatypes.DtResetEmail;
 import com.amq.datatypes.DtServicios;
 import com.amq.datatypes.DtUsuario;
 import com.amq.enums.AprobacionEstado;
-import com.amq.enums.ReservaEstado;
 import com.amq.jwt.JWTGenerador;
-import com.amq.mail.GenericResponse;
 import com.amq.model.Administrador;
 import com.amq.model.Alojamiento;
 import com.amq.model.Anfitrion;
-import com.amq.model.Calificacion;
 import com.amq.model.Habitacion;
 import com.amq.model.Huesped;
 import com.amq.model.Reserva;
@@ -592,6 +579,11 @@ public class ControladorUsuario {
 		}
 	}
 	
+	@RequestMapping(value = "/esValidoTokenHuesped", method = { RequestMethod.GET })
+	@PreAuthorize("hasRole('ROLE_HU')")
+	public ResponseEntity<?> esValidoTokenHuesped( ) {
+		return new ResponseEntity<>(new DtAMQError(0, "OK"), getHeaderError(msjError), HttpStatus.OK);
+	}
 	
 	/*########################### FUNCIONES AUXILIARES ###########################*/ 
 

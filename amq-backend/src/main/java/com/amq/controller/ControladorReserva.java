@@ -82,7 +82,7 @@ public class ControladorReserva {
 
 	
 	@RequestMapping(value = "/cancelarReservaAprobada/{idreserva}", method = { RequestMethod.POST })
-	@PreAuthorize("hasRole('ROLE_AN','ROLE_HU')")
+	@PreAuthorize("hasAnyRole('ROLE_AN','ROLE_HU')")
 	public ResponseEntity<?> cancelarReservaAprobada(@PathVariable("idreserva") int idReserva, @RequestBody DtFactura facturadt){
 		try {
 				Optional<Reserva> resOP = repoR.findById(idReserva);
@@ -335,7 +335,7 @@ public class ControladorReserva {
 	}
 	
 	@RequestMapping(value = "/calificar", method = { RequestMethod.POST })
-	@PreAuthorize("hasRole('ROLE_AN','ROLE_HU')")
+	@PreAuthorize("hasAnyRole('ROLE_AN','ROLE_HU')")
     public ResponseEntity<?> calificar(@RequestBody DtEnviarCalificacion dtEnvCal) {
 		
 		Calificacion cal;
@@ -402,7 +402,7 @@ public class ControladorReserva {
     }
 	
 	@RequestMapping(value = "/listarDatosRequeridosCalificar", method = { RequestMethod.POST })
-	@PreAuthorize("hasRole('ROLE_AN','ROLE_HU')")
+	@PreAuthorize("hasAnyRole('ROLE_AN','ROLE_HU')")
     public ResponseEntity<?> listarDatosRequeridosCalificar(@RequestBody DtCalificarDatosRequeridosInput dtInput) {
 		try {
 			if( repoU.findById(dtInput.getIdUsuario()).isEmpty() ) {
@@ -678,7 +678,7 @@ public class ControladorReserva {
 	}
 	
 	@RequestMapping( value = "/listarResenas", method = { RequestMethod.POST })
-	@PreAuthorize("hasRole('ROLE_AN','ROLE_HU')")
+	@PreAuthorize("hasAnyRole('ROLE_AN','ROLE_HU')")
 	public ResponseEntity< ? > listarResenas(@RequestBody DtFiltroResenas filtros){
 		
 		if(filtros.getCalAnfitrion()==null ) {
@@ -795,6 +795,8 @@ public class ControladorReserva {
 			List<DtReservaAlojamiento> resAlojs = new ArrayList<DtReservaAlojamiento>();
 			List<DtFactura> dtFacturas;
 			DtFactura dtFactura;
+			DtCalificacion dtCalif;
+			
 			
 			resAlojs = repoR.findReservasXHuespConEstado(filtro.getIdHu(), filtro.getResEstado() );
 			
@@ -820,6 +822,14 @@ public class ControladorReserva {
 				resAlojHab.setHab_precioNoche( resA.getHabitacion().getPrecioNoche());
 				resAlojHab.setHab_camas( resA.getHabitacion().getCamas() );
 				resAlojHab.setHab_servicios( resA.getHabitacion().getServicios() );
+				
+				
+				if( resA.getReserva().getCalificacion()==null ) {
+					dtCalif=null;
+				}
+				dtCalif = new DtCalificacion(
+						resA.getReserva().getCalificacion().getCalificacionAnfitrion(), 
+						0, HEADER_ERROR, null);
 				
 				dtFacturas = new ArrayList<>();
 				for(Factura f: resA.getReserva().getFacturas()) {

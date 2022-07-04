@@ -280,6 +280,7 @@ public class ControladorAlojamiento {
 	}
 	
 	@RequestMapping(value = "/buscarAlojamientoHab/{id}", method = { RequestMethod.GET })
+	@PreAuthorize("hasAnyRole('ROLE_AN','ROLE_HU')")
 	public ResponseEntity<?> buscarAlojamientoHab(@PathVariable("id") int idHab) {
 		
 		try {

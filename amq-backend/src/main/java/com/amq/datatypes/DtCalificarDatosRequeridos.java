@@ -1,6 +1,7 @@
 package com.amq.datatypes;
 
 public class DtCalificarDatosRequeridos {
+
 	private int aloj_id;
 	private Boolean aloj_activo;
 	private String aloj_nombre;
@@ -15,13 +16,12 @@ public class DtCalificarDatosRequeridos {
 	private Integer anf_calificacion;
 	private int hu_id;
 	private Integer hu_calificacion;
-	
-	
+	private String resena_aloj;
 	
 	public DtCalificarDatosRequeridos(int aloj_id, Boolean aloj_activo, String aloj_nombre, String aloj_descripcion,
 			String aloj_dir_calle, String aloj_dir_numero, String aloj_dir_ciudad, int aloj_dir_pais_id,
 			String aloj_dir_pais_nombre, int res_id, int anf_id, Integer anf_calificacion, int hu_id,
-			Integer hu_calificacion) {
+			Integer hu_calificacion, String resena_aloj) {
 		super();
 		this.aloj_id = aloj_id;
 		this.aloj_activo = aloj_activo;
@@ -37,7 +37,9 @@ public class DtCalificarDatosRequeridos {
 		this.anf_calificacion = anf_calificacion;
 		this.hu_id = hu_id;
 		this.hu_calificacion = hu_calificacion;
+		this.resena_aloj = resena_aloj;
 	}
+
 	public int getAloj_id() {
 		return aloj_id;
 	}
@@ -122,6 +124,12 @@ public class DtCalificarDatosRequeridos {
 	public void setHu_calificacion(Integer hu_calificacion) {
 		this.hu_calificacion = hu_calificacion;
 	}
-	
-		
+
+	public String getResena_aloj() {
+		return resena_aloj;
+	}
+
+	public void setResena_aloj(String resena_aloj) {
+		this.resena_aloj = resena_aloj;
+	}
 }
