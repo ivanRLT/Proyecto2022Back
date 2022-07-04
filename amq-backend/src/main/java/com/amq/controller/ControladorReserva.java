@@ -824,12 +824,7 @@ public class ControladorReserva {
 				resAlojHab.setHab_servicios( resA.getHabitacion().getServicios() );
 				
 				
-				if( resA.getReserva().getCalificacion()==null ) {
-					dtCalif=null;
-				}
-				dtCalif = new DtCalificacion(
-						resA.getReserva().getCalificacion().getCalificacionAnfitrion(), 
-						0, HEADER_ERROR, null);
+
 				
 				dtFacturas = new ArrayList<>();
 				for(Factura f: resA.getReserva().getFacturas()) {
