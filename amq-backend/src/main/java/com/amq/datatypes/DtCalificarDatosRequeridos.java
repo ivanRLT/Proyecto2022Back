@@ -16,7 +16,7 @@ public class DtCalificarDatosRequeridos {
 	private Integer anf_calificacion;
 	private int hu_id;
 	private Integer hu_calificacion;
-	Integer id_hu;
+	String hu_nombre;
 	String res_fechaInicio;
 	String res_fechaFin; 
 	
@@ -24,7 +24,7 @@ public class DtCalificarDatosRequeridos {
 			String aloj_dir_calle, String aloj_dir_numero, String aloj_dir_ciudad, int aloj_dir_pais_id,
 			String aloj_dir_pais_nombre, int res_id, int anf_id, Integer anf_calificacion, int hu_id,
 			Integer hu_calificacion,
-			Integer id_hu,
+			String hu_nombre, 
 			String res_fechaInicio, String res_fechaFin ) {
 		super();
 		this.aloj_id = aloj_id;
@@ -41,7 +41,7 @@ public class DtCalificarDatosRequeridos {
 		this.anf_calificacion = anf_calificacion;
 		this.hu_id = hu_id;
 		this.hu_calificacion = hu_calificacion;
-		this.id_hu = id_hu;
+		this.hu_nombre= hu_nombre;
 		this.res_fechaInicio = res_fechaInicio;
 		this.res_fechaFin = res_fechaFin;  
 	}
@@ -131,14 +131,6 @@ public class DtCalificarDatosRequeridos {
 		this.hu_calificacion = hu_calificacion;
 	}
 
-	public Integer getId_hu() {
-		return id_hu;
-	}
-
-	public void setId_hu(Integer id_hu) {
-		this.id_hu = id_hu;
-	}
-
 	public String getRes_fechaFin() {
 		return res_fechaFin;
 	}
@@ -155,6 +147,12 @@ public class DtCalificarDatosRequeridos {
 		this.res_fechaInicio = res_fechaInicio;
 	}
 
-	
+	public String getHu_nombre() {
+		return hu_nombre;
+	}
+
+	public void setHu_nombre(String hu_nombre) {
+		this.hu_nombre = hu_nombre;
+	}
 	
 }

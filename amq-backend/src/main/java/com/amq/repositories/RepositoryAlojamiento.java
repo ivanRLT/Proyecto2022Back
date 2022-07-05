@@ -17,7 +17,7 @@ public interface RepositoryAlojamiento extends JpaRepository<Alojamiento, Intege
 				+ " aloj.id , aloj.activo, aloj.nombre, aloj.descripcion, dir.calle, "
 				+ "dir.numero, dir.ciudad, pais.id, pais.nombre, res.id , anf.id, "
 				+ "cal.calificacionAnfitrion, hu.id, cal.calificacionHuesped, "
-				+ "hu.id, "
+				+ "hu.nombre, "
 				+ "to_char(res.fechaInicio ,'yyyy-mm-dd'), "
 				+ "to_char(res.fechaFin ,'yyyy-mm-dd') "
 			+ ") "
