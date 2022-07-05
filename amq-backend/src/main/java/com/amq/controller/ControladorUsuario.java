@@ -483,7 +483,7 @@ public class ControladorUsuario {
 			return new ResponseEntity<>(dtUser, HttpStatus.OK);
 		} catch (Exception e) {
 			msjError = "Error interno del servidor.";
-			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.OK);
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 
