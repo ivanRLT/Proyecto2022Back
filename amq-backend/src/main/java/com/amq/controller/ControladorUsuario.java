@@ -148,6 +148,7 @@ public class ControladorUsuario {
 			anf.setNombre(anfDT.getNombre());
 			anf.setCalificacionGlobal(-1);
 			anf.setEstado(anfDT.getEstado());
+			anf.setBloqueado(anfDT.getBloqueado());
 			List<Alojamiento> alojamientos = new ArrayList<Alojamiento>();
 			anf.setAlojamientos(alojamientos);
 			
@@ -447,6 +448,13 @@ public class ControladorUsuario {
 			if(user.getBloqueado().equals(true) ) {
 				msjError = "El usuario ingresado se encuentra bloqueado.";
 				return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
+			}
+			
+			if( 	user instanceof Anfitrion &&  
+					((Anfitrion)user).getEstado()== AprobacionEstado.APROBADO 
+			){
+				msjError = "El usuario ingresado se encuentra en estado "+((Anfitrion)user).getEstado().toString()+".";
+				return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_ACCEPTABLE);
 			}
 			
 			String jwToken = JWTGenerador.getJWTToken(user);
