@@ -451,7 +451,7 @@ public class ControladorUsuario {
 			}
 			
 			if( 	user instanceof Anfitrion &&  
-					((Anfitrion)user).getEstado()== AprobacionEstado.APROBADO 
+					((Anfitrion)user).getEstado()!= AprobacionEstado.APROBADO 
 			){
 				msjError = "El usuario ingresado se encuentra en estado "+((Anfitrion)user).getEstado().toString()+".";
 				return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_ACCEPTABLE);

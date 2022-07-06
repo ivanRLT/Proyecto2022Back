@@ -34,6 +34,8 @@ public interface RepositoryAlojamiento extends JpaRepository<Alojamiento, Intege
 				+ "(:idPais IS NULL OR :idPais=0 OR  pais.id = :idPais) AND "
 				+ "(:alojActivo IS NULL OR aloj.activo = :alojActivo) AND "
 				+ "res.estado = 'EJECUTADA' "
+			+ "ORDER BY res.estado "
+
 		)
 	public List<DtCalificarDatosRequeridos> listarDatosRequeridosCalificar(
 			@Param("idUsuario") int idUsuario

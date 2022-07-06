@@ -393,7 +393,7 @@ public class ControladorReserva {
     		repoU.save(optUsrLog.get());
     		recalcularCalificacionGlobal(dtEnvCal.getIdUsuario());
     		
-    		return new ResponseEntity<>(HttpStatus.OK);
+    		return new ResponseEntity<>(new DtAMQError(0, "" ),HttpStatus.OK);
     	}
     	catch(Exception e) {
     		msjError = "Error desconocido.";
