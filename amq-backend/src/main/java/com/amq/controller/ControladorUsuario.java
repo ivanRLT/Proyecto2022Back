@@ -121,6 +121,7 @@ public class ControladorUsuario {
 			
 			return new ResponseEntity<>(aminR, HttpStatus.OK);
 		} catch (Exception e) {
+			System.out.println("AMQ ERROR>>>>> "+e.getMessage());
 			msjError = "Error desconocido en el servidor";
 			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.INTERNAL_SERVER_ERROR);
 		}	
@@ -183,6 +184,7 @@ public class ControladorUsuario {
 
 			return new ResponseEntity<>(anfR, HttpStatus.OK);
 		} catch (Exception e) {
+			System.out.println("AMQ ERROR>>>>> "+e.getMessage());
 			msjError = "Error desconocido en el servidor";
 			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}		
@@ -215,6 +217,7 @@ public class ControladorUsuario {
 			
 			return new ResponseEntity<>(hueR, HttpStatus.OK);
 		} catch (Exception e) {
+			System.out.println("AMQ ERROR>>>>> "+e.getMessage());
 			msjError = "Error desconocido en el servidor";
 			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}	
@@ -246,6 +249,7 @@ public class ControladorUsuario {
 				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.FOUND);
 			}
 		} catch (Exception e) {
+			System.out.println("AMQ ERROR>>>>> "+e.getMessage());
 			msjError = "Error desconocido en el servidor.";
 			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -285,6 +289,7 @@ public class ControladorUsuario {
 				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.FOUND);
 			}
 		} catch (Exception e) {
+			System.out.println("AMQ ERROR>>>>> "+e.getMessage());
 			msjError = "Error desconocido en el servidor";
 			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -322,6 +327,7 @@ public class ControladorUsuario {
 				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.FOUND);
 			}
 		} catch (Exception e) {
+			System.out.println("AMQ ERROR>>>>> "+e.getMessage());
 			msjError = "Error desconocido en el servidor";
 			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -361,6 +367,7 @@ public class ControladorUsuario {
 				return new ResponseEntity<>(retorno, HttpStatus.OK);
 			}
 		} catch (Exception e) {
+			System.out.println("AMQ ERROR>>>>> "+e.getMessage());
 			msjError = "Error desconocido en el servidor";
 			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -390,6 +397,7 @@ public class ControladorUsuario {
 			}
 
 		} catch (Exception e) {
+			System.out.println("AMQ ERROR>>>>> "+e.getMessage());
 			msjError = "Error desconocido en el servidor";
 			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -419,6 +427,7 @@ public class ControladorUsuario {
 			}
 
 		} catch (Exception e) {
+			System.out.println("AMQ ERROR>>>>> "+e.getMessage());
 			msjError = "Error desconocido en el servidor";
 			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -490,7 +499,8 @@ public class ControladorUsuario {
 			
 			return new ResponseEntity<>(dtUser, HttpStatus.OK);
 		} catch (Exception e) {
-			msjError = "Error interno del servidor.";
+			System.out.println("AMQ ERROR>>>>> "+e.getMessage());
+			msjError = "Error desconocido en el servidor.";
 			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
@@ -515,6 +525,7 @@ public class ControladorUsuario {
 			msjError = "Mail  incorrecto.";
 			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 		} catch (Exception e) {
+			System.out.println("AMQ ERROR>>>>> "+e.getMessage());
 			msjError = "Error desconocido en el servidor";
 			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -543,6 +554,7 @@ public class ControladorUsuario {
 			msjError = "Mail incorrecto.";
 			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 		} catch (Exception e) {
+			System.out.println("AMQ ERROR>>>>> "+e.getMessage());
 			msjError = "Error desconocido en el servidor";
 			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -582,6 +594,7 @@ public class ControladorUsuario {
 			
 			return new ResponseEntity<>(dtUser, HttpStatus.OK);
 		} catch (Exception e) {
+			System.out.println("AMQ ERROR>>>>> "+e.getMessage());
 			msjError = "Error desconocido en el servidor";
 			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}

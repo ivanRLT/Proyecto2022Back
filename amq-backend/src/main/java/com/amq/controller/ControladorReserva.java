@@ -148,6 +148,7 @@ public class ControladorReserva {
 					return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_ACCEPTABLE);
 				}	
 			} catch (Exception e) {
+				System.out.println("AMQ ERROR>>>>> "+e.getMessage());
 				msjError = "Error desconocido.";
 				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 			}
@@ -187,6 +188,7 @@ public class ControladorReserva {
 				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_ACCEPTABLE);
 			}	
 		} catch (Exception e) {
+			System.out.println("AMQ ERROR>>>>> "+e.getMessage());
 			msjError = "Error desconocido.";
 			return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -293,6 +295,7 @@ public class ControladorReserva {
 				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_ACCEPTABLE);
 			}	
 		} catch (Exception e) {
+			System.out.println("AMQ ERROR>>>>> "+e.getMessage());
 			msjError = "Error desconocido.";
 			return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -329,6 +332,7 @@ public class ControladorReserva {
 				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 			}
 		} catch (Exception e) {
+			System.out.println("AMQ ERROR>>>>> "+e.getMessage());
 			msjError = "Error desconocido.";
 			return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -396,6 +400,7 @@ public class ControladorReserva {
     		return new ResponseEntity<>(new DtAMQError(0, "" ),HttpStatus.OK);
     	}
     	catch(Exception e) {
+    		System.out.println("AMQ ERROR>>>>> "+e.getMessage());
     		msjError = "Error desconocido.";
 			return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
     	}
@@ -415,6 +420,7 @@ public class ControladorReserva {
 			return new ResponseEntity<>(cDatos, HttpStatus.OK);
 		}
 		catch(Exception e) {
+			System.out.println("AMQ ERROR>>>>> "+e.getMessage());
 			msjError = "Error desconocido.";
 			return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -571,6 +577,7 @@ public class ControladorReserva {
 			return new ResponseEntity<>(reserva, HttpStatus.OK);
 					
 		} catch (Exception e) {
+			System.out.println("AMQ ERROR>>>>> "+e.getMessage());
 			msjError = "Error desconocido.";
 			return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -597,6 +604,7 @@ public class ControladorReserva {
 			return new ResponseEntity<>( dtReservas, HttpStatus.OK);
 		}
 		catch(Exception e ) {
+			System.out.println("AMQ ERROR>>>>> "+e.getMessage());
 			msjError = "Error desconocido.";
 			return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -671,6 +679,7 @@ public class ControladorReserva {
 			return new ResponseEntity<>( resAlojHabs , HttpStatus.OK );
 		}
 		catch(Exception e) {
+			System.out.println("AMQ ERROR>>>>> "+e.getMessage());
 			msjError = "Error desconocido.";
 			return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -716,6 +725,7 @@ public class ControladorReserva {
 			}
 		}
 		catch(Exception e) {
+			System.out.println("AMQ ERROR>>>>> "+e.getMessage());
 			msjError = "Error desconocido.";
 			return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -733,6 +743,7 @@ public class ControladorReserva {
 			return new ResponseEntity<>( dtReservas, HttpStatus.OK);
 		}
 		catch(Exception e ) {
+			System.out.println("AMQ ERROR>>>>> "+e.getMessage());
 			msjError = "Error desconocido.";
 			return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -750,6 +761,7 @@ public class ControladorReserva {
 			return new ResponseEntity<>( dtReservas, HttpStatus.OK);
 		}
 		catch(Exception e ) {
+			System.out.println("AMQ ERROR>>>>> "+e.getMessage());
 			msjError = "Error desconocido.";
 			return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -767,6 +779,7 @@ public class ControladorReserva {
 			return new ResponseEntity<>( dtReservas, HttpStatus.OK);
 		}
 		catch(Exception e ) {
+			System.out.println("AMQ ERROR>>>>> "+e.getMessage());
 			msjError = "Error desconocido.";
 			return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -852,8 +865,8 @@ public class ControladorReserva {
 			return new ResponseEntity<>( resAlojHabs , HttpStatus.OK );
 		}
 		catch(Exception e) {
+			System.out.println("AMQ ERROR>>>>> "+e.getMessage());
 			msjError = "Error desconocido.";
-			msjError += e.getMessage();
 			return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		

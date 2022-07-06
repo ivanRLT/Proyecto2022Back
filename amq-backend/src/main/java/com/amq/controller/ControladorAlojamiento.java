@@ -132,6 +132,7 @@ public class ControladorAlojamiento {
 			return new ResponseEntity<>(aloj, HttpStatus.OK);
 		}
 		catch(Exception e) {
+			System.out.println("AMQ ERROR>>>>> "+e.getMessage());
 			msjError = "Error desconocido en el servidor";
 			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -165,6 +166,7 @@ public class ControladorAlojamiento {
 				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 			}
 		} catch (Exception e) {
+			System.out.println("AMQ ERROR>>>>> "+e.getMessage());
 			msjError = "Error desconocido en el servidor";
 			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -196,6 +198,7 @@ public class ControladorAlojamiento {
 				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 			}
 		} catch (Exception e) {
+			System.out.println("AMQ ERROR>>>>> "+e.getMessage());
 			msjError = "Error desconocido en el servidor";
 			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -233,6 +236,7 @@ public class ControladorAlojamiento {
 				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 			}
 		} catch (Exception e) {
+			System.out.println("AMQ ERROR>>>>> "+e.getMessage());
 			msjError = "Error desconocido en el servidor";
 			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -273,6 +277,7 @@ public class ControladorAlojamiento {
 			dtAloj.setHabs(dtHabs);
 			return new ResponseEntity<>(dtAloj, HttpStatus.OK);
 		} catch (Exception e) {
+			System.out.println("AMQ ERROR>>>>> "+e.getMessage());
 			msjError = "Error desconocido en el servidor";
 			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.INTERNAL_SERVER_ERROR);
 		}	
@@ -292,6 +297,7 @@ public class ControladorAlojamiento {
 			
 			return new ResponseEntity<>(dtAlojHab, HttpStatus.OK);
 		} catch (Exception e) {
+			System.out.println("AMQ ERROR>>>>> "+e.getMessage());
 			msjError = "Error desconocido en el servidor";
 			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.INTERNAL_SERVER_ERROR);
 		}	
@@ -313,6 +319,7 @@ public class ControladorAlojamiento {
 			repoA.save(a);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
+			System.out.println("AMQ ERROR>>>>> "+e.getMessage());
 			msjError = "Error desconocido en el servidor";
 			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.INTERNAL_SERVER_ERROR);
 		}	
@@ -369,6 +376,7 @@ public class ControladorAlojamiento {
 				return new ResponseEntity<>(dtAlojs, HttpStatus.OK);
 			}
 		} catch (Exception e) {
+			System.out.println("AMQ ERROR>>>>> "+e.getMessage());
 			msjError = "Error desconocido en el servidor";
 			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -406,7 +414,9 @@ public class ControladorAlojamiento {
 				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 			}
 		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+			System.out.println("AMQ ERROR>>>>> "+e.getMessage());
+			msjError = "Error desconocido en el servidor";
+			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError),  HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 	}
