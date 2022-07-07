@@ -203,12 +203,13 @@ public class ControladorUsuario {
 			
 			// Creo usuario para persistir 
 			Huesped hue = new Huesped();
-			hue.setActivo(huesDT.isActivo());
+			
 			hue.setEmail(huesDT.getEmail());
 			hue.setApellido(huesDT.getApellido());
 			hue.setPass(huesDT.getPass());
 			hue.setNombre(huesDT.getNombre());
 			hue.setCalificacionGlobal(0);
+			hue.setActivo( true );
 			hue.setPushTokens(null);
 			hue.setReservas(null);
 			hue.setBloqueado(false);
