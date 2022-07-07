@@ -154,7 +154,7 @@ public class ControladorReserva {
 			}
 		}
 	@RequestMapping(value = "/cancelarReservaPendiente/{idreserva}", method = { RequestMethod.GET })
-	@PreAuthorize("hasRole('ROLE_AN')")
+	@PreAuthorize("hasAnyRole('ROLE_AN','ROLE_HU')")
 	public ResponseEntity<?> cancelarReservaPendiente(@PathVariable("idreserva") int idReserva){
 	try {
 			Optional<Reserva> resOP = repoR.findById(idReserva);
@@ -182,7 +182,8 @@ public class ControladorReserva {
 				enviarNotificación(idAnf, "Reserva cancelada", mensaje );
 				enviarNotificación(idHu, "Reserva cancelada", mensaje );
 				
-				return new ResponseEntity<>( HttpStatus.OK);
+				msjError = "";
+				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.OK);
 			} else {
 				msjError = "No existe una reserva con los datos ingresados.";
 				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_ACCEPTABLE);

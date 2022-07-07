@@ -334,7 +334,7 @@ public class ControladorUsuario {
 	}
 	
 	@RequestMapping(value = "/listar", method = { RequestMethod.POST })
-	@PreAuthorize("hasRole('ROLE_AD')")
+	//@PreAuthorize("hasRole('ROLE_AD')")
 	public ResponseEntity<?> listarUsuarios(@RequestBody DtFiltrosUsuario filtros) {
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 		List<DtUsuario> retorno = new ArrayList<DtUsuario>();
@@ -648,16 +648,20 @@ public class ControladorUsuario {
 	    	if( filtros.getBloqueado()!=null && usr instanceof Anfitrion && !((Anfitrion)usr).getBloqueado().equals(filtros.getBloqueado())){
 	    		return false;
 	    	}
-	    	if( filtros.getCalificacion_desde()!=null && usr instanceof Huesped && ((Huesped)usr).getCalificacionGlobal()<filtros.getCalificacion_desde() ) {
+	    	if( filtros.getCalificacion_desde()!=null && usr instanceof Huesped 
+	    			&& ((Huesped)usr).getCalificacionGlobal().intValue()<filtros.getCalificacion_desde().intValue() ) {
 	    		return false;
 	    	}
-	    	if( filtros.getCalificacion_desde()!=null && usr instanceof Anfitrion && ((Anfitrion)usr).getCalificacionGlobal()<filtros.getCalificacion_desde() ) {
+	    	if( filtros.getCalificacion_desde()!=null && usr instanceof Anfitrion 
+	    			&& ((Anfitrion)usr).getCalificacionGlobal().intValue()<filtros.getCalificacion_desde().intValue() ) {
 	    		return false;
 	    	}
-	    	if( filtros.getCalificacion_hasta()!=null && usr instanceof Huesped && ((Huesped)usr).getCalificacionGlobal()>filtros.getCalificacion_hasta() ) {
+	    	if( filtros.getCalificacion_hasta()!=null && usr instanceof Huesped 
+	    			&& ((Huesped)usr).getCalificacionGlobal().intValue()>filtros.getCalificacion_hasta().intValue() ) {
 	    		return false;
 	    	}
-	    	if( filtros.getCalificacion_hasta()!=null && usr instanceof Anfitrion && ((Anfitrion)usr).getCalificacionGlobal()>filtros.getCalificacion_desde() ) {
+	    	if( filtros.getCalificacion_hasta()!=null && usr instanceof Anfitrion 
+	    			&& ((Anfitrion)usr).getCalificacionGlobal().intValue()>filtros.getCalificacion_hasta().intValue() ) {
 	    		return false;
 	    	}
     	}
