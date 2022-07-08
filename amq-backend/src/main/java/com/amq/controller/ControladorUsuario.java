@@ -563,7 +563,7 @@ public class ControladorUsuario {
 	
 	
 	@RequestMapping(value = "/buscar/{id}", method = { RequestMethod.POST })
-	@PreAuthorize("hasRole('ROLE_HU')")
+	@PreAuthorize("hasAnyRole('ROLE_AN','ROLE_HU')")
 	public ResponseEntity<?> buscarUsuario( @PathVariable("id") int id ) {
 		Usuario user;
 		DtUsuario dtUser = null;
