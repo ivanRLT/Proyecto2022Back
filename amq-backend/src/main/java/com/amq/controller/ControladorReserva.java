@@ -659,6 +659,9 @@ public class ControladorReserva {
 				resAlojHab.setHab_camas( resA.getHabitacion().getCamas() );
 				resAlojHab.setHab_servicios( resA.getHabitacion().getServicios() );
 				
+				resAlojHab.setHu_id( resA.getReserva().getHuesped().getId() );
+				resAlojHab.setHu_nombre(resA.getReserva().getHuesped().getNombre());
+				
 				dtFacturas = new ArrayList<>();
 				for(Factura f: resA.getReserva().getFacturas()) {
 					dtFactura = new DtFactura(

@@ -8,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 
 import com.amq.datatypes.DtAlojHab;
 import com.amq.datatypes.DtCalificarDatosRequeridos;
-import com.amq.datatypes.DtIdValor;
 import com.amq.model.Alojamiento;
 
 public interface RepositoryAlojamiento extends JpaRepository<Alojamiento, Integer> {
@@ -18,8 +17,8 @@ public interface RepositoryAlojamiento extends JpaRepository<Alojamiento, Intege
 				+ "dir.numero, dir.ciudad, pais.id, pais.nombre, res.id , anf.id, "
 				+ "cal.calificacionAnfitrion, hu.id, cal.calificacionHuesped, "
 				+ "hu.nombre, "
-				+ "to_char(res.fechaInicio ,'yyyy-mm-dd'), "
-				+ "to_char(res.fechaFin ,'yyyy-mm-dd') "
+				+ "CONCAT(YEAR(res.fechaInicio), '-', MONTH(res.fechaInicio), '-', DAY(res.fechaInicio)), "
+				+ "CONCAT(YEAR(res.fechaFin), '-', MONTH(res.fechaFin), '-', DAY(res.fechaFin)) "
 			+ ") "
 			+ "from Huesped hu "
 			+ "join hu.reservas res "
@@ -37,7 +36,7 @@ public interface RepositoryAlojamiento extends JpaRepository<Alojamiento, Intege
 			+ " "
 		)
 	public List<DtCalificarDatosRequeridos> listarDatosRequeridosCalificar(
-			@Param("idUsuario") int idUsuario
+			@Param("idUsuario") Integer idUsuario
 			, @Param("idPais") Integer idPais
 			, @Param("alojActivo") Boolean alojActivo
 		);

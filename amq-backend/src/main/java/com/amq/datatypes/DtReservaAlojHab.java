@@ -29,13 +29,16 @@ public class DtReservaAlojHab {
 	private DtServicios hab_servicios;
 	
 	private List<DtFactura> facturas;
+	private Integer hu_id;
+	private String hu_nombre;
 	
 	public DtReservaAlojHab() {	}
 	
 	public DtReservaAlojHab(int res_id, ReservaEstado res_estado, Date res_fechaInicio, Date res_fechaFin,
 			int res_cantDias, Calificacion res_calificacion, int aloj_id, Boolean aloj_activo, String aloj_descripcion,
 			int aloj_idAnfitrion, DtDireccion aloj_direccion, String aloj_nombre, int hab_id, String hab_descripcion,
-			Double hab_precioNoche, int hab_camas, DtServicios hab_servicios, List<DtFactura> facturas) {
+			Double hab_precioNoche, int hab_camas, DtServicios hab_servicios, List<DtFactura> facturas, 
+			int hu_id, String hu_nombre) {
 		super();
 		this.res_id = res_id;
 		this.res_estado = res_estado;
@@ -55,6 +58,8 @@ public class DtReservaAlojHab {
 		this.hab_camas = hab_camas;
 		this.hab_servicios = hab_servicios;
 		this.facturas = facturas;
+		this.hu_id = hu_id;
+		this.hu_nombre = hu_nombre;
 	}
 
 
@@ -202,5 +207,21 @@ public class DtReservaAlojHab {
 		this.facturas = facturas;
 	}
 
-			
+	public Integer getHu_id() {
+		return hu_id;
+	}
+
+	public void setHu_id(Integer hu_id) {
+		this.hu_id = hu_id;
+	}
+
+	public String getHu_nombre() {
+		return hu_nombre;
+	}
+
+	public void setHu_nombre(String hu_nombre) {
+		this.hu_nombre = hu_nombre;
+	}
+
+	
 }
