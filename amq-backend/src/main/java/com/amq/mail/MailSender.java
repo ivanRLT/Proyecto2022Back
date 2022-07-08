@@ -16,8 +16,8 @@ public class MailSender {
 	
 	public void setMailSender() {
         mailSender = new JavaMailSenderImpl();
-        ((JavaMailSenderImpl)mailSender).setUsername("freddyamr@gmail.com");
-        ((JavaMailSenderImpl)mailSender).setPassword("ppjilxtqcsquwgkn");
+        ((JavaMailSenderImpl)mailSender).setUsername("amq.soporte@gmail.com");
+        ((JavaMailSenderImpl)mailSender).setPassword("svstibczqoshoeug");
         ((JavaMailSenderImpl)mailSender).setHost("smtp.gmail.com");
         ((JavaMailSenderImpl)mailSender).setPort(587);
         ((JavaMailSenderImpl)mailSender).setProtocol("smtp");
@@ -39,7 +39,7 @@ public class MailSender {
 
     public void setTemplateMessage() {
     	templateMessage = new SimpleMailMessage();
-        templateMessage.setFrom("freddyamr@gmail.com");
+        templateMessage.setFrom("amq.soporte@gmail.com");
     }
 
     public void enviarMail(Mensaje msj) {
