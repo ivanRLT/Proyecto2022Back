@@ -148,7 +148,7 @@ public class ControladorUsuario {
 			anf.setPass(anfDT.getPass());
 			anf.setNombre(anfDT.getNombre());
 			anf.setCalificacionGlobal(-1);
-			anf.setEstado(anfDT.getEstado());
+			anf.setEstado(AprobacionEstado.PENDIENTE);
 			anf.setBloqueado( true );
 			List<Alojamiento> alojamientos = new ArrayList<Alojamiento>();
 			anf.setAlojamientos(alojamientos);
