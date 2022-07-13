@@ -3,12 +3,13 @@ package com.amq.repositories;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.amq.datatypes.DtIdValor;
 import com.amq.datatypes.DtReservaAlojamiento;
-import com.amq.datatypes.DtXY;
 import com.amq.enums.ReservaEstado;
 import com.amq.model.Reserva;
 
@@ -149,5 +150,15 @@ public interface RepositoryReserva extends JpaRepository<Reserva, Integer> {
 				+ "res.id = :idRes "
 			)
 	public Integer findIdHuespedReserva(@Param("idRes") int idRes);
+
+	@Transactional
+	@Modifying
+	@Query("UPDATE Reserva res "
+			+ "SET res.estado = 'EJECUTADA' "
+			+ "where "
+				+ "res.fechaInicio <= NOW() AND "
+				+ "res.estado = 'APROBADO' "
+			)
+	public void setReservasEjecutadas();
 	
 }
