@@ -17,7 +17,7 @@ public class MailSender {
 	public void setMailSender() {
         mailSender = new JavaMailSenderImpl();
         ((JavaMailSenderImpl)mailSender).setUsername("amq.soporte@gmail.com");
-        ((JavaMailSenderImpl)mailSender).setPassword("svstibczqoshoeug");
+        ((JavaMailSenderImpl)mailSender).setPassword("fonwbxioudwmkcis");
         ((JavaMailSenderImpl)mailSender).setHost("smtp.gmail.com");
         ((JavaMailSenderImpl)mailSender).setPort(587);
         ((JavaMailSenderImpl)mailSender).setProtocol("smtp");

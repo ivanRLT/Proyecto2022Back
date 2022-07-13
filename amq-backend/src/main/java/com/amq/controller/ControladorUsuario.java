@@ -40,6 +40,8 @@ import com.amq.datatypes.DtServicios;
 import com.amq.datatypes.DtUsuario;
 import com.amq.enums.AprobacionEstado;
 import com.amq.jwt.JWTGenerador;
+import com.amq.mail.MailSender;
+import com.amq.mail.Mensaje;
 import com.amq.model.Administrador;
 import com.amq.model.Alojamiento;
 import com.amq.model.Anfitrion;
@@ -95,8 +97,6 @@ public class ControladorUsuario {
 	 @Autowired
 	 private MessageSource messages;
 	
-//	 @Autowired
-//	 private Environment env;
 	
 	@RequestMapping(value = "/altaAdmin", method = { RequestMethod.POST })
 	@PreAuthorize("hasRole('ROLE_AD')")
@@ -225,7 +225,7 @@ public class ControladorUsuario {
 	}
 	
 	@RequestMapping(value = "/desactivar/{id}", method = { RequestMethod.POST })
-	@PreAuthorize("hasRole('ROLE_AD')")
+	@PreAuthorize("hasAnyRole('ROLE_AD','ROLE_HU')")
 	public ResponseEntity<?> desactivarUsuario(@PathVariable("id") int idUsr) {
 		try {
 			Optional<Usuario> usr = repoU.findById(idUsr);
@@ -256,10 +256,8 @@ public class ControladorUsuario {
 		}
 	}
 	
-	
-	
 	@RequestMapping(value = "/bloquear/{id}", method = { RequestMethod.POST })
-	@PreAuthorize("hasRole('ROLE_AD')")
+	//@PreAuthorize("hasRole('ROLE_AD')")
 	public ResponseEntity<?> bloquearUsuario(@PathVariable("id") int idUsr) {
 		try {
 			Optional<Usuario> usr = repoU.findById(idUsr);
@@ -297,7 +295,7 @@ public class ControladorUsuario {
 	}
 	
 	@RequestMapping(value = "/desbloquear/{id}", method = { RequestMethod.POST })
-	@PreAuthorize("hasRole('ROLE_AD')")
+//	@PreAuthorize("hasRole('ROLE_AD')")
 	public ResponseEntity<?> desbloquearUsuario(@PathVariable("id") int idUsr) {
 		try {
 			Optional<Usuario> usr = repoU.findById(idUsr);
@@ -508,7 +506,6 @@ public class ControladorUsuario {
 
 	}
 	
-	
 	@RequestMapping(value = "/resetPassword", method = { RequestMethod.POST })
 	public ResponseEntity<?> resetPassword(@RequestBody DtResetEmail dtemail) {
 
@@ -520,8 +517,15 @@ public class ControladorUsuario {
 			if (user != null) {
 				String token = UUID.randomUUID().toString();
 				userService.createPasswordResetTokenForUser(user, token);
-				mailSender.send(constructResetTokenEmail(token, user));
-				return new ResponseEntity<>(HttpStatus.OK);
+				Mensaje msj = new Mensaje( 
+						"amq.soporte@gmail.com", 
+						email, 
+						"Copie y pegue el siguiente código en el menú de cambio de contraseña de la aplicación web o mobile: \r\n " + token,
+						"AMQ - Cambio de contraseña."
+					);
+				MailSender sender = new MailSender();
+				sender.enviarMail(msj);
+				return new ResponseEntity<>(new DtAMQError(0, "OK" ),  HttpStatus.OK);
 			}
 			msjError = "Mail  incorrecto.";
 			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
@@ -550,8 +554,9 @@ public class ControladorUsuario {
 
 			if (user != null) {
 				userService.changeUserPassword(user, dtPassword.getNewPassword());
-				return new ResponseEntity<>(HttpStatus.OK);
+				return new ResponseEntity<>(new DtAMQError(0, null), HttpStatus.OK);
 			}
+
 			msjError = "Mail incorrecto.";
 			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.NOT_FOUND);
 		} catch (Exception e) {
@@ -560,7 +565,6 @@ public class ControladorUsuario {
 			return new ResponseEntity<>(new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
 	
 	@RequestMapping(value = "/buscar/{id}", method = { RequestMethod.POST })
 	@PreAuthorize("hasAnyRole('ROLE_AN','ROLE_HU')")
@@ -609,22 +613,7 @@ public class ControladorUsuario {
 	
 	/*########################### FUNCIONES AUXILIARES ###########################*/ 
 
-	private SimpleMailMessage constructResetTokenEmail( String token, Usuario user) {
-		 String url = token;
-         String message = messages.getMessage("message.resetPassword", null, null);
-        return constructEmail("Reset Password  - Aquí me Quedo", message + " \r\n" + url, user);
-    }
-	
-	private SimpleMailMessage constructEmail(String subject, String body, Usuario user) {
-        SimpleMailMessage email = new SimpleMailMessage();
-        email.setSubject(subject);
-        email.setText(body);
-        email.setTo(user.getEmail());
-        email.setFrom(user.getEmail());
-        return email;
-    }
-
-    
+   
     private Boolean usuarioCumpleFiltros(Usuario usr, DtFiltrosUsuario filtros) {
     	if(usr==null) {
     		return false;
