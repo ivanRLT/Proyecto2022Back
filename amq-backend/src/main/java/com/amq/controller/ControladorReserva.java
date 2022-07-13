@@ -344,6 +344,7 @@ public class ControladorReserva {
     public ResponseEntity<?> calificar(@RequestBody DtEnviarCalificacion dtEnvCal) {
 		
 		Calificacion cal;
+		Integer idUsrCalificado = null;
 		
 		try {
 			Optional<Reserva> optRes = repoR.findById(dtEnvCal.getIdReserva());
@@ -381,6 +382,7 @@ public class ControladorReserva {
 	    		
 			if(optUsrLog.get() instanceof Huesped) {
     			if(dtEnvCal.getCalificacion()!=null) {
+    				idUsrCalificado = repoR.findIdAnfitrionReserva(dtEnvCal.getIdReserva());
     				cal.setCalificacionAnfitrion(dtEnvCal.getCalificacion());
     			}
     			if( dtEnvCal.getResena()!=null ) {
@@ -391,12 +393,17 @@ public class ControladorReserva {
     			}
     		}
     		else if(optUsrLog.get() instanceof Anfitrion) {
+    			idUsrCalificado = repoR.findIdHuespedReserva(dtEnvCal.getIdReserva());
     			cal.setCalificacionHuesped(dtEnvCal.getCalificacion());
     		}
     		
     		repoC.save(cal);
     		repoU.save(optUsrLog.get());
-    		recalcularCalificacionGlobal(dtEnvCal.getIdUsuario());
+    		
+    		if(idUsrCalificado!=null) {
+    			recalcularCalificacionGlobal( idUsrCalificado );
+    		}
+    		
     		
     		return new ResponseEntity<>(new DtAMQError(0, "" ),HttpStatus.OK);
     	}

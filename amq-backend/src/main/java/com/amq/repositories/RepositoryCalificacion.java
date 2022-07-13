@@ -29,4 +29,22 @@ public interface RepositoryCalificacion extends JpaRepository<Calificacion, Inte
 			@Param("calAnfitrion") int calAnfitrion,
 			@Param("calHuesped") int calHuesped
 		); 
+	
+	@Query("SELECT DISTINCT new com.amq.datatypes.DtResena( cal.id, cal.resena, cal.calificacionHuesped, cal.calificacionAnfitrion, cal.fechaResena ) "
+			+ "from Alojamiento a "
+			+ "join a.habitaciones habs "
+			+ "join habs.reservas r "
+			+ "join r.calificacion cal "
+			+ "where "
+				+ "a.id= :#{#idAloj} and "
+				+ "cal.fechaResena BETWEEN :fechaIni AND :fechaFin and "
+				+ "(:calAnfitrion=0 OR cal.calificacionAnfitrion = :calAnfitrion ) AND "
+				+ "( :calHuesped=0 OR cal.calificacionHuesped = :calHuesped ) ")
+	public List<DtResena> getAnfitrionCalificacion(
+			@Param("idAloj") int idAloj, 
+			@Param("fechaIni") Date fechaIni,
+			@Param("fechaFin") Date fechaFin,
+			@Param("calAnfitrion") int calAnfitrion,
+			@Param("calHuesped") int calHuesped
+		);
 }
