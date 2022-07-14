@@ -118,7 +118,7 @@ public class ControladorReserva {
 					Factura factura = new Factura(
 							-1, 
 							facturadt.getMonto()!=null ? facturadt.getMonto() : 0, 
-							facturadt.getMontoDescuento()!=null ? true : false, 
+							facturadt.isDescuento(), 
 							facturadt.getMontoDescuento()!=null ? facturadt.getMontoDescuento() : 0, 
 							facturadt.getPagoEstado(), 
 							facturadt.getFecha(),
