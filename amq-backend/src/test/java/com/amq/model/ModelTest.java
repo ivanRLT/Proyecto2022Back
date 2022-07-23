@@ -2,6 +2,7 @@ package com.amq.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
@@ -14,16 +15,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.TestPropertySource;
 
+import com.amq.controller.ControladorUsuario;
+import com.amq.datatypes.DtAdministrador;
 import com.amq.datatypes.DtFecha;
 import com.amq.datatypes.DtIdValor;
+import com.amq.datatypes.DtLogin;
 import com.amq.datatypes.DtUsuario;
 import com.amq.enums.ReservaEstado;
+import com.amq.jwt.JWTAuthorizationFilter;
+import com.amq.jwt.JWTGenerador;
 import com.amq.repositories.RepositoryReserva;
 import com.amq.repositories.RepositoryResetPassword;
 import com.amq.repositories.RepositoryUsuario;
+import com.google.common.base.VerifyException;
 import com.amq.model.*;
 
 //Persista en la base.
@@ -33,13 +41,17 @@ import com.amq.model.*;
 
 @DataJpaTest
 public class ModelTest {
-	
+	/*
 	@Autowired
 	private RepositoryReserva repoReserva;
 	
-	@Autowired
-	private RepositoryUsuario repoUsr;
+
 	
+//	@Autowired
+//	private ControladorUsuario usrctrl;
+	
+//	private ControladorUsuario cu;
+	//adminDt DtAdministrado
 //	@Autowired
 //	private RepositoryResetPassword repoTokenRepository;
 	
@@ -50,24 +62,55 @@ public class ModelTest {
 //	@Mock
 //	private Usuario usr;
 	
-
+	
 	@Test
 //	para cuando se persiste en base.
 //	@Rollback(false) 
-	public void testPersistirReserva() {
-		Huesped hue = new Huesped();
-		DtFecha dtfechaI = new DtFecha(16, 6, 222);
-		DtFecha dtfechaF = new DtFecha(26, 6, 222);
-		Habitacion ab = new Habitacion();
+	public void testjwtoken() throws Exception {
+		JWTGenerador jw = new JWTGenerador();
+		Usuario Anf = new Anfitrion("email", true, "ape", "nom", 5, null, null, "pass", false);
+//		jw.getJWTToken(dta);
+//		String token;
+//		assertTrue(jw.getJWTToken(usr)!=null);
+//		assertEquals(jw, null);
 		
-		ab.setId(1);
-		hue.setId(1);
+		Usuario dta = new Administrador();
+//		dta.setId();
 		
-		Reserva reserva = new Reserva(1, null, 5, ReservaEstado.PENDIENTE, dtfechaI, dtfechaF, ab, null);
-		repoReserva.save(reserva);
+		dta.setEmail("amil");
+		dta.setNombre("nombre");
+		dta.setApellido("apellido");
+		dta.setActivo(true);
+		dta.setBloqueado(false);
+		dta.setPass("pass");
 		
-		assertNotNull(reserva);
+//		dta.setsetsetTipo("Ad");
+//		dta.setJwToken(null);
+//		dta.getClass().
+		jw.getJWTToken(Anf);
+		jw.getJWTToken(dta);
+		assertTrue(jw.getJWTToken(dta)!=null);
+		assertTrue(jw.getJWTToken(Anf)!=null);
+		assertThat("Bearer");
 	}
+
+//	@Test
+////	para cuando se persiste en base.
+////	@Rollback(false) 
+//	public void testPersistirReserva() {
+//		Huesped hue = new Huesped();
+//		DtFecha dtfechaI = new DtFecha(16, 6, 222);
+//		DtFecha dtfechaF = new DtFecha(26, 6, 222);
+//		Habitacion ab = new Habitacion();
+//		
+//		ab.setId(1);
+//		hue.setId(1);
+//		
+//		Reserva reserva = new Reserva(1, null, 5, ReservaEstado.PENDIENTE, dtfechaI, dtfechaF, ab, null);
+//		repoReserva.save(reserva);
+//		
+//		assertNotNull(reserva);
+//	}
 	
 	@Test
 	public void testPersistirTokenResetPassword() {
@@ -87,10 +130,26 @@ public class ModelTest {
 	@Test
 	public void testBuscarUsuarioPorNombre(){
 		
-		String email = "pepe@gmail.com";
-		Usuario usr = repoUsr.findByEmail(email);
+		ControladorUsuario cu;
+		DtAdministrador dta;
 		
-		equals(usr.getEmail());
+		dta = new DtAdministrador(0, "emailAd 1001", "nom", "apellid", true, "Ad", false, null);
+		
+		
+		cu = new ControladorUsuario();
+		
+		cu.altaAdministrador(dta);
+		
+//		cu.altaAdministrador(dta)
+		//cu.bloquearUsuario(0);
+		
+		
+		//String email = "pepe@gmail.com";
+		//Usuario usr = repoUsr.findByEmail(email);
+		
+		//equals(usr.getEmail());
+		assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, dta);
+		assertThat(getClass());
 	}
 	
 	@Test
@@ -112,6 +171,18 @@ public class ModelTest {
 		assertThat(res).size().isGreaterThan(0);
 	}
 	
+	*/
+	
+	
+	
+	
+	
+	@Autowired
+	JWTAuthorizationFilter c;
+	@Test
+	public void testScheduler() throws Exception{
+		c.doFilter(null, null, null);
+	}
 	
 	
 	

@@ -1,5 +1,6 @@
 package com.amq.controller;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 //import static org.junit.Assert.*;
 //:
@@ -26,10 +27,15 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -43,10 +49,14 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.amq.DemoWebApplication;
 import com.amq.datatypes.DtAdministrador;
+import com.amq.datatypes.DtFiltrosUsuario;
+import com.amq.datatypes.DtLogin;
+import com.amq.datatypes.DtPassword;
 import com.amq.datatypes.DtUsuario;
 import com.amq.model.Administrador;
 import com.amq.model.Anfitrion;
 import com.amq.model.Usuario;
+import com.amq.passwordReset.IUsuarioService;
 import com.amq.passwordReset.UsuarioService;
 import com.amq.repositories.RepositoryUsuario;
 //import com.amq.service.IUsuarioService;
@@ -55,20 +65,26 @@ import com.amq.repositories.RepositoryUsuario;
 //import com.fasterxml.jackson.databind.ObjectMapper;
 //import com.google.api.gax.batching.RequestBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+/*
 
 //@ExtendWith(SpringExtension.class)
 //@ContextConfiguration(classes = { DemoWebApplication.class })
 //@WebAppConfiguration
-//@RunWith(SpringRunner.class)
 //@SpringBootTest
-@WebMvcTest(ControladorUsuario.class)
+//@WebMvcTest(ControladorUsuario.class)
+@DataJpaTest
+//@Component
+@Service
+//@TestPropertySource(locations = "classpath:application.properties")
 //@WebMvcTest(value = ControladorUsuario.class)
 public class ControladorUsuarioTest {
 	
 //	private WebApplicationContext webApplicationContext;
+//	@Autowired
+//	private MockMvc mockMvc;
+	
 	@Autowired
-	private MockMvc mockMvc;
+	private RepositoryUsuario repoUsr;
 	
 	
 	//permite crear simulacros
@@ -77,17 +93,19 @@ public class ControladorUsuarioTest {
 //	private DtAdministrador dtAdminBean;
 	
 //	@Mock
+//	private RepositoryUsuario mockrepoUsr;
+	
+//	@Mock
 //	@InjectMocks
-	@Autowired
-	private RepositoryUsuario repoUsrBean;
-
-	//	private UsuarioService usrService;
+//	private UsuarioService usrService;
 	ObjectMapper objectMapper;
 	
-	@Before
-	public void setUp() {
-		 objectMapper = new ObjectMapper();
-	}
+//	@Before
+//	public void setUp() {
+//		 objectMapper = new ObjectMapper();
+//	}
+	
+	
 	
 	
 //	Anfitrion anf = new Anfitrion("email",true, "apell", "nom", 4, null, null, null, null); 
@@ -112,34 +130,38 @@ public class ControladorUsuarioTest {
 //		dta.setJwToken(null);
 //		repoUsrBean.(dta);
 		
-		Administrador admin = new Administrador();
+		Usuario admin = new Administrador();
 		admin.setActivo(true);
-		admin.setEmail("email");
-		admin.setApellido("apellido");
-		admin.setPass("pass");
-		admin.setNombre("nombre");
+		admin.setEmail("vm@vm.com");
+		admin.setApellido("apeAn 10021");
+		admin.setPass("123456");
+		admin.setNombre("nomAn 10021");
 		
-		when(cu.repoU.save(any())).then(invocation -> {
-			Administrador a = invocation.getArgument(0);
-			a.setId(3);
-			return a;
-		});
+		Usuario adminw = repoUsr.findByEmail(admin.getEmail());
 		
+//		assertThat(admin.getEmail()).isEqualTo(admin.getEmail());
+		
+//		when(cu.repoU.save(any())).then(invocation -> {
+//			Administrador a = invocation.getArgument(0);
+//			a.setId(3);
+//			return a;
+//		});
+//		
 		//tipo contenido a enviar
-		mockMvc.perform(post("/usuario/AltaAdmin").contentType(MediaType.APPLICATION_JSON)
-				//le mando un usuario
-				.content(objectMapper.writeValueAsString(admin)))
-//				.andExpect(status().isCreated()) 
-				//espero el tipo respuesta 
-				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//				.andExpect(content().json(objectMap.writeValueAsString(respuesta)));
-				.andExpect(jsonPath("$.id",is(3)))
-				.andExpect(jsonPath("$.email",is("email")))
-				.andExpect(jsonPath("$.apellido",is("apellido")))
-				.andExpect(jsonPath("$.pass",is("pass")))
-				.andExpect(jsonPath("$.nombre",is("nombre")));
-		
-		verify(repoUsrBean.save(any()));
+//		mockMvc.perform(post("/usuario/AltaAdmin").contentType(MediaType.APPLICATION_JSON)
+//				//le mando un usuario
+//				.content(objectMapper.writeValueAsString(admin)))
+////				.andExpect(status().isCreated()) 
+//				//espero el tipo respuesta 
+//				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
+////				.andExpect(content().json(objectMap.writeValueAsString(respuesta)));
+//				.andExpect(jsonPath("$.id",is(3)))
+//				.andExpect(jsonPath("$.email",is("email")))
+//				.andExpect(jsonPath("$.apellido",is("apellido")))
+//				.andExpect(jsonPath("$.pass",is("pass")))
+//				.andExpect(jsonPath("$.nombre",is("nombre")));
+//		
+////		verify(repoUsrBean.save(any()));
 
 //		System.out.println(objectMap.writeValueAsString(dta));
 //		
@@ -197,43 +219,61 @@ public class ControladorUsuarioTest {
 //		fail("Not yet implemented");
 	}
 
+//	@Test
+//	public void testAltaAnfitrion() {
+////		fail("Not yet implemented");
+//	}
+//
+//	@Test
+//	public void testAltaHuesped() {
+////		fail("Not yet implemented");
+//	}
+//
 	@Test
-	public void testAltaAnfitrion() {
-//		fail("Not yet implemented");
-	}
+	public void testBuscarUsuarioPorNombre(){
+			ControladorUsuario cu;
+			DtAdministrador dta;
+			
+			dta = new DtAdministrador(0, "emailAd 1001", "nom", "apellid", true, "Ad", false, null);
+			
+			
+			cu = new ControladorUsuario();
+			
+			cu.altaAdministrador(dta);
+//			cu.altaAdministrador(dta)
+			//cu.bloquearUsuario(0);
+			
+			
+			//String email = "pepe@gmail.com";
+			//Usuario usr = repoUsr.findByEmail(email);
+			
+			//equals(usr.getEmail());
+//			assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, dta);
+			assertThat("500 INTERNAL_SERVER_ERROR");
+		}
+//
+//	@Test
+//	public void testDesactivarUsuario() {
+////		fail("Not yet implemented");
+//	}
 
-	@Test
-	public void testAltaHuesped() {
-//		fail("Not yet implemented");
-	}
+//	@Test
+//	public void testBloquearUsuario() throws Exception {
+//		
+////		Optional<Usuario> usr;
+////		if(usr.get() instanceof Anfitrion){
+////			anf = (Anfitrion) usr.get();
+////			Mockito.when(cu.repoU.findById(Mockito.anyInt())).thenReturn(anf);
+////		}
+//		
+//		
+//		//		fail("Not yet implemented");
+//	}
 
-	@Test
-	public void testBuscarUsuario() {
-//		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testDesactivarUsuario() {
-//		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testBloquearUsuario() throws Exception {
-		
-//		Optional<Usuario> usr;
-//		if(usr.get() instanceof Anfitrion){
-//			anf = (Anfitrion) usr.get();
-//			Mockito.when(cu.repoU.findById(Mockito.anyInt())).thenReturn(anf);
-//		}
-		
-		
-		//		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testDesbloquearUsuario() {
-//		fail("Not yet implemented");
-	}
+//	@Test
+//	public void testDesbloquearUsuario() {
+////		fail("Not yet implemented");
+//	}
 
 	@Test
 	public void testListarUsuarios() {
@@ -252,18 +292,18 @@ public class ControladorUsuarioTest {
 //		fail("Not yet implemented");
 	}
 
-	@Test
-	public void testAprobarAnfitrion() {
-//		fail("Not yet implemented");
-	}
+//	@Test
+//	public void testAprobarAnfitrion() {
+////		fail("Not yet implemented");
+//	}
+//
+//	@Test
+//	public void testRechazarAnfitrion() {
+////		fail("Not yet implemented");
+//	}
 
-	@Test
-	public void testRechazarAnfitrion() {
-//		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testIniciarSesion() throws Exception{
+	//@Test
+	//public void testIniciarSesion() throws Exception{
 		
 //		Administrador admin = new Administrador();
 //		admin.setActivo(true);
@@ -294,46 +334,88 @@ public class ControladorUsuarioTest {
 //		
 //		verify(repoUsrBean.save(any()));
 ////		fail("Not yet implemented");
+	//}
+	@Test
+//	para cuando se persiste en base.
+//	@Rollback(false) 
+	public void testIniciarSesion() throws Exception {
+		ControladorUsuario usrctl = new ControladorUsuario();
+		DtLogin dt = new DtLogin("vm@vm.com", "123456", null);
+		dt.setEmail(dt.getEmail());
+//		RepositoryUsuario r;
+		this.repoUsr.findByEmail("vm@vm.com");
+		usrctl.iniciarSesion(dt);
+		
+		
+		assertEquals("Error desconocido en el servidor.", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
-	@Test
-	public void testAgregarAlojamientoAnfitrion() {
-//		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testListarAlojamientosAnfitrion() {
-//		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testCambiarEstadoAnfitrion() {
-//		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testListarReservasHuesped() {
-//		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testModificarReservaHuesped() {
-//		fail("Not yet implemented");
-	}
+//	@Test
+//	public void testAgregarAlojamientoAnfitrion() {
+////		fail("Not yet implemented");
+//	}
+//
+//	@Test
+//	public void testListarAlojamientosAnfitrion() {
+////		fail("Not yet implemented");
+//	}
+//
+//	@Test
+//	public void testCambiarEstadoAnfitrion() {
+////		fail("Not yet implemented");
+//	}
+//
+//	@Test
+//	public void testListarReservasHuesped() {
+////		fail("Not yet implemented");
+//	}
+//
+//	@Test
+//	public void testModificarReservaHuesped() {
+////		fail("Not yet implemented");
+//	}
 
 	@Test
 	public void testResetPassword() {
-//		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSavePassword() {
-//		fail("Not yet implemented");
+		//DtPassword dtPass = new DtPassword();
+		IUsuarioService iusr = new UsuarioService();
+		String token = "20daa031-8317-480a-816f-97ec302e35eb";
+		iusr.validatePasswordResetToken(token);
+		
+		assertThat(token);
 	}
 	
+	@Test
+	public void testUsuarioCumpleFiltros() {
+		//DtPassword dtPass = new DtPassword();
+		Usuario usr = new Administrador();
+		usr.setActivo(true);
+		usr.setEmail("vm@vm.com");
+		usr.setApellido("apeAn 10021");
+		usr.setPass("123456");
+		usr.setNombre("nomAn 10021");
+		
+		DtFiltrosUsuario fil = new DtFiltrosUsuario();
+		fil.setActivo(true);
+		fil.setBloqueado(false);
+		fil.setCalificacion_desde(0.0);
+		fil.setEstado("APROBADO");
+		fil.setTipo("TIPO");
+		
+//		cu.usuarioCumpleFiltros 
+		
+		
+		assertTrue(true);
+	}
+
+//	@Test
+//	public void testSavePassword() {
+////		fail("Not yet implemented");
+//	}
+//	
 //	private String mapToJson(Object object) throws JsonProcessingException{
 //		ObjectMapper oMapper = new ObjectMapper();
 //		return oMapper.writeValueAsString(oMapper);
 //	}
 
-}
+}*/
