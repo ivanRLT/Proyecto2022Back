@@ -524,7 +524,7 @@ public class ControladorUsuario {
 						"AMQ - Cambio de contraseña."
 					);
 				MailSender sender = new MailSender();
-				sender.enviarMail(msj);
+				sender.enviarMailHtml(msj);
 				return new ResponseEntity<>(new DtAMQError(0, "OK" ),  HttpStatus.OK);
 			}
 			msjError = "Mail  incorrecto.";

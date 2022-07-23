@@ -2,9 +2,12 @@ package com.amq.mail;
 
 import java.util.Properties;
 
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 
 public class MailSender {
 	
@@ -42,7 +45,7 @@ public class MailSender {
         templateMessage.setFrom("amq.soporte@gmail.com");
     }
 
-    public void enviarMail(Mensaje msj) {
+    public void enviarMailTexto(Mensaje msj) {
     	setMailSender();
     	setTemplateMessage();
         SimpleMailMessage msg = new SimpleMailMessage(templateMessage);
@@ -52,5 +55,22 @@ public class MailSender {
         msg.setText(msj.getCuerpo());
         msg.setSubject(msj.getAsunto());
         mailSender.send(msg);
+    }
+    public void enviarMailHtml(Mensaje msj) {
+    	setMailSender();
+    	MimeMessage mimeMessage = mailSender.createMimeMessage();
+    	MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
+    	String htmlMsg = msj.getCuerpo();
+    	try {
+	    	helper.setText(htmlMsg, true); // Use this or above line.
+	    	helper.setTo(msj.getDestinatario());
+	    	helper.setSubject(msj.getAsunto());
+	    	helper.setFrom(msj.getDe());
+	    	mailSender.send(mimeMessage);
+    	}
+    	catch(Exception e ) {
+    		System.out.println("ERROR AL ENVIAR MENSAJE "+e.getMessage());
+    		
+    	}
     }
 }

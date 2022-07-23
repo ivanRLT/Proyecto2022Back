@@ -602,11 +602,13 @@ public class ControladorAlojamiento {
 	   return responseHeaders;
 	}
     
+    @RequestMapping(value = "/mail", method = { RequestMethod.POST })
 	public void enviarMail(@RequestBody com.amq.mail.Mensaje msj) {
 		try {
 			com.amq.mail.MailSender mailSender = new com.amq.mail.MailSender();
-			mailSender.enviarMail(msj);
+			mailSender.enviarMailHtml(msj);
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			// TODO: handle exception
 		}
 	}

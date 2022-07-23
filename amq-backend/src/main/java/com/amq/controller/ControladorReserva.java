@@ -132,14 +132,14 @@ public class ControladorReserva {
 					Integer idAnf = repoR.findIdAnfitrionReserva(idReserva);
 					Integer idHu = repoR.findIdHuespedReserva(idReserva);
 					
-					String mensaje = "Hola, \n"
+					String mensaje = "Hola, <br>"
 							+ "Le informamos que la reserva identificada con el código "+String.valueOf(idReserva)
 							+ " fué cancelada. \n\n "
 							+ "Atte. \n"
 							+ "AMQ.";
 					
-					enviarNotificación(idAnf, "Reserva cancelada", mensaje );
-					enviarNotificación(idHu, "Reserva cancelada", mensaje );
+					enviarNotificacion(idAnf, "Reserva cancelada", mensaje );
+					enviarNotificacion(idHu, "Reserva cancelada", mensaje );
 
 					repoR.save(resAprob);
 					return new ResponseEntity<>(factura, HttpStatus.OK);
@@ -179,8 +179,8 @@ public class ControladorReserva {
 						+ "Atte. \n"
 						+ "AMQ.";
 				
-				enviarNotificación(idAnf, "Reserva cancelada", mensaje );
-				enviarNotificación(idHu, "Reserva cancelada", mensaje );
+				enviarNotificacion(idAnf, "Reserva cancelada", mensaje );
+				enviarNotificacion(idHu, "Reserva cancelada", mensaje );
 				
 				msjError = "";
 				return new ResponseEntity<>( new DtAMQError(0, msjError), getHeaderError(msjError), HttpStatus.OK);
@@ -287,8 +287,8 @@ public class ControladorReserva {
 						+ "Atte. \n"
 						+ "AMQ.";
 				
-				enviarNotificación(idAnf, "Reserva confirmada", mensaje );
-				enviarNotificación(idHu, "Reserva confirmada", mensaje );
+				enviarNotificacion(idAnf, "Reserva confirmada", mensaje );
+				enviarNotificacion(idHu, "Reserva confirmada", mensaje );
 				
 				return new ResponseEntity<>( HttpStatus.OK);
 			} else {
@@ -323,8 +323,8 @@ public class ControladorReserva {
 						+ "Atte. \n"
 						+ "AMQ.";
 				
-				enviarNotificación(idAnf, "Pago confirmado", mensaje );
-				enviarNotificación(idHu, "Pago confirmado", mensaje );
+				enviarNotificacion(idAnf, "Pago confirmado", mensaje );
+				enviarNotificacion(idHu, "Pago confirmado", mensaje );
 				
 				return new ResponseEntity<>( factura, HttpStatus.OK);
 			}else {
@@ -578,8 +578,8 @@ public class ControladorReserva {
 					+ "Atte. \n"
 					+ "AMQ.";
 			
-			enviarNotificación(idAnf, "Solicitud de reserva", mensaje );
-			enviarNotificación(idHu, "Solicitud de reserva", mensaje );
+			enviarNotificacion(idAnf, "Solicitud de reserva", mensaje );
+			enviarNotificacion(idHu, "Solicitud de reserva", mensaje );
 			
 
 			return new ResponseEntity<>(reserva, HttpStatus.OK);
@@ -1032,7 +1032,7 @@ public class ControladorReserva {
 		return retorno;
 	}
 	
-	private void enviarNotificación( int idUsuario, String titulo, String mensaje) {
+	private void enviarNotificacion( int idUsuario, String titulo, String mensaje) {
 		FirebaseNotificationAdmin fireAdmin = FirebaseNotificationAdmin.getInstancia();
 		MailSender mailSender = new MailSender();
 		
@@ -1049,7 +1049,7 @@ public class ControladorReserva {
 					titulo
 				);
 			try {
-				mailSender.enviarMail(msj);
+				mailSender.enviarMailHtml(msj);
 			}
 			catch(Exception e) {
 				System.out.println( "Se produjo el siguiente error al enviar un mail: " +e.getMessage() );
