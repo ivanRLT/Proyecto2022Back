@@ -10,6 +10,7 @@ public class DtAnfitrion extends DtUsuario {
 	private Integer calificacionGlobal;
 	private Boolean bloqueado;
 	private AprobacionEstado estado;
+	private Long telefono;
 	
 	
 	public DtAnfitrion() {
@@ -17,11 +18,13 @@ public class DtAnfitrion extends DtUsuario {
 		// TODO Auto-generated constructor stub
 	}
 
-	public DtAnfitrion(int id, String email, String nombre, String apellido, boolean activo, Integer calificacionGlobal, AprobacionEstado estado, String tipo, Boolean bloqueado, String jwToken) {
-		super(id, email, nombre, apellido, activo, bloqueado,tipo,calificacionGlobal, jwToken);
+	public DtAnfitrion(int id, String email, String nombre, String apellido, boolean activo, Integer calificacionGlobal, 
+						AprobacionEstado estado, String tipo, Boolean bloqueado, String jwToken, Long telefono) {
+		super(id, email, nombre, apellido, activo, bloqueado,tipo,calificacionGlobal, jwToken  );
 		this.calificacionGlobal = calificacionGlobal;
 		this.estado = estado;
 		this.bloqueado = bloqueado;
+		this.telefono = telefono;
 	}
 	public Integer getCalificacionGlobal() {
 		return calificacionGlobal;
@@ -35,12 +38,16 @@ public class DtAnfitrion extends DtUsuario {
 	public void setEstado(AprobacionEstado estado) {
 		this.estado = estado;
 	}
-
 	public Boolean getBloqueado() {
 		return bloqueado;
 	}
-
 	public void setBloqueado(Boolean bloqueado) {
 		this.bloqueado = bloqueado;
+	}
+	public Long getTelefono() {
+		return telefono;
+	}
+	public void setTelefono(Long telefono) {
+		this.telefono = telefono;
 	}
 }

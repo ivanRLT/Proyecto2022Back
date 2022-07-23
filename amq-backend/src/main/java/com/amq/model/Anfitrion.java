@@ -39,15 +39,18 @@ public class Anfitrion extends Usuario implements Serializable {
 	@BatchSize(size=10)
 	private List<Alojamiento> alojamientos = new ArrayList<Alojamiento>();
 	
+	private Long telefono;
+	
 	public Anfitrion() {
 		super();
 	}
-	public Anfitrion(String email, Boolean activo, String apellido, String nombre, Integer calificacion, List<Alojamiento> alojamientos, AprobacionEstado estado, String pass, Boolean bloqueado) {
+	public Anfitrion(String email, Boolean activo, String apellido, String nombre, Integer calificacion, List<Alojamiento> alojamientos, AprobacionEstado estado, String pass, Boolean bloqueado, Long telefono) {
 		super(email, activo, bloqueado, apellido, nombre, pass);
 		this.calificacionGlobal = calificacion;
 		this.estado = estado;
 		this.alojamientos = alojamientos;
 		this.bloqueado = bloqueado;
+		this.telefono = telefono;
 	}
 	public Integer getCalificacionGlobal() {
 		return calificacionGlobal;
@@ -81,5 +84,11 @@ public class Anfitrion extends Usuario implements Serializable {
 	}
 	public void setBloqueado(Boolean bloqueado) {
 		this.bloqueado = bloqueado;
+	}
+	public Long getTelefono() {
+		return telefono;
+	}
+	public void setTelefono(Long telefono) {
+		this.telefono = telefono;
 	}
 }

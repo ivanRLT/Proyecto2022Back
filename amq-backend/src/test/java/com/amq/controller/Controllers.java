@@ -108,7 +108,7 @@ public class Controllers {
 //	@Rollback(false) 
 	public void testjwtoken() throws Exception {
 		JWTGenerador jw = new JWTGenerador();
-		Usuario anf = new Anfitrion("email", true, "ape", "nom", 5, null, null, "pass", false);
+		Usuario anf = new Anfitrion("email", true, "ape", "nom", 5, null, null, "pass", false, 5982280L);
 		anf.setActivo(anf.getActivo());
 		anf.setApellido(anf.getApellido());
 		anf.setBloqueado(anf.getBloqueado());
@@ -120,7 +120,7 @@ public class Controllers {
 		
 //		List<Reserva> res = new ArrayList<Reserva>();
 		
-		Usuario hu = new Huesped("email", true, "apelli", "nom", 4, null, "pass", false, 22553980);
+		Usuario hu = new Huesped("email", true, "apelli", "nom", 4, null, "pass", false, 59811223344L);
 		hu.setActivo(hu.getActivo());
 		hu.setApellido(hu.getApellido());
 		hu.setBloqueado(hu.getBloqueado());
@@ -371,7 +371,7 @@ public class Controllers {
 	public void testAltaAnfitrion() {
 		ControladorUsuario cu = new ControladorUsuario();
 		
-		DtAnfitrion danf = new DtAnfitrion(0, "email", "nom", "ape", true, 4, null, "An", false, null);
+		DtAnfitrion danf = new DtAnfitrion(0, "email", "nom", "ape", true, 4, null, "An", false, null, 59833334444L);
 		danf.setActivo(danf.isActivo());
 		danf.setApellido(danf.getApellido());
 		danf.setBloqueado(danf.getBloqueado());

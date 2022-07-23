@@ -349,7 +349,8 @@ public class ControladorUsuario {
 					} else if (u instanceof Anfitrion) {
 						Anfitrion ua = (Anfitrion) u;
 						DtAnfitrion dtanfitrion = new DtAnfitrion(u.getId(), ua.getEmail(), ua.getNombre(),
-								ua.getApellido(), ua.getActivo(), ua.getCalificacionGlobal(), ua.getEstado(),  "An", ua.getBloqueado(), null);
+								ua.getApellido(), ua.getActivo(), ua.getCalificacionGlobal(), ua.getEstado(),  "An", ua.getBloqueado(), null,
+								ua.getTelefono());
 						retorno.add(dtanfitrion);
 					} else if (u instanceof Huesped) {
 						Huesped uh = (Huesped) u;
@@ -474,7 +475,7 @@ public class ControladorUsuario {
 				Anfitrion ua = (Anfitrion) user;
 				dtUser = new DtAnfitrion(user.getId(), user.getEmail(), user.getNombre(),
 						user.getApellido(), user.getActivo(),  ua.getCalificacionGlobal(),
-						ua.getEstado(), "An",null, jwToken);
+						ua.getEstado(), "An",null, jwToken, ua.getTelefono());
 			} else if (user instanceof Huesped) {
 				Huesped uH = (Huesped) user;
 				dtUser = new DtHuesped(user.getId(), user.getEmail(), user.getNombre(),
@@ -589,7 +590,7 @@ public class ControladorUsuario {
 				Anfitrion ua = (Anfitrion) user;
 				dtUser = new DtAnfitrion(user.getId(), user.getEmail(), user.getNombre(),
 						user.getApellido(), user.getActivo(),  ua.getCalificacionGlobal(),
-						ua.getEstado(), "An",null, null );
+						ua.getEstado(), "An",null, null, ua.getTelefono() );
 			} else if (user instanceof Huesped) {
 				Huesped uH = (Huesped) user;
 				dtUser = new DtHuesped(user.getId(), user.getEmail(), user.getNombre(),

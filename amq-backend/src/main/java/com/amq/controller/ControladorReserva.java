@@ -132,10 +132,10 @@ public class ControladorReserva {
 					Integer idAnf = repoR.findIdAnfitrionReserva(idReserva);
 					Integer idHu = repoR.findIdHuespedReserva(idReserva);
 					
-					String mensaje = "Hola, <br>"
+					String mensaje = "Estimado cliente, <br>"
 							+ "Le informamos que la reserva identificada con el código "+String.valueOf(idReserva)
-							+ " fué cancelada. \n\n "
-							+ "Atte. \n"
+							+ " fué cancelada. <br><br> "
+							+ "Atte. <br>"
 							+ "AMQ.";
 					
 					enviarNotificacion(idAnf, "Reserva cancelada", mensaje );
@@ -173,10 +173,10 @@ public class ControladorReserva {
 				Integer idAnf = repoR.findIdAnfitrionReserva(idReserva);
 				Integer idHu = repoR.findIdHuespedReserva(idReserva);
 				
-				String mensaje = "Hola, \n"
+				String mensaje = "Estimado cliente, <br>"
 						+ "Le informamos que la reserva identificada con el código "+String.valueOf(idReserva)
-						+ " fué cancelada. \n\n "
-						+ "Atte. \n"
+						+ " fué cancelada. <br><br> "
+						+ "Atte. <br>"
 						+ "AMQ.";
 				
 				enviarNotificacion(idAnf, "Reserva cancelada", mensaje );
@@ -280,11 +280,11 @@ public class ControladorReserva {
 				Integer idAnf = repoR.findIdAnfitrionReserva(idReserva);
 				Integer idHu = repoR.findIdHuespedReserva(idReserva);
 				
-				String mensaje = "Hola, \n"
+				String mensaje = "Estimado cliente, <br>"
 						+ "Le informamos que la reserva identificada con el código "+String.valueOf(idReserva)
-						+ " fué confirmada. \n\n "
+						+ " fué confirmada. <br><br> "
 						+ " <a href='https://whatsapp.com'>Whatsapp</a> \n "
-						+ "Atte. \n"
+						+ "Atte. <br>"
 						+ "AMQ.";
 				
 				enviarNotificacion(idAnf, "Reserva confirmada", mensaje );
@@ -317,10 +317,10 @@ public class ControladorReserva {
 				Integer idAnf = repoF.findIdAnfitrionFactura(factura.getId());
 				Integer idHu = repoF.findIdHuespedFactura(factura.getId());
 				
-				String mensaje = "Hola, \n"
+				String mensaje = "Estimado cliente, <br>"
 						+ "Le informamos que el pago identificado con el código "+String.valueOf(factura.getId())
-						+ " fué confirmado. \n\n "
-						+ "Atte. \n"
+						+ " fué confirmado. <br><br> "
+						+ "Atte. <br>"
 						+ "AMQ.";
 				
 				enviarNotificacion(idAnf, "Pago confirmado", mensaje );
@@ -570,16 +570,25 @@ public class ControladorReserva {
 			repoH.save(hab);
 			
 			Integer idAnf = repoR.findIdAnfitrionReserva(reserva.getId());
+			Optional optU = repoU.findById(idAnf);
+			Anfitrion anf = (Anfitrion) optU.get();
 			Integer idHu = repoR.findIdHuespedReserva(reserva.getId());
 			
-			String mensaje = "Hola, \n"
+			String mensajeAHu = "Estimado cliente, <br>"
 					+ "Le informamos que ha creado una solicitud de reserva con número "+String.valueOf(reserva.getId())
-					+ ". \n\n "
-					+ "Atte. \n"
+					+ ". <br> "
+					+ "Si realizar contactar al anfitrión del alojamiento através de WhastApp presione "
+					+ "<a href='https://wa.me/"+ anf.getTelefono() +"'><bold>AQUI</bold></a><br><br>"
+					+ "Atte. <br>"
+					+ "AMQ.";
+			String mensajeAAnf = "Estimado cliente, <br>"
+					+ "Le informamos que ha creado una solicitud de reserva con número "+String.valueOf(reserva.getId())
+					+ ". <br><br> "
+					+ "Atte. <br>"
 					+ "AMQ.";
 			
-			enviarNotificacion(idAnf, "Solicitud de reserva", mensaje );
-			enviarNotificacion(idHu, "Solicitud de reserva", mensaje );
+			enviarNotificacion(idAnf, "Solicitud de reserva", mensajeAAnf );
+			enviarNotificacion(idHu, "Solicitud de reserva", mensajeAHu );
 			
 
 			return new ResponseEntity<>(reserva, HttpStatus.OK);
