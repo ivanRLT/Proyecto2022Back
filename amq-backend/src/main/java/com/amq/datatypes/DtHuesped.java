@@ -8,13 +8,14 @@ public class DtHuesped extends DtUsuario{
 	private Integer calificacionGlobal;
 	private Boolean bloqueado;
 	private List<String> pushToken;
-	private Long telefono;
+	private String telefono;
 	
 	public DtHuesped() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public DtHuesped(int id, String email, String nombre, String apellido, boolean activo, Integer calificacionGlobal, List<String> pushToken, String tipo, Boolean bloqueado, String jwToken, Long telefono) {
+	public DtHuesped(int id, String email, String nombre, String apellido, boolean activo, 
+			Integer calificacionGlobal, List<String> pushToken, String tipo, Boolean bloqueado, String jwToken, String telefono) {
 		super(id, email, nombre, apellido, activo, bloqueado, tipo, calificacionGlobal, jwToken );
 		this.calificacionGlobal = calificacionGlobal;
 		this.pushToken = pushToken;
@@ -39,10 +40,10 @@ public class DtHuesped extends DtUsuario{
 	public void setBloqueado(Boolean bloqueado) {
 		this.bloqueado = bloqueado;
 	}
-	public Long getTelefono() {
+	public String getTelefono() {
 		return telefono;
 	}
-	public void setTelefono(Long telefono) {
+	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 }

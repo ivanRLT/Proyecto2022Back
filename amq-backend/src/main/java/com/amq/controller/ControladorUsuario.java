@@ -150,6 +150,7 @@ public class ControladorUsuario {
 			anf.setCalificacionGlobal(-1);
 			anf.setEstado(AprobacionEstado.PENDIENTE);
 			anf.setBloqueado( true );
+			anf.setTelefono( anfDT.getTelefono() );
 			List<Alojamiento> alojamientos = new ArrayList<Alojamiento>();
 			anf.setAlojamientos(alojamientos);
 			

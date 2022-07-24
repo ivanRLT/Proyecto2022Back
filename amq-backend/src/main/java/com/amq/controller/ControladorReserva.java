@@ -1071,7 +1071,7 @@ public class ControladorReserva {
 				pushTokens = ((Huesped)optU.get()).getPushTokens();
 				Notification not  = Notification.builder()
 						.setTitle(titulo)
-						.setBody(mensaje)
+						.setBody(mensaje.replace("<br>", "\n"))
 						.build();
 				try {
 					fireAdmin.sendNotification(not, pushTokens);
