@@ -278,17 +278,27 @@ public class ControladorReserva {
 				repoR.save(reservaC);
 				
 				Integer idAnf = repoR.findIdAnfitrionReserva(idReserva);
+				Optional<Usuario> optU = repoU.findById(idAnf);
+				Anfitrion anf = (Anfitrion) optU.get();
 				Integer idHu = repoR.findIdHuespedReserva(idReserva);
 				
-				String mensaje = "Estimado cliente, <br>"
+				String mensajeAAnf = "Estimado cliente, <br>"
 						+ "Le informamos que la reserva identificada con el código "+String.valueOf(idReserva)
 						+ " fué confirmada. <br><br> "
-						+ " <a href='https://whatsapp.com'>Whatsapp</a> \n "
 						+ "Atte. <br>"
 						+ "AMQ.";
 				
-				enviarNotificacion(idAnf, "Reserva confirmada", mensaje );
-				enviarNotificacion(idHu, "Reserva confirmada", mensaje );
+				
+				String mensajeAHu = "Estimado cliente, <br>"
+						+ "Le informamos que la reserva identificada con el código "+String.valueOf(idReserva)
+						+ "fué confirmada. <br><br> "
+						+ "Si desea  contactar al anfitrión del alojamiento através de WhastApp presione "
+						+ "<a href='https://wa.me/"+ anf.getTelefono() +"'><bold>AQUI</bold></a><br><br>"
+						+ "Atte. <br>"
+						+ "AMQ.";
+				
+				enviarNotificacion(idAnf, "Reserva confirmada", mensajeAAnf );
+				enviarNotificacion(idHu, "Reserva confirmada", mensajeAHu );
 				
 				return new ResponseEntity<>( HttpStatus.OK);
 			} else {
@@ -577,7 +587,7 @@ public class ControladorReserva {
 			String mensajeAHu = "Estimado cliente, <br>"
 					+ "Le informamos que ha creado una solicitud de reserva con número "+String.valueOf(reserva.getId())
 					+ ". <br> "
-					+ "Si realizar contactar al anfitrión del alojamiento através de WhastApp presione "
+					+ "Si desea  contactar al anfitrión del alojamiento através de WhastApp presione "
 					+ "<a href='https://wa.me/"+ anf.getTelefono() +"'><bold>AQUI</bold></a><br><br>"
 					+ "Atte. <br>"
 					+ "AMQ.";

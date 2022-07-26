@@ -390,6 +390,7 @@ public class ControladorUsuario {
 					aloj.setActivo(true);
 				}
 				anf.setEstado(AprobacionEstado.APROBADO);
+				anf.setBloqueado(false);
 				repoU.save(anf);
 				return new ResponseEntity<>(anf, HttpStatus.OK);
 			} else {
